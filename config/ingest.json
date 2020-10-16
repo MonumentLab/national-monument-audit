@@ -1,0 +1,12 @@
+{
+  "vendors": [
+    {
+      "id": "splc",
+      "name": "Whose Heritage? Public Symbols of the Confederacy",
+      "provider": "The Southern Poverty Law Center",
+      "scripts": [
+        "ingesters/splc/process.py"
+      ]
+    }
+  ]
+}
