@@ -1,0 +1,28 @@
+{
+  "name": "MassGIS Data: MHC Historic Inventory ",
+  "provider": "MassGIS (Bureau of Geographic Information)",
+  "url": "https://docs.digital.mass.gov/dataset/massgis-data-mhc-historic-inventory",
+  "dataPath": "data/vendor/ma/MHC_Inventory_SHP_WGS_84.zip",
+  "dataFile": "MHCINV_PT",
+  "dataFormat": "shapefile",
+  "dateDataAccessed": "2020-11-14",
+  "properties": ["ADDRESS", "COMMON_NAM", "CONSTRUCTI", "D_DATE", "DEMOLISHED", "HISTORIC_N", "Latitude", "Longitude", "MAKER", "MHCN", "SIGNIFICAN", "TOWN_NAME", "TYPE", "USE_TYPE"],
+  "mappings": {
+    "MHCN": {"to": "Vendor Entry ID"},
+    "ADDRESS": {"to": "Street Address"},
+    "COMMON_NAM": {"to": "Alternate Name"},
+    "CONSTRUCTI": {"to": "Year Constructed"},
+    "D_DATE": {"to": "Year Dedicated", "dateFormat": "%m/%d/%Y", "delimeter": ";"},
+    "DEMOLISHED": {"to": "Demolished", "dtype": "bool"},
+    "HISTORIC_N": {"to": "Name"},
+    "MAKER": {"to": "Creator Name", "delimeter": ";"},
+    "SIGNIFICAN": {"to": "Categories", "delimeter": ";"},
+    "TOWN_NAME": {"to": "City"},
+    "TYPE": {"to": "Categories"},
+    "USE_TYPE": {"to": "Categories", "delimeter": ";"}
+  },
+  "filter": "TYPE=Object",
+  "notes": [
+    "Source data was re-projected from GCS North American 1983 to WGS 84 Lat/Lon coordinates using QGIS"
+  ]
+}

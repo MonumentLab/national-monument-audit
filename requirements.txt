@@ -3,3 +3,5 @@
 #
 # UTM for converting UTM-WGS84 to lat lon coordinates
 utm
+# For reading ESRI Shapefiles
+pyshp

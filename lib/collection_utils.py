@@ -3,6 +3,8 @@ import collections
 import itertools
 from operator import itemgetter
 from pprint import pprint
+import sys
+
 from lib.math_utils import *
 
 def addIndices(arr, keyName="index", startIndex=0):
@@ -13,51 +15,55 @@ def addIndices(arr, keyName="index", startIndex=0):
 def createLookup(arr, key):
     return dict([(str(item[key]), item) for item in arr])
 
-def filterByQueryString(arr, queryString):
-    return filterWhere(arr, parseFilterString(queryString))
+def filterByQuery(arr, ors):
+    if isinstance(ors, tuple):
+        ors = [[ors]]
+    # pprint(ors)
 
-def filterWhere(arr, filters):
-    if isinstance(filters, tuple):
-        filters = [filters]
-
-    if len(arr) <= 0:
+    if len(ors) < 1:
         return arr
 
-    # Filter array
-    for f in filters:
-        mode = '='
-        if len(f) == 2:
-            key, value = f
-        else:
-            key, value, mode = f
-        value = parseNumber(value)
-        if mode == "<=":
-            arr = [a for a in arr if key not in a or a[key] <= value]
-        elif mode == ">=":
-            arr = [a for a in arr if key not in a or a[key] >= value]
-        elif mode == "<":
-            arr = [a for a in arr if key not in a or a[key] < value]
-        elif mode == ">":
-            arr = [a for a in arr if key not in a or a[key] > value]
-        elif mode == "~=":
-            arr = [a for a in arr if key not in a or value in a[key]]
-        elif mode == "!=":
-            arr = [a for a in arr if key not in a or a[key] != value]
-        elif mode == "!~=":
-            arr = [a for a in arr if key not in a or value not in a[key]]
-        elif mode == "?=":
-            arr = [a for a in arr if key not in a or a[key] != ""]
-        else:
-            arr = [a for a in arr if key not in a or a[key] == value]
+    results = []
+    for item in arr:
+        for ands in ors:
+            andValid = True
+            for key, comparator, value in ands:
+                itemValue = item[key]
+                if comparator not in ["CONTAINS", "EXCLUDES"]:
+                    value = parseNumber(value)
+                    itemValue = parseNumber(itemValue)
+                if comparator == "<=" and itemValue > value:
+                    andValid = False
+                    break
+                elif comparator == ">=" and itemValue < value:
+                    andValid = False
+                    break
+                elif comparator == "<" and itemValue >= value:
+                    andValid = False
+                    break
+                elif comparator == ">" and itemValue <= value:
+                    andValid = False
+                    break
+                elif comparator == "CONTAINS" and value not in itemValue:
+                    andValid = False
+                    break
+                elif comparator == "EXCLUDES" and value in itemValue:
+                    andValid = False
+                    break
+                elif comparator == "!=" and itemValue == value:
+                    andValid = False
+                    break
+                elif comparator == "=" and itemValue != value:
+                    andValid = False
+                    break
+            if andValid:
+                results.append(item)
+                break
+    return results
 
-    return arr
-
-def findWhere(arr, filters):
-    results = filterWhere(arr, filters)
-    if len(results) < 1:
-        return None
-    else:
-        return results[0]
+def filterByQueryString(arr, str):
+    ors = parseQueryString(str)
+    return filterByQuery(arr, ors)
 
 def flattenList(arr):
     return [item for sublist in arr for item in sublist]
@@ -82,37 +88,28 @@ def groupList(arr, groupBy, sort=False, desc=True):
         groups = sorted(groups, key=lambda k: k["count"], reverse=reversed)
     return groups
 
-def parseFilterString(str):
+def parseQueryString(str):
     if len(str) <= 0:
         return []
-    conditionStrings = str.split("&")
-    conditions = []
-    modes = ["<=", ">=", "~=", "!=", "!~=", "?=", ">", "<", "="]
-    for cs in conditionStrings:
-        for mode in modes:
-            if mode in cs:
-                parts = cs.split(mode)
-                parts.append(mode)
-                conditions.append(tuple(parts))
-                break
-    return conditions
-
-def parseQueryString(str, doParseNumbers=False):
-    if len(str) <= 0:
-        return {}
-    conditionStrings = str.split("&")
-    conditions = {}
-    for cs in conditionStrings:
-        key, value = tuple(cs.split("="))
-        if doParseNumbers:
-            value = parseNumber(value)
-        conditions[key] = value
-    return conditions
+    comparators = ["<=", ">=", " EXCLUDES ", " CONTAINS ", "!=", ">", "<", "="]
+    orStrings = str.split(" OR ")
+    ors = []
+    for orString in orStrings:
+        andStrings = orString.split(" AND ")
+        ands = []
+        for andString in andStrings:
+            for comparator in comparators:
+                if comparator in andString:
+                    parts = [part.strip() for part in andString.split(comparator)]
+                    ands.append(tuple([parts[0], comparator.strip(), parts[1]]))
+                    break
+        ors.append(ands)
+    return ors
 
 def parseSortString(str):
     if len(str) <= 0:
         return []
-    conditionStrings = str.split("&")
+    conditionStrings = str.split(" AND ")
     conditions = []
     for cs in conditionStrings:
         if "=" in cs:

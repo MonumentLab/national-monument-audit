@@ -8,6 +8,7 @@ from pprint import pprint
 import re
 import shutil
 import sys
+import zipfile
 
 from lib.collection_utils import *
 from lib.math_utils import *
@@ -70,7 +71,7 @@ def readCsv(filename, headings=False, doParseNumbers=True, skipLines=0, encoding
         if doParseNumbers:
             rows = parseNumbers(rows)
         if verbose:
-            print("Read %s rows from %s" % (len(rows), filename))
+            print("  Read %s rows from %s" % (len(rows), filename))
     return (fieldnames, rows)
 
 def readJSON(filename):
@@ -106,6 +107,20 @@ def replaceFileExtension(fn, newExt):
     extLen = len(getFileExt(fn))
     i = len(fn) - extLen
     return fn[:i] + newExt
+
+def unzipFile(fn, dataFile=None, targetDir="tmp/", overwrite=False):
+    basename = getBasename(fn)
+    extractTo = targetDir + basename
+    extractedFile = extractTo if dataFile is None else extractTo + "/" + dataFile
+    if os.path.isdir(extractTo) and not overwrite:
+        print(f'  {extractTo} already exists, skipping')
+        return extractedFile
+    if os.path.isdir(extractTo) and overwrite:
+        print(f'  {extractTo} already exists, removing existing files before extracting')
+        removeDir(extractTo)
+    with zipfile.ZipFile(fn, 'r') as f:
+        f.extractall(extractTo)
+    return extractedFile
 
 def writeCsv(filename, arr, headings="auto", append=False, encoding="utf8", verbose=True, listDelimeter=" | "):
     if headings == "auto":

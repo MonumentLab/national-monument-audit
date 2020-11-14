@@ -30,19 +30,30 @@ for fn in filenames:
 
 rowsOut = []
 for d in dataSources:
+    print("------------------------")
     print(f'Processing {d["name"]}')
 
     # Read data
     dataPath = d["dataPath"]
+    dataFormat = d["dataFormat"] if "dataFormat" in d else None
     fields = []
     data = []
-    if dataPath.endswith(".csv"):
+    if dataPath.endswith(".zip"):
+        dataFile = d["dataFile"] if "dataFile" in d else None
+        dataPath = unzipFile(dataPath, dataFile)
+    if dataPath.endswith(".shp") or dataPath.endswith(".dbf") or dataFormat == "shapefile":
+        data = readShapefile(dataPath)
+    elif dataPath.endswith(".csv") or dataFormat == "csv":
         dataEncoding = d["dataEncoding"] if "dataEncoding" in d else "utf8"
         fields, data = readCsv(dataPath, encoding=dataEncoding)
 
     if len(data) <= 0:
         print(" No data found, skipping.")
         continue
+
+    if "filter" in d:
+        data = filterByQueryString(data, d["filter"])
+        print(f'  {len(data)} records after filtering')
 
     mappings = d["mappings"] if "mappings" in d else {}
     firstWarning = True
@@ -53,13 +64,14 @@ for d in dataSources:
         for prop in d["properties"]:
             if prop not in rowIn:
                 if firstWarning:
-                    print(f' Warning: "{prop}" property not found')
+                    print(f'  Warning: "{prop}" property not found')
                     firstWarning = False
                 continue
 
             value = rowIn[prop]
             toProperty = prop
             propMap = mappings[prop] if prop in mappings else {}
+            dtype = propMap["dtype"] if "dtype" in propMap else None
 
             # strip whitespace
             if isinstance(value, str):
@@ -68,27 +80,6 @@ for d in dataSources:
             # map this property to another property
             if "to" in propMap:
                 toProperty = propMap["to"]
-
-            # check for empty string
-            if value == "" and toProperty not in rowOut:
-                rowOut[toProperty] = value
-                continue
-
-            # parse date, convert to year
-            if "dateFormat" in propMap:
-                dt = None
-                try:
-                    dt = datetime.strptime(str(value).strip(), propMap["dateFormat"])
-                except ValueError:
-                    dt = False
-                if not dt:
-                    value = ""
-                else:
-                    value = int(dt.strftime("%Y"))
-
-            # check to see if this is a list
-            if "delimeter" in propMap:
-                value = [v.strip() for v in re.split(propMap["delimeter"], str(value))]
 
             # Interpret coordinates as lat lon
             if toProperty == "Coordinates":
@@ -108,12 +99,43 @@ for d in dataSources:
                 northing = rowIn[propMap["utmNorthing"]]
                 zoneNumber = rowIn[propMap["utmZone"]]
                 lat = lon = None
-
                 lat, lon = utmToLatLon(easting, northing, zoneNumber, northern=True)
-
                 rowOut["Latitude"] = lat
                 rowOut["Longitude"] = lon
                 continue
+
+            # check for empty string
+            if value == "" and toProperty not in rowOut and toProperty:
+                rowOut[toProperty] = value
+                continue
+
+            # check to see if this is a list
+            if "delimeter" in propMap:
+                value = [v.strip() for v in re.split(propMap["delimeter"], str(value))]
+                value = [v for v in value if len(v) > 0] # remove blanks
+
+            # parse date, convert to year
+            if "dateFormat" in propMap:
+                dt = None
+                # no support for list of dates yet
+                if isinstance(value, list):
+                    value = value[0]
+                try:
+                    dt = datetime.strptime(str(value).strip(), propMap["dateFormat"])
+                except ValueError:
+                    dt = False
+                if not dt:
+                    value = ""
+                else:
+                    value = int(dt.strftime("%Y"))
+
+            # parse bool
+            if dtype == "bool":
+                value = str(value).lower()
+                if value == "yes" or value == "y" or value == "true":
+                    value = "y"
+                else:
+                    value = "n"
 
             # check to see if property is already set; if so, add it as a list
             if toProperty in rowOut:
@@ -127,6 +149,14 @@ for d in dataSources:
                 rowOut[toProperty] = value
         rowsOut.append(rowOut)
 
+if a.PROBE:
+    sys.exit()
+
+fieldsOut = []
+for row in rowsOut:
+    for field in row:
+        if field not in fieldsOut:
+            fieldsOut.append(field)
 
 makeDirectories(a.OUTPUT_FILE)
-writeCsv(a.OUTPUT_FILE, rowsOut, listDelimeter=a.LIST_DELIMETER)
+writeCsv(a.OUTPUT_FILE, rowsOut, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)

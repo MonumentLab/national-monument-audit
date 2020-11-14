@@ -1,5 +1,6 @@
 *.pyc
 .DS_Store
 tmp/*
+!tmp/.keep
 node_modules/
 *.log
