@@ -1,0 +1,18 @@
+{
+  "name": "Pennsylvania Historical Markers",
+  "provider": "Pennsylvania Historical and Museum Commission",
+  "url": "https://www.pasda.psu.edu/uci/DataSummary.aspx?dataset=309",
+  "dataPath": "data/vendor/pa/PHMC_historical_markers.csv",
+  "dataEncoding": "ISO-8859-1",
+  "dateDataAccessed": "2020-11-13",
+  "properties": ["OBJECTID", "Name", "County", "Location", "Dedicated", "Lattitude", "Longitude", "Marker_Typ", "Categories", "Marker_Tex"],
+  "mappings": {
+    "OBJECTID": {"to": "Vendor Entry ID"},
+    "Location": {"to": "Street Address"},
+    "Dedicated": {"to": "Year Dedicated", "dateFormat": "%A, %B %d, %Y"},
+    "Lattitude": {"to": "Latitude"},
+    "Marker_Typ": {"to": "Categories"},
+    "Categories": {"to": "Categories", "delimeter": ","},
+    "Marker_Tex": {"to": "Text"}
+  }
+}

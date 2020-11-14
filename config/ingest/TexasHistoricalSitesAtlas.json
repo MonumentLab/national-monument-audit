@@ -1,0 +1,19 @@
+{
+  "name": "Texas Historical Sites Atlas",
+  "provider": "The Texas Historical Commission",
+  "url": "https://atlas.thc.state.tx.us/Data/DataDownload",
+  "dataPath": "data/vendor/tx/Historical Marker_20201113_132443_9207631.csv",
+  "dateDataAccessed": "2020-11-13",
+  "properties": ["title", "indexname", "address", "utm_east", "code", "year", "size", "markertext", "atlas_number"],
+  "mappings": {
+    "atlas_number": {"to": "Vendor Entry ID"},
+    "title": {"to": "Name"},
+    "indexname": {"to": "Honorees"},
+    "address": {"to": "Street Address", "alternateProperty": "loc_desc"},
+    "utm_east": {"to": "UTM", "utmNorthing": "utm_north", "utmZone": "utm_zone"},
+    "code": {"to": "Categories", "delimeter": ";|,"},
+    "year": {"to": "Year Dedicated"},
+    "size": {"to": "Dimensions"},
+    "markertext": {"to": "Text"}
+  }
+}
