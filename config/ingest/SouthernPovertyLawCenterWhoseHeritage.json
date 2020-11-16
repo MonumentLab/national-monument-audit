@@ -4,10 +4,13 @@
   "url": "https://www.splcenter.org/20190201/whose-heritage-public-symbols-confederacy",
   "dataPath": "data/vendor/national/Whose Heritage SF - Whose Heritage Master.csv",
   "dateDataAccessed": "2020-11-13",
-  "properties": ["Unique ID", "Honorees", "City", "County", "State", "Coordinates", "Sponsors", "Symbol Category", "Year Dedicated", "Year Removed"],
+  "properties": ["Unique ID", "feature_name", "Honorees", "City", "County", "State", "Coordinates", "Side", "Sponsors", "Symbol Category", "Year Dedicated", "Year Removed", "Tracking Status"],
   "mappings": {
     "Unique ID": {"to": "Vendor Entry ID"},
-    "Symbol Category": {"to": "Categories"}
+    "feature_name": {"to": "Name"},
+    "Symbol Category": {"to": "Categories"},
+    "Side": {"to": "Categories"},
+    "Tracking Status": {"to": "Status"}
   },
   "filter": "Symbol Type=Monument"
 }

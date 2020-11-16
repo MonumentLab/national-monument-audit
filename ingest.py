@@ -132,10 +132,16 @@ for d in dataSources:
             # parse bool
             if dtype == "bool":
                 value = str(value).lower()
-                if value == "yes" or value == "y" or value == "true":
+                trueValues = ["yes", "y", "true"] if "trueValues" not in propMap else propMap["trueValues"]
+                if value in trueValues:
                     value = "y"
                 else:
                     value = "n"
+
+            if "mapValues" in propMap:
+                for fromValue in propMap["mapValues"]:
+                    if value == fromValue:
+                        value = propMap["mapValues"][fromValue]
 
             # check to see if property is already set; if so, add it as a list
             if toProperty in rowOut:

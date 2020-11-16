@@ -13,7 +13,7 @@
     "COMMON_NAM": {"to": "Alternate Name"},
     "CONSTRUCTI": {"to": "Year Constructed"},
     "D_DATE": {"to": "Year Dedicated", "dateFormat": "%m/%d/%Y", "delimeter": ";"},
-    "DEMOLISHED": {"to": "Demolished", "dtype": "bool"},
+    "DEMOLISHED": {"to": "Status", "mapValues": {"y": "Removed", "n": "Live"}},
     "HISTORIC_N": {"to": "Name"},
     "MAKER": {"to": "Creator Name", "delimeter": ";"},
     "SIGNIFICAN": {"to": "Categories", "delimeter": ";"},
