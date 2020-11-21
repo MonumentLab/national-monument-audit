@@ -77,6 +77,9 @@ def getCountPercentages(arr, key, presence=False, otherTreshhold=None):
             value = "<empty>"
         percent = round(1.0 * count / arrLen * 100.0, 2)
         data.append({"value": value, "percent": percent})
+    # always make "yes" first
+    if presence:
+        data = sorted(data, key=lambda d: d["value"], reverse=True)
     if otherTreshhold is not None and len(data) > otherTreshhold:
         otherData = data[otherTreshhold:]
         data = data[:otherTreshhold]
