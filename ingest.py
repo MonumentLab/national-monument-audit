@@ -244,11 +244,33 @@ for row in availabilityConfig:
         "labels": [d["value"] for d in pdata]
     }
 
-
-
-
-
-
 jsonOut = {}
 jsonOut["pieCharts"] = pieChartData
 writeJSON(a.APP_DIRECTORY + "data/dashboard.json", jsonOut)
+
+################################################################
+# Generate map data
+################################################################
+
+jsonOut = {
+    "cols": ["lat", "lon", "name", "source", "year"],
+    "groups": {
+        "source": [d["name"] for d in dataSources]
+    }
+}
+jsonRows = []
+for row in rowsOut:
+    if "Latitude" not in row or row["Latitude"] == "" or row["Latitude"] <= 0:
+        continue
+    jsonRow = [row["Latitude"], row["Longitude"]]
+    name = row["Name"] if "Name" in row and str(row["Name"]).strip() != "" else "<untitled>"
+    source = jsonOut["groups"]["source"].index(row["Source"])
+    year = parseYear(row["Year Dedicated"]) if "Year Dedicated" in row else False
+    if year is False:
+        year = parseYear(row["Year Constructed"]) if "Year Constructed" in row else False
+    if year is False:
+        year = "Unknown"
+    jsonRow += [name, source, year]
+    jsonRows.append(jsonRow)
+jsonOut["rows"] = jsonRows
+writeJSON(a.APP_DIRECTORY + "data/locations.json", jsonOut)

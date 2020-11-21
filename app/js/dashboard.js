@@ -4,7 +4,7 @@ var Dashboard = (function() {
 
   function Dashboard(config) {
     var defaults = {
-      "dataFile": "data/dashboard.json"
+      "dataUrl": "data/dashboard.json"
     };
     var q = Util.queryParams();
     this.opt = _.extend({}, defaults, config, q);
@@ -13,9 +13,14 @@ var Dashboard = (function() {
 
   Dashboard.prototype.init = function(){
     var _this = this;
-    $.getJSON(this.opt.dataFile, function(data){
-      _this.onDataLoad(data);
+    $.getJSON(this.opt.dataUrl, function(data){
+      _this.onDataLoaded(data);
     });
+    this.loadMap();
+  };
+
+  Dashboard.prototype.loadMap = function(data){
+    var map = new Map();
   };
 
   Dashboard.prototype.loadPieCharts = function(data){
@@ -25,8 +30,8 @@ var Dashboard = (function() {
     });
   };
 
-  Dashboard.prototype.onDataLoad = function(data){
-    console.log("Loaded data", data);
+  Dashboard.prototype.onDataLoaded = function(data){
+    console.log("Loaded data");
     this.data = data;
     this.loadPieCharts();
   };

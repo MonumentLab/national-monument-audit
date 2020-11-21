@@ -61,6 +61,15 @@ def parseNumber(string, alwaysFloat=False):
     except ValueError:
         return string
 
+def parseYear(string):
+    try:
+        num = int(string)
+        if num > 1500 and num < 2050:
+            return num
+        return False
+    except ValueError:
+        return False
+
 def parseNumbers(arr, keyExceptions=['id', 'identifier', 'uid']):
     for i, item in enumerate(arr):
         if isinstance(item, (list,)):
