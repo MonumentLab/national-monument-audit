@@ -4,3 +4,4 @@ tmp/*
 !tmp/.keep
 node_modules/
 *.log
+package-lock.json

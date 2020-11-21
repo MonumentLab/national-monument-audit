@@ -2,6 +2,7 @@
   "name": "MassGIS Data: MHC Historic Inventory ",
   "provider": "MassGIS (Bureau of Geographic Information)",
   "url": "https://docs.digital.mass.gov/dataset/massgis-data-mhc-historic-inventory",
+  "geographicCoverage": "state",
   "dataPath": "data/vendor/ma/MHC_Inventory_SHP_WGS_84.zip",
   "dataFile": "MHCINV_PT",
   "dataFormat": "shapefile",

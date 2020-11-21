@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Monument Lab: National Monument Audit</title>
+  <meta name="description" content="The National Monument Audit, led by Monument Lab, will assess the current monument landscape across the United States. ">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {compileMessage}
+
+  <!-- <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png"> -->
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="css/vendor/normalize.css">
+  <link rel="stylesheet" href="css/vendor/Chart.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <a href="https://monumentlab.com/" class="logo"><img src="img/monument_lab_logo.svg" alt="Monument Lab Logo" class="logo-image" /></a>
+    <h1>National Monument Audit</h1>
+
+    <div class="notice">
+      <p>Under construction and not yet launched. This is a dashboard showing a snapshot of what data has been processed thus far for this project. If you stumbled upon this page, please do not share!</p>
+    </div>
+
+    <table class="dashboard-table">
+      <tr>
+        <th>Total sources processed</th>
+        <th>Total records processed</th>
+        <th>Average records per data source</th>
+      </tr>
+      <tr>
+        <td>{dataSourceTotal}</td>
+        <td>{dataRecordTotal}</td>
+        <td>{dataRecordAverage}</>
+      </tr>
+    </table>
+
+    <div class="data-container">
+      <div class="pie-chart-container"><canvas id="data-source-coverage"></canvas></div>
+      <div class="pie-chart-container"><canvas id="data-source-share"></canvas></div>
+    </div>
+
+    <h2>Data field availability</h2>
+
+    <p>What data fields are available for each of the data sources?</p>
+
+    <div id="data-field-availability" class="data-container">
+      <div class="pie-chart-container"><canvas id="data-field-availability-location"></canvas></div>
+      <div class="pie-chart-container"><canvas id="data-field-availability-date-constructed"></canvas></div>
+      <div class="pie-chart-container"><canvas id="data-field-availability-date-dedicated"></canvas></div>
+      <div class="pie-chart-container"><canvas id="data-field-availability-honoree"></canvas></div>
+      <div class="pie-chart-container"><canvas id="data-field-availability-creator"></canvas></div>
+      <div class="pie-chart-container"><canvas id="data-field-availability-sponsor"></canvas></div>
+      <div class="pie-chart-container"><canvas id="data-field-availability-status"></canvas></div>
+      <div class="pie-chart-container"><canvas id="data-field-availability-text"></canvas></div>
+    </div>
+
+    <h2>Data map</h2>
+
+    <div id="data-map" class="data-container map-container"></div>
+
+    <h2>Data timeline</h2>
+
+    <div id="data-timeline" class="data-container timeline-container"></div>
+
+    <h2>Types</h2>
+
+    <p>What "types" of items do each of the data sources have available and which ones are we using?</p>
+
+    <div id="data-types" class="data-container wordcloud-container"></div>
+
+    <h2>Topics, categories, and tags</h2>
+
+    <p>How do each of the data sources categorize each item?</p>
+
+    <div id="data-categories" class="data-container wordcloud-container"></div>
+
+  </div>
+
+  <script src="js/vendor/jquery-3.5.1.min.js"></script>
+  <script src="js/vendor/underscore-min.js"></script>
+  <script src="js/vendor/Chart.min.js"></script>
+
+  <script src="js/lib/piechart.js"></script>
+  <script src="js/lib/util.js"></script>
+  <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

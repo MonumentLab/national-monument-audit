@@ -21,13 +21,18 @@ parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just outp
 a = parser.parse_args()
 # Parse arguments
 
+################################################################
+# Read config JSON FILES
+################################################################
 filenames = getFilenames(a.INPUT_FILE)
-
 dataSources = []
 for fn in filenames:
     data = readJSON(fn)
     dataSources.append(data)
 
+################################################################
+# Parse raw data and do light processing
+################################################################
 rowsOut = []
 for d in dataSources:
     print("------------------------")
@@ -158,11 +163,92 @@ for d in dataSources:
 if a.PROBE:
     sys.exit()
 
+################################################################
+# Write processed data to .csv file
+################################################################
 fieldsOut = []
 for row in rowsOut:
     for field in row:
         if field not in fieldsOut:
             fieldsOut.append(field)
-
 makeDirectories(a.OUTPUT_FILE)
 writeCsv(a.OUTPUT_FILE, rowsOut, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
+
+################################################################
+# Generate dashboard files
+################################################################
+
+# dashboard main html file
+dataSourceTotal = len(dataSources)
+dataRecordTotal = len(rowsOut)
+dataParams = {}
+dataParams["compileMessage"] = "<!-- This file was automatically generated from ingest.py. Please update the template file instead. -->"
+dataParams["dataSourceTotal"] = formatNumber(dataSourceTotal)
+dataParams["dataRecordTotal"] = formatNumber(dataRecordTotal)
+dataParams["dataRecordAverage"] = formatNumber(round(1.0 * dataRecordTotal / dataSourceTotal))
+dashboardTemplateString = readTextFile(a.APP_DIRECTORY + "dashboard.template.html")
+dashboardString = dashboardTemplateString.format(**dataParams)
+writeTextFile(a.APP_DIRECTORY + "dashboard.html", dashboardString)
+print("Created dashboard.html")
+
+# pie chart data
+pieChartData = {}
+# record share
+dataSourceRecordShare = getCountPercentages(rowsOut, "Source", otherTreshhold=7)
+pieChartData["data-source-share"] = {
+    "title": "Share of records by data source",
+    "values": [d["percent"] for d in dataSourceRecordShare],
+    "labels": [d["value"] for d in dataSourceRecordShare]
+}
+# geographic coverage/resolution
+geographicCoverageData = getCountPercentages(dataSources, "geographicCoverage")
+pieChartData["data-source-coverage"] = {
+    "title": "Geographical coverage of data sources",
+    "values": [d["percent"] for d in geographicCoverageData],
+    "labels": [d["value"] for d in geographicCoverageData]
+}
+locData = []
+for row in rowsOut:
+    if "Latitude" in row and row["Latitude"] != "" and row["Latitude"] > 0:
+        locData.append({"value": "lat/lon"})
+    elif "Street Address" in row and row["Street Address"] != "":
+        locData.append({"value": "street address"})
+    elif "City" in row and row["City"] != "":
+        locData.append({"value": "city"})
+    elif "County" in row and row["County"] != "":
+        locData.append({"value": "county"})
+    elif "State" in row and row["State"] != "":
+        locData.append({"value": "state"})
+    else:
+        locData.append({"value": "no geographic data"})
+geographicResolutionData = getCountPercentages(locData, "value")
+pieChartData["data-field-availability-location"] = {
+    "title": "Geographical resolution of data",
+    "values": [d["percent"] for d in geographicResolutionData],
+    "labels": [d["value"] for d in geographicResolutionData]
+}
+availabilityConfig = [
+    {"srcKey": "Year Constructed", "outKey": "data-field-availability-date-constructed"},
+    {"srcKey": "Year Dedicated", "outKey": "data-field-availability-date-dedicated"},
+    {"srcKey": "Honorees", "outKey": "data-field-availability-honoree"},
+    {"srcKey": "Creator Name", "outKey": "data-field-availability-creator"},
+    {"srcKey": "Sponsors", "outKey": "data-field-availability-sponsor"},
+    {"srcKey": "Status", "outKey": "data-field-availability-status"},
+    {"srcKey": "Text", "outKey": "data-field-availability-text"}
+]
+for row in availabilityConfig:
+    pdata = getCountPercentages(rowsOut, row["srcKey"], presence=True)
+    pieChartData[row["outKey"]] = {
+        "title": f'{row["srcKey"]} available?',
+        "values": [d["percent"] for d in pdata],
+        "labels": [d["value"] for d in pdata]
+    }
+
+
+
+
+
+
+jsonOut = {}
+jsonOut["pieCharts"] = pieChartData
+writeJSON(a.APP_DIRECTORY + "data/dashboard.json", jsonOut)

@@ -1,0 +1,10 @@
+{
+  "name": "national-monument-audit",
+  "description": "Monument Lab: National Monument Audit",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}

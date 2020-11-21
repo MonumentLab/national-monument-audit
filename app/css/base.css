@@ -1,0 +1,40 @@
+body {
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+h1 {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+}
+p {
+  line-height: 1.4;
+}
+
+.container {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.logo-image {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+}
+.logo + h1 {
+  margin-top: 0;
+}
+
+
+.notice {
+  background: #ffe25c;
+  padding: 0 10px;
+  border: 1px solid black;
+  margin: 20px 0;
+  max-width: 960px;
+}
+.notice p {
+  margin: 10px 0;
+  font-weight: bold;
+}

@@ -2,6 +2,7 @@
   "name": "Whose Heritage? Public Symbols of the Confederacy",
   "provider": "The Southern Poverty Law Center",
   "url": "https://www.splcenter.org/20190201/whose-heritage-public-symbols-confederacy",
+  "geographicCoverage": "national",
   "dataPath": "data/vendor/national/Whose Heritage SF - Whose Heritage Master.csv",
   "dateDataAccessed": "2020-11-13",
   "properties": ["Unique ID", "feature_name", "Honorees", "City", "County", "State", "Coordinates", "Side", "Sponsors", "Symbol Category", "Year Dedicated", "Year Removed", "Tracking Status"],

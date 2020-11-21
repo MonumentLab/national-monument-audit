@@ -68,8 +68,27 @@ def filterByQueryString(arr, str):
 def flattenList(arr):
     return [item for sublist in arr for item in sublist]
 
-def getCounts(arr, key):
-    counter = collections.Counter([v[key] for v in arr])
+def getCountPercentages(arr, key, presence=False, otherTreshhold=None):
+    arrLen = len(arr)
+    counts = getCounts(arr, key, presence)
+    data = []
+    for value, count in counts:
+        if value == "":
+            value = "<empty>"
+        percent = round(1.0 * count / arrLen * 100.0, 2)
+        data.append({"value": value, "percent": percent})
+    if otherTreshhold is not None and len(data) > otherTreshhold:
+        otherData = data[otherTreshhold:]
+        data = data[:otherTreshhold]
+        otherSum = sum([d["percent"] for d in otherData])
+        data.append({"value": "other", "percent": otherSum})
+    return data
+
+def getCounts(arr, key, presence=False):
+    values = [str(v[key]).strip() if key in v else "" for v in arr]
+    if presence:
+        values = ["no" if len(v) < 1 else "yes" for v in values]
+    counter = collections.Counter(values)
     return counter.most_common()
 
 def groupList(arr, groupBy, sort=False, desc=True):

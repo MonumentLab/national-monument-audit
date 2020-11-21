@@ -2,6 +2,7 @@
   "name": "Pennsylvania Historical Markers",
   "provider": "Pennsylvania Historical and Museum Commission",
   "url": "https://www.pasda.psu.edu/uci/DataSummary.aspx?dataset=309",
+  "geographicCoverage": "state",
   "dataPath": "data/vendor/pa/PHMC_historical_markers.csv",
   "dataEncoding": "ISO-8859-1",
   "dateDataAccessed": "2020-11-13",
