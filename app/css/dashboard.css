@@ -46,3 +46,18 @@
   max-height: 80vh;
   border: 1px solid black;
 }
+
+.timeline-container {
+  width: 980px;
+  height: 327px;
+  position: relative;
+  margin-bottom: 20px;
+  border: 1px solid black;
+}
+.timeline-container canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}

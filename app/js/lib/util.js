@@ -39,6 +39,21 @@
     return {};
   };
 
+  Util.parseData = function(rawData){
+    var cols = rawData.cols;
+    var data = _.map(rawData.rows, function(row){
+      var obj = _.object(cols, row);
+      if (rawData.groups) {
+        _.each(rawData.groups, function(groupList, key){
+          obj[key+'Index'] = obj[key];
+          obj[key] = groupList[obj[key]];
+        });
+      }
+      return obj;
+    });
+    return data;
+  };
+
   Util.scrollTo = function(el, offset){
     offset = offset || 0;
     // $(el)[0].scrollIntoView();

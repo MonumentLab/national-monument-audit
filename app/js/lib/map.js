@@ -37,7 +37,7 @@ var Map = (function() {
     var map = L.map(opt.el, {center: latlng, zoom: opt.startZoom, layers: [tiles]});
     var markers = L.markerClusterGroup();
 
-    var data = this.parseData(rawData);
+    var data = Util.parseData(rawData);
     _.each(data, function(d){
         var marker = L.marker(new L.LatLng(d.lat, d.lon), { title: d.name });
         var html = '<h3>'+d.name+'</h3>';
@@ -48,22 +48,6 @@ var Map = (function() {
     });
 
     map.addLayer(markers);
-  };
-
-  Map.prototype.parseData = function(rawData){
-    var _this = this;
-    var cols = rawData.cols;
-    var data = _.map(rawData.rows, function(row){
-      var obj = _.object(cols, row);
-      if (rawData.groups) {
-        _.each(rawData.groups, function(groupList, key){
-          obj[key+'Index'] = obj[key];
-          obj[key] = groupList[obj[key]];
-        });
-      }
-      return obj;
-    });
-    return data;
   };
 
   return Map;

@@ -3,6 +3,7 @@
   "provider": "The Texas Historical Commission",
   "url": "https://atlas.thc.state.tx.us/Data/DataDownload",
   "geographicCoverage": "state",
+  "state": "TX",
   "dataPath": "data/vendor/tx/Historical Marker_20201113_132443_9207631.csv",
   "dateDataAccessed": "2020-11-13",
   "properties": ["title", "indexname", "address", "utm_east", "code", "year", "size", "markertext", "atlas_number"],
