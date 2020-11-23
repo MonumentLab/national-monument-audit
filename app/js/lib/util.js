@@ -140,3 +140,40 @@
   };
 
 })();
+
+
+
+'use strict';
+
+var UI = (function() {
+
+  function UI(config) {
+    var defaults = {};
+    this.opt = _.extend({}, defaults, config);
+    this.init();
+  }
+
+  UI.prototype.init = function(){
+    this.loadListeners();
+  };
+
+  UI.prototype.loadListeners = function(){
+    $('.toggle-parent').on('click', function(e){
+      var $el = $(this);
+      var $parent = $el.parent();
+      $parent.toggleClass('active');
+      if ($parent.hasClass('active')) {
+        $el.text($el.attr('data-active'));
+      } else {
+        $el.text($el.attr('data-inactive'));
+      }
+    });
+  };
+
+  return UI;
+
+})();
+
+$(function() {
+  var ui = new UI({});
+});

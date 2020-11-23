@@ -73,14 +73,6 @@
       <div class="pie-chart-container"><canvas id="data-field-availability-text"></canvas></div>
     </div>
 
-    <h2>Data map</h2>
-
-    <div id="data-map" class="data-container map-container"></div>
-
-    <h2>Data timeline</h2>
-
-    <div class="data-container timeline-container"><canvas id="data-timeline"></canvas></div>
-
     <!-- <h2>Types</h2>
 
     <p>What "types" of items do each of the data sources have available and which ones are we using?</p>
@@ -93,6 +85,29 @@
 
     <div id="data-categories" class="data-container wordcloud-container"></div> -->
 
+  </div>
+
+  <div class="explore-container">
+    <div id="data-map" class="data-container map-container"></div>
+
+    <form class="map-type-menu">
+      <label for="map-type-cluster">
+        <input id="map-type-cluster" type="radio" name="map-type" value="cluster" checked />
+        <div class="label-bg"></div>
+        <span class="label-text">Cluster map</span>
+      </label>
+      <label for="map-type-heat">
+        <input id="map-type-heat" type="radio" name="map-type" value="heat" />
+        <div class="label-bg"></div>
+        <span class="label-text">Heat map</span>
+      </label>
+    </form>
+
+    <div class="data-container timeline-container active">
+      <canvas id="data-timeline"></canvas>
+      <div id="time-range-selector" class="time-range-selector"></div>
+      <button id="timeline-toggle" class="toggle-parent" data-active="Hide timeline" data-inactive="Show timeline">Hide timeline</button>
+    </div>
   </div>
 
   <script src="js/vendor/jquery-3.5.1.min.js"></script>

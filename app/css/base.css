@@ -10,6 +10,24 @@ h1 {
 p {
   line-height: 1.4;
 }
+.button,
+button {
+  background: black;
+  color: white;
+  border: 2px solid black;
+  margin: 0;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-decoration: none;
+  outline-color: #b53128;
+  border-radius: 0;
+  white-space: nowrap;
+}
+.button:hover,
+button:hover {
+  background: white;
+  color: black;
+}
 
 .container {
   padding: 20px;

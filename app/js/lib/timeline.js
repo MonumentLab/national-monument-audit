@@ -9,7 +9,7 @@ var Timeline = (function() {
       fontSize: 12,
       fontFamily: 'sans-serif',
       fontColor: '#000',
-      colors: ['#003f5c', '#ffa600', '#2f4b7c', '#ff7c43', '#665191', '#f95d6a', '#a05195', '#d45087'],
+      colors: ['#000000', '#003f5c', '#ffa600', '#2f4b7c', '#ff7c43', '#665191', '#f95d6a', '#a05195', '#d45087'],
       dataUrl: 'data/years.json',
       yearRange: [1800, 2050]
     };
@@ -38,6 +38,7 @@ var Timeline = (function() {
       return;
     }
 
+    var aspectRatio = $el.width() / $el.height();
     var colors = opt.colors;
     var data = Util.parseData(rawData);
     data = this.parseYears(data);
@@ -52,13 +53,14 @@ var Timeline = (function() {
         datasets: [{
           label: 'Number of objects constructed or dedicated this year',
           backgroundColor: colors[0],
-          data: values,
+          data: values
         }]
       },
       options: {
         responsive: true,
-        aspectRatio: 3,
+        aspectRatio: aspectRatio,
         legend: {
+          display: false,
           position: opt.legendPosition,
           labels: {
             fontSize: opt.fontSize,

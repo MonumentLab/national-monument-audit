@@ -12,7 +12,7 @@ var PieChart = (function() {
       fontSize: 12,
       fontFamily: 'sans-serif',
       fontColor: '#000',
-      colors: ['#003f5c', '#ffa600', '#2f4b7c', '#ff7c43', '#665191', '#f95d6a', '#a05195', '#d45087']
+      colors: ['#003f5c', '#ffa600', '#665191', '#ff7c43', '#2f4b7c', '#f95d6a', '#a05195', '#d45087']
     };
     this.opt = _.extend({}, defaults, config);
     this.init();
@@ -32,6 +32,7 @@ var PieChart = (function() {
       return;
     }
 
+    var aspectRatio = $el.width() / $el.height();
     var colors = opt.colors;
     if (opt.values.length > colors.length) {
       console.log("Not enough colors for pie chart " + opt.el);
@@ -52,6 +53,7 @@ var PieChart = (function() {
       },
       options: {
         responsive: true,
+        aspectRatio: aspectRatio,
         legend: {
           position: opt.legendPosition,
           labels: {
