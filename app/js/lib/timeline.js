@@ -5,6 +5,7 @@ var Timeline = (function() {
   function Timeline(config) {
     var defaults = {
       el: '#data-timeline',
+      timeRangeEl: '#time-range-selector',
       legendPosition: 'bottom',
       fontSize: 12,
       fontFamily: 'sans-serif',
@@ -21,7 +22,39 @@ var Timeline = (function() {
     var _this = this;
     $.getJSON(this.opt.dataUrl, function(data){
       _this.onDataLoaded(data);
+      _this.loadListeners();
+
     });
+  };
+
+  Timeline.prototype.loadListeners = function(){
+    var _this = this;
+    var range = this.range;
+
+    $(this.opt.timeRangeEl).slider({
+      range: true,
+      min: range[0],
+      max: range[1],
+      values: range,
+      create: function(event, ui) {
+        $(this).children('.ui-slider-handle').each(function(index){
+          $(this).html('<span class="label">'+range[index]+'</span>');
+        });
+      },
+      slide: function(e, ui){
+        $(this).children('.ui-slider-handle').each(function(index){
+          $(this).html('<span class="label">'+ui.values[index]+'</span>');
+        });
+      },
+      change: function(e, ui) {
+        _this.onChangeRange(ui.values[0], ui.values[1]);
+      }
+    });
+  };
+
+  Timeline.prototype.onChangeRange = function(minYear, maxYear){
+    console.log('Range change', minYear, maxYear);
+    $(document).trigger('change-year-range', [ [minYear, maxYear] ]);
   };
 
   Timeline.prototype.onDataLoaded = function(rawData){
@@ -71,8 +104,8 @@ var Timeline = (function() {
         layout: {
           padding: {
             left: 0,
-            right: 0,
-            top: 20,
+            right: 20,
+            top: 30,
             bottom: 0
           }
         },
@@ -95,6 +128,7 @@ var Timeline = (function() {
 
     var ctx = $el[0].getContext('2d');
     var chart = new Chart(ctx, chartConfig);
+    this.data = data;
   };
 
   Timeline.prototype.parseYears = function(data){
@@ -107,6 +141,9 @@ var Timeline = (function() {
     var yearRange = this.opt.yearRange;
     if (minYear < yearRange[0]) minYear = yearRange[0];
     if (maxYear > yearRange[1]) maxYear = yearRange[1];
+
+    this.range = [minYear, maxYear];
+
     for (var year=minYear; year <= maxYear; year++) {
       if (_.has(dataByYear, year)) {
         var dataYear = dataByYear[year];

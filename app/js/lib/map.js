@@ -35,11 +35,12 @@ var Map = (function() {
 
     var markers = L.markerClusterGroup();
 
-    _.each(this.data, function(d){
+    _.each(this.filteredData, function(d){
         var marker = L.marker(new L.LatLng(d.lat, d.lon), { title: d.name });
         var html = '<h3>'+d.name+'</h3>';
         html += '<p><strong>Source:</strong> '+d.source+'</p>';
-        html += '<p><strong>Year:</strong> '+d.year+'</p>';
+        var year = d.year > 0 ? d.year : 'Unknown';
+        html += '<p><strong>Year:</strong> '+year+'</p>';
         marker.bindPopup(html);
         markers.addLayer(marker);
     });
@@ -52,7 +53,7 @@ var Map = (function() {
   Map.prototype.loadHeat = function(){
     if (this.heatLayer !== false) return this.heatLayer;
 
-    var points = _.map(this.data, function(d){ return [d.lat, d.lon]; });
+    var points = _.map(this.filteredData, function(d){ return [d.lat, d.lon]; });
     var heat = L.heatLayer(points, {
       minOpacity: 0.3
     });
@@ -67,24 +68,40 @@ var Map = (function() {
     $('input[name="map-type"]').on('change', function(e){
       _this.onChangeMapType($(this).val());
     });
+
+    $(document).on('change-year-range', function(e, newRange) {
+      _this.onChangeYearRange(newRange);
+    });
   };
 
   Map.prototype.onChangeMapType = function(type){
     if (type === this.mapType) return;
 
     this.mapType = type;
-    this.featureLayer.clearLayers();
+    this.refreshLayers();
+  };
 
-    var dataLayer;
-    if (type === 'cluster') dataLayer = this.loadClusters();
-    else dataLayer = this.loadHeat();
-    this.featureLayer.addLayer(dataLayer);
+  Map.prototype.onChangeYearRange = function(newRange){
+    this.clusterLayer = false;
+    this.heatLayer = false;
+
+    this.filteredData = _.filter(this.data, function(d){
+      if (isNaN(d.year) || d.year < 0) return false;
+      return d.year >= newRange[0] && d.year <= newRange[1];
+    });
+
+    this.refreshLayers();
   };
 
   Map.prototype.onDataLoaded = function(rawData){
     var opt = this.opt;
 
     this.data = Util.parseData(rawData);
+    this.filteredData = this.data.slice(0);
+
+    // var dataWithYears = _.filter(this.data, function(d){ return !isNaN(d.year) && d.year > 0; });
+    // dataWithYears = _.sortBy(dataWithYears, function(d){ return d.year; });
+    // this.yearRange = [dataWithYears[0].year, dataWithYears[dataWithYears.length-1].year];
 
     var tiles = L.tileLayer(opt.urlTemplate, {
       minZoom: opt.minZoom,
@@ -98,6 +115,15 @@ var Map = (function() {
     map.addLayer(this.featureLayer);
 
     var dataLayer = this.loadClusters();
+    this.featureLayer.addLayer(dataLayer);
+  };
+
+  Map.prototype.refreshLayers = function(){
+    this.featureLayer.clearLayers();
+
+    var dataLayer;
+    if (this.mapType === 'cluster') dataLayer = this.loadClusters();
+    else dataLayer = this.loadHeat();
     this.featureLayer.addLayer(dataLayer);
   };
 

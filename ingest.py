@@ -279,7 +279,7 @@ for row in rowsOut:
     if year is False:
         year = parseYear(row["Year Constructed"]) if "Year Constructed" in row else False
     if year is False:
-        year = "Unknown"
+        year = -1
     jsonRow += [name, source, year]
     jsonRows.append(jsonRow)
 jsonOut["rows"] = jsonRows
