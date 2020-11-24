@@ -5,6 +5,7 @@ var Map = (function() {
   function Map(config) {
     var defaults = {
       el: 'data-map',
+      data: [], // pass this in
       urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       minZoom: 4,
       maxZoom: 18,
@@ -18,16 +19,21 @@ var Map = (function() {
   }
 
   Map.prototype.init = function(){
-    var _this = this;
 
     this.mapType = 'cluster';
     this.clusterLayer = false;
     this.heatLayer = false;
 
-    $.getJSON(this.opt.dataUrl, function(data){
-      _this.onDataLoaded(data);
-      _this.loadListeners();
+    // only take data with lat lon set
+    this.data = _.filter(this.opt.data, function(d){
+      return !isNaN(d.lat) && !isNaN(d.lon) && d.lat > -999 && d.lon > -999;
     });
+
+    var diff = this.opt.data.length - this.data.length;
+    console.log(diff + ' records with no lat/lon');
+
+    this.loadMap();
+    this.loadListeners();
   };
 
   Map.prototype.loadClusters = function(){
@@ -62,6 +68,30 @@ var Map = (function() {
     return heat;
   };
 
+  Map.prototype.loadMap = function(){
+    var opt = this.opt;
+
+    this.filteredData = this.data.slice(0);
+
+    // var dataWithYears = _.filter(this.data, function(d){ return !isNaN(d.year) && d.year > 0; });
+    // dataWithYears = _.sortBy(dataWithYears, function(d){ return d.year; });
+    // this.yearRange = [dataWithYears[0].year, dataWithYears[dataWithYears.length-1].year];
+
+    var tiles = L.tileLayer(opt.urlTemplate, {
+      minZoom: opt.minZoom,
+      maxZoom: opt.maxZoom,
+      attribution: opt.attribution
+    });
+    var latlng = L.latLng(opt.centerLatLon[0], opt.centerLatLon[1]);
+    var map = L.map(opt.el, {center: latlng, zoom: opt.startZoom, layers: [tiles]});
+
+    this.featureLayer = new L.FeatureGroup();
+    map.addLayer(this.featureLayer);
+
+    var dataLayer = this.loadClusters();
+    this.featureLayer.addLayer(dataLayer);
+  };
+
   Map.prototype.loadListeners = function(){
     var _this = this;
 
@@ -91,31 +121,6 @@ var Map = (function() {
     });
 
     this.refreshLayers();
-  };
-
-  Map.prototype.onDataLoaded = function(rawData){
-    var opt = this.opt;
-
-    this.data = Util.parseData(rawData);
-    this.filteredData = this.data.slice(0);
-
-    // var dataWithYears = _.filter(this.data, function(d){ return !isNaN(d.year) && d.year > 0; });
-    // dataWithYears = _.sortBy(dataWithYears, function(d){ return d.year; });
-    // this.yearRange = [dataWithYears[0].year, dataWithYears[dataWithYears.length-1].year];
-
-    var tiles = L.tileLayer(opt.urlTemplate, {
-      minZoom: opt.minZoom,
-      maxZoom: opt.maxZoom,
-      attribution: opt.attribution
-    });
-    var latlng = L.latLng(opt.centerLatLon[0], opt.centerLatLon[1]);
-    var map = L.map(opt.el, {center: latlng, zoom: opt.startZoom, layers: [tiles]});
-
-    this.featureLayer = new L.FeatureGroup();
-    map.addLayer(this.featureLayer);
-
-    var dataLayer = this.loadClusters();
-    this.featureLayer.addLayer(dataLayer);
   };
 
   Map.prototype.refreshLayers = function(){

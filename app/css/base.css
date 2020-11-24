@@ -28,6 +28,10 @@ button:hover {
   background: white;
   color: black;
 }
+.button.large,
+button.large {
+  font-size: 1.3rem;
+}
 
 .container {
   padding: 20px;

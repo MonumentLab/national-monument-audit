@@ -5,6 +5,7 @@ var Timeline = (function() {
   function Timeline(config) {
     var defaults = {
       el: '#data-timeline',
+      data: [], // pass this in
       timeRangeEl: '#time-range-selector',
       legendPosition: 'bottom',
       fontSize: 12,
@@ -19,45 +20,17 @@ var Timeline = (function() {
   }
 
   Timeline.prototype.init = function(){
-    var _this = this;
-    $.getJSON(this.opt.dataUrl, function(data){
-      _this.onDataLoaded(data);
-      _this.loadListeners();
-
+    this.data = _.filter(this.opt.data, function(d){
+      return !isNaN(d.year) && d.year > 0;
     });
+    var diff = this.opt.data.length - this.data.length;
+    console.log(diff + ' records with no year set');
+
+    this.loadChart();
+    this.loadListeners();
   };
 
-  Timeline.prototype.loadListeners = function(){
-    var _this = this;
-    var range = this.range;
-
-    $(this.opt.timeRangeEl).slider({
-      range: true,
-      min: range[0],
-      max: range[1],
-      values: range,
-      create: function(event, ui) {
-        $(this).children('.ui-slider-handle').each(function(index){
-          $(this).html('<span class="label">'+range[index]+'</span>');
-        });
-      },
-      slide: function(e, ui){
-        $(this).children('.ui-slider-handle').each(function(index){
-          $(this).html('<span class="label">'+ui.values[index]+'</span>');
-        });
-      },
-      change: function(e, ui) {
-        _this.onChangeRange(ui.values[0], ui.values[1]);
-      }
-    });
-  };
-
-  Timeline.prototype.onChangeRange = function(minYear, maxYear){
-    console.log('Range change', minYear, maxYear);
-    $(document).trigger('change-year-range', [ [minYear, maxYear] ]);
-  };
-
-  Timeline.prototype.onDataLoaded = function(rawData){
+  Timeline.prototype.loadChart = function(){
     var opt = this.opt;
 
     if (!_.has(opt, 'el')) {
@@ -73,7 +46,7 @@ var Timeline = (function() {
 
     var aspectRatio = $el.width() / $el.height();
     var colors = opt.colors;
-    var data = Util.parseData(rawData);
+    var data = this.data;
     data = this.parseYears(data);
 
     var labels = _.pluck(data, 'label');
@@ -128,7 +101,37 @@ var Timeline = (function() {
 
     var ctx = $el[0].getContext('2d');
     var chart = new Chart(ctx, chartConfig);
-    this.data = data;
+    this.chartData = data;
+  };
+
+  Timeline.prototype.loadListeners = function(){
+    var _this = this;
+    var range = this.range;
+
+    $(this.opt.timeRangeEl).slider({
+      range: true,
+      min: range[0],
+      max: range[1],
+      values: range,
+      create: function(event, ui) {
+        $(this).children('.ui-slider-handle').each(function(index){
+          $(this).html('<span class="label">'+range[index]+'</span>');
+        });
+      },
+      slide: function(e, ui){
+        $(this).children('.ui-slider-handle').each(function(index){
+          $(this).html('<span class="label">'+ui.values[index]+'</span>');
+        });
+      },
+      change: function(e, ui) {
+        _this.onChangeRange(ui.values[0], ui.values[1]);
+      }
+    });
+  };
+
+  Timeline.prototype.onChangeRange = function(minYear, maxYear){
+    console.log('Range change', minYear, maxYear);
+    $(document).trigger('change-year-range', [ [minYear, maxYear] ]);
   };
 
   Timeline.prototype.parseYears = function(data){
@@ -147,7 +150,7 @@ var Timeline = (function() {
     for (var year=minYear; year <= maxYear; year++) {
       if (_.has(dataByYear, year)) {
         var dataYear = dataByYear[year];
-        var sum = _.reduce(dataYear, function(memo, d){ return memo + d.count; }, 0);
+        var sum = dataYear.length;
         yearData.push({
           label: year + ': ' + sum,
           value: {x: new Date(year, 0), y: sum}

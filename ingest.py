@@ -266,9 +266,12 @@ jsonOut = {
 }
 jsonRows = []
 for row in rowsOut:
-    if "Latitude" not in row or row["Latitude"] == "" or row["Latitude"] <= 0:
-        continue
-    jsonRow = [row["Latitude"], row["Longitude"]]
+    lat = -999
+    lon = -999
+    if "Latitude" in row and row["Latitude"] != "" and row["Latitude"] > 0:
+        lat = row["Latitude"]
+        lon = row["Longitude"]
+    jsonRow = [lat, lon]
     name = row["Name"] if "Name" in row and str(row["Name"]).strip() != "" else "<untitled>"
     source = jsonOut["groups"]["source"].index(row["Source"])
     year = parseYear(row["Year Dedicated"]) if "Year Dedicated" in row else False
@@ -279,35 +282,4 @@ for row in rowsOut:
     jsonRow += [name, source, year]
     jsonRows.append(jsonRow)
 jsonOut["rows"] = jsonRows
-writeJSON(a.APP_DIRECTORY + "data/locations.json", jsonOut)
-
-################################################################
-# Generate timeline data
-################################################################
-
-jsonOut = {
-    "cols": ["year", "source", "count"],
-    "groups": {
-        "source": [d["name"] for d in dataSources]
-    }
-}
-jsonRows = []
-yearCounts = {}
-for row in rowsOut:
-    source = jsonOut["groups"]["source"].index(row["Source"])
-    year = parseYear(row["Year Dedicated"]) if "Year Dedicated" in row else False
-    if year is False:
-        year = parseYear(row["Year Constructed"]) if "Year Constructed" in row else False
-    if year is False:
-        continue
-    yearKey = (year, source)
-    if yearKey not in yearCounts:
-        yearCounts[yearKey] = 1
-    else:
-        yearCounts[yearKey] += 1
-for yearKey, count in yearCounts.items():
-    year, source = yearKey
-    jsonRows.append([year, source, count])
-jsonRows = sorted(jsonRows, key=lambda row: row[0])
-jsonOut["rows"] = jsonRows
-writeJSON(a.APP_DIRECTORY + "data/years.json", jsonOut)
+writeJSON(a.APP_DIRECTORY + "data/records.json", jsonOut)
