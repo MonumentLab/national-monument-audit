@@ -87,8 +87,10 @@ def getCountPercentages(arr, key, presence=False, otherTreshhold=None):
         data.append({"value": "other", "percent": otherSum})
     return data
 
-def getCounts(arr, key, presence=False):
-    values = [str(v[key]).strip() if key in v else "" for v in arr]
+def getCounts(arr, key=False, presence=False):
+    values = arr[:]
+    if key is not False:
+        values = [str(v[key]).strip() if key in v else "" for v in arr]
     if presence:
         values = ["no" if len(v) < 1 else "yes" for v in values]
     counter = collections.Counter(values)

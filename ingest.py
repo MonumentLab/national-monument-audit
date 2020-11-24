@@ -21,6 +21,8 @@ parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just outp
 a = parser.parse_args()
 # Parse arguments
 
+OUTPUT_DIR = os.path.dirname(a.OUTPUT_FILE) + "/"
+
 ################################################################
 # Read config JSON FILES
 ################################################################
@@ -67,12 +69,11 @@ for d in dataSources:
             "Source": d["name"]
         }
 
+        # inherit city/count/state from dataset metadata as defaults
         if "state" in d:
             rowOut["State"] = d["state"]
-
         if "county" in d:
             rowOut["County"] = d["county"]
-
         if "city" in d:
             rowOut["City"] = d["city"]
 
@@ -185,7 +186,7 @@ makeDirectories(a.OUTPUT_FILE)
 writeCsv(a.OUTPUT_FILE, rowsOut, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
 ################################################################
-# Generate dashboard files
+# Generate dashboard data
 ################################################################
 
 # dashboard summary numbers
@@ -196,7 +197,10 @@ summaryData["dataSourceTotal"] = formatNumber(dataSourceTotal)
 summaryData["dataRecordTotal"] = formatNumber(dataRecordTotal)
 summaryData["dataRecordAverage"] = formatNumber(round(1.0 * dataRecordTotal / dataSourceTotal))
 
-# pie chart data
+################################################################
+# Generate pie chart data
+################################################################
+
 pieChartData = {}
 # record share
 dataSourceRecordShare = getCountPercentages(rowsOut, "Source", otherTreshhold=7)
@@ -249,9 +253,65 @@ for row in availabilityConfig:
         "labels": [d["value"] for d in pdata]
     }
 
+################################################################
+# Generate record value top frequencies
+################################################################
+
+showTop = 10
+freqData = []
+freqConfig = [
+    {"srcKey": "Status", "filename": "monumentlab_national_monuments_audit_final_status_counts.csv"},
+    {"srcKey": "Creator Name", "filename": "monumentlab_national_monuments_audit_final_creator_counts.csv"},
+    {"srcKey": "Categories", "filename": "monumentlab_national_monuments_audit_final_category_counts.csv"},
+    {"srcKey": "Honorees", "filename": "monumentlab_national_monuments_audit_final_honoree_counts.csv"},
+    {"srcKey": "Sponsors", "filename": "monumentlab_national_monuments_audit_final_sponsor_counts.csv"}
+]
+for row in freqConfig:
+    values = []
+    for record in rowsOut:
+        if row["srcKey"] in record:
+            value = record[row["srcKey"]]
+            if isinstance(value, list):
+                values += value
+            else:
+                values.append(value)
+    valueCounts = getCounts(values)
+    # write to file
+    countsOutFile = OUTPUT_DIR + row["filename"]
+    writeCsv(countsOutFile, [{"value": value, "count": count} for value, count in valueCounts], ["value", "count"])
+    # show top 10
+    rowFreqData = []
+    for i, valueCount in enumerate(valueCounts):
+        value, count = valueCount
+        if isinstance(value, str):
+            value = value.strip()
+            if len(value) < 1:
+                value = "<blank>"
+        rowFreqData.append({
+            "label": value,
+            "count": count
+        })
+        if len(rowFreqData) >= showTop:
+            break
+    # calculate "other" row
+    if len(valueCounts) > showTop:
+        otherCounts = list(valueCounts)
+        otherCounts = otherCounts[showTop:]
+        otherSum = sum([count for value, count in otherCounts])
+        rowFreqData.append({
+            "label": f'{len(otherCounts)} other values',
+            "value": otherSum
+        })
+    freqData.append({
+        "title": f'Top {showTop} values for "{row["srcKey"]}"',
+        "rows": rowFreqData,
+        "filename": row["filename"]
+    })
+
 jsonOut = {}
 jsonOut["summary"] = summaryData
 jsonOut["pieCharts"] = pieChartData
+jsonOut["frequencies"] = freqData
 writeJSON(a.APP_DIRECTORY + "data/dashboard.json", jsonOut)
 
 ################################################################
