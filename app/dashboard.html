@@ -7,8 +7,6 @@
   <meta name="description" content="The National Monument Audit, led by Monument Lab, will assess the current monument landscape across the United States. ">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- This file was automatically generated from ingest.py. Please update the template file instead. -->
-
   <!-- <meta property="og:title" content="">
   <meta property="og:type" content="">
   <meta property="og:url" content="">
@@ -41,16 +39,16 @@
       <p>Under construction and not yet launched. This is a dashboard showing a snapshot of what data has been processed thus far for this project. If you stumbled upon this page, please do not share!</p>
     </div>
 
-    <table class="dashboard-table">
+    <table class="dashboard-table loading">
       <tr>
         <th>Total sources processed</th>
         <th>Total records processed</th>
         <th>Average records per data source</th>
       </tr>
       <tr>
-        <td>4</td>
-        <td>26,039</td>
-        <td>6,510</>
+        <td>{{dataSourceTotal}}</td>
+        <td>{{dataRecordTotal}}</td>
+        <td>{{dataRecordAverage}}</>
       </tr>
     </table>
 

@@ -188,18 +188,13 @@ writeCsv(a.OUTPUT_FILE, rowsOut, headings=fieldsOut, listDelimeter=a.LIST_DELIME
 # Generate dashboard files
 ################################################################
 
-# dashboard main html file
+# dashboard summary numbers
 dataSourceTotal = len(dataSources)
 dataRecordTotal = len(rowsOut)
-dataParams = {}
-dataParams["compileMessage"] = "<!-- This file was automatically generated from ingest.py. Please update the template file instead. -->"
-dataParams["dataSourceTotal"] = formatNumber(dataSourceTotal)
-dataParams["dataRecordTotal"] = formatNumber(dataRecordTotal)
-dataParams["dataRecordAverage"] = formatNumber(round(1.0 * dataRecordTotal / dataSourceTotal))
-dashboardTemplateString = readTextFile(a.APP_DIRECTORY + "dashboard.template.html")
-dashboardString = dashboardTemplateString.format(**dataParams)
-writeTextFile(a.APP_DIRECTORY + "dashboard.html", dashboardString)
-print("Created dashboard.html")
+summaryData = {}
+summaryData["dataSourceTotal"] = formatNumber(dataSourceTotal)
+summaryData["dataRecordTotal"] = formatNumber(dataRecordTotal)
+summaryData["dataRecordAverage"] = formatNumber(round(1.0 * dataRecordTotal / dataSourceTotal))
 
 # pie chart data
 pieChartData = {}
@@ -255,6 +250,7 @@ for row in availabilityConfig:
     }
 
 jsonOut = {}
+jsonOut["summary"] = summaryData
 jsonOut["pieCharts"] = pieChartData
 writeJSON(a.APP_DIRECTORY + "data/dashboard.json", jsonOut)
 

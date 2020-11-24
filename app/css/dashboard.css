@@ -39,6 +39,9 @@
   max-width: 300px;
   overflow: hidden;
 }
+.dashboard-table.loading td {
+  visibility: hidden;
+}
 
 .explore-container {
   width: 100%;

@@ -14,7 +14,11 @@ var Dashboard = (function() {
   Dashboard.prototype.init = function(){
     var _this = this;
 
+    // set globals
     Chart.defaults.global.defaultFontColor = 'black';
+    _.templateSettings = {
+      interpolate: /\{\{(.+?)\}\}/g
+    };
 
     $.getJSON(this.opt.dataUrl, function(data){
       _this.onDataLoaded(data);
@@ -34,6 +38,16 @@ var Dashboard = (function() {
     });
   };
 
+  Dashboard.prototype.loadSummary = function(){
+    var $table = $('.dashboard-table');
+    var html = $table.html();
+
+    var template = _.template(html);
+    var newHtml = template(this.data.summary);
+    $table.html(newHtml);
+    $table.removeClass('loading');
+  };
+
   Dashboard.prototype.loadTimeline = function(){
     var timeline = new Timeline();
   };
@@ -41,6 +55,7 @@ var Dashboard = (function() {
   Dashboard.prototype.onDataLoaded = function(data){
     console.log("Loaded data");
     this.data = data;
+    this.loadSummary();
     this.loadPieCharts();
   };
 
