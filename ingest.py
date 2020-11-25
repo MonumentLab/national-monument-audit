@@ -286,11 +286,8 @@ for row in freqConfig:
         if isinstance(value, str):
             value = value.strip()
             if len(value) < 1:
-                value = "<blank>"
-        rowFreqData.append({
-            "label": value,
-            "count": count
-        })
+                value = "&lt;blank&gt;"
+        rowFreqData.append([value, formatNumber(count)])
         if len(rowFreqData) >= showTop:
             break
     # calculate "other" row
@@ -298,14 +295,13 @@ for row in freqConfig:
         otherCounts = list(valueCounts)
         otherCounts = otherCounts[showTop:]
         otherSum = sum([count for value, count in otherCounts])
-        rowFreqData.append({
-            "label": f'{len(otherCounts)} other values',
-            "value": otherSum
-        })
+        rowFreqData.append([f'{formatNumber(len(otherCounts))} other values', formatNumber(otherSum)])
+    displayTop = min(showTop, len(valueCounts))
     freqData.append({
-        "title": f'Top {showTop} values for "{row["srcKey"]}"',
+        "title": f'Top {displayTop} values for "{row["srcKey"]}"',
         "rows": rowFreqData,
-        "filename": row["filename"]
+        "cols": ["Value", "Count"],
+        "resourceLink": row["filename"]
     })
 
 jsonOut = {}

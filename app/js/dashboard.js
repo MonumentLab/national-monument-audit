@@ -4,8 +4,8 @@ var Dashboard = (function() {
 
   function Dashboard(config) {
     var defaults = {
-      "summaryDataUrl": "data/dashboard.json",
-      "recordsUrl": "data/records.json"
+      'summaryDataUrl': 'data/dashboard.json',
+      'recordsUrl': 'data/records.json'
     };
     var q = Util.queryParams();
     this.opt = _.extend({}, defaults, config, q);
@@ -26,10 +26,19 @@ var Dashboard = (function() {
       this.loadRecords()
 
     ).done(function(){
-      console.log("Loaded data.");
+      console.log('Loaded data.');
       _this.onDataLoaded();
     });
 
+  };
+
+  Dashboard.prototype.loadDataTables = function(){
+    var $parent = $('#data-frequencies');
+
+
+    _.each(this.summaryData.frequencies, function(entry){
+      var table = new DataTable(_.extend(entry, {'$parent': $parent}));
+    });
   };
 
   Dashboard.prototype.loadMap = function(){
@@ -38,7 +47,7 @@ var Dashboard = (function() {
 
   Dashboard.prototype.loadPieCharts = function(){
     _.each(this.summaryData.pieCharts, function(params, key){
-      var chart = new PieChart(_.extend(params, {el: "#"+key}));
+      var chart = new PieChart(_.extend(params, {el: '#'+key}));
     });
   };
 
@@ -71,9 +80,10 @@ var Dashboard = (function() {
   };
 
   Dashboard.prototype.onDataLoaded = function(){
-    console.log("Loaded data");
+    console.log('Loaded data');
     this.loadSummary();
     this.loadPieCharts();
+    this.loadDataTables();
     this.loadMap();
     this.loadTimeline();
   };

@@ -12,7 +12,8 @@ var PieChart = (function() {
       fontSize: 12,
       fontFamily: 'sans-serif',
       fontColor: '#000',
-      colors: ['#003f5c', '#ffa600', '#665191', '#ff7c43', '#2f4b7c', '#f95d6a', '#a05195', '#d45087']
+      colors: ['#003f5c', '#ffa600', '#665191', '#ff7c43', '#2f4b7c', '#f95d6a', '#a05195', '#d45087'],
+      values: [] // pass this in
     };
     this.opt = _.extend({}, defaults, config);
     this.init();
