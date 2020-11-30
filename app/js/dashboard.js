@@ -41,11 +41,11 @@ var Dashboard = (function() {
   };
 
   Dashboard.prototype.loadMap = function(){
-    var map = new Map({data: this.recordData});
+    var map = new Map({data: this.recordData, yearRange: this.timeline.range});
   };
 
   Dashboard.prototype.loadFacets = function(){
-    var facets = new Facets({data: this.recordData});
+    var facets = new Facets({data: this.recordData, yearRange: this.timeline.range});
   };
 
   Dashboard.prototype.loadPieCharts = function(){
@@ -79,17 +79,17 @@ var Dashboard = (function() {
   };
 
   Dashboard.prototype.loadTimeline = function(){
-    var timeline = new Timeline({data: this.recordData});
+    this.timeline = new Timeline({data: this.recordData});
   };
 
   Dashboard.prototype.onDataLoaded = function(){
     console.log('Loaded data');
     this.loadSummary();
-    this.loadFacets();
     this.loadPieCharts();
     this.loadDataTables();
-    this.loadMap();
     this.loadTimeline();
+    this.loadMap();
+    this.loadFacets();
   };
 
   return Dashboard;

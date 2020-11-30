@@ -5,6 +5,7 @@ var Map = (function() {
   function Map(config) {
     var defaults = {
       el: 'data-map',
+      countEl: '#record-count',
       data: [], // pass this in
       urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       minZoom: 4,
@@ -23,8 +24,9 @@ var Map = (function() {
     this.mapType = 'cluster';
     this.clusterLayer = false;
     this.heatLayer = false;
-    this.activeYearRange = false;
+    this.activeYearRange = this.opt.yearRange ? this.opt.yearRange : false;
     this.activeFacets = false;
+    this.$countEl = $(this.opt.countEl);
 
     // only take data with lat lon set
     this.data = _.filter(this.opt.data, function(d){
@@ -90,8 +92,7 @@ var Map = (function() {
     this.featureLayer = new L.FeatureGroup();
     map.addLayer(this.featureLayer);
 
-    var dataLayer = this.loadClusters();
-    this.featureLayer.addLayer(dataLayer);
+    this.refreshLayers();
   };
 
   Map.prototype.loadListeners = function(){
@@ -161,6 +162,8 @@ var Map = (function() {
     if (this.mapType === 'cluster') dataLayer = this.loadClusters();
     else dataLayer = this.loadHeat();
     this.featureLayer.addLayer(dataLayer);
+
+    this.$countEl.text(Util.formatNumber(this.filteredData.length));
   };
 
   return Map;

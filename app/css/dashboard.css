@@ -260,3 +260,20 @@
   top: -40px;
   left: 0;
 }
+
+.data-summary {
+  position: absolute;
+  z-index: 10000;
+  left: 70px;
+  top: 10px;
+  padding: 0.5rem 1rem;
+  background: white;
+  border: 1px solid black;
+  max-width: 600px;
+}
+.data-summary p {
+  margin: 0;
+}
+.data-summary span {
+  font-weight: bold;
+}

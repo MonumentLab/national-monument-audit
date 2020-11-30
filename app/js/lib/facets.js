@@ -53,6 +53,8 @@ var Facets = (function() {
     });
 
     this.facets = facets;
+    this.$facetMessage = $(this.opt.messageEl);
+    this.defaultMessage = this.$facetMessage.text();
   };
 
   Facets.prototype.onFacetSelect = function($select){
@@ -62,6 +64,18 @@ var Facets = (function() {
 
     this.facets[property] = value;
     $(document).trigger('change-facets', [ this.facets ]);
+
+    var message = this.defaultMessage;
+    var facetMessages = [];
+    _.each(this.facets, function(value, key){
+      if (value.length > 0) {
+        facetMessages.push(Util.capitalize(key) + ' "'+value+'"');
+      }
+    });
+    if (facetMessages.length > 0) {
+      message = Util.listToString(facetMessages);
+    }
+    this.$facetMessage.text(message);
   };
 
   return Facets;

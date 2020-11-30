@@ -7,6 +7,8 @@ var Timeline = (function() {
       el: '#data-timeline',
       data: [], // pass this in
       timeRangeEl: '#time-range-selector',
+      timeDisplayMinEl: '#active-year-min',
+      timeDisplayMaxEl: '#active-year-max',
       legendPosition: 'bottom',
       fontSize: 12,
       fontFamily: 'sans-serif',
@@ -103,6 +105,11 @@ var Timeline = (function() {
     var ctx = $el[0].getContext('2d');
     var chart = new Chart(ctx, chartConfig);
     this.chart = chart;
+
+    this.$minYear = $(this.opt.timeDisplayMinEl);
+    this.$maxYear = $(this.opt.timeDisplayMaxEl);
+    this.$minYear.text(this.range[0]);
+    this.$maxYear.text(this.range[1]);
   };
 
   Timeline.prototype.loadListeners = function(){
@@ -169,6 +176,8 @@ var Timeline = (function() {
   Timeline.prototype.onChangeRange = function(minYear, maxYear){
     console.log('Range change', minYear, maxYear);
     $(document).trigger('change-year-range', [ [minYear, maxYear] ]);
+    this.$minYear.text(minYear);
+    this.$maxYear.text(maxYear);
   };
 
   Timeline.prototype.parseYears = function(data){

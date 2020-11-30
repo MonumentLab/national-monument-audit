@@ -3,6 +3,14 @@
 (function() {
   window.Util = {};
 
+  Util.capitalize = function(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  Util.formatNumber = function(number){
+    return number.toLocaleString();
+  };
+
   Util.listToString = function(arr){
     var arrLen = arr.length;
     if (arrLen < 1) return "Unknown";
