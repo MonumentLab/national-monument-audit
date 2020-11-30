@@ -23,6 +23,8 @@ var Map = (function() {
     this.mapType = 'cluster';
     this.clusterLayer = false;
     this.heatLayer = false;
+    this.activeYearRange = false;
+    this.activeFacets = false;
 
     // only take data with lat lon set
     this.data = _.filter(this.opt.data, function(d){
@@ -102,6 +104,18 @@ var Map = (function() {
     $(document).on('change-year-range', function(e, newRange) {
       _this.onChangeYearRange(newRange);
     });
+
+    $(document).on('change-facets', function(e, newFacets) {
+      _this.onChangeFacets(newFacets);
+    });
+  };
+
+  Map.prototype.onChangeFacets = function(newFacets){
+    this.clusterLayer = false;
+    this.heatLayer = false;
+    this.activeFacets = newFacets;
+
+    this.refreshLayers();
   };
 
   Map.prototype.onChangeMapType = function(type){
@@ -114,18 +128,35 @@ var Map = (function() {
   Map.prototype.onChangeYearRange = function(newRange){
     this.clusterLayer = false;
     this.heatLayer = false;
-
-    this.filteredData = _.filter(this.data, function(d){
-      if (isNaN(d.year) || d.year < 0) return false;
-      return d.year >= newRange[0] && d.year <= newRange[1];
-    });
+    this.activeYearRange = newRange;
 
     this.refreshLayers();
   };
 
   Map.prototype.refreshLayers = function(){
-    this.featureLayer.clearLayers();
+    var activeFacets = this.activeFacets;
+    var activeYearRange = this.activeYearRange;
+    if (activeFacets !== false || activeYearRange !== false) {
+      this.filteredData = _.filter(this.data, function(d){
+        if (isNaN(d.year) || d.year < 0) return false;
+        var isValid = true;
+        // check for valid year range
+        if (activeYearRange !== false) {
+          isValid = d.year >= activeYearRange[0] && d.year <= activeYearRange[1];
+        }
+        // check for valid facets
+        if (isValid && activeFacets !== false) {
+          _.each(activeFacets, function(value, key){
+            if (value.length && _.has(d, key) && d[key] !== value){
+              isValid = false;
+            }
+          });
+        }
+        return isValid;
+      });
+    }
 
+    this.featureLayer.clearLayers();
     var dataLayer;
     if (this.mapType === 'cluster') dataLayer = this.loadClusters();
     else dataLayer = this.loadHeat();

@@ -35,7 +35,6 @@ var Dashboard = (function() {
   Dashboard.prototype.loadDataTables = function(){
     var $parent = $('#data-frequencies');
 
-
     _.each(this.summaryData.frequencies, function(entry){
       var table = new DataTable(_.extend(entry, {'$parent': $parent}));
     });
@@ -43,6 +42,10 @@ var Dashboard = (function() {
 
   Dashboard.prototype.loadMap = function(){
     var map = new Map({data: this.recordData});
+  };
+
+  Dashboard.prototype.loadFacets = function(){
+    var facets = new Facets({data: this.recordData});
   };
 
   Dashboard.prototype.loadPieCharts = function(){
@@ -82,6 +85,7 @@ var Dashboard = (function() {
   Dashboard.prototype.onDataLoaded = function(){
     console.log('Loaded data');
     this.loadSummary();
+    this.loadFacets();
     this.loadPieCharts();
     this.loadDataTables();
     this.loadMap();

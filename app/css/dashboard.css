@@ -228,3 +228,35 @@
   text-align: center;
   border-radius: 2px;
 }
+
+.facets-container {
+  position: absolute;
+  bottom: 20px;
+  left: 5px;
+  border: 1px solid black;
+  z-index: 10000;
+  background: white;
+}
+.facets-container .facets {
+  display: none;
+  padding: 1rem;
+}
+.facets-container.active .facets {
+  display: block;
+}
+.facets-container label {
+  display: block;
+  text-transform: capitalize;
+}
+.facets-container select {
+  max-width: 200px;
+}
+.facets-container button {
+  position: absolute;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 40px;
+  line-height: 40px;
+  top: -40px;
+  left: 0;
+}

@@ -260,11 +260,11 @@ for row in availabilityConfig:
 showTop = 10
 freqData = []
 freqConfig = [
-    {"srcKey": "Status", "filename": "monumentlab_national_monuments_audit_final_status_counts.csv"},
     {"srcKey": "Creator Name", "filename": "monumentlab_national_monuments_audit_final_creator_counts.csv"},
     {"srcKey": "Categories", "filename": "monumentlab_national_monuments_audit_final_category_counts.csv"},
     {"srcKey": "Honorees", "filename": "monumentlab_national_monuments_audit_final_honoree_counts.csv"},
-    {"srcKey": "Sponsors", "filename": "monumentlab_national_monuments_audit_final_sponsor_counts.csv"}
+    {"srcKey": "Sponsors", "filename": "monumentlab_national_monuments_audit_final_sponsor_counts.csv"},
+    {"srcKey": "Status", "filename": "monumentlab_national_monuments_audit_final_status_counts.csv"}
 ]
 for row in freqConfig:
     values = []

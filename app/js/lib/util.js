@@ -159,6 +159,7 @@ var UI = (function() {
 
   UI.prototype.loadListeners = function(){
     $('.toggle-parent').on('click', function(e){
+      e.preventDefault();
       var $el = $(this);
       var $parent = $el.parent();
       $parent.toggleClass('active');
