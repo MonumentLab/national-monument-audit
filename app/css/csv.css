@@ -1,0 +1,16 @@
+
+.sensei-grid-table-wrapper>table td>div, .sensei-grid-table-wrapper>table th>div {
+  display: inline-block;
+  vertical-align: middle;
+}
+.glyphicon {
+  vertical-align: middle;
+}
+.glyphicon-chevron-up::before {
+  content: '↑';
+  display: inline-block;
+}
+.glyphicon-chevron-down::before {
+  content: '↓';
+  display: inline-block;
+}
