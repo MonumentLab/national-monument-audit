@@ -7,7 +7,7 @@ var Facets = (function() {
       el: '#facets',
       messageEl: '#facet-message',
       data: [], // pass this in
-      keys: ['source']
+      keys: ['source', 'categories']
     };
     this.opt = _.extend({}, defaults, config);
     this.init();
@@ -36,15 +36,24 @@ var Facets = (function() {
     _.each(this.opt.keys, function(key){
       var html = '';
       var values = _.pluck(data, key);
+      if (values.length && Array.isArray(values[0])) {
+        values = _.flatten(values);
+      }
       values = _.uniq(values);
-      values.sort();
+      values = _.map(values, function(v){
+        return {
+          value: v,
+          formatted: Util.capitalize(v+"")
+        }
+      });
+      values = _.sortBy(values, function(v){ return v.formatted; });
       var id = key + '-facet-select';
       html += '<div class="facet">';
         html += '<label for="'+id+'">'+key+'</label>';
         html += '<select name="'+key+'" id="'+id+'" class="facet-select">';
           html += '<option value="" selected>Any</option>';
-        _.each(values, function(value){
-          html += '<option value="'+value+'">'+value+'</option>';
+        _.each(values, function(v){
+          html += '<option value="'+v.value+'">'+v.value+'</option>';
         });
         html += '</select>';
       html += '</div>';

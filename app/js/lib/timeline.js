@@ -145,13 +145,7 @@ var Timeline = (function() {
   Timeline.prototype.onChangeFacets = function(newFacets){
     var filteredData = _.filter(this.data, function(d){
       if (isNaN(d.year) || d.year < 0) return false;
-      var isValid = true;
-      _.each(newFacets, function(value, key){
-        if (value.length && _.has(d, key) && d[key] !== value){
-          isValid = false;
-        }
-      });
-      return isValid;
+      return Util.isValidFacetValue(d, newFacets);
     });
     filteredData = this.parseYears(filteredData);
 

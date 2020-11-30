@@ -247,6 +247,10 @@
 .facets-container label {
   display: block;
   text-transform: capitalize;
+  margin-top: 1rem;
+}
+.facets-container .facet:first-child label {
+  margin-top: 0;
 }
 .facets-container select {
   max-width: 200px;

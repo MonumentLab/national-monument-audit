@@ -11,6 +11,22 @@
     return number.toLocaleString();
   };
 
+  Util.isValidFacetValue = function(d, facets){
+    var isValid = true;
+    _.each(facets, function(value, key){
+      if (value.length && _.has(d, key)){
+        // check for literal value
+        if (!Array.isArray(d[key]) && d[key] !== value) {
+          isValid = false;
+        // check for list value
+        } else if (Array.isArray(d[key]) && _.indexOf(d[key], value) < 0) {
+          isValid = false;
+        }
+      }
+    });
+    return isValid;
+  };
+
   Util.listToString = function(arr){
     var arrLen = arr.length;
     if (arrLen < 1) return "Unknown";
@@ -53,8 +69,15 @@
       var obj = _.object(cols, row);
       if (rawData.groups) {
         _.each(rawData.groups, function(groupList, key){
-          obj[key+'Index'] = obj[key];
-          obj[key] = groupList[obj[key]];
+          var rawValue = obj[key];
+          obj[key+'Index'] = rawValue;
+          if (Array.isArray(rawValue)) {
+            obj[key] = _.map(rawValue, function(v){
+              return groupList[v];
+            });
+          } else {
+            obj[key] = groupList[rawValue];
+          }
         });
       }
       return obj;

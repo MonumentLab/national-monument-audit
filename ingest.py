@@ -266,6 +266,7 @@ freqConfig = [
     {"srcKey": "Sponsors", "filename": "monumentlab_national_monuments_audit_final_sponsor_counts.csv"},
     {"srcKey": "Status", "filename": "monumentlab_national_monuments_audit_final_status_counts.csv"}
 ]
+allCounts = {}
 for row in freqConfig:
     values = []
     for record in rowsOut:
@@ -303,6 +304,7 @@ for row in freqConfig:
         "cols": ["Value", "Count"],
         "resourceLink": row["filename"]
     })
+    allCounts[row["srcKey"]] = valueCounts
 
 jsonOut = {}
 jsonOut["summary"] = summaryData
@@ -314,10 +316,14 @@ writeJSON(a.APP_DIRECTORY + "data/dashboard.json", jsonOut)
 # Generate map data
 ################################################################
 
+topCategories = list(allCounts["Categories"])
+if len(topCategories) > 100:
+    topCategories = topCategories[:100]
 jsonOut = {
-    "cols": ["lat", "lon", "name", "source", "year"],
+    "cols": ["lat", "lon", "name", "source", "year", "categories"],
     "groups": {
-        "source": [d["name"] for d in dataSources]
+        "source": [d["name"] for d in dataSources],
+        "categories": [value for value, count in topCategories]
     }
 }
 jsonRows = []
@@ -335,7 +341,15 @@ for row in rowsOut:
         year = parseYear(row["Year Constructed"]) if "Year Constructed" in row else False
     if year is False:
         year = -1
-    jsonRow += [name, source, year]
+    categories = []
+    if "Categories" in row:
+        catValues = row["Categories"]
+        if not isinstance(catValues, list):
+            catValues = [catValues]
+        for value in catValues:
+            if value in jsonOut["groups"]["categories"]:
+                categories.append(jsonOut["groups"]["categories"].index(value))
+    jsonRow += [name, source, year, categories]
     jsonRows.append(jsonRow)
 jsonOut["rows"] = jsonRows
 writeJSON(a.APP_DIRECTORY + "data/records.json", jsonOut)

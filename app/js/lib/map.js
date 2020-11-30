@@ -147,11 +147,7 @@ var Map = (function() {
         }
         // check for valid facets
         if (isValid && activeFacets !== false) {
-          _.each(activeFacets, function(value, key){
-            if (value.length && _.has(d, key) && d[key] !== value){
-              isValid = false;
-            }
-          });
+          isValid = Util.isValidFacetValue(d, activeFacets);
         }
         return isValid;
       });
