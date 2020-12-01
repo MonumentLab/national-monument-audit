@@ -38,7 +38,10 @@ var DataTable = (function() {
         });
       html += '</table>';
       if (opt.resourceLink) {
-        html += '<p><a href="csv.html?f='+opt.resourceBaseUrl+opt.resourceLink+'" class="button" target="_blank">View all</a> <a href="'+opt.resourceBaseUrl+opt.resourceLink+'" class="button" target="_blank">Download all</a></p>';
+        html += '<p>';
+          // html += '<a href="csv.html?f='+opt.resourceBaseUrl+opt.resourceLink+'" class="button" target="_blank">View all</a>';
+          html += '<a href="'+opt.resourceBaseUrl+opt.resourceLink+'" class="button" target="_blank">Download all</a>';
+        html += '</p>';
       }
     html += '</div>';
     opt.$parent.append($(html));
