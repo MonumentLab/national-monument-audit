@@ -9,7 +9,7 @@ var DataTable = (function() {
       '$parent': false,
       'resourceLink': false,
       'title': false,
-      'resourceBaseUrl': '../data/compiled/'
+      'resourceBaseUrl': 'https://github.com/MonumentLab/national-monument-audit/raw/main/data/compiled/'
     };
     this.opt = _.extend({}, defaults, config);
     this.init();
