@@ -12,15 +12,41 @@ var Dashboard = (function() {
     this.init();
   }
 
-  Dashboard.prototype.init = function(){
+  Dashboard.prototype.init = function(msg){
     var _this = this;
+    var isValid = false;
+    msg = msg || 'Please enter password:';
 
+    var authenticated = Util.cookieGet('authenticated');
+
+    if (!authenticated) {
+      var answer = prompt(msg);
+      if (answer != null) {
+        var hash = CryptoJS.MD5(answer).toString();
+        if (hash === '293577d3615f67c577ed0f19075555b5') isValid = true;
+      }
+    } else {
+      isValid = true;
+    }
+
+    if (isValid) {
+      Util.cookieSet('authenticated', 1, 30); // keep for 30 days
+      this.load();
+    } else {
+      this.init('Incorrect password. Please try again:')
+    }
+
+  };
+
+  Dashboard.prototype.load = function(){
+    var _this = this;
     // set globals
     Chart.defaults.global.defaultFontColor = 'black';
     _.templateSettings = {
       interpolate: /\{\{(.+?)\}\}/g
     };
 
+    $('body').removeClass('hidden');
     $.when(
       this.loadSummaryData(),
       this.loadRecords()
@@ -29,7 +55,6 @@ var Dashboard = (function() {
       console.log('Loaded data.');
       _this.onDataLoaded();
     });
-
   };
 
   Dashboard.prototype.loadDataTables = function(){
