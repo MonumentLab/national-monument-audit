@@ -16,5 +16,6 @@
     "Marker_Typ": {"to": "Categories"},
     "Categories": {"to": "Categories", "delimeter": ","},
     "Marker_Tex": {"to": "Text"}
-  }
+  },
+  "filter": "Categories EXCLUDES LIST Buildings|Cities|Towns|Forts|Railroads|Canals|Roads|Houses|Homesteads|Paths|Inns|Taverns|Mills|Mansions|Manors|Bridges"
 }

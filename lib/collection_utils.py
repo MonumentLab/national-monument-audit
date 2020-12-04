@@ -36,8 +36,8 @@ def filterByQuery(arr, ors, delimeter="|", caseSensitive=False):
                 if comparator not in ["CONTAINS", "EXCLUDES", "CONTAINS LIST", "EXCLUDES LIST", "IN LIST", "NOT IN LIST"]:
                     value = parseNumber(value)
                     itemValue = parseNumber(itemValue)
-                if comparator in ["IN LIST", "NOT IN LIST"]:
-                    itemValue = itemValue.split(delimeter)
+                if comparator in ["IN LIST", "NOT IN LIST", "CONTAINS LIST", "EXCLUDES LIST"]:
+                    value = [v.strip() for v in value.split(delimeter)]
                 if comparator == "<=" and itemValue > value:
                     andValid = False
                     break
@@ -50,22 +50,22 @@ def filterByQuery(arr, ors, delimeter="|", caseSensitive=False):
                 elif comparator == ">" and itemValue <= value:
                     andValid = False
                     break
-                elif comparator == "IN LIST" and value not in itemValue:
+                elif comparator == "IN LIST" and itemValue not in value:
                     andValid = False
                     break
-                elif comparator == "NOT IN LIST" and value in itemValue:
+                elif comparator == "NOT IN LIST" and itemValue in value:
                     andValid = False
                     break
                 elif comparator == "CONTAINS LIST":
                     andValid = False
-                    for v in itemValue:
-                        if v in value:
+                    for v in value:
+                        if v in itemValue:
                             andValid = True
                             break
                     break
                 elif comparator == "EXCLUDES LIST":
-                    for v in itemValue:
-                        if v in value:
+                    for v in value:
+                        if v in itemValue:
                             andValid = False
                             break
                     break
