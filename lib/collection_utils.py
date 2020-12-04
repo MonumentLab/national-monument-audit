@@ -15,7 +15,7 @@ def addIndices(arr, keyName="index", startIndex=0):
 def createLookup(arr, key):
     return dict([(str(item[key]), item) for item in arr])
 
-def filterByQuery(arr, ors):
+def filterByQuery(arr, ors, delimeter="|", caseSensitive=False):
     if isinstance(ors, tuple):
         ors = [[ors]]
     # pprint(ors)
@@ -28,10 +28,16 @@ def filterByQuery(arr, ors):
         for ands in ors:
             andValid = True
             for key, comparator, value in ands:
-                itemValue = item[key]
-                if comparator not in ["CONTAINS", "EXCLUDES"]:
+                value = str(value)
+                itemValue = str(item[key])
+                if not caseSensitive:
+                    value = value.lower()
+                    itemValue = itemValue.lower()
+                if comparator not in ["CONTAINS", "EXCLUDES", "CONTAINS LIST", "EXCLUDES LIST", "IN LIST", "NOT IN LIST"]:
                     value = parseNumber(value)
                     itemValue = parseNumber(itemValue)
+                if comparator in ["IN LIST", "NOT IN LIST"]:
+                    itemValue = itemValue.split(delimeter)
                 if comparator == "<=" and itemValue > value:
                     andValid = False
                     break
@@ -43,6 +49,25 @@ def filterByQuery(arr, ors):
                     break
                 elif comparator == ">" and itemValue <= value:
                     andValid = False
+                    break
+                elif comparator == "IN LIST" and value not in itemValue:
+                    andValid = False
+                    break
+                elif comparator == "NOT IN LIST" and value in itemValue:
+                    andValid = False
+                    break
+                elif comparator == "CONTAINS LIST":
+                    andValid = False
+                    for v in itemValue:
+                        if v in value:
+                            andValid = True
+                            break
+                    break
+                elif comparator == "EXCLUDES LIST":
+                    for v in itemValue:
+                        if v in value:
+                            andValid = False
+                            break
                     break
                 elif comparator == "CONTAINS" and value not in itemValue:
                     andValid = False
@@ -115,7 +140,7 @@ def groupList(arr, groupBy, sort=False, desc=True):
 def parseQueryString(str):
     if len(str) <= 0:
         return []
-    comparators = ["<=", ">=", " EXCLUDES ", " CONTAINS ", "!=", ">", "<", "="]
+    comparators = ["<=", ">=", " NOT IN LIST ", " IN LIST ", " EXCLUDES LIST ", " CONTAINS LIST ", " EXCLUDES ", " CONTAINS ", "!=", ">", "<", "="]
     orStrings = str.split(" OR ")
     ors = []
     for orString in orStrings:

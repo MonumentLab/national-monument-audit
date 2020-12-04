@@ -21,6 +21,7 @@ parser.add_argument('-enc', dest="ENCODING", default="utf8", help="Encoding of s
 parser.add_argument('-filter', dest="FILTER", default="", help="Filter string")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default="", help="If a list, provide delimeter(s)")
 parser.add_argument('-lim', dest="LIMIT", default=-1, type=int, help="Limit list length")
+parser.add_argument('-out', dest="OUTPUT_FILE", default="", help="Optional file to output the results to")
 a = parser.parse_args()
 
 # Parse arguments
@@ -55,9 +56,19 @@ for prop in PROPS:
     print("---------------------------")
     print(f'{len(uvalues)} unique values for "{prop}"')
     print("---------------------------")
+    rowsOut = []
     for value, count in counts:
         percent = round(1.0 * count / rowCount * 100.0, 1)
         if value == "":
             value = "<empty>"
         # print(f'{formatNumber(count)} ({percent}%)\t{value}')
         print(f'{value} ({percent}%)')
+        row = {}
+        row[prop] = value
+        row["count"] = count
+        row["percent"] = percent
+        rowsOut.append(row)
+
+    if len(a.OUTPUT_FILE) > 0:
+        makeDirectories(a.OUTPUT_FILE)
+        writeCsv(a.OUTPUT_FILE % prop, rowsOut, headings=[prop, "count", "percent"])
