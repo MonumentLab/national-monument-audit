@@ -40,7 +40,8 @@ var DataTable = (function() {
       if (opt.resourceLink) {
         html += '<p>';
           // html += '<a href="csv.html?f='+opt.resourceBaseUrl+opt.resourceLink+'" class="button" target="_blank">View all</a>';
-          html += '<a href="'+opt.resourceBaseUrl+opt.resourceLink+'" class="button" target="_blank">Download all</a>';
+          html += '<a href="'+opt.resourceBaseUrl+opt.resourceLink+'" class="button" download="'+opt.resourceBaseUrl+opt.resourceLink+'">Download all*</a>';
+          html += '<br /><small><em>* Right-click button and select "save as..." to download</em></small>';
         html += '</p>';
       }
     html += '</div>';
