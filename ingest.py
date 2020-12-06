@@ -41,18 +41,21 @@ for d in dataSources:
     print(f'Processing {d["name"]}')
 
     # Read data
-    dataPath = d["dataPath"]
+    dataPaths = getFilenames(d["dataPath"])
     dataFormat = d["dataFormat"] if "dataFormat" in d else None
-    fields = []
+    dataEncoding = d["dataEncoding"] if "dataEncoding" in d else "utf8"
     data = []
-    if dataPath.endswith(".zip"):
-        dataFile = d["dataFile"] if "dataFile" in d else None
-        dataPath = unzipFile(dataPath, dataFile)
-    if dataPath.endswith(".shp") or dataPath.endswith(".dbf") or dataFormat == "shapefile":
-        data = readShapefile(dataPath)
-    elif dataPath.endswith(".csv") or dataFormat == "csv":
-        dataEncoding = d["dataEncoding"] if "dataEncoding" in d else "utf8"
-        fields, data = readCsv(dataPath, encoding=dataEncoding)
+    for dataPath in dataPaths:
+        if dataPath.endswith(".zip"):
+            dataFile = d["dataFile"] if "dataFile" in d else None
+            dataPath = unzipFile(dataPath, dataFile)
+        if dataPath.endswith(".shp") or dataPath.endswith(".dbf") or dataFormat == "shapefile":
+            fData = readShapefile(dataPath)
+        elif dataPath.endswith(".csv") or dataFormat == "csv":
+            fFields, fData = readCsv(dataPath, encoding=dataEncoding)
+        data += fData
+    if len(dataPaths) > 1:
+        print(f' {len(data)} total records found')
 
     if len(data) <= 0:
         print(" No data found, skipping.")

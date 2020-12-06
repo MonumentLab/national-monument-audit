@@ -1,4 +1,16 @@
-body.hidden {
+body.hidden > *,
+body.loading > * {
+  display: none;
+}
+
+.loader {
+  display: none;
+  text-align: center;
+}
+body.loading > .loader {
+  display: block;
+}
+body.hidden.loading > .loader {
   display: none;
 }
 

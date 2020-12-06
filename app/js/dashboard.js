@@ -53,6 +53,7 @@ var Dashboard = (function() {
 
     ).done(function(){
       console.log('Loaded data.');
+      $('body').removeClass('loading');
       _this.onDataLoaded();
     });
   };

@@ -1,0 +1,24 @@
+{
+  "name": "HMdb Historical Markers and War Memorials",
+  "provider": "HMdb Historical Marker Database",
+  "url": "https://www.hmdb.org/geolists.asp",
+  "geographicCoverage": "national",
+  "dataPath": "data/vendor/national/hmdb/*.csv",
+  "dateDataAccessed": "2020-12-04",
+  "properties": ["MarkerID", "Title", "Subtitle", "Year Erected", "Erected By", "Latitude (minus=S)", "Longitude (minus=W)", "Street Address", "City or Town", "County or Parish", "State or Prov.", "Location", "Missing", "Link"],
+  "mappings": {
+    "MarkerID": {"to": "Vendor Entry ID"},
+    "Title": {"to": "Name"},
+    "Subtitle": {"to": "Alternate Name"},
+    "Year Erected": {"to": "Year Constructed"},
+    "Erected By": {"to": "Sponsors"},
+    "Latitude (minus=S)": {"to": "Latitude"},
+    "Longitude (minus=W)": {"to": "Longitude"},
+    "City or Town": {"to": "City"},
+    "County or Parish": {"to": "County"},
+    "Location": {"to": "Location Description"},
+    "Missing": {"to": "Status"},
+    "Link": {"to": "URL"}
+  },
+  "filter": "Title EXCLUDES LIST building|church|fort|cottage|library|bridge|house|road|college|manor|highway|road|turnpike|street|tavern|town|city|county|square|park|junction|residence|farm|hospital|mansion|home|center|academy|convention|prison|hotel|restaurant|canal|tower|cemetary|school|university|site|temple|jail|avenue|bank"
+}

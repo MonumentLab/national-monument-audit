@@ -60,6 +60,8 @@ def parseNumber(string, alwaysFloat=False):
         return num
     except ValueError:
         return string
+    except TypeError:
+        return ""
 
 def parseYear(string):
     try:

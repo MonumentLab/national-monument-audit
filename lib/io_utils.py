@@ -56,7 +56,7 @@ def readCsv(filename, headings=False, doParseNumbers=True, skipLines=0, encoding
     fieldnames = []
     if os.path.isfile(filename):
         lines = []
-        with open(filename, 'r', encoding=encoding) as f:
+        with open(filename, 'r', encoding=encoding, errors="replace") as f:
             lines = list(f)
         if skipLines > 0:
             lines = lines[skipLines:]
