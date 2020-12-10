@@ -90,6 +90,7 @@ var Dashboard = (function() {
   Dashboard.prototype.loadSources = function(){
     var sources = this.summaryData.sources;
     var $container = $('#data-sources');
+    var codeBaseUrl = 'https://github.com/MonumentLab/national-monument-audit/tree/main/';
 
     var html = '';
     _.each(sources, function(s){
@@ -109,10 +110,16 @@ var Dashboard = (function() {
             var sourcePath = s.dataPath.split('/');
             var filename = sourcePath.pop();
             var sourceDir = sourcePath.join('/');
-            var sourceLink = 'https://github.com/MonumentLab/national-monument-audit/tree/main/' + sourceDir;
+            var sourceLink = codeBaseUrl + sourceDir;
             html += '<tr>';
               html += '<td>Pre-processed data file:</td>';
-              html += '<td><a href="'+sourceLink+'" target="_blank">'+filename+'</a></td>';
+              html += '<td><a href="'+sourceLink+'" target="_blank">'+sourceDir+'/'+filename+'</a></td>';
+            html += '</tr>';
+
+            var configLink = codeBaseUrl + s.configFile;
+            html += '<tr>';
+              html += '<td>Config file:</td>';
+              html += '<td><a href="'+configLink+'" target="_blank">'+s.configFile+'</a></td>';
             html += '</tr>';
 
             // date

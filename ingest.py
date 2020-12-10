@@ -30,6 +30,7 @@ filenames = getFilenames(a.INPUT_FILE)
 dataSources = []
 for fn in filenames:
     data = readJSON(fn)
+    data["configFile"] = fn.replace("\\", "/")
     dataSources.append(data)
 
 ################################################################
