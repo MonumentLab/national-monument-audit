@@ -115,6 +115,12 @@ var Dashboard = (function() {
               html += '<td><a href="'+sourceLink+'" target="_blank">'+filename+'</a></td>';
             html += '</tr>';
 
+            // date
+            html += '<tr>';
+              html += '<td>Date accessed data:</td>';
+              html += '<td>'+s.dateDataAccessed+'</td>';
+            html += '</tr>';
+
             // field list
             html += '<tr>';
               html += '<td>Fields used</td>';
@@ -145,6 +151,18 @@ var Dashboard = (function() {
                 html += '<td>Records before filtering</td>';
                 var percentFiltered = MathUtil.round(s.recordCount / s.recordCountBeforeFiltering * 100, 2);
                 html += '<td>'+Util.formatNumber(s.recordCountBeforeFiltering)+' (filtered '+percentFiltered+'% of total records)</td>';
+              html += '</tr>';
+            }
+
+            // filters
+            if (_.has(s, 'notes')){
+              html += '<tr>';
+                html += '<td>Notes</td>';
+                html += '<td>';
+                _.each(s.notes, function(note){
+                  html += '<p>'+note+'</p>';
+                });
+                html += '</td>';
               html += '</tr>';
             }
 
