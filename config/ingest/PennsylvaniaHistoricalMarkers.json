@@ -17,5 +17,8 @@
     "Categories": {"to": "Categories", "delimeter": ","},
     "Marker_Tex": {"to": "Text"}
   },
-  "filter": "Categories EXCLUDES LIST Buildings|Cities|Towns|Forts|Railroads|Canals|Roads|Houses|Homesteads|Paths|Inns|Taverns|Mills|Mansions|Manors|Bridges"
+  "filter": "Categories EXCLUDES LIST Buildings|Cities|Towns|Forts|Railroads|Canals|Roads|Houses|Homesteads|Paths|Inns|Taverns|Mills|Mansions|Manors|Bridges",
+  "notes": [
+    "No clearcut way to identify monuments; will need to look at a combination of Categories (fairly controlled), Name, and Text fields."
+  ]
 }

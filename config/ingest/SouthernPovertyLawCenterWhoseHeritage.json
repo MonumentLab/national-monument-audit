@@ -13,5 +13,8 @@
     "Side": {"to": "Categories"},
     "Tracking Status": {"to": "Status"}
   },
-  "filter": "Symbol Type=Monument"
+  "filter": "Symbol Type=Monument",
+  "notes": [
+    "Monuments are clearly labelled by 'Symbol Type'."
+  ]
 }

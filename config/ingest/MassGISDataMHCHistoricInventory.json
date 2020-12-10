@@ -25,6 +25,7 @@
   },
   "filter": "TYPE=Object",
   "notes": [
-    "Source data was re-projected from GCS North American 1983 to WGS 84 Lat/Lon coordinates using QGIS"
+    "Source data was re-projected from GCS North American 1983 to WGS 84 Lat/Lon coordinates using QGIS",
+    "Large amount of data initially; filtered by type 'Object'."
   ]
 }
