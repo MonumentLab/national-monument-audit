@@ -3,6 +3,7 @@ import collections
 import itertools
 from operator import itemgetter
 from pprint import pprint
+import random
 import sys
 
 from lib.math_utils import *
@@ -201,7 +202,10 @@ def sortBy(arr, sorters, targetLen=None):
             key, direction = s
         reversed = (direction == "desc")
 
-        arr = sorted(arr, key=lambda k: k[key], reverse=reversed)
+        if key == "random":
+            random.shuffle(arr)
+        else:
+            arr = sorted(arr, key=lambda k: k[key], reverse=reversed)
 
         if 0.0 < trim < 1.0:
             count = int(round(len(arr) * trim))
