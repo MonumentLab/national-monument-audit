@@ -23,6 +23,9 @@ button {
   border-radius: 0;
   white-space: nowrap;
 }
+a {
+  color: #333;
+}
 .button:hover,
 button:hover {
   background: white;
@@ -31,6 +34,12 @@ button:hover {
 .button.large,
 button.large {
   font-size: 1.3rem;
+}
+code {
+  background: #ddd;
+  font-size: 0.9rem;
+  line-height: 0.9rem;
+  padding: 0.1rem;
 }
 
 .container {

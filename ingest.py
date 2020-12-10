@@ -36,7 +36,7 @@ for fn in filenames:
 # Parse raw data and do light processing
 ################################################################
 rowsOut = []
-for d in dataSources:
+for dSourceIndex, d in enumerate(dataSources):
     print("------------------------")
     print(f'Processing {d["name"]}')
 
@@ -56,6 +56,7 @@ for d in dataSources:
         data += fData
     if len(dataPaths) > 1:
         print(f' {len(data)} total records found')
+    dataSources[dSourceIndex]['recordCountBeforeFiltering'] = len(data)
 
     if len(data) <= 0:
         print(" No data found, skipping.")
@@ -64,6 +65,7 @@ for d in dataSources:
     if "filter" in d:
         data = filterByQueryString(data, d["filter"])
         print(f'  {len(data)} records after filtering')
+    dataSources[dSourceIndex]['recordCount'] = len(data)
 
     mappings = d["mappings"] if "mappings" in d else {}
     firstWarning = True
@@ -201,24 +203,32 @@ summaryData["dataRecordTotal"] = formatNumber(dataRecordTotal)
 summaryData["dataRecordAverage"] = formatNumber(round(1.0 * dataRecordTotal / dataSourceTotal))
 
 ################################################################
+# Generate data source data
+################################################################
+
+for i, d in enumerate(dataSources):
+    dataSources[i]["percentOfTotal"] = round(1.0 * d["recordCount"] / dataRecordTotal * 100, 3)
+dataSources = sorted(dataSources, key=lambda s: s["recordCount"], reverse=True)
+
+################################################################
 # Generate pie chart data
 ################################################################
 
 pieChartData = {}
 # record share
-dataSourceRecordShare = getCountPercentages(rowsOut, "Source", otherTreshhold=7)
-pieChartData["data-source-share"] = {
-    "title": "Share of records by data source",
-    "values": [d["percent"] for d in dataSourceRecordShare],
-    "labels": [d["value"] for d in dataSourceRecordShare]
-}
+# dataSourceRecordShare = getCountPercentages(rowsOut, "Source", otherTreshhold=7)
+# pieChartData["data-source-share"] = {
+#     "title": "Share of records by data source",
+#     "values": [d["percent"] for d in dataSourceRecordShare],
+#     "labels": [d["value"] for d in dataSourceRecordShare]
+# }
 # geographic coverage/resolution
-geographicCoverageData = getCountPercentages(dataSources, "geographicCoverage")
-pieChartData["data-source-coverage"] = {
-    "title": "Geographical coverage of data sources",
-    "values": [d["percent"] for d in geographicCoverageData],
-    "labels": [d["value"] for d in geographicCoverageData]
-}
+# geographicCoverageData = getCountPercentages(dataSources, "geographicCoverage")
+# pieChartData["data-source-coverage"] = {
+#     "title": "Geographical coverage of data sources",
+#     "values": [d["percent"] for d in geographicCoverageData],
+#     "labels": [d["value"] for d in geographicCoverageData]
+# }
 locData = []
 for row in rowsOut:
     if "Latitude" in row and row["Latitude"] != "" and row["Latitude"] > 0:
@@ -311,6 +321,7 @@ for row in freqConfig:
 
 jsonOut = {}
 jsonOut["summary"] = summaryData
+jsonOut["sources"] = dataSources
 jsonOut["pieCharts"] = pieChartData
 jsonOut["frequencies"] = freqData
 writeJSON(a.APP_DIRECTORY + "data/dashboard.json", jsonOut)
