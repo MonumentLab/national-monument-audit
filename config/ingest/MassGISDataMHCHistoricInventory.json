@@ -18,10 +18,10 @@
     "DEMOLISHED": {"to": "Status", "mapValues": {"y": "Removed", "n": "Live"}},
     "HISTORIC_N": {"to": "Name"},
     "MAKER": {"to": "Creator Name", "delimeter": ";"},
-    "SIGNIFICAN": {"to": "Categories", "delimeter": ";"},
+    "SIGNIFICAN": {"to": "Subjects", "delimeter": ";"},
     "TOWN_NAME": {"to": "City"},
-    "TYPE": {"to": "Categories"},
-    "USE_TYPE": {"to": "Categories", "delimeter": ";"}
+    "TYPE": {"to": "Object Types"},
+    "USE_TYPE": {"to": "Use Types", "delimeter": ";"}
   },
   "filter": "TYPE=Object",
   "notes": [

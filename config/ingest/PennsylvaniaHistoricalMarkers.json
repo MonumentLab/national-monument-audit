@@ -13,8 +13,8 @@
     "Location": {"to": "Street Address"},
     "Dedicated": {"to": "Year Dedicated", "dateFormat": "%A, %B %d, %Y"},
     "Lattitude": {"to": "Latitude"},
-    "Marker_Typ": {"to": "Categories"},
-    "Categories": {"to": "Categories", "delimeter": ","},
+    "Marker_Typ": {"to": "Object Types"},
+    "Categories": {"to": "Subjects", "delimeter": ","},
     "Marker_Tex": {"to": "Text"}
   },
   "notes": [

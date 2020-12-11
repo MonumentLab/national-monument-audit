@@ -275,7 +275,9 @@ showTop = 10
 freqData = []
 freqConfig = [
     {"srcKey": "Creator Name", "filename": "monumentlab_national_monuments_audit_final_creator_counts.csv"},
-    {"srcKey": "Categories", "filename": "monumentlab_national_monuments_audit_final_category_counts.csv"},
+    {"srcKey": "Subjects", "filename": "monumentlab_national_monuments_audit_final_subject_counts.csv"},
+    {"srcKey": "Object Types", "filename": "monumentlab_national_monuments_audit_final_object_type_counts.csv"},
+    {"srcKey": "Use Types", "filename": "monumentlab_national_monuments_audit_final_use_type_counts.csv"},
     {"srcKey": "Honorees", "filename": "monumentlab_national_monuments_audit_final_honoree_counts.csv"},
     {"srcKey": "Sponsors", "filename": "monumentlab_national_monuments_audit_final_sponsor_counts.csv"},
     {"srcKey": "Status", "filename": "monumentlab_national_monuments_audit_final_status_counts.csv"}
@@ -331,14 +333,14 @@ writeJSON(a.APP_DIRECTORY + "data/dashboard.json", jsonOut)
 # Generate map data
 ################################################################
 
-topCategories = list(allCounts["Categories"])
-if len(topCategories) > 100:
-    topCategories = topCategories[:100]
+topSubjects = list(allCounts["Subjects"])
+if len(topSubjects) > 100:
+    topSubjects = topSubjects[:100]
 jsonOut = {
-    "cols": ["lat", "lon", "name", "source", "year", "categories"],
+    "cols": ["lat", "lon", "name", "source", "year", "subjects"],
     "groups": {
         "source": [d["name"] for d in dataSources],
-        "categories": [value for value, count in topCategories]
+        "subjects": [value for value, count in topSubjects]
     }
 }
 jsonRows = []
@@ -356,15 +358,15 @@ for row in rowsOut:
         year = parseYear(row["Year Constructed"]) if "Year Constructed" in row else False
     if year is False:
         year = -1
-    categories = []
-    if "Categories" in row:
-        catValues = row["Categories"]
-        if not isinstance(catValues, list):
-            catValues = [catValues]
-        for value in catValues:
-            if value in jsonOut["groups"]["categories"]:
-                categories.append(jsonOut["groups"]["categories"].index(value))
-    jsonRow += [name, source, year, categories]
+    subjects = []
+    if "Subjects" in row:
+        subjectValues = row["Subjects"]
+        if not isinstance(subjectValues, list):
+            subjectValues = [subjectValues]
+        for value in subjectValues:
+            if value in jsonOut["groups"]["subjects"]:
+                subjects.append(jsonOut["groups"]["subjects"].index(value))
+    jsonRow += [name, source, year, subjects]
     jsonRows.append(jsonRow)
 jsonOut["rows"] = jsonRows
 writeJSON(a.APP_DIRECTORY + "data/records.json", jsonOut)
