@@ -18,7 +18,6 @@
     "size": {"to": "Dimensions"},
     "markertext": {"to": "Text"}
   },
-  "filter": "code EXCLUDES LIST building|counties|house|towns|church|graveyard|settlement|cities|city|ranch|railroad|road|market|fort|bank|inn|hotel|motel|parks|cabin|farms|jail|prison|hospital|post office|mills|cotton gin|libraries|library|cemeteries|cemetery|bridge|neighborhood|lake|museum|station|restaurant|architecture",
   "notes": [
     "No clearcut way to identify monuments; will mostly likely need to infer from the Name, Code (not very well controlled), and Text fields."
   ]

@@ -20,8 +20,8 @@
     "Missing": {"to": "Status"},
     "Link": {"to": "URL"}
   },
-  "filter": "Title EXCLUDES LIST building|church|fort|cottage|library|bridge|house|road|college|manor|highway|road|turnpike|street|tavern|town|city|county|square|park|junction|residence|farm|hospital|mansion|home|center|academy|convention|prison|hotel|restaurant|canal|tower|cemetery|school|university|site|temple|jail|avenue|bank|chapel",
   "notes": [
-    "No clearcut way to identify monuments; will mostly likely need to infer from the name field."
+    "No clearcut way to identify monuments; will mostly likely need to infer from the name field.",
+    "Will need to scrape website to get full description contents."
   ]
 }
