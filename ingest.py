@@ -254,7 +254,7 @@ availabilityConfig = [
     {"srcKey": "Year Constructed", "outKey": "data-field-availability-date-constructed"},
     {"srcKey": "Year Dedicated", "outKey": "data-field-availability-date-dedicated"},
     {"srcKey": "Honorees", "outKey": "data-field-availability-honoree"},
-    {"srcKey": "Creator Name", "outKey": "data-field-availability-creator"},
+    {"srcKey": "Creators", "outKey": "data-field-availability-creator"},
     {"srcKey": "Sponsors", "outKey": "data-field-availability-sponsor"},
     {"srcKey": "Status", "outKey": "data-field-availability-status"},
     {"srcKey": "Text", "outKey": "data-field-availability-text"}
@@ -274,7 +274,7 @@ for row in availabilityConfig:
 showTop = 10
 freqData = []
 freqConfig = [
-    {"srcKey": "Creator Name", "filename": "monumentlab_national_monuments_audit_final_creator_counts.csv"},
+    {"srcKey": "Creators", "filename": "monumentlab_national_monuments_audit_final_creator_counts.csv"},
     {"srcKey": "Subjects", "filename": "monumentlab_national_monuments_audit_final_subject_counts.csv"},
     {"srcKey": "Object Types", "filename": "monumentlab_national_monuments_audit_final_object_type_counts.csv"},
     {"srcKey": "Use Types", "filename": "monumentlab_national_monuments_audit_final_use_type_counts.csv"},

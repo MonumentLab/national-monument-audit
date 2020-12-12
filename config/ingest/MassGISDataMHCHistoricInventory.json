@@ -17,7 +17,7 @@
     "D_DATE": {"to": "Year Dedicated", "dateFormat": "%m/%d/%Y", "delimeter": ";"},
     "DEMOLISHED": {"to": "Status", "mapValues": {"y": "Removed", "n": "Live"}},
     "HISTORIC_N": {"to": "Name"},
-    "MAKER": {"to": "Creator Name", "delimeter": ";"},
+    "MAKER": {"to": "Creators", "delimeter": ";"},
     "SIGNIFICAN": {"to": "Subjects", "delimeter": ";"},
     "TOWN_NAME": {"to": "City"},
     "TYPE": {"to": "Object Types"},

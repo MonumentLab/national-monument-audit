@@ -5,7 +5,7 @@
   "geographicCoverage": "national",
   "dataPath": "data/vendor/national/Whose Heritage SF - Whose Heritage Master.csv",
   "dateDataAccessed": "2020-11-13",
-  "properties": ["Unique ID", "feature_name", "Honorees", "City", "County", "State", "Coordinates", "Side", "Sponsors", "Symbol Type", "Symbol Category", "Year Dedicated", "Year Removed", "Tracking Status"],
+  "properties": ["Unique ID", "feature_name", "Honorees", "City", "County", "State", "Coordinates", "Sponsors", "Symbol Type", "Symbol Category", "Year Dedicated", "Year Removed", "Tracking Status"],
   "mappings": {
     "Unique ID": {"to": "Vendor Entry ID"},
     "feature_name": {"to": "Name"},

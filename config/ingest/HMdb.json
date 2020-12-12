@@ -15,6 +15,7 @@
     "Latitude (minus=S)": {"to": "Latitude"},
     "Longitude (minus=W)": {"to": "Longitude"},
     "City or Town": {"to": "City"},
+    "State or Prov.": {"to": "State"},
     "County or Parish": {"to": "County"},
     "Location": {"to": "Location Description"},
     "Missing": {"to": "Status"},
