@@ -52,6 +52,15 @@ def norm(value, ab, limit=False):
 def parseFloat(string):
     return parseNumber(string, alwaysFloat=True)
 
+def parseInt(string, defaultValue=""):
+    try:
+        num = int(string)
+        return num
+    except ValueError:
+        return defaultValue
+    except TypeError:
+        return defaultValue
+
 def parseNumber(string, alwaysFloat=False):
     try:
         num = float(string)

@@ -1,0 +1,28 @@
+{
+  "fields": [
+    {"key": "Source", "type": "string", "required": true},
+    {"key": "Vendor Entry ID", "type": "string", "required": true},
+    {"key": "Name", "type": "string", "required": true},
+    {"key": "Alternate Name", "type": "string"},
+    {"key": "Year Constructed", "type": "int"},
+    {"key": "Sponsors", "type": "string_list"},
+    {"key": "Latitude", "type": "float"},
+    {"key": "Longitude", "type": "float"},
+    {"key": "Street Address", "type": "string"},
+    {"key": "City", "type": "string"},
+    {"key": "County", "type": "string"},
+    {"key": "Status", "type": "string"},
+    {"key": "URL", "type": "string"},
+    {"key": "State", "type": "string"},
+    {"key": "Year Dedicated", "type": "int"},
+    {"key": "Creators", "type": "string_list"},
+    {"key": "Subjects", "type": "string_list"},
+    {"key": "Object Types", "type": "string_list"},
+    {"key": "Use Types", "type": "string_list"},
+    {"key": "Text", "type": "text"},
+    {"key": "Honorees", "type": "string_list"},
+    {"key": "Year Removed", "type": "int"},
+    {"key": "Dimensions", "type": "string"},
+    {"key": "Description", "type": "text"}
+  ]
+}
