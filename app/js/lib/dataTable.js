@@ -9,7 +9,7 @@ var DataTable = (function() {
       '$parent': false,
       'resourceLink': false,
       'title': false,
-      'resourceBaseUrl': 'https://github.com/MonumentLab/national-monument-audit/raw/main/data/compiled/'
+      'resourceBaseUrl': 'http://national-monument-audit.monumentlab.com.s3-website-us-east-1.amazonaws.com/data/compiled/'
     };
     this.opt = _.extend({}, defaults, config);
     this.init();
@@ -40,8 +40,8 @@ var DataTable = (function() {
       if (opt.resourceLink) {
         html += '<p>';
           // html += '<a href="csv.html?f='+opt.resourceBaseUrl+opt.resourceLink+'" class="button" target="_blank">View all</a>';
-          html += '<a href="'+opt.resourceBaseUrl+opt.resourceLink+'" class="button" download="'+opt.resourceBaseUrl+opt.resourceLink+'">Download all*</a>';
-          html += '<br /><small><em>* Right-click button and select "save as..." to download</em></small>';
+          html += '<a href="'+opt.resourceBaseUrl+opt.resourceLink+'" class="button" download="'+opt.resourceBaseUrl+opt.resourceLink+'">Download all</a>';
+          // html += '<br /><small><em>* Right-click button and select "save as..." to download</em></small>';
         html += '</p>';
       }
     html += '</div>';
