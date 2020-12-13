@@ -17,6 +17,7 @@ parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab
 parser.add_argument('-config', dest="CONFIG_FILE", default="config/data-model.json", help="Input config .json file")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
 parser.add_argument('-out', dest="OUTPUT_DIR", default="search-index/documents/", help="Output directory")
+parser.add_argument('-batchsize', dest="DOCS_PER_BATCH", default=4000, type=int, help="Documents per batch")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 a = parser.parse_args()
 # Parse arguments
@@ -61,8 +62,12 @@ writeJSON("tmp/sampleSearchDocument.json", [sampleDoc], pretty=True)
 
 if not a.PROBE:
     makeDirectories(a.OUTPUT_DIR)
+    removeFiles(a.OUTPUT_DIR + "*.json")
 
+batchCount = ceilInt(1.0 * len(rows) / a.DOCS_PER_BATCH)
 invalidCount = 0
+currentBatchIndex = 0
+currentBatch = []
 for i, row in enumerate(rows):
     docFields = {}
     docId = ""
@@ -129,8 +134,19 @@ for i, row in enumerate(rows):
         docFields.pop("longitude", None)
 
     doc = {
+        "type": "add",
         "id": docId,
         "fields": docFields
     }
+    currentBatch.append(doc)
+    if len(currentBatch) >= a.DOCS_PER_BATCH and not a.PROBE:
+        batchname = f'{a.OUTPUT_DIR}batch_{padNum(currentBatchIndex, batchCount)}.json'
+        writeJSON(batchname, currentBatch)
+        currentBatch = []
+        currentBatchIndex += 1
+
+if len(currentBatch) >= 0 and not a.PROBE:
+    batchname = f'{a.OUTPUT_DIR}batch_{padNum(currentBatchIndex, batchCount)}.json'
+    writeJSON(batchname, currentBatch)
 
 print(f'{invalidCount} invalid records')
