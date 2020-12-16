@@ -219,10 +219,13 @@ var UI = (function() {
       var $el = $(this);
       var $parent = $el.parent();
       $parent.toggleClass('active');
-      if ($parent.hasClass('active')) {
-        $el.text($el.attr('data-active'));
-      } else {
-        $el.text($el.attr('data-inactive'));
+      var activeText = $el.attr('data-active');
+      if (activeText && activeText.length) {
+        if ($parent.hasClass('active')) {
+          $el.text($el.attr('data-active'));
+        } else {
+          $el.text($el.attr('data-inactive'));
+        }
       }
     });
   };

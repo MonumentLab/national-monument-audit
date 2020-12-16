@@ -13,29 +13,8 @@ var Dashboard = (function() {
   }
 
   Dashboard.prototype.init = function(msg){
-    var _this = this;
-    var isValid = false;
-    msg = msg || 'Please enter password:';
-
-    var authenticated = Util.cookieGet('authenticated');
-
-    if (!authenticated) {
-      var answer = prompt(msg);
-      if (answer != null) {
-        var hash = CryptoJS.MD5(answer).toString();
-        if (hash === '293577d3615f67c577ed0f19075555b5') isValid = true;
-      }
-    } else {
-      isValid = true;
-    }
-
-    if (isValid) {
-      Util.cookieSet('authenticated', 1, 30); // keep for 30 days
-      this.load();
-    } else {
-      this.init('Incorrect password. Please try again:')
-    }
-
+    var isValid = Auth.authenticate();
+    if (isValid) this.load();
   };
 
   Dashboard.prototype.load = function(){

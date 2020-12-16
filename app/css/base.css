@@ -69,3 +69,35 @@ code {
   margin: 10px 0;
   font-weight: bold;
 }
+
+.data-table {
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.data-table th {
+  text-align: left;
+  padding: 0.4rem 0.4rem;
+  background: black;
+  color: white;
+  border: 0;
+}
+.data-table tr {
+  margin: 0;
+  padding: 0;
+}
+.data-table td {
+  border: 0;
+  margin: 0;
+  padding: 0.4rem 0.4rem;
+  border-top: 1px solid black;
+}
+.data-item {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background: black;
+  color: white;
+  margin-right: 0.25rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+}

@@ -36,8 +36,8 @@
       <main>
         <div class="search-form-container">
           <form id="search-form" class="search-form">
-            <input type="text" name="query" />
-            <button type="submit">Submit</button>
+            <input type="text" name="query" class="search-input" />
+            <button type="submit" class="search-button">Submit</button>
             <fieldset>
               <legend>Search within:</legend>
               <div id="input-field-list" class="field-list">
@@ -54,7 +54,7 @@
                 <label for="field-text"><input id="field-text" name="text" value="text" checked type="checkbox" data-boost="2" /> marker text</label>
               </div>
             </fieldset>
-            <p>For complex queries, you may enter a <a href="https://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-compound-queries.html" target="_blank">structured compound query</a> (in this case, "Search within" fields and facets will be ignored).</p>
+            <p><small>For complex queries, you may enter a <a href="https://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-compound-queries.html" target="_blank">structured compound query</a> (in this case, "Search within" fields and facets will be ignored).</small></p>
           </form>
         </div>
         <div class="search-results-container">
@@ -68,8 +68,10 @@
 
   <script src="js/vendor/jquery-3.5.1.min.js"></script>
   <script src="js/vendor/jquery-ui-slider.min.js"></script>
+  <script src="js/vendor/md5.js"></script>
   <script src="js/vendor/underscore-min.js"></script>
 
+  <script src="js/lib/auth.js"></script>
   <script src="js/lib/util.js"></script>
 
   <script src="js/search.js"></script>

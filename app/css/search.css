@@ -1,0 +1,73 @@
+.app {
+  display: flex;
+}
+
+fieldset {
+  margin-top: 0.5rem;
+  border: 1px solid black;
+}
+fieldset label {
+  font-size: 1rem;
+}
+fieldset + p {
+  margin-top: 0;
+}
+
+.facets-container {
+  max-width: 360px;
+  box-sizing: border-box;
+  padding: 0 0.5rem;
+}
+.search-container {
+  flex-grow: 1;
+  margin-top: 1rem;
+  padding-right: 0.5rem;
+}
+
+.facets-container h2 {
+  margin-bottom: 0.2rem;
+}
+.facets-container label {
+  display: block;
+}
+.facet-checkbox {
+  margin-right: 0.5rem;
+}
+
+.search-input,
+.search-button {
+  height: 40px;
+  line-height: 40px;
+  font-size: 1.5rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+.search-input {
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+.search-button {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.field-list label {
+  display: inline-block;
+  margin-right: 0.2rem;
+}
+
+.result-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.result-item h4 {
+  margin-bottom: 0.2rem;
+}
+.data-table {
+  font-size: 0.9rem;
+  border: 2px solid black;
+}
+.data-table tr:nth-child(even) td {
+  background: #ddd;
+}
