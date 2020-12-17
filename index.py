@@ -17,7 +17,7 @@ parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab
 parser.add_argument('-config', dest="CONFIG_FILE", default="config/data-model.json", help="Input config .json file")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
 parser.add_argument('-out', dest="OUTPUT_DIR", default="search-index/documents/", help="Output directory")
-parser.add_argument('-batchsize', dest="DOCS_PER_BATCH", default=4000, type=int, help="Documents per batch")
+parser.add_argument('-batchsize', dest="DOCS_PER_BATCH", default=3500, type=int, help="Documents per batch")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 a = parser.parse_args()
 # Parse arguments
@@ -77,6 +77,7 @@ for i, row in enumerate(rows):
         search_key = stringToId(key)
         type = field["type"]
         required = ("required" in field and field["required"])
+        isSearch = ("search" in field and field["search"])
         if key not in row:
             if i < 1:
                 print(f'Warning: no key {key}')
@@ -117,6 +118,9 @@ for i, row in enumerate(rows):
             docId = stringToId(row["Source"]) + "_" + value
 
         docFields[search_key] = value
+        # replicate field for separate search indexing
+        if isSearch:
+            docFields[search_key+"_search"] = value
 
     if len(docId) < 1:
         invalidCount += 1
