@@ -41,17 +41,14 @@
             <fieldset>
               <legend>Search within:</legend>
               <div id="input-field-list" class="field-list">
-                <label for="field-name"><input id="field-name" name="name" value="name" checked type="checkbox" data-boost="5" /> name</label>
-                <label for="field-alternate_name"><input id="field-alternate_name" name="alternate_name" value="alternate_name" checked type="checkbox" /> alternate name</label>
-                <label for="field-city"><input id="field-city" name="city" value="city" checked type="checkbox" /> city</label>
-                <label for="field-county"><input id="field-county" name="county" value="county" checked type="checkbox" /> county</label>
-                <label for="field-creators"><input id="field-creators" name="creators" value="creators" checked type="checkbox" data-boost="2" /> creators</label>
-                <label for="field-honorees"><input id="field-honorees" name="honorees" value="honorees" checked type="checkbox" data-boost="3" /> honorees</label>
-                <label for="field-sponsors"><input id="field-sponsors" name="sponsors" value="sponsors" checked type="checkbox" data-boost="2" /> sponsors</label>
-                <label for="field-status"><input id="field-status" name="status" value="status" checked type="checkbox" /> status</label>
-                <label for="field-street_address"><input id="field-street_address" name="street_adress" value="street_address" checked type="checkbox" /> street address</label>
-                <label for="field-subjects"><input id="field-subjects" name="subjects" value="subjects" checked type="checkbox" data-boost="2" /> subjects</label>
-                <label for="field-text"><input id="field-text" name="text" value="text" checked type="checkbox" data-boost="2" /> marker text</label>
+                <label for="field-name"><input id="field-name" class="field-checkbox" name="name" value="name" checked type="checkbox" data-boost="5" /> name</label>
+                <label for="field-alternate_name"><input id="field-alternate_name" class="field-checkbox" name="alternate_name" value="alternate_name" checked type="checkbox" data-boost="4" /> alternate name</label>
+                <label for="field-creators"><input id="field-creators" class="field-checkbox" name="creators" value="creators_search" checked type="checkbox" data-boost="2" /> creators</label>
+                <label for="field-honorees"><input id="field-honorees" class="field-checkbox" name="honorees" value="honorees_search" checked type="checkbox" data-boost="4" /> honorees</label>
+                <label for="field-sponsors"><input id="field-sponsors" class="field-checkbox" name="sponsors" value="sponsors_search" checked type="checkbox" data-boost="2" /> sponsors</label>
+                <label for="field-street_address"><input id="field-street_address" class="field-checkbox" name="street_adress" value="street_address" checked type="checkbox" /> street address</label>
+                <label for="field-subjects"><input id="field-subjects" class="field-checkbox" name="subjects" value="subjects_search" checked type="checkbox" data-boost="3" /> subjects</label>
+                <label for="field-text"><input id="field-text" class="field-checkbox" name="text" value="text" checked type="checkbox" data-boost="2" /> marker text</label>
               </div>
             </fieldset>
             <p><small>For complex queries, you may enter a <a href="https://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-compound-queries.html" target="_blank">structured compound query</a> (in this case, "Search within" fields and facets will be ignored).</small></p>
@@ -59,6 +56,22 @@
         </div>
         <div class="search-results-container">
           <div id="search-results-message" class="search-results-message"></div>
+          <div id="loader" class="loader">
+            <div>
+              <div class="cube-grid">
+                <div class="cube cube1"></div>
+                <div class="cube cube2"></div>
+                <div class="cube cube3"></div>
+                <div class="cube cube4"></div>
+                <div class="cube cube5"></div>
+                <div class="cube cube6"></div>
+                <div class="cube cube7"></div>
+                <div class="cube cube8"></div>
+                <div class="cube cube9"></div>
+              </div>
+              <p>Loading results...</p>
+            </div>
+          </div>
           <div id="search-results" class="search-results"></div>
           <div id="search-results-pagination" class="search-results-pagination"></div>
         </div>

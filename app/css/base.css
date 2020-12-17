@@ -101,3 +101,50 @@ code {
   border-radius: 3px;
   font-size: 0.7rem;
 }
+
+
+.loader {
+  display: none;
+  width: 100%;
+  height: 40vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+}
+.loader.active {
+  display: flex;
+}
+.loader p {
+  display: inline-block;
+  font-size: 2.4rem;
+}
+.cube-grid {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+}
+.cube-grid .cube {
+  width: 33%;
+  height: 33%;
+  background-color: black;
+  float: left;
+  animation: cubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+.cube-grid .cube1 { animation-delay: 0.2s; }
+.cube-grid .cube2 { animation-delay: 0.3s; }
+.cube-grid .cube3 { animation-delay: 0.4s; }
+.cube-grid .cube4 { animation-delay: 0.1s; }
+.cube-grid .cube5 { animation-delay: 0.2s; }
+.cube-grid .cube6 { animation-delay: 0.3s; }
+.cube-grid .cube7 { animation-delay: 0s; }
+.cube-grid .cube8 { animation-delay: 0.1s; }
+.cube-grid .cube9 { animation-delay: 0.2s; }
+@keyframes cubeGridScaleDelay {
+  0%, 70%, 100% {
+    transform: scale3D(1, 1, 1);
+  } 35% {
+    transform: scale3D(0, 0, 1);
+  }
+}

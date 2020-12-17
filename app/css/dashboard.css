@@ -8,7 +8,7 @@ body.loading > * {
   text-align: center;
 }
 body.loading > .loader {
-  display: block;
+  display: flex;
 }
 body.hidden.loading > .loader {
   display: none;

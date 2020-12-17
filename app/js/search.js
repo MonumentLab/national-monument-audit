@@ -5,10 +5,14 @@ var Search = (function() {
   function Search(config) {
     var defaults = {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
-      'facets': ['city', 'county', 'creators', 'honorees', 'object_types', 'source', 'sponsors', 'state', 'status', 'subjects', 'use_types', 'year_constructed', 'year_dedicated'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X
+      'returnFacets': ['city', 'county', 'creators', 'honorees', 'object_types', 'source', 'sponsors', 'state', 'status', 'subjects', 'use_types', 'year_constructed', 'year_dedicated'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X
       'facetSize': 20,
+      'start': 0,
       'size': 100,
-      'sort': '_score desc'
+      'sort': false,
+      'fields': '', // e.g. name,street_address
+      'q': 'monument',
+      'facets': '' // e.g. facetName1~value1!!value2!!value3__facetName2~value1
     };
     var q = Util.queryParams();
     this.opt = _.extend({}, defaults, config, q);
@@ -21,32 +25,50 @@ var Search = (function() {
   };
 
   Search.prototype.getQueryString = function(){
-    var queryText = this.$query.val();
+    var queryText = this.$query.val().trim();
     var isStructured = queryText.startsWith('(');
     var facetSize = this.opt.facetSize;
     var q = {
       q: queryText,
-      size: this.size,
-      start: this.start,
-      sort: this.sort
+      size: this.size
     };
-    var filters = _.clone(this.filters);
+    if (this.start > 0) q.start = this.start;
+    if (this.sort && this.sort.length) q.sort = this.sort;
+    var facets = _.clone(this.facets);
+    facets = _.omit(facets, function(values, key) {
+      return values.length < 1;
+    });
 
     // build query string, e.g. 'title^5','description'
     if (!isStructured) {
       // we need to add a filter to an empty search
-      if (queryText.length < 1 && _.isEmpty(filters)) {
-        filters.object_types = 'Monument';
+      if (queryText.length < 1 && _.isEmpty(facets)) {
+        facets.object_types = ['Monument'];
       }
 
       // build filter string
-      if (!_.isEmpty(filters)) {
+      if (!_.isEmpty(facets)) {
+        // e.g. (and title:'star' (or actors:'Harrison Ford' actors:'William Shatner'))
         var fqstring = '(and ';
-        var filterString = _.map(filters, function(value, key){
-          if (isNaN(value)) {
-            return key + ":'" + value + "'";
+        var filterString = _.map(facets, function(values, key){
+          if (values.length === 1) {
+            if (isNaN(values[0])) {
+              return key + ":'" + values[0] + "'";
+            } else {
+              return key + ":" + values[0];
+            }
           } else {
-            return key + ":" + value;
+            var orString = '(or ';
+            var orValuesString = _.map(values, function(value){
+              if (isNaN(value)) {
+                return key + ":'" + value + "'";
+              } else {
+                return key + ":" + value;
+              }
+            });
+            orValuesString = orValuesString.join(' ');
+            orString = orValuesString + ')';
+            return orString;
           }
         });
         filterString = filterString.join(' ');
@@ -56,7 +78,7 @@ var Search = (function() {
 
       // build search fields string
       if (queryText.length > 0) {
-        var fieldsString = $('#input-field-list input:checked').map(function(){
+        var fieldsString = $('.field-checkbox:checked').map(function(){
           var $input = $(this);
           var fstring = "'" + $input.val();
           var boost = $input.attr('data-boost');
@@ -74,7 +96,7 @@ var Search = (function() {
     }
 
     // build facet string
-    var facetString = _.each(this.opt.facets, function(facet){
+    var facetString = _.each(this.opt.returnFacets, function(facet){
       q['facet.'+facet] = '{sort:\'count\', size:'+facetSize+'}';
     });
 
@@ -89,19 +111,44 @@ var Search = (function() {
     this.$facets = $('#facets');
     this.$results = $('#search-results');
     this.$query = $('input[name="query"]').first();
-    this.filters = {};
+    this.facets = {};
     this.size = this.opt.size;
-    this.start = 0;
+    this.start = this.opt.start;
     this.sort = this.opt.sort;
 
-    if (this.opt.q) {
-      this.$query.val(this.opt.q);
-    } else {
-      this.$query.val('monument');
-    }
-
+    this.loadFromOptions();
     this.loadListeners();
     this.$form.trigger('submit');
+  };
+
+  Search.prototype.loadFromOptions = function(){
+    var q = this.opt.q.trim();
+    this.$query.val(q);
+
+    // select specific fields to search in
+    if (this.opt.fields && this.opt.fields.length) {
+      var selectedFields = this.opt.fields.split(',');
+      $('.field-checkbox').each(function(){
+        var $input = $(this);
+        var value = $input.val();
+        if (_.indexOf(selectedFields, value)) {
+          $input.prop('checked', true);
+        } else {
+          $input.prop('checked', false);
+        }
+      });
+    }
+
+    // e.g. facets=facetName1~value1!!value2!!value3__facetName2~value1
+    if (this.opt.facets && this.opt.facets.length) {
+      var pairs = _.map(this.opt.facets.split('__'), function(str){
+        var pair = str.split('~');
+        var facetName = pair[0];
+        var facetValues = pair[1].split('!!');
+        return [facetName, facetValues];
+      });
+      this.facets = _.object(pairs);
+    }
   };
 
   Search.prototype.loading = function(isLoading){
@@ -109,10 +156,10 @@ var Search = (function() {
 
     if (isLoading) {
       $('body').addClass('loading');
-      $('button').prop('disabled', true);
+      $('button, input').prop('disabled', true);
     } else {
       $('body').removeClass('loading');
-      $('button').prop('disabled', false);
+      $('button, input').prop('disabled', false);
     }
   };
 
@@ -121,8 +168,21 @@ var Search = (function() {
 
     this.$form.on('submit', function(e){
       e.preventDefault();
-      _this.onSearchSubmit();
-    })
+      if (!_this.isLoading) _this.onSearchSubmit();
+    });
+
+    $('body').on('change', '.facet-checkbox', function(e){
+      _this.onFacetCheckboxChange($(this));
+    });
+
+    $('body').on('click', '.apply-facet-changes-button', function(e){
+      if (!_this.isLoading) _this.updateFacets();
+    });
+  };
+
+  Search.prototype.onFacetCheckboxChange = function($input){
+    var $parent = $input.closest('.facet');
+    $parent.addClass('changed');
   };
 
   Search.prototype.onQueryResponse = function(resp){
@@ -140,17 +200,19 @@ var Search = (function() {
 
   Search.prototype.onSearchSubmit = function(){
     if (this.isLoading) return;
-    this.loading(true);
 
     this.query();
   };
 
   Search.prototype.query = function(){
     var _this = this;
+
+    this.loading(true);
     var queryString = this.getQueryString();
     var url = this.opt.endpoint + '?' + queryString;
 
     console.log('Search URL: ', url);
+    this.updateURL();
 
     $.getJSON(url, function(resp) {
       _this.onQueryResponse(resp);
@@ -183,10 +245,13 @@ var Search = (function() {
       html += '<fieldset class="facet active">';
         var sectionTitle = title+' ('+buckets.length+')';
         html += '<legend class="toggle-parent" data-active="'+sectionTitle+' ▼" data-inactive="'+sectionTitle+' ◀">'+sectionTitle+' ▼</legend>';
+        html += '<div class="facet-input-group">';
         _.each(buckets, function(bucket, j){
           var id = 'facet-'+key+'-'+j;
           html += '<label for="'+id+'"><input type="checkbox" name="'+key+'" id="'+id+'" value="'+bucket.value+'" class="facet-checkbox" />'+bucket.value+' ('+Util.formatNumber(bucket.count)+')</label>'
         });
+        html += '<button type="button" class="apply-facet-changes-button">Apply all changes</button>';
+        html += '</div>';
       html += '</fieldset>';
     });
 
@@ -221,7 +286,7 @@ var Search = (function() {
         _.each(fields, function(value, key){
           var isList = Array.isArray(value);
           html += '<tr>';
-            html += '<td>'+key.replace('_', ' ')+'</td>';
+            html += '<td>'+key.replace('_search', '').replace('_', ' ')+'</td>';
             if (isList) {
               value = _.map(value, function(v){
                 return '<span class="data-item">'+v+'</span>'
@@ -236,6 +301,78 @@ var Search = (function() {
     });
     html += '</ul>';
     this.$results.html(html);
+  };
+
+  Search.prototype.updateFacets = function(){
+    var facets = {};
+    $('.facet-checkbox:checked').each(function(){
+      var $input = $(this);
+      var facetName = $input.attr('name');
+      var facetValue = $input.val();
+      if (_.has(facets, facetName)) {
+        facets[facetName].push(facetValue);
+      } else {
+        facets[facetName] = [facetValue];
+      }
+    });
+    this.facets = facets;
+    this.query();
+  };
+
+  Search.prototype.updateURL = function(){
+    var params = {};
+
+    params.q = this.$query.val().trim();
+    if (this.start > 0) params.start = this.start;
+    if (this.sort && this.sort.length) params.sort = this.sort;
+
+    // selected specific fields to search in
+    var selectedFields = [];
+    var allChecked = true;
+    $('.field-checkbox').each(function(){
+      var $input = $(this);
+      if ($input.prop('checked')) {
+        selectedFields.push($input.val());
+      } else {
+        allChecked = false;
+      }
+    });
+    if (!allChecked) {
+      params.fields = selectedFields.join(',');
+    }
+
+    // selected facets
+    // e.g. facets=facetName1~value1!!value2!!value3__facetName2~value1
+    var facets = _.clone(this.facets);
+    facets = _.omit(facets, function(values, key) {
+      return values.length < 1;
+    });
+    if (!_.isEmpty(facets)) {
+      var facetsString = _.map(facets, function(values, key){
+        return key + '~' + values.join('!!');
+      });
+      facetsString = facetsString.join('__');
+      params.facets = facetsString;
+    }
+
+    if (window.history.pushState) {
+      var queryString = $.param(params);
+      var baseUrl = window.location.href.split('?')[0];
+      var currentState = window.history.state;
+      var newUrl = baseUrl + '?' + queryString;
+
+      // ignore if state is the same
+      if (currentState) {
+        var currentUrl = baseUrl + '?' + $.param(currentState);
+        if (newUrl === currentUrl) return;
+      }
+
+      window.historyInitiated = true;
+      // console.log('Updating url', newUrl);
+      window.history.replaceState(params, '', newUrl);
+      // window.history.pushState(data, '', newUrl);
+    }
+
   };
 
   return Search;

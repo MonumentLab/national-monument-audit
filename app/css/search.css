@@ -14,7 +14,7 @@ fieldset + p {
 }
 
 .facets-container {
-  max-width: 360px;
+  min-width: 300px;;
   box-sizing: border-box;
   padding: 0 0.5rem;
 }
@@ -22,6 +22,7 @@ fieldset + p {
   flex-grow: 1;
   margin-top: 1rem;
   padding-right: 0.5rem;
+  position: relative;
 }
 
 .facets-container h2 {
@@ -30,8 +31,34 @@ fieldset + p {
 .facets-container label {
   display: block;
 }
+.facets-container label:hover {
+  cursor: pointer;
+  background: #ffe25c;
+}
+.facets-container legend {
+  cursor: pointer;
+}
 .facet-checkbox {
   margin-right: 0.5rem;
+}
+.apply-facet-changes-button {
+  display: none;
+}
+.facet.changed .apply-facet-changes-button {
+  display: block;
+}
+.facet-input-group {
+  display: none;
+}
+.facet.active .facet-input-group {
+  display: block;
+}
+
+.search-form fieldset {
+  background: #eee;
+}
+.search-form fieldset legend {
+  background: white;
 }
 
 .search-input,
@@ -45,6 +72,8 @@ fieldset + p {
 .search-input {
   border: 1px solid black;
   box-sizing: border-box;
+  width: 60%;
+  min-width: 300px;
 }
 .search-button {
   padding-top: 0;
@@ -54,6 +83,15 @@ fieldset + p {
 .field-list label {
   display: inline-block;
   margin-right: 0.2rem;
+}
+
+body.loading .loader {
+  display: flex;
+}
+body.loading .search-results,
+body.loading .search-results-message,
+body.loading .search-results-pagination {
+  display: none;
 }
 
 .result-list {
@@ -70,4 +108,7 @@ fieldset + p {
 }
 .data-table tr:nth-child(even) td {
   background: #ddd;
+}
+.data-table td:first-child {
+  width: 120px;
 }
