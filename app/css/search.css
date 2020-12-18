@@ -14,7 +14,9 @@ fieldset + p {
 }
 
 .facets-container {
-  min-width: 300px;;
+  min-width: 300px;
+  width: 300px;
+  max-width: 300px;
   box-sizing: border-box;
   padding: 0 0.5rem;
 }

@@ -227,6 +227,7 @@ var Search = (function() {
   Search.prototype.renderFacets = function(facets){
     facets = facets || {};
 
+    var selectedFacets = this.facets;
     facets = _.pick(facets, function(obj, key) {
       return obj && obj.buckets && obj.buckets.length > 0;
     });
@@ -248,7 +249,9 @@ var Search = (function() {
         html += '<div class="facet-input-group">';
         _.each(buckets, function(bucket, j){
           var id = 'facet-'+key+'-'+j;
-          html += '<label for="'+id+'"><input type="checkbox" name="'+key+'" id="'+id+'" value="'+bucket.value+'" class="facet-checkbox" />'+bucket.value+' ('+Util.formatNumber(bucket.count)+')</label>'
+          var checked = '';
+          if (_.has(selectedFacets, key) && _.indexOf(selectedFacets[key], bucket.value) >= 0) checked = 'checked ';
+          html += '<label for="'+id+'"><input type="checkbox" name="'+key+'" id="'+id+'" value="'+bucket.value+'" class="facet-checkbox" '+checked+'/>'+bucket.value+' ('+Util.formatNumber(bucket.count)+')</label>'
         });
         html += '<button type="button" class="apply-facet-changes-button">Apply all changes</button>';
         html += '</div>';
