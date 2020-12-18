@@ -87,6 +87,23 @@ fieldset + p {
   margin-right: 0.2rem;
 }
 
+.search-results-message {
+  background: #ffe25c;
+  padding: 0.5rem;
+  border: 1px solid black;
+  margin: 0.5rem 0;
+}
+.search-results-message p {
+  margin: 0;
+}
+.search-results-message .remove-facet {
+  font-size: 0.9rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.2rem;
+  padding: 5px;
+}
+
 body.loading .loader {
   display: flex;
 }

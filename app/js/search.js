@@ -38,16 +38,17 @@ var Search = (function() {
     facets = _.omit(facets, function(values, key) {
       return values.length < 1;
     });
+    var isEmptyQuery = queryText.length < 1;
+    var isEmptyFacets = _.isEmpty(facets);
 
-    // build query string, e.g. 'title^5','description'
-    if (!isStructured) {
-      // we need to add a filter to an empty search
-      if (queryText.length < 1 && _.isEmpty(facets)) {
-        facets.object_types = ['Monument'];
-      }
+    // empty search
+    if (isEmptyQuery && isEmptyFacets) {
+      q.q = 'matchall';
+      q['q.parser'] = 'structured';
 
+    } else if (!isStructured) {
       // build filter string
-      if (!_.isEmpty(facets)) {
+      if (!isEmptyFacets) {
         // e.g. (and title:'star' (or actors:'Harrison Ford' actors:'William Shatner'))
         var fqstring = '(and ';
         var filterString = _.map(facets, function(values, key){
@@ -67,17 +68,23 @@ var Search = (function() {
               }
             });
             orValuesString = orValuesString.join(' ');
-            orString = orValuesString + ')';
+            orString += orValuesString + ')';
             return orString;
           }
         });
         filterString = filterString.join(' ');
         fqstring += filterString + ')';
-        q.fq = fqstring;
+
+        if (isEmptyQuery) {
+          q.q = fqstring;
+          q['q.parser'] = 'structured';
+        } else {
+          q.fq = fqstring;
+        }
       }
 
       // build search fields string
-      if (queryText.length > 0) {
+      if (!isEmptyQuery) {
         var fieldsString = $('.field-checkbox:checked').map(function(){
           var $input = $(this);
           var fstring = "'" + $input.val();
@@ -100,6 +107,7 @@ var Search = (function() {
       q['facet.'+facet] = '{sort:\'count\', size:'+facetSize+'}';
     });
 
+    console.log('Query object: ', q);
     var qstring = $.param(q);
 
     return qstring;
@@ -110,6 +118,7 @@ var Search = (function() {
     this.$form = $('#search-form');
     this.$facets = $('#facets');
     this.$results = $('#search-results');
+    this.$resultMessage = $('#search-results-message');
     this.$query = $('input[name="query"]').first();
     this.facets = {};
     this.size = this.opt.size;
@@ -178,6 +187,15 @@ var Search = (function() {
     $('body').on('click', '.apply-facet-changes-button', function(e){
       if (!_this.isLoading) _this.updateFacets();
     });
+
+    $('body').on('click', '.remove-facet', function(e){
+      if (!_this.isLoading) {
+        var $el = $(this);
+        var key = $el.attr('data-key');
+        var value = $el.attr('data-value');
+        _this.removeFacet(key, value);
+      }
+    });
   };
 
   Search.prototype.onFacetCheckboxChange = function($input){
@@ -189,12 +207,13 @@ var Search = (function() {
     console.log(resp);
     this.loading(false);
 
-    if (resp && resp.hits && resp.hits.found && resp.hits.found > 0) {
+    if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
+      this.renderResultMessage(resp.hits.found, resp.hits.start);
       this.renderResults(resp.hits.hit, resp.facets);
     } else {
-      this.renderEmpty();
+      this.renderResultMessage(0, this.start);
+      this.renderResults([], {});
     }
-
 
   };
 
@@ -219,9 +238,14 @@ var Search = (function() {
     });
   };
 
-  Search.prototype.renderEmpty = function(){
-    this.renderFacets({});
-    this.$results.empty();
+  Search.prototype.removeFacet = function(key, value){
+    if (!_.has(this.facets, key)) return;
+
+    this.facets[key] = _.without(this.facets[key], value);
+    if (this.facets[key].length < 1) {
+      this.facets = _.omit(this.facets, key);
+    }
+    this.query();
   };
 
   Search.prototype.renderFacets = function(facets){
@@ -261,15 +285,34 @@ var Search = (function() {
     this.$facets.html(html);
   };
 
-  Search.prototype.renderResults = function(results, facets){
-    if (!results || !results.length) {
-      this.renderEmpty();
-      return;
-    }
+  Search.prototype.renderResultMessage = function(totalCount, offsetStart){
+    var $container = this.$resultMessage;
+    var queryText = this.$query.val().trim();
+    var size = this.size;
+    var startNumber = offsetStart * size + 1;
+    var endNumber = Math.min(totalCount, startNumber + size - 1);
 
+    var html = '<p>';
+      html += 'Found ' + Util.formatNumber(totalCount) + ' records with query <strong>"' + queryText + '"</strong>';
+      if (!_.isEmpty(this.facets)){
+        html += ' with facets: ';
+        _.each(this.facets, function(values, key){
+          var title = key.replace('_', ' ');
+          _.each(values, function(value){
+            html += '<button type="button" class="remove-facet" data-key="'+key+'" data-value="'+value+'"><strong>'+title+'</strong>: "'+value+'" <strong>×</strong></button>';
+          });
+        });
+      }
+      html += '. Showing results ' + Util.formatNumber(startNumber) + ' to ' + Util.formatNumber(endNumber) + '.';
+    html += '</p>';
+    $container.html(html);
+  };
+
+  Search.prototype.renderResults = function(results, facets){
     this.renderFacets(facets);
 
     this.$results.empty();
+    if (!results || !results.length) return;
     var html = '';
     var start = this.start;
 
