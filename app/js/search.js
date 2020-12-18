@@ -9,7 +9,7 @@ var Search = (function() {
       'facetSize': 20,
       'start': 0,
       'size': 100,
-      'sort': false,
+      'sort': '',
       'fields': '', // e.g. name,street_address
       'q': 'monument',
       'facets': '' // e.g. facetName1~value1!!value2!!value3__facetName2~value1
@@ -118,6 +118,7 @@ var Search = (function() {
     this.$form = $('#search-form');
     this.$facets = $('#facets');
     this.$results = $('#search-results');
+    this.$sort = $('#search-sort-select');
     this.$resultMessage = $('#search-results-message');
     this.$query = $('input[name="query"]').first();
     this.facets = {};
@@ -133,6 +134,7 @@ var Search = (function() {
   Search.prototype.loadFromOptions = function(){
     var q = this.opt.q.trim();
     this.$query.val(q);
+    this.$sort.val(this.sort);
 
     // select specific fields to search in
     if (this.opt.fields && this.opt.fields.length) {
@@ -165,10 +167,10 @@ var Search = (function() {
 
     if (isLoading) {
       $('body').addClass('loading');
-      $('button, input').prop('disabled', true);
+      $('button, input, select').prop('disabled', true);
     } else {
       $('body').removeClass('loading');
-      $('button, input').prop('disabled', false);
+      $('button, input, select').prop('disabled', false);
     }
   };
 
@@ -178,6 +180,10 @@ var Search = (function() {
     this.$form.on('submit', function(e){
       e.preventDefault();
       if (!_this.isLoading) _this.onSearchSubmit();
+    });
+
+    this.$sort.on('change', function(){
+      _this.onSortChange($(this).val());
     });
 
     $('body').on('change', '.facet-checkbox', function(e){
@@ -220,6 +226,13 @@ var Search = (function() {
   Search.prototype.onSearchSubmit = function(){
     if (this.isLoading) return;
 
+    this.query();
+  };
+
+  Search.prototype.onSortChange = function(sortValue){
+    if (this.isLoading) return;
+
+    this.sort = sortValue;
     this.query();
   };
 
@@ -343,6 +356,8 @@ var Search = (function() {
                 return '<a href="'+facetUrl+'" class="button">'+v+'</a>';
               })
               value = value.join(' ');
+            } else if (key === 'url') {
+              value = '<a href="'+value+'" target="_blank">'+value+'</a>';
             }
             html += '<td>'+value+'</td>';
           html += '</tr>';

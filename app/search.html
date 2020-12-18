@@ -72,6 +72,18 @@
               <p>Loading results...</p>
             </div>
           </div>
+          <div id="search-sort" class="search-sort">
+            <label for="search-sort-select">Sort by:</label>
+            <select id="search-sort-select" class="search-sort-select">
+              <option value="">Score</option>
+              <option value="name asc">Name (A → Z)</option>
+              <option value="name desc">Name (Z → A)</option>
+              <option value="year_dedicated desc">Year dedicated (present → past)</option>
+              <option value="year_dedicated asc">Year dedicated (past → present)</option>
+              <option value="year_constructed desc">Year constructed (present → past)</option>
+              <option value="year_constructed asc">Year constructed (past → present)</option>
+            </select>
+          </div>
           <div id="search-results" class="search-results"></div>
           <div id="search-results-pagination" class="search-results-pagination"></div>
         </div>

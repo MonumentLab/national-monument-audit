@@ -104,12 +104,23 @@ fieldset + p {
   padding: 5px;
 }
 
+.search-sort {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: -1rem;
+}
+.search-sort label {
+  margin-right: 0.5rem;
+}
+
 body.loading .loader {
   display: flex;
 }
 body.loading .search-results,
 body.loading .search-results-message,
-body.loading .search-results-pagination {
+body.loading .search-results-pagination,
+body.loading .search-sort {
   display: none;
 }
 
@@ -120,6 +131,9 @@ body.loading .search-results-pagination {
 }
 .result-item h4 {
   margin-bottom: 0.2rem;
+}
+.result-item:first-child h4 {
+  margin-top: 0rem;
 }
 .data-table {
   font-size: 0.9rem;
