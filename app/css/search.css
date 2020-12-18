@@ -152,3 +152,11 @@ body.loading .search-sort {
   margin-right: 0.2rem;
   vertical-align: middle;
 }
+
+.search-results-pagination {
+  margin: 1rem 0;
+}
+.search-results-pagination .page-link {
+  display: inline-block;
+  margin: 0 0 1rem 1rem;
+}

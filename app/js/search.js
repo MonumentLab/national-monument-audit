@@ -24,7 +24,7 @@ var Search = (function() {
     if (isValid) this.load();
   };
 
-  Search.prototype.getQueryString = function(){
+  Search.prototype.getQueryObject = function(){
     var queryText = this.$query.val().trim();
     var isStructured = queryText.startsWith('(');
     var facetSize = this.opt.facetSize;
@@ -108,8 +108,13 @@ var Search = (function() {
     });
 
     console.log('Query object: ', q);
-    var qstring = $.param(q);
 
+    return q;
+  };
+
+  Search.prototype.getQueryString = function(){
+    var q = this.getQueryObject();
+    var qstring = $.param(q);
     return qstring;
   };
 
@@ -120,15 +125,16 @@ var Search = (function() {
     this.$results = $('#search-results');
     this.$sort = $('#search-sort-select');
     this.$resultMessage = $('#search-results-message');
+    this.$pagination = $('#search-results-pagination');
     this.$query = $('input[name="query"]').first();
     this.facets = {};
-    this.size = this.opt.size;
-    this.start = this.opt.start;
+    this.size = parseInt(this.opt.size);
+    this.start = parseInt(this.opt.start);
     this.sort = this.opt.sort;
 
     this.loadFromOptions();
     this.loadListeners();
-    this.$form.trigger('submit');
+    this.query();
   };
 
   Search.prototype.loadFromOptions = function(){
@@ -214,24 +220,29 @@ var Search = (function() {
     this.loading(false);
 
     if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
-      this.renderResultMessage(resp.hits.found, resp.hits.start);
-      this.renderResults(resp.hits.hit, resp.facets);
+      this.renderResultMessage(resp.hits.found);
+      this.renderResults(resp.hits.hit);
+      this.renderFacets(resp.facets);
+      this.renderPagination(resp.hits.found);
+
     } else {
-      this.renderResultMessage(0, this.start);
-      this.renderResults([], {});
+      this.renderResultMessage(0);
+      this.renderResults([]);
+      this.renderFacets({});
+      this.renderPagination(0);
     }
 
   };
 
   Search.prototype.onSearchSubmit = function(){
     if (this.isLoading) return;
-
+    this.start = 0;
     this.query();
   };
 
   Search.prototype.onSortChange = function(sortValue){
     if (this.isLoading) return;
-
+    this.start = 0;
     this.sort = sortValue;
     this.query();
   };
@@ -258,6 +269,7 @@ var Search = (function() {
     if (this.facets[key].length < 1) {
       this.facets = _.omit(this.facets, key);
     }
+    this.start = 0;
     this.query();
   };
 
@@ -298,11 +310,40 @@ var Search = (function() {
     this.$facets.html(html);
   };
 
-  Search.prototype.renderResultMessage = function(totalCount, offsetStart){
+  Search.prototype.renderPagination = function(totalCount){
+    this.$pagination.empty();
+    if (totalCount <= 0) return;
+
+    var offsetStart = this.start;
+    var size = this.size;
+    var pages = Math.ceil(totalCount / size);
+    var currentPage = Math.floor(offsetStart / size);
+
+    var html = '<p>Go to page:';
+    var queryObj = _.clone(this.getQueryObject());
+    queryObj = _.omit(queryObj, 'start');
+    _.times(pages, function(page){
+      if (page > 0) {
+        queryObj.start = page * size + 1;
+      }
+      var url = '?' + $.param(queryObj);
+      if (page === currentPage) {
+        html += '<span class="page-link">'+(page+1)+'</span>';
+      } else {
+        html += '<a href="'+url+'" class="page-link">'+(page+1)+'</a>';
+      }
+    });
+    html += '</p>';
+
+    this.$pagination.html(html);
+  };
+
+  Search.prototype.renderResultMessage = function(totalCount){
     var $container = this.$resultMessage;
+    var offsetStart = this.start;
     var queryText = this.$query.val().trim();
     var size = this.size;
-    var startNumber = offsetStart * size + 1;
+    var startNumber = Math.max(1, offsetStart);
     var endNumber = Math.min(totalCount, startNumber + size - 1);
 
     var html = '<p>';
@@ -321,9 +362,7 @@ var Search = (function() {
     $container.html(html);
   };
 
-  Search.prototype.renderResults = function(results, facets){
-    this.renderFacets(facets);
-
+  Search.prototype.renderResults = function(results){
     this.$results.empty();
     if (!results || !results.length) return;
     var html = '';
@@ -382,6 +421,7 @@ var Search = (function() {
       }
     });
     this.facets = facets;
+    this.start = 0;
     this.query();
   };
 
