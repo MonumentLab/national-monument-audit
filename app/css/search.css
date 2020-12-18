@@ -131,3 +131,10 @@ body.loading .search-results-pagination {
 .data-table td:first-child {
   width: 120px;
 }
+.data-table .button {
+  font-size: 0.9rem;
+  padding: 0 2px;
+  display: inline-block;
+  margin-right: 0.2rem;
+  vertical-align: middle;
+}

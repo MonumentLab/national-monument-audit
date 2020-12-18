@@ -335,7 +335,12 @@ var Search = (function() {
             html += '<td>'+key.replace('_search', '').replace('_', ' ')+'</td>';
             if (isList) {
               value = _.map(value, function(v){
-                return '<span class="data-item">'+v+'</span>'
+                var params = {
+                  q: '',
+                  facets: key + '~' + v
+                };
+                var facetUrl = '?' + $.param(params);
+                return '<a href="'+facetUrl+'" class="button">'+v+'</a>';
               })
               value = value.join(' ');
             }
