@@ -405,6 +405,8 @@ var Search = (function() {
               value = value.join(' ');
             } else if (key === 'url') {
               value = '<a href="'+value+'" target="_blank">'+value+'</a>';
+            } else if (key === 'latlon') {
+              value = '<a href="https://www.google.com/maps/search/?api=1&query='+value.replace(' ','')+'" target="_blank">'+value+'</a>';
             }
             html += '<td>'+value+'</td>';
           html += '</tr>';
