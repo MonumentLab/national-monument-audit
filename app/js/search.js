@@ -27,6 +27,7 @@ var Search = (function() {
   Search.prototype.getQueryObject = function(){
     var queryText = this.$query.val().trim();
     var isStructured = queryText.startsWith('(');
+    var isDocumentSearch = this.isDocumentSearch;
     var facetSize = this.opt.facetSize;
     var q = {
       q: queryText,
@@ -41,8 +42,12 @@ var Search = (function() {
     var isEmptyQuery = queryText.length < 1;
     var isEmptyFacets = _.isEmpty(facets);
 
+    // individual document search
+    if (isDocumentSearch) {
+      q['q.parser'] = 'structured';
+
     // empty search
-    if (isEmptyQuery && isEmptyFacets) {
+    } else if (isEmptyQuery && isEmptyFacets) {
       q.q = 'matchall';
       q['q.parser'] = 'structured';
 
@@ -103,9 +108,11 @@ var Search = (function() {
     }
 
     // build facet string
-    var facetString = _.each(this.opt.returnFacets, function(facet){
-      q['facet.'+facet] = '{sort:\'count\', size:'+facetSize+'}';
-    });
+    if (!isDocumentSearch) {
+      var facetString = _.each(this.opt.returnFacets, function(facet){
+        q['facet.'+facet] = '{sort:\'count\', size:'+facetSize+'}';
+      });
+    }
 
     console.log('Query object: ', q);
 
@@ -131,6 +138,7 @@ var Search = (function() {
     this.size = parseInt(this.opt.size);
     this.start = parseInt(this.opt.start);
     this.sort = this.opt.sort;
+    this.isDocumentSearch = this.opt.q.startsWith('_id');
 
     this.loadFromOptions();
     this.loadListeners();

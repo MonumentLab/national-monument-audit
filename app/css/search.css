@@ -18,12 +18,16 @@ fieldset + p {
   width: 300px;
   max-width: 300px;
   box-sizing: border-box;
-  padding: 0 0.5rem;
+  padding: 0 0.5rem 0 0;
+  display: none;
+}
+.facets-container.active {
+  display: block;
 }
 .search-container {
   flex-grow: 1;
   margin-top: 1rem;
-  padding-right: 0.5rem;
+  padding: 0 0.5rem;
   position: relative;
 }
 

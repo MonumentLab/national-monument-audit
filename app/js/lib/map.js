@@ -14,6 +14,7 @@ var Map = (function() {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       centerLatLon: [38.5767, -92.1736], // Jefferson City, MO as center
       dataUrl: 'data/locations.json'
+      // searchUrl: 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search'
     };
     this.opt = _.extend({}, defaults, config);
     this.init();
@@ -31,6 +32,12 @@ var Map = (function() {
     // only take data with lat lon set
     this.data = _.filter(this.opt.data, function(d){
       return !isNaN(d.lat) && !isNaN(d.lon) && d.lat > -999 && d.lon > -999;
+    });
+
+    // add search id
+    this.data = _.map(this.data, function(d){
+      d.searchId = Util.stringToId(d.source) + '_' + d.id;
+      return d;
     });
 
     var diff = this.opt.data.length - this.data.length;
@@ -51,6 +58,8 @@ var Map = (function() {
         html += '<p><strong>Source:</strong> '+d.source+'</p>';
         var year = d.year > 0 ? d.year : 'Unknown';
         html += '<p><strong>Year:</strong> '+year+'</p>';
+        var p = {q: '_id:\''+d.searchId+'\''};
+        html += '<p><a href="search.html?'+$.param(p)+'" target="_blank">[View full record]</a></p>';
         marker.bindPopup(html);
         markers.addLayer(marker);
     });
@@ -74,6 +83,7 @@ var Map = (function() {
 
   Map.prototype.loadMap = function(){
     var opt = this.opt;
+    var _this = this;
 
     this.filteredData = this.data.slice(0);
 
@@ -91,6 +101,10 @@ var Map = (function() {
 
     this.featureLayer = new L.FeatureGroup();
     map.addLayer(this.featureLayer);
+
+    // map.on('popupopen', function(e) {
+    //   _this.onPopup(e.popup);
+    // });
 
     this.refreshLayers();
   };
@@ -132,6 +146,23 @@ var Map = (function() {
     this.activeYearRange = newRange;
 
     this.refreshLayers();
+  };
+
+  Map.prototype.onPopup = function(p){
+    var content = p.getContent();
+    if (content.indexOf('Loading') < 0) return;
+
+    var searchId = '';
+    var p = {
+      'q.parser': 'structured',
+      'q': '_id:\''+searchId+'\''
+    }
+    var url = this.opt.searchUrl + '?q='
+    $.getJSON(url, function(resp) {
+      if (p.isOpen()) {
+
+      }
+    });
   };
 
   Map.prototype.refreshLayers = function(){

@@ -337,10 +337,10 @@ topSubjects = list(allCounts["Subjects"])
 if len(topSubjects) > 100:
     topSubjects = topSubjects[:100]
 jsonOut = {
-    "cols": ["lat", "lon", "name", "source", "year", "subjects"],
+    "cols": ["lat", "lon", "name", "source", "year", "id"],
     "groups": {
-        "source": [d["name"] for d in dataSources],
-        "subjects": [value for value, count in topSubjects]
+        "source": [d["name"] for d in dataSources]
+        # "subjects": [value for value, count in topSubjects]
     }
 }
 jsonRows = []
@@ -358,15 +358,16 @@ for row in rowsOut:
         year = parseYear(row["Year Constructed"]) if "Year Constructed" in row else False
     if year is False:
         year = -1
-    subjects = []
-    if "Subjects" in row:
-        subjectValues = row["Subjects"]
-        if not isinstance(subjectValues, list):
-            subjectValues = [subjectValues]
-        for value in subjectValues:
-            if value in jsonOut["groups"]["subjects"]:
-                subjects.append(jsonOut["groups"]["subjects"].index(value))
-    jsonRow += [name, source, year, subjects]
+    id = row["Vendor Entry ID"]
+    # subjects = []
+    # if "Subjects" in row:
+    #     subjectValues = row["Subjects"]
+    #     if not isinstance(subjectValues, list):
+    #         subjectValues = [subjectValues]
+    #     for value in subjectValues:
+    #         if value in jsonOut["groups"]["subjects"]:
+    #             subjects.append(jsonOut["groups"]["subjects"].index(value))
+    jsonRow += [name, source, year, id]
     jsonRows.append(jsonRow)
 jsonOut["rows"] = jsonRows
 writeJSON(a.APP_DIRECTORY + "data/records.json", jsonOut)

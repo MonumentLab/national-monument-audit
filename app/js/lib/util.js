@@ -119,6 +119,13 @@
     }, 1000);
   };
 
+  Util.stringToId = function(string) {
+    string = string.toLowerCase();
+    string = string.replace(/[^a-z0-9]+/gi, '_');
+    return string
+  };
+
+
   Util.uniqueString = function(prefix){
     prefix = prefix || '';
     var dt = new Date().getTime();

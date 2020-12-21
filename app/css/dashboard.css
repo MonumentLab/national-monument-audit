@@ -143,7 +143,9 @@ body.hidden.loading > .loader {
 .map-type-menu input:checked ~ .label-text {
   color: black;
 }
-
+.leaflet-popup-content p {
+  margin: 3px 0;
+}
 
 .timeline-container {
   width: 0;

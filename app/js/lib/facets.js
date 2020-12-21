@@ -7,7 +7,7 @@ var Facets = (function() {
       el: '#facets',
       messageEl: '#facet-message',
       data: [], // pass this in
-      keys: ['source', 'subjects']
+      keys: ['source']
     };
     this.opt = _.extend({}, defaults, config);
     this.init();
