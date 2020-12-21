@@ -128,6 +128,7 @@ var Search = (function() {
   Search.prototype.load = function(){
     this.isLoading = false;
     this.$form = $('#search-form');
+    this.$facetsContainer = $('#facets-container');
     this.$facets = $('#facets');
     this.$results = $('#search-results');
     this.$sort = $('#search-sort-select');
@@ -291,11 +292,11 @@ var Search = (function() {
 
     this.$facets.empty();
     if (_.isEmpty(facets)) {
-      this.$facets.removeClass('active');
+      this.$facetsContainer.removeClass('active');
       return;
     }
 
-    this.$facets.addClass('active');
+    this.$facetsContainer.addClass('active');
     var html = '';
     _.each(facets, function(obj, key){
       var title = key.replace('_', ' ');
