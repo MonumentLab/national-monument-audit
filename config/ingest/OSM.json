@@ -1,0 +1,37 @@
+{
+  "name": "Open Street Map Points of Interest: Historic Monuments and Memorials",
+  "provider": "Open Street Map",
+  "url": "https://wiki.openstreetmap.org/wiki/Key:historic",
+  "geographicCoverage": "national",
+  "dataPath": "data/vendor/national/osm/quickOSM/*.csv",
+  "dateDataAccessed": "2020-12-13",
+  "needsMerge": true,
+  "properties": ["osm_id", "X", "Y", "memorial", "monument", "historic", "name", "inscription", "material", "start_date", "wikidata", "description", "wikipedia", "website", "owner", "artist_name", "artwork_type", "addr_city", "addr_state", "addr_street", "image"],
+  "mappings": {
+    "osm_id": {"to": "Vendor Entry ID"},
+    "name": {"to": "Name"},
+    "start_date": {"to": "Year Constructed"},
+    "owner": {"to": "Sponsors"},
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "addr_city": {"to": "City"},
+    "addr_state": {"to": "State"},
+    "addr_street": {"to": "Street Address"},
+    "memorial": {"to": "Object Types"},
+    "monument": {"to": "Object Types"},
+    "historic": {"to": "Object Types"},
+    "inscription": {"to": "Text"},
+    "material": {"to": "Material"},
+    "description": {"to": "Description"},
+    "artist_name": {"to": "Creators"},
+    "artwork_type": {"to": "Object Types"},
+    "image": {"to": "Image"},
+    "wikidata": {"to": "Wikidata"},
+    "wikipedia": {"to": "Wikipedia"}
+  },
+  "notes": [
+    "Combines two OSM tags: <a href=\"https://wiki.openstreetmap.org/wiki/Tag%3Ahistoric%3Dmonument\" target=\"_blank\">historic:monument</a> and <a href=\"https://wiki.openstreetmap.org/wiki/Key:memorial\" target=\"_blank\">historic:memorial</a>",
+    "There is a very <a href=\"https://github.com/MonumentLab/national-monument-audit/tree/main/data/vendor/national/osm/quickOSM/fields.txt\" target=\"_blank\">long tail of metadata</a>, most of which don't have a lot of coverage.",
+    "Processed using QuickOSM plug-in on QGIS. <a href=\"https://github.com/MonumentLab/national-monument-audit/tree/main/data/vendor/national/osm/quickOSM/Key- File Descriptions.docx\" target=\"_blank\">Documentation here.</a>"
+  ]
+}

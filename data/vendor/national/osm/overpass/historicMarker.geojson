@@ -1,0 +1,7233 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-ide",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2020-12-22T18:04:03Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/357334470",
+        "authority": "Pennsylvania Historical and Museum Comission",
+        "ele": "271",
+        "gnis:county_id": "003",
+        "gnis:created": "08/30/1990",
+        "gnis:feature_id": "1198151",
+        "gnis:state_id": "42",
+        "historic": "marker",
+        "marker_date": "2006/7/7",
+        "name": "Forbes Field Oufield Wall and Flagpole",
+        "wikidata": "Q1963954",
+        "wikipedia": "en:Forbes Field",
+        "@timestamp": "2017-03-23T18:29:21Z",
+        "@version": "6",
+        "@changeset": "47104228",
+        "@user": "nyuriks",
+        "@uid": "339581"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.9526917,
+          40.4412213
+        ]
+      },
+      "id": "node/357334470"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/357611904",
+        "ele": "2257",
+        "gnis:county_id": "006",
+        "gnis:created": "05/01/1994",
+        "gnis:feature_id": "931683",
+        "gnis:state_id": "35",
+        "historic": "marker",
+        "name": "Lava Beds Historical Marker",
+        "wikidata": "Q49515103",
+        "@timestamp": "2020-10-11T18:46:38Z",
+        "@version": "4",
+        "@changeset": "92310749",
+        "@user": "Edward",
+        "@uid": "364"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.3533321,
+          35.0382869
+        ]
+      },
+      "id": "node/357611904"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/357612326",
+        "board_type": "history",
+        "ele": "1403",
+        "gnis:county_id": "053",
+        "gnis:created": "05/01/1994",
+        "gnis:feature_id": "932299",
+        "gnis:state_id": "35",
+        "historic": "marker",
+        "information": "board",
+        "name": "Socorro Historical Marker",
+        "tourism": "information",
+        "@timestamp": "2018-09-30T09:29:01Z",
+        "@version": "7",
+        "@changeset": "63058008",
+        "@user": "haprager",
+        "@uid": "7453397"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -106.8939971,
+          34.0583112
+        ]
+      },
+      "id": "node/357612326"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/357612439",
+        "ele": "2132",
+        "gnis:county_id": "049",
+        "gnis:created": "05/01/1994",
+        "gnis:feature_id": "932319",
+        "gnis:state_id": "35",
+        "historic": "marker",
+        "name": "Seton Village Historical Marker",
+        "wikidata": "Q49559833",
+        "@timestamp": "2020-10-22T23:11:53Z",
+        "@version": "4",
+        "@changeset": "92921806",
+        "@user": "Arlo James Barnes",
+        "@uid": "682928"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -105.9321718,
+          35.5997211
+        ]
+      },
+      "id": "node/357612439"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/357612605",
+        "ele": "2257",
+        "gnis:county_id": "006",
+        "gnis:created": "05/01/1994",
+        "gnis:feature_id": "932364",
+        "gnis:state_id": "35",
+        "historic": "marker",
+        "name": "Pueblo Revolt Tricentennial Historical Marker",
+        "@timestamp": "2015-04-16T15:00:23Z",
+        "@version": "3",
+        "@changeset": "30266888",
+        "@user": "afdreher",
+        "@uid": "1110270"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.353721,
+          35.0383022
+        ]
+      },
+      "id": "node/357612605"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/357612738",
+        "ele": "2224",
+        "gnis:county_id": "006",
+        "gnis:created": "05/01/1994",
+        "gnis:feature_id": "932400",
+        "gnis:state_id": "35",
+        "historic": "marker",
+        "information": "board",
+        "name": "El Morro National Monument Inscription Rock Historical Marker",
+        "tourism": "information",
+        "@timestamp": "2019-12-02T01:28:53Z",
+        "@version": "3",
+        "@changeset": "77794907",
+        "@user": "Sparks",
+        "@uid": "80285"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -108.3198678,
+          35.0445679
+        ]
+      },
+      "id": "node/357612738"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/357794733",
+        "ele": "299",
+        "gnis:county_id": "055",
+        "gnis:created": "03/27/2001",
+        "gnis:feature_id": "1900079",
+        "gnis:state_id": "31",
+        "historic": "marker",
+        "name": "Trans-Mississippi and Inter Expo Historical Marker",
+        "@timestamp": "2018-06-04T12:43:50Z",
+        "@version": "4",
+        "@changeset": "59536520",
+        "@user": "dolph72",
+        "@uid": "7297876"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -95.9251662,
+          41.2589143
+        ]
+      },
+      "id": "node/357794733"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/357973371",
+        "ele": "1191",
+        "gnis:county_id": "073",
+        "gnis:created": "07/09/1997",
+        "gnis:feature_id": "1748690",
+        "gnis:state_id": "30",
+        "historic": "marker",
+        "name": "Captain Meriwether Lewis Historical Marker",
+        "@timestamp": "2017-07-04T17:49:24Z",
+        "@version": "2",
+        "@changeset": "50040100",
+        "@user": "HubMiner",
+        "@uid": "238419"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.5467183,
+          48.3249746
+        ]
+      },
+      "id": "node/357973371"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/357974665",
+        "ele": "1347",
+        "gnis:county_id": "035",
+        "gnis:created": "07/10/1997",
+        "gnis:feature_id": "1750573",
+        "gnis:state_id": "30",
+        "historic": "marker",
+        "name": "Blackfeet Nation Historical Marker",
+        "@timestamp": "2017-07-04T17:48:59Z",
+        "@version": "2",
+        "@changeset": "50040091",
+        "@user": "HubMiner",
+        "@uid": "238419"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.0050833,
+          48.5413615
+        ]
+      },
+      "id": "node/357974665"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/357986148",
+        "ele": "1345",
+        "gnis:county_id": "035",
+        "gnis:created": "03/17/1999",
+        "gnis:feature_id": "1813128",
+        "gnis:state_id": "30",
+        "historic": "marker",
+        "name": "Old Agency 1880-1894 Historical Marker",
+        "@timestamp": "2017-07-04T17:48:59Z",
+        "@version": "2",
+        "@changeset": "50040091",
+        "@user": "HubMiner",
+        "@uid": "238419"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.0092502,
+          48.5430282
+        ]
+      },
+      "id": "node/357986148"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/358060171",
+        "ele": "276",
+        "gnis:county_id": "095",
+        "gnis:created": "10/01/1990",
+        "gnis:feature_id": "746646",
+        "gnis:state_id": "29",
+        "historic": "marker",
+        "name": "Eureka School",
+        "@timestamp": "2012-09-24T22:37:09Z",
+        "@version": "3",
+        "@changeset": "13240218",
+        "@user": "neil456",
+        "@uid": "915677"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -94.3168933,
+          39.0611169
+        ]
+      },
+      "id": "node/358060171"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/358802034",
+        "ele": "460",
+        "gnis:county_id": "029",
+        "gnis:created": "01/19/1981",
+        "gnis:feature_id": "273354",
+        "gnis:state_id": "06",
+        "historic": "marker",
+        "name": "Rose Stage Station Historical Marker",
+        "@timestamp": "2013-06-30T19:03:30Z",
+        "@version": "2",
+        "@changeset": "16768547",
+        "@user": "KindredCoda",
+        "@uid": "14293"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.9325635,
+          34.9413113
+        ]
+      },
+      "id": "node/358802034"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/358985643",
+        "ele": "174",
+        "gnis:county_id": "077",
+        "gnis:created": "12/01/1992",
+        "gnis:feature_id": "158349",
+        "gnis:state_id": "01",
+        "historic": "marker",
+        "name": "Walnut Street Historic District",
+        "@timestamp": "2016-12-19T22:03:32Z",
+        "@version": "3",
+        "@changeset": "44527166",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.673664,
+          34.8046634
+        ]
+      },
+      "id": "node/358985643"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/459777958",
+        "historic": "marker",
+        "@timestamp": "2009-08-09T16:05:09Z",
+        "@version": "1",
+        "@changeset": "2086529",
+        "@user": "aude",
+        "@uid": "12055"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0289602,
+          38.9897203
+        ]
+      },
+      "id": "node/459777958"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/538713045",
+        "historic": "marker",
+        "@timestamp": "2018-06-17T13:39:27Z",
+        "@version": "4",
+        "@changeset": "59915316",
+        "@user": "rjhale1971",
+        "@uid": "109362"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.3101551,
+          35.0612206
+        ]
+      },
+      "id": "node/538713045"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/567065887",
+        "historic": "marker",
+        "name": "Cheatham's Salient",
+        "website": "www.georgiaplanning.com/hm/images/hm1124.jpg",
+        "@timestamp": "2018-06-01T00:47:03Z",
+        "@version": "2",
+        "@changeset": "59446744",
+        "@user": "LeifRasmussen",
+        "@uid": "4312767"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.3511815,
+          33.7937876
+        ]
+      },
+      "id": "node/567065887"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/746919660",
+        "historic": "marker",
+        "name": "Sterling Station",
+        "@timestamp": "2010-05-24T05:40:46Z",
+        "@version": "1",
+        "@changeset": "4789853",
+        "@user": "mutantmonkey",
+        "@uid": "99367"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.4284474,
+          39.0062417
+        ]
+      },
+      "id": "node/746919660"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1329180971",
+        "historic": "marker",
+        "name": "Kansas Historical Marker: Homestead of a Genius",
+        "tourism": "attraction",
+        "@timestamp": "2011-06-18T02:42:03Z",
+        "@version": "1",
+        "@changeset": "8469893",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -100.1996764,
+          38.4505909
+        ]
+      },
+      "id": "node/1329180971"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1330381034",
+        "historic": "marker",
+        "name": "Historic Marker: Fort Hays/Fort Dodge Trail",
+        "tourism": "attraction",
+        "@timestamp": "2011-06-19T05:17:31Z",
+        "@version": "1",
+        "@changeset": "8480038",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.5581749,
+          38.4661337
+        ]
+      },
+      "id": "node/1330381034"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1361050758",
+        "historic": "marker",
+        "name": "Old Folsom Powerhouse California State Historical Landmark",
+        "@timestamp": "2011-07-13T23:01:25Z",
+        "@version": "1",
+        "@changeset": "8717452",
+        "@user": "California Bear",
+        "@uid": "28923"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.176588,
+          38.6802885
+        ]
+      },
+      "id": "node/1361050758"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1408027133",
+        "historic": "marker",
+        "name": "Kansas Historical Marker: Chase County & The Bluestem Pasture Region of Kansas",
+        "tourism": "attraction",
+        "@timestamp": "2011-08-22T05:01:43Z",
+        "@version": "1",
+        "@changeset": "9090694",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.5026629,
+          38.40109
+        ]
+      },
+      "id": "node/1408027133"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1439016893",
+        "historic": "marker",
+        "name": "Kansas Historical Marker: Nicodemus",
+        "tourism": "attraction",
+        "@timestamp": "2011-09-21T04:40:34Z",
+        "@version": "1",
+        "@changeset": "9357177",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.6154963,
+          39.3940959
+        ]
+      },
+      "id": "node/1439016893"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1672105524",
+        "historic": "marker",
+        "location": "covered",
+        "military": "bunker",
+        "name": "50",
+        "type": "munition",
+        "@timestamp": "2014-07-22T22:49:32Z",
+        "@version": "2",
+        "@changeset": "24302522",
+        "@user": "enewland",
+        "@uid": "2204797"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.1092164,
+          35.0909445
+        ]
+      },
+      "id": "node/1672105524"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1686440095",
+        "historic": "marker",
+        "@timestamp": "2012-03-22T22:35:16Z",
+        "@version": "1",
+        "@changeset": "11068434",
+        "@user": "RenRat",
+        "@uid": "636789"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.2390146,
+          39.5046651
+        ]
+      },
+      "id": "node/1686440095"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2045974431",
+        "authority": "National Park Service",
+        "historic": "marker",
+        "name": "American Second Line",
+        "website": "http://starspangledtrail.net/visit-the-trail/dueling-grounds-park",
+        "@timestamp": "2012-12-02T11:57:51Z",
+        "@version": "1",
+        "@changeset": "14123278",
+        "@user": "mikelmaron",
+        "@uid": "999"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.952467,
+          38.9340389
+        ]
+      },
+      "id": "node/2045974431"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2045974432",
+        "authority": "Maryland - National Capital Park and Planning Commission",
+        "historic": "marker",
+        "name": "Bladensburg Dueling Grounds",
+        "wikidata": "Q4923748",
+        "wikipedia": "en:Bladensburg Dueling Grounds",
+        "@timestamp": "2017-09-10T05:06:58Z",
+        "@version": "2",
+        "@changeset": "51897291",
+        "@user": "nyuriks",
+        "@uid": "339581"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.9524729,
+          38.9340803
+        ]
+      },
+      "id": "node/2045974432"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2172106682",
+        "historic": "marker",
+        "@timestamp": "2013-02-24T19:21:24Z",
+        "@version": "1",
+        "@changeset": "15152769",
+        "@user": "blahedo",
+        "@uid": "186195"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.3912304,
+          37.3037981
+        ]
+      },
+      "id": "node/2172106682"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2200901685",
+        "addr:city": "Council Grove",
+        "addr:state": "KS",
+        "historic": "marker",
+        "name": "Historic Kansas - Council Grove",
+        "@timestamp": "2019-04-30T11:55:18Z",
+        "@version": "4",
+        "@changeset": "69730931",
+        "@user": "torapa",
+        "@uid": "5446055"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.4883148,
+          38.6622467
+        ]
+      },
+      "id": "node/2200901685"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2200901712",
+        "addr:city": "Council Grove",
+        "addr:state": "KS",
+        "historic": "marker",
+        "name": "Neosho Crossing",
+        "@timestamp": "2019-04-30T11:55:18Z",
+        "@version": "4",
+        "@changeset": "69730931",
+        "@user": "torapa",
+        "@uid": "5446055"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.4886917,
+          38.6626583
+        ]
+      },
+      "id": "node/2200901712"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2200913814",
+        "addr:city": "Council Grove",
+        "addr:state": "KS",
+        "historic": "marker",
+        "name": "Rendezvous on the Trail",
+        "@timestamp": "2019-04-30T11:55:18Z",
+        "@version": "4",
+        "@changeset": "69730931",
+        "@user": "torapa",
+        "@uid": "5446055"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.4873318,
+          38.6620119
+        ]
+      },
+      "id": "node/2200913814"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2209287293",
+        "historic": "marker",
+        "name": "Anaconda Smelter Stack",
+        "@timestamp": "2013-03-19T01:38:13Z",
+        "@version": "1",
+        "@changeset": "15415237",
+        "@user": "California Bear",
+        "@uid": "28923"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.9314065,
+          46.1231244
+        ]
+      },
+      "id": "node/2209287293"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2209428629",
+        "addr:city": "Manhattan",
+        "addr:housenumber": "4565",
+        "addr:postcode": "66503",
+        "addr:street": "Highway 13",
+        "historic": "marker",
+        "name": "Tuttle Creek Dam and Reservoir Monument",
+        "tourism": "viewpoint",
+        "@timestamp": "2013-05-18T03:19:53Z",
+        "@version": "2",
+        "@changeset": "16175185",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.6038561,
+          39.2532492
+        ]
+      },
+      "id": "node/2209428629"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2277029308",
+        "authority": "California State Historical Resources Commission",
+        "historic": "marker",
+        "name": "Robinson's Ferry",
+        "ref": "276",
+        "@timestamp": "2019-12-27T07:42:04Z",
+        "@version": "2",
+        "@changeset": "78913432",
+        "@user": "mapman44",
+        "@uid": "2888253"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.5046202,
+          38.0089299
+        ]
+      },
+      "id": "node/2277029308"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2277749966",
+        "historic": "marker",
+        "name": "Vallecito Bell Monument",
+        "@timestamp": "2013-04-22T22:18:04Z",
+        "@version": "1",
+        "@changeset": "15830727",
+        "@user": "California Bear",
+        "@uid": "28923"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.4741374,
+          38.0863601
+        ]
+      },
+      "id": "node/2277749966"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2309009053",
+        "historic": "marker",
+        "name": "Flood of 1993 Marker",
+        "tourism": "viewpoint",
+        "@timestamp": "2013-05-18T03:19:53Z",
+        "@version": "1",
+        "@changeset": "16175185",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.575114,
+          39.2602005
+        ]
+      },
+      "id": "node/2309009053"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2367725258",
+        "historic": "marker",
+        "@timestamp": "2013-06-30T19:55:31Z",
+        "@version": "1",
+        "@changeset": "16769022",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.4459112,
+          39.5710727
+        ]
+      },
+      "id": "node/2367725258"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2430598208",
+        "end_date": "1951",
+        "historic": "marker",
+        "historic:amenity": "school",
+        "name": "Clark School",
+        "start_date": "1856",
+        "@timestamp": "2013-08-24T23:33:00Z",
+        "@version": "1",
+        "@changeset": "17491891",
+        "@user": "yotann",
+        "@uid": "522859"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.9942372,
+          40.0759105
+        ]
+      },
+      "id": "node/2430598208"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2438432050",
+        "historic": "marker",
+        "name": "Kansas Historical Marker - Troy",
+        "tourism": "attraction",
+        "@timestamp": "2013-08-30T05:57:44Z",
+        "@version": "1",
+        "@changeset": "17582911",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -95.0527521,
+          39.7931851
+        ]
+      },
+      "id": "node/2438432050"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2446546849",
+        "historic": "marker",
+        "@timestamp": "2013-09-04T23:00:10Z",
+        "@version": "1",
+        "@changeset": "17679749",
+        "@user": "Cornstalk",
+        "@uid": "1235102"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.3434515,
+          41.150483
+        ]
+      },
+      "id": "node/2446546849"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2460018630",
+        "fixme": "map trail: 16 miles east, deviating from US150 north through strip mine pollywogs to Kickapoo campgrounds",
+        "historic": "marker",
+        "name": "Beginning of the Lincoln Circuit Trail",
+        "@timestamp": "2013-09-16T02:43:53Z",
+        "@version": "1",
+        "@changeset": "17860552",
+        "@user": "yotann",
+        "@uid": "522859"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.9828248,
+          40.0757167
+        ]
+      },
+      "id": "node/2460018630"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2495119594",
+        "historic": "marker",
+        "source": "Bing",
+        "@timestamp": "2013-10-13T16:09:17Z",
+        "@version": "1",
+        "@changeset": "18335127",
+        "@user": "jonathanpatt",
+        "@uid": "91347"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.4992307,
+          31.5564232
+        ]
+      },
+      "id": "node/2495119594"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2514650578",
+        "historic": "marker",
+        "name": "Ahee Diggings",
+        "@timestamp": "2013-10-31T03:08:58Z",
+        "@version": "1",
+        "@changeset": "18628218",
+        "@user": "omegahacker",
+        "@uid": "339576"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.4146519,
+          44.8285102
+        ]
+      },
+      "id": "node/2514650578"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2528594338",
+        "authority": "Cobb County Government",
+        "description": "Cherokee Treaty May 6, 1828",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/02",
+        "name": "Cherokee Treaty",
+        "@timestamp": "2013-12-08T17:49:33Z",
+        "@version": "3",
+        "@changeset": "19344888",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5474268,
+          33.9533583
+        ]
+      },
+      "id": "node/2528594338"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2528594339",
+        "authority": "Georgia Historical Society",
+        "description": "3,000 Confederate dead from every southern state are buried in this cemetery.",
+        "historic": "marker",
+        "insciption:url": "inscription:url",
+        "marker_date": "1956",
+        "name": "Confederate Cemetery",
+        "ref": "033-106",
+        "source": "survey 09 November 2013",
+        "@timestamp": "2014-02-03T00:20:15Z",
+        "@version": "5",
+        "@changeset": "20344879",
+        "@user": "woodpeck_repair",
+        "@uid": "145231"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5490317,
+          33.9458776
+        ]
+      },
+      "id": "node/2528594339"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2547615215",
+        "authority": "Cobb County Government",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/21",
+        "name": "Battle of Pine Knob",
+        "@timestamp": "2013-11-23T20:46:58Z",
+        "@version": "1",
+        "@changeset": "19081106",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6523341,
+          33.9751986
+        ]
+      },
+      "id": "node/2547615215"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2547615217",
+        "authority": "Cobb County Government",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/20",
+        "name": "Captain Peter Simonson",
+        "@timestamp": "2013-11-23T20:46:58Z",
+        "@version": "1",
+        "@changeset": "19081106",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6432164,
+          33.9770042
+        ]
+      },
+      "id": "node/2547615217"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2547615218",
+        "addr:city": "Marietta",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/23",
+        "marker_date": "1952",
+        "name": "Due West Community",
+        "ref": "033-2",
+        "@timestamp": "2013-12-03T19:51:20Z",
+        "@version": "2",
+        "@changeset": "19259260",
+        "@user": "peaceloveandpizza",
+        "@uid": "1803545"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6639008,
+          33.9700631
+        ]
+      },
+      "id": "node/2547615218"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2547615220",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/25",
+        "marker_date": "1982",
+        "name": "Lt. General Leonidas Polk Killed at Pine Mountain",
+        "ref": "033-23",
+        "@timestamp": "2013-11-23T20:46:58Z",
+        "@version": "1",
+        "@changeset": "19081106",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6379752,
+          33.9939943
+        ]
+      },
+      "id": "node/2547615220"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2547615221",
+        "authority": "Cobb County Government",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/19",
+        "name": "Main Confederate Battle Line",
+        "@timestamp": "2013-11-23T20:46:58Z",
+        "@version": "1",
+        "@changeset": "19081106",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6407692,
+          33.9739439
+        ]
+      },
+      "id": "node/2547615221"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2547615223",
+        "authority": "Cobb County Government",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/24",
+        "name": "Site of the Dickson House",
+        "@timestamp": "2013-11-23T20:46:58Z",
+        "@version": "1",
+        "@changeset": "19081106",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6693392,
+          33.9767331
+        ]
+      },
+      "id": "node/2547615223"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2547615224",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/27",
+        "marker_date": "1953",
+        "name": "Stilesboro-Sandtown Crossroads",
+        "ref": "033-25",
+        "@timestamp": "2013-12-08T17:35:50Z",
+        "@version": "3",
+        "@changeset": "19344623",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6754879,
+          33.9982771
+        ]
+      },
+      "id": "node/2547615224"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2547615225",
+        "authority": "Cobb County Government",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/22",
+        "name": "The Reversed Trench",
+        "@timestamp": "2013-11-23T20:46:58Z",
+        "@version": "1",
+        "@changeset": "19081106",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6565291,
+          33.9767423
+        ]
+      },
+      "id": "node/2547615225"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559340128",
+        "authority": "Cobb County Government",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/28",
+        "name": "Peters-Davenport House",
+        "@timestamp": "2013-12-08T17:34:22Z",
+        "@version": "2",
+        "@changeset": "19344596",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6890093,
+          34.0336751
+        ]
+      },
+      "id": "node/2559340128"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559340491",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/26",
+        "marker_date": "1954",
+        "name": "Summers House",
+        "ref": "033-46",
+        "@timestamp": "2013-12-08T17:43:33Z",
+        "@version": "2",
+        "@changeset": "19344776",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6067426,
+          34.0111582
+        ]
+      },
+      "id": "node/2559340491"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559341408",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/00",
+        "marker_date": "1953",
+        "name": "Cobb County",
+        "ref": "033-37",
+        "@timestamp": "2018-03-05T05:53:33Z",
+        "@version": "4",
+        "@changeset": "56890632",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5496246,
+          33.9524655
+        ]
+      },
+      "id": "node/2559341408"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559348000",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/50",
+        "marker_date": "1956",
+        "name": "Confederate Cemetery",
+        "ref": "033-107",
+        "@timestamp": "2013-12-08T17:49:34Z",
+        "@version": "2",
+        "@changeset": "19344888",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5501786,
+          33.9469535
+        ]
+      },
+      "id": "node/2559348000"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559348001",
+        "authority": "City of Marietta",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/46",
+        "name": "Founder's Lot William Harris",
+        "@timestamp": "2013-12-08T17:49:34Z",
+        "@version": "2",
+        "@changeset": "19344888",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5494202,
+          33.9453484
+        ]
+      },
+      "id": "node/2559348001"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559348002",
+        "authority": "City of Marietta",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/49",
+        "name": "Lady In Black",
+        "@timestamp": "2013-12-08T17:49:34Z",
+        "@version": "2",
+        "@changeset": "19344888",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5474997,
+          33.9448574
+        ]
+      },
+      "id": "node/2559348002"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559348003",
+        "authority": "City of Marietta",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/51",
+        "name": "Mary Phagan",
+        "@timestamp": "2013-12-08T17:49:34Z",
+        "@version": "2",
+        "@changeset": "19344888",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5473394,
+          33.9436339
+        ]
+      },
+      "id": "node/2559348003"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559348004",
+        "authority": "City of Marietta",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/48",
+        "name": "McLeod Vault",
+        "@timestamp": "2013-12-25T01:34:31Z",
+        "@version": "2",
+        "@changeset": "19624779",
+        "@user": "Manu1400",
+        "@uid": "181135"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5503759,
+          33.9451085
+        ]
+      },
+      "id": "node/2559348004"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559348005",
+        "authority": "City of Marietta",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/07",
+        "name": "Rev. Thomas Milton Allen",
+        "@timestamp": "2013-12-08T17:49:34Z",
+        "@version": "2",
+        "@changeset": "19344888",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5477702,
+          33.9452494
+        ]
+      },
+      "id": "node/2559348005"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559348006",
+        "authority": "City of Marietta",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/03",
+        "name": "S. V. Sanford",
+        "@timestamp": "2013-12-08T17:49:34Z",
+        "@version": "2",
+        "@changeset": "19344888",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5489517,
+          33.9456505
+        ]
+      },
+      "id": "node/2559348006"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559348007",
+        "authority": "City of Marietta",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/06",
+        "name": "Slave Lot",
+        "@timestamp": "2013-12-08T17:49:34Z",
+        "@version": "2",
+        "@changeset": "19344888",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5490929,
+          33.9456841
+        ]
+      },
+      "id": "node/2559348007"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559348008",
+        "authority": "City of Marietta",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/47",
+        "name": "William Root",
+        "@timestamp": "2013-12-08T17:49:34Z",
+        "@version": "2",
+        "@changeset": "19344888",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5490625,
+          33.9452487
+        ]
+      },
+      "id": "node/2559348008"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559349624",
+        "authority": "Kiwanis Club of Marietta",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/05",
+        "marker_date": "02 July 2010",
+        "name": "Forever Remember",
+        "@timestamp": "2013-12-08T17:51:22Z",
+        "@version": "2",
+        "@changeset": "19344918",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5470854,
+          33.9515535
+        ]
+      },
+      "id": "node/2559349624"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559349625",
+        "authority": "City of Marietta",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/04",
+        "marker_date": "December 2012",
+        "name": "Joe Mack Wilson Park",
+        "@timestamp": "2013-12-08T17:51:22Z",
+        "@version": "2",
+        "@changeset": "19344918",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5472223,
+          33.9515552
+        ]
+      },
+      "id": "node/2559349625"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559350074",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/08",
+        "marker_date": "1953",
+        "name": "Camp McDonald",
+        "ref": "033-35B",
+        "@timestamp": "2013-12-08T17:37:49Z",
+        "@version": "2",
+        "@changeset": "19344668",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.618952,
+          34.0182747
+        ]
+      },
+      "id": "node/2559350074"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559352083",
+        "authority": "Lemon Street Heritage Group",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/09",
+        "marker_date": "25 October 2012",
+        "name": "Lemon Street Grammar School and High School",
+        "@timestamp": "2013-12-08T17:51:22Z",
+        "@version": "2",
+        "@changeset": "19344918",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5420163,
+          33.9551652
+        ]
+      },
+      "id": "node/2559352083"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559352323",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/10",
+        "marker_date": "1978",
+        "name": "Pine Mountain",
+        "ref": "033-24",
+        "@timestamp": "2013-12-08T17:36:41Z",
+        "@version": "2",
+        "@changeset": "19344637",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6452166,
+          33.9890785
+        ]
+      },
+      "id": "node/2559352323"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559354614",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/11",
+        "marker_date": "1954",
+        "name": "Big Shanty",
+        "ref": "033-40",
+        "@timestamp": "2013-12-08T17:40:37Z",
+        "@version": "2",
+        "@changeset": "19344719",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6151213,
+          34.0235781
+        ]
+      },
+      "id": "node/2559354614"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559354619",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/13",
+        "marker_date": "1954",
+        "name": "Federal Occupation of Big Shanty",
+        "ref": "033-43",
+        "@timestamp": "2013-12-08T17:40:37Z",
+        "@version": "2",
+        "@changeset": "19344719",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6151414,
+          34.023821
+        ]
+      },
+      "id": "node/2559354619"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559354624",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/12",
+        "marker_date": "1954",
+        "name": "Site - Lacy Hotel",
+        "ref": "033-41",
+        "@timestamp": "2013-12-08T17:40:37Z",
+        "@version": "2",
+        "@changeset": "19344719",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6151478,
+          34.023641
+        ]
+      },
+      "id": "node/2559354624"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559354628",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/15",
+        "marker_date": "1954",
+        "name": "Stewart's Corps at Big Shanty",
+        "ref": "033-44",
+        "@timestamp": "2013-12-08T17:40:38Z",
+        "@version": "2",
+        "@changeset": "19344719",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6151462,
+          34.0238993
+        ]
+      },
+      "id": "node/2559354628"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559354632",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/14",
+        "marker_date": "1954",
+        "name": "The Andrews Raid",
+        "ref": "033-42",
+        "@timestamp": "2013-12-08T17:40:38Z",
+        "@version": "2",
+        "@changeset": "19344719",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6151377,
+          34.0237387
+        ]
+      },
+      "id": "node/2559354632"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559360313",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/18",
+        "marker_date": "1953",
+        "name": "Durham House",
+        "ref": "033-27",
+        "@timestamp": "2013-12-08T17:35:49Z",
+        "@version": "2",
+        "@changeset": "19344623",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6754655,
+          34.0180066
+        ]
+      },
+      "id": "node/2559360313"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559360319",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/17",
+        "marker_date": "1953",
+        "name": "Route of Polk's Corps",
+        "ref": "033-26",
+        "@timestamp": "2013-12-08T17:35:49Z",
+        "@version": "2",
+        "@changeset": "19344623",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.675916,
+          34.0128769
+        ]
+      },
+      "id": "node/2559360319"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559365094",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/29",
+        "marker_date": "1953",
+        "name": "Site - Mason's Bridge",
+        "ref": "033-29",
+        "@timestamp": "2013-12-08T17:33:47Z",
+        "@version": "2",
+        "@changeset": "19344587",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.7087734,
+          34.0212757
+        ]
+      },
+      "id": "node/2559365094"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559372190",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/30",
+        "marker_date": "1953",
+        "name": "Site of Old Allatoona Church",
+        "ref": "033-30",
+        "@timestamp": "2013-12-08T17:31:24Z",
+        "@version": "2",
+        "@changeset": "19344551",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.714605,
+          34.0099295
+        ]
+      },
+      "id": "node/2559372190"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559374553",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/31",
+        "marker_date": "1985",
+        "name": "James Foster House",
+        "ref": "033-32",
+        "@timestamp": "2013-12-08T17:30:03Z",
+        "@version": "2",
+        "@changeset": "19344524",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.7294405,
+          33.9985013
+        ]
+      },
+      "id": "node/2559374553"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559376522",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/32",
+        "marker_date": "1953",
+        "name": "Cross Roads Church",
+        "ref": "110-26",
+        "@timestamp": "2013-12-08T17:28:00Z",
+        "@version": "2",
+        "@changeset": "19344483",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.7548888,
+          34.0109891
+        ]
+      },
+      "id": "node/2559376522"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559385999",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/33",
+        "marker_date": "1953",
+        "name": "Hardee's, Hood's & French's Headquarters",
+        "ref": "110-1",
+        "@timestamp": "2013-12-08T17:28:00Z",
+        "@version": "2",
+        "@changeset": "19344483",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.7404861,
+          34.0326704
+        ]
+      },
+      "id": "node/2559385999"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559388593",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/34",
+        "marker_date": "1985",
+        "name": "The Wm. Nickols House",
+        "ref": "033-34",
+        "@timestamp": "2013-12-08T17:28:01Z",
+        "@version": "2",
+        "@changeset": "19344483",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.7236257,
+          34.05327
+        ]
+      },
+      "id": "node/2559388593"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559390014",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/35",
+        "marker_date": "1992",
+        "name": "Railroad Block-House",
+        "ref": "008-7",
+        "@timestamp": "2013-12-08T17:32:08Z",
+        "@version": "2",
+        "@changeset": "19344561",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.7141826,
+          34.0875714
+        ]
+      },
+      "id": "node/2559390014"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559818561",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/36",
+        "marker_date": "1954",
+        "name": "Site - Moon's Station",
+        "ref": "033-45",
+        "@timestamp": "2013-12-08T17:40:37Z",
+        "@version": "2",
+        "@changeset": "19344719",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6154037,
+          34.0517294
+        ]
+      },
+      "id": "node/2559818561"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559828486",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/37",
+        "marker_date": "1954",
+        "name": "Federal 15th Corps",
+        "ref": "033-49",
+        "@timestamp": "2013-12-08T17:45:05Z",
+        "@version": "2",
+        "@changeset": "19344804",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5845301,
+          33.9862477
+        ]
+      },
+      "id": "node/2559828486"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559828492",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/38",
+        "marker_date": "1959",
+        "name": "Peachtree Trail",
+        "ref": "033-112",
+        "@timestamp": "2013-12-08T17:45:05Z",
+        "@version": "2",
+        "@changeset": "19344804",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5783697,
+          33.9846719
+        ]
+      },
+      "id": "node/2559828492"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559833493",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/39",
+        "marker_date": "1954",
+        "name": "Johnston's Line East of Kennesaw",
+        "ref": "033-51",
+        "@timestamp": "2013-12-08T17:45:05Z",
+        "@version": "2",
+        "@changeset": "19344804",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5660968,
+          33.9809267
+        ]
+      },
+      "id": "node/2559833493"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559846773",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/40",
+        "marker_date": "1954",
+        "name": "Oakton",
+        "ref": "033-50",
+        "@timestamp": "2019-04-07T15:43:17Z",
+        "@version": "3",
+        "@changeset": "68979459",
+        "@user": "Jack the Ripper",
+        "@uid": "1946151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.561422,
+          33.9665833
+        ]
+      },
+      "id": "node/2559846773"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559846779",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/41",
+        "marker_date": "1953",
+        "name": "Residence of Alice McClellan Birney",
+        "ref": "033-35A",
+        "@timestamp": "2013-12-08T17:49:34Z",
+        "@version": "2",
+        "@changeset": "19344888",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5543581,
+          33.9607364
+        ]
+      },
+      "id": "node/2559846779"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559846784",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/42",
+        "marker_date": "1956",
+        "name": "The Archibald Howell Home",
+        "ref": "033-111",
+        "@timestamp": "2013-12-08T17:49:34Z",
+        "@version": "2",
+        "@changeset": "19344888",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5533574,
+          33.9593139
+        ]
+      },
+      "id": "node/2559846784"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559851062",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/44",
+        "marker_date": "1956",
+        "name": "Kennesaw House",
+        "ref": "033-109",
+        "@timestamp": "2018-03-05T05:53:33Z",
+        "@version": "4",
+        "@changeset": "56890632",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5510426,
+          33.9527273
+        ]
+      },
+      "id": "node/2559851062"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559851063",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/45",
+        "marker_date": "1956",
+        "name": "UDC and Kennesaw House",
+        "ref": "033-110",
+        "@timestamp": "2018-03-05T05:53:33Z",
+        "@version": "4",
+        "@changeset": "56890632",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5510293,
+          33.9527168
+        ]
+      },
+      "id": "node/2559851063"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559851064",
+        "authority": "City of Marietta",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/43",
+        "name": "1916 Glover Machine Works Locomotive",
+        "@timestamp": "2018-03-05T05:53:33Z",
+        "@version": "4",
+        "@changeset": "56890632",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5513344,
+          33.9530607
+        ]
+      },
+      "id": "node/2559851064"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559854336",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/52",
+        "marker_date": "1954",
+        "name": "Federal Troops Occupy Marietta, 1864",
+        "ref": "033-54",
+        "@timestamp": "2013-12-08T17:42:43Z",
+        "@version": "2",
+        "@changeset": "19344762",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.577576,
+          33.9522708
+        ]
+      },
+      "id": "node/2559854336"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559867649",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/57",
+        "marker_date": "1953",
+        "name": "Gen. J. E. Johnston's Headquarters",
+        "ref": "033-18",
+        "@timestamp": "2013-12-08T17:42:43Z",
+        "@version": "2",
+        "@changeset": "19344762",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6006539,
+          33.9641217
+        ]
+      },
+      "id": "node/2559867649"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559867650",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/56",
+        "marker_date": "1953",
+        "name": "Gen. Leonidas Polk's Headquarters",
+        "ref": "033-20",
+        "@timestamp": "2013-12-08T17:42:43Z",
+        "@version": "2",
+        "@changeset": "19344762",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6075019,
+          33.9641228
+        ]
+      },
+      "id": "node/2559867650"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559867651",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/58",
+        "marker_date": "1953",
+        "name": "Gen. O. O. Howard's Headquarters",
+        "ref": "033-21",
+        "@timestamp": "2013-12-08T17:42:43Z",
+        "@version": "2",
+        "@changeset": "19344762",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6127171,
+          33.9633518
+        ]
+      },
+      "id": "node/2559867651"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559867652",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/54",
+        "marker_date": "1954",
+        "name": "Kennesaw Battlefield",
+        "ref": "033-52",
+        "@timestamp": "2013-12-08T17:42:43Z",
+        "@version": "2",
+        "@changeset": "19344762",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5939357,
+          33.9633901
+        ]
+      },
+      "id": "node/2559867652"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559867653",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/55",
+        "marker_date": "1954",
+        "name": "Kennesaw Spur",
+        "ref": "033-53",
+        "@timestamp": "2013-12-08T17:42:43Z",
+        "@version": "2",
+        "@changeset": "19344762",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5922556,
+          33.9631584
+        ]
+      },
+      "id": "node/2559867653"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559867654",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/53",
+        "marker_date": "1954",
+        "name": "Logan's 15th A. C. Line",
+        "ref": "033-19",
+        "@timestamp": "2013-12-08T17:42:43Z",
+        "@version": "2",
+        "@changeset": "19344762",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5952109,
+          33.9635272
+        ]
+      },
+      "id": "node/2559867654"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559869133",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/59",
+        "marker_date": "1953",
+        "name": "Hardee's Salient",
+        "ref": "033-22",
+        "@timestamp": "2013-12-08T17:38:13Z",
+        "@version": "2",
+        "@changeset": "19344681",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6171165,
+          33.9722171
+        ]
+      },
+      "id": "node/2559869133"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2559875261",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "inscription:url": "http://cobbmap.us/m/60",
+        "marker_date": "1952",
+        "name": "Darby Plantation",
+        "ref": "033-7",
+        "@timestamp": "2013-12-08T17:25:25Z",
+        "@version": "2",
+        "@changeset": "19344442",
+        "@user": "Jacob_Smith",
+        "@uid": "1687946"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6495547,
+          33.9530274
+        ]
+      },
+      "id": "node/2559875261"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2663602643",
+        "historic": "marker",
+        "name": "Stone Fence Historical Marker",
+        "@timestamp": "2014-02-09T18:57:57Z",
+        "@version": "1",
+        "@changeset": "20471078",
+        "@user": "ToeBee",
+        "@uid": "262151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.2799825,
+          38.9073105
+        ]
+      },
+      "id": "node/2663602643"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2669656143",
+        "historic": "marker",
+        "name": "Washington's Headquarters",
+        "@timestamp": "2020-07-24T23:05:25Z",
+        "@version": "3",
+        "@changeset": "88479713",
+        "@user": "3yoda",
+        "@uid": "632378"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.2898072,
+          40.9997626
+        ]
+      },
+      "id": "node/2669656143"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2718036227",
+        "addr:city": "Marietta",
+        "addr:housenumber": "3035",
+        "addr:street": "Lower Roswell Road",
+        "historic": "marker",
+        "name": "Gantt House",
+        "source": "knowledge; survey",
+        "website": "https://georgiainfo.galileo.usg.edu/topics/historical_markers/county/cobb/gantt-house",
+        "@timestamp": "2019-02-18T13:10:16Z",
+        "@version": "3",
+        "@changeset": "67315014",
+        "@user": "b-jazz-bot",
+        "@uid": "9451067"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.46272,
+          33.9460731
+        ]
+      },
+      "id": "node/2718036227"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2741454253",
+        "authority": "Georgia Historical Society",
+        "historic": "marker",
+        "marker_date": "1958",
+        "name": "Brasstown Bald",
+        "ref": "139-5",
+        "@timestamp": "2014-03-25T04:21:57Z",
+        "@version": "1",
+        "@changeset": "21298255",
+        "@user": "Skybunny",
+        "@uid": "1751737"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.811544,
+          34.8741587
+        ]
+      },
+      "id": "node/2741454253"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2780638359",
+        "historic": "marker",
+        "name": "The Unicoi Turnpike",
+        "@timestamp": "2014-04-09T23:11:04Z",
+        "@version": "1",
+        "@changeset": "21598025",
+        "@user": "Jack the Ripper",
+        "@uid": "1946151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.7102403,
+          34.6867189
+        ]
+      },
+      "id": "node/2780638359"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2924126430",
+        "authority": "Michigan Historical Commission",
+        "historic": "marker",
+        "marker_date": "1995",
+        "name": "Brewster Homes",
+        "ref": "S0650",
+        "wikidata": "Q911412",
+        "wikipedia": "en:Brewster-Douglass Housing Projects",
+        "@timestamp": "2017-09-24T21:29:53Z",
+        "@version": "2",
+        "@changeset": "52339862",
+        "@user": "nyuriks",
+        "@uid": "339581"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.0500777,
+          42.3493883
+        ]
+      },
+      "id": "node/2924126430"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2953393640",
+        "authority": "Virginia Conservation Commission",
+        "historic": "marker",
+        "inscription": "Formed in 1838 from Botetourt and Montgomery, and probably named for Roanoke River. General Andrew Lewis lived here. The city of Roanoke is known as the magic city of the south.",
+        "marker_date": "1942",
+        "name": "Z_216",
+        "source": "GPS",
+        "@timestamp": "2014-07-07T22:34:04Z",
+        "@version": "1",
+        "@changeset": "24013726",
+        "@user": "linuxUser16",
+        "@uid": "1219059"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.8652373,
+          37.3292913
+        ]
+      },
+      "id": "node/2953393640"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2972146866",
+        "historic": "marker",
+        "@timestamp": "2014-07-20T23:00:05Z",
+        "@version": "1",
+        "@changeset": "24263654",
+        "@user": "Jack the Ripper",
+        "@uid": "1946151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6627403,
+          33.9522496
+        ]
+      },
+      "id": "node/2972146866"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2972443313",
+        "historic": "marker",
+        "@timestamp": "2014-07-21T03:52:17Z",
+        "@version": "1",
+        "@changeset": "24265444",
+        "@user": "Jack the Ripper",
+        "@uid": "1946151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5755413,
+          33.8174264
+        ]
+      },
+      "id": "node/2972443313"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2975069566",
+        "historic": "marker",
+        "location": "covered",
+        "military": "bunker",
+        "name": "21",
+        "type": "munition",
+        "@timestamp": "2014-07-22T23:29:36Z",
+        "@version": "1",
+        "@changeset": "24302934",
+        "@user": "enewland",
+        "@uid": "2204797"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.1206348,
+          35.0943774
+        ]
+      },
+      "id": "node/2975069566"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3018428421",
+        "board_type": "history",
+        "historic": "marker",
+        "information": "board",
+        "inscription": "Senator W.J.Deboe. Born 1849 8 mi SE of here. Deboe was elected County School Superintendent adn open law office 1889. State Senator 1893-97. Wrote the 17th Amendment to the US Constitution..",
+        "tourism": "information",
+        "@timestamp": "2014-08-15T16:23:41Z",
+        "@version": "1",
+        "@changeset": "24770967",
+        "@user": "linuxUser16",
+        "@uid": "1219059"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.0815761,
+          37.3308406
+        ]
+      },
+      "id": "node/3018428421"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3018428429",
+        "board_type": "history",
+        "historic": "marker",
+        "information": "board",
+        "inscription": "Family of Judges. T.J. Nunn 1846-1917, represented Crittended and Livingston counties in 1890 Convention which framed present constitution of Kentucky.",
+        "source": "GPS",
+        "tourism": "information",
+        "@timestamp": "2014-08-15T16:23:41Z",
+        "@version": "1",
+        "@changeset": "24770967",
+        "@user": "linuxUser16",
+        "@uid": "1219059"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.0847042,
+          37.3333808
+        ]
+      },
+      "id": "node/3018428429"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3188931541",
+        "description": "On this spot fell General David Wooster mortally wounded April 27, 1777 at the Battle of Ridgefield",
+        "historic": "marker",
+        "image": "https://commons.wikimedia.org/wiki/File:General_David_Wooster_Historical_Marker.jpg",
+        "start_date": "1777-04-27",
+        "@timestamp": "2014-11-26T22:41:45Z",
+        "@version": "3",
+        "@changeset": "27057364",
+        "@user": "brianegge",
+        "@uid": "129614"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.5089291,
+          41.3054605
+        ]
+      },
+      "id": "node/3188931541"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3190362533",
+        "description": "On this rock the original settlers scouting party spent their first night",
+        "historic": "marker",
+        "image": "https://commons.wikimedia.org/wiki/File:Settlers_Rock.JPG",
+        "name": "Settlers Rock",
+        "natural": "bare_rock",
+        "start_date": "1708",
+        "@timestamp": "2014-11-26T16:44:48Z",
+        "@version": "2",
+        "@changeset": "27049121",
+        "@user": "brianegge",
+        "@uid": "129614"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.5033398,
+          41.2922721
+        ]
+      },
+      "id": "node/3190362533"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3536712494",
+        "historic": "marker",
+        "name": "IBM historic marker",
+        "@timestamp": "2015-05-22T19:38:57Z",
+        "@version": "1",
+        "@changeset": "31381675",
+        "@user": "Alexander Avtanski",
+        "@uid": "79401"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.802881,
+          37.2532293
+        ]
+      },
+      "id": "node/3536712494"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3759625970",
+        "alt_name": "NPHC Rock",
+        "historic": "marker",
+        "name": "National Pan Hellenic Council Rock",
+        "@timestamp": "2015-09-25T23:16:59Z",
+        "@version": "1",
+        "@changeset": "34254334",
+        "@user": "Johnny Mapperseed",
+        "@uid": "1723055"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.6307699,
+          41.3763275
+        ]
+      },
+      "id": "node/3759625970"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3838377768",
+        "historic": "marker",
+        "name": "Finney Barn",
+        "@timestamp": "2015-11-16T03:20:53Z",
+        "@version": "1",
+        "@changeset": "35341787",
+        "@user": "HubbardClark",
+        "@uid": "840848"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.0492359,
+          42.3328367
+        ]
+      },
+      "id": "node/3838377768"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3838378857",
+        "historic": "marker",
+        "name": "Stevens T. Mason",
+        "@timestamp": "2015-11-16T03:24:37Z",
+        "@version": "1",
+        "@changeset": "35341813",
+        "@user": "HubbardClark",
+        "@uid": "840848"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.0494173,
+          42.3327577
+        ]
+      },
+      "id": "node/3838378857"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3838527700",
+        "historic": "marker",
+        "information": "board",
+        "name": "Kansas Historical Marker - Marysville",
+        "tourism": "information",
+        "@timestamp": "2016-11-16T12:23:38Z",
+        "@version": "2",
+        "@changeset": "43697613",
+        "@user": "maxerickson",
+        "@uid": "360392"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.6229451,
+          39.8420755
+        ]
+      },
+      "id": "node/3838527700"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3897317158",
+        "authority": "Mississippi Department of Archives and History",
+        "historic": "marker",
+        "marker_date": "2012",
+        "name": "Old Neshoba County Jail",
+        "wikidata": "Q635051",
+        "wikipedia": "en:Mississippi civil rights workers' murders",
+        "@timestamp": "2017-09-24T22:24:44Z",
+        "@version": "3",
+        "@changeset": "52340624",
+        "@user": "nyuriks",
+        "@uid": "339581"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.1104223,
+          32.7724496
+        ]
+      },
+      "id": "node/3897317158"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3919361472",
+        "historic": "marker",
+        "name": "Town of riverhead",
+        "@timestamp": "2015-12-30T20:55:00Z",
+        "@version": "1",
+        "@changeset": "36271171",
+        "@user": "Ilya Sukhanov",
+        "@uid": "2547321"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.8511768,
+          40.9546854
+        ]
+      },
+      "id": "node/3919361472"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3919361473",
+        "historic": "marker",
+        "@timestamp": "2015-12-30T20:55:00Z",
+        "@version": "1",
+        "@changeset": "36271171",
+        "@user": "Ilya Sukhanov",
+        "@uid": "2547321"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.870308,
+          40.9581502
+        ]
+      },
+      "id": "node/3919361473"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4053599255",
+        "authority": "United States Department of the Interior",
+        "barrier": "gate",
+        "historic": "marker",
+        "inscription": "HAMPTON COURT/HAS BEEN PLACED ON THE/NATIONAL REGISTER/OF HISTORIC PLACES/BY THE UNITED STATES/DEPARTMENT OF THE INTERIOR/1907",
+        "marker": "plaque",
+        "marker_date": "1907",
+        "name": "Hampton Court",
+        "@timestamp": "2017-10-09T23:45:07Z",
+        "@version": "2",
+        "@changeset": "52775224",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.497179,
+          38.0544441
+        ]
+      },
+      "id": "node/4053599255"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4081329490",
+        "historic": "marker",
+        "tourism": "information",
+        "@timestamp": "2016-03-27T15:09:44Z",
+        "@version": "1",
+        "@changeset": "38101429",
+        "@user": "gadget",
+        "@uid": "36737"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.8852008,
+          43.1871978
+        ]
+      },
+      "id": "node/4081329490"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4145222923",
+        "historic": "marker",
+        "name": "National System of Interstate and Defense Highways",
+        "@timestamp": "2016-04-24T22:10:00Z",
+        "@version": "1",
+        "@changeset": "38843194",
+        "@user": "mdroads",
+        "@uid": "193314"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.332313,
+          39.6915871
+        ]
+      },
+      "id": "node/4145222923"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4227483259",
+        "description": "This marker is dedicated to Fostoria Ohio, Home of Fostoria Glass",
+        "historic": "marker",
+        "name": "Fostoria Glass Marker",
+        "@timestamp": "2016-06-06T00:04:22Z",
+        "@version": "1",
+        "@changeset": "39827480",
+        "@user": "Johnny Mapperseed",
+        "@uid": "1723055"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.4211628,
+          41.1716461
+        ]
+      },
+      "id": "node/4227483259"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4249822006",
+        "historic": "marker",
+        "name": "Rossford Army Ordnance Depot",
+        "note": "Historic Marker (Present on the ground) for the depot (Now Owens Community College) If End Date is ever re-adopted the depot was decommissioned 1963-July-01",
+        "start_date": "1942",
+        "@timestamp": "2016-06-18T02:33:20Z",
+        "@version": "1",
+        "@changeset": "40108199",
+        "@user": "Johnny Mapperseed",
+        "@uid": "1723055"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.5411719,
+          41.5861271
+        ]
+      },
+      "id": "node/4249822006"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328489268",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Dr. Thomas Sprigg Wootton",
+        "@timestamp": "2016-07-30T23:43:31Z",
+        "@version": "1",
+        "@changeset": "41135865",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1818599,
+          39.0765645
+        ]
+      },
+      "id": "node/4328489268"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328490690",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Richard Montgomery",
+        "@timestamp": "2016-07-30T23:48:23Z",
+        "@version": "1",
+        "@changeset": "41135899",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1517025,
+          39.0831819
+        ]
+      },
+      "id": "node/4328490690"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328491275",
+        "authority": "Maryland Historical Trust",
+        "contact:email": "nancy.kurtz@maryland.gov",
+        "description": "Maryland's Historical Marker Program is administered by the Maryland Historical Trust in cooperation with the Maryland State Highway Administration (SHA). To report a missing or damaged marker, see contact tag.",
+        "historic": "marker",
+        "name": "Rockville (County Seat)",
+        "website": "https://mht.maryland.gov/historicalmarkers/Details.aspx?id=RM-863&recNum=14&county=Montgomery%20County",
+        "@timestamp": "2019-02-19T11:45:58Z",
+        "@version": "5",
+        "@changeset": "67349603",
+        "@user": "b-jazz-bot",
+        "@uid": "9451067"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1529848,
+          39.0832727
+        ]
+      },
+      "id": "node/4328491275"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328492820",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Rockville (Gen. J.E.B. Stuart)",
+        "@timestamp": "2016-07-30T23:52:05Z",
+        "@version": "1",
+        "@changeset": "41135925",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1514371,
+          39.083981
+        ]
+      },
+      "id": "node/4328492820"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328504643",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Edward's Ferry",
+        "@timestamp": "2016-07-31T01:17:01Z",
+        "@version": "1",
+        "@changeset": "41136392",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.4715207,
+          39.1046876
+        ]
+      },
+      "id": "node/4328504643"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328519659",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Chesapeake and Ohio Canal National Historical Park",
+        "@timestamp": "2016-07-31T01:07:08Z",
+        "@version": "1",
+        "@changeset": "41136330",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.516983,
+          39.1550097
+        ]
+      },
+      "id": "node/4328519659"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328522592",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "August 26, 1814",
+        "@timestamp": "2016-07-31T01:00:59Z",
+        "@version": "1",
+        "@changeset": "41136298",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0586021,
+          39.18038
+        ]
+      },
+      "id": "node/4328522592"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328522932",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Chesapeake and Ohio Aqueduct Across the Monocacy River",
+        "@timestamp": "2016-07-31T01:03:54Z",
+        "@version": "2",
+        "@changeset": "41136317",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.4265217,
+          39.2246026
+        ]
+      },
+      "id": "node/4328522932"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328524390",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Planetary Radio Emissions Discovery Site",
+        "@timestamp": "2016-07-31T01:34:08Z",
+        "@version": "1",
+        "@changeset": "41136513",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.3728897,
+          39.0815343
+        ]
+      },
+      "id": "node/4328524390"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328524779",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Damascus",
+        "@timestamp": "2016-07-31T01:09:24Z",
+        "@version": "1",
+        "@changeset": "41136349",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.2019788,
+          39.2878671
+        ]
+      },
+      "id": "node/4328524779"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328525157",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Daniel Carroll of Rock Creek",
+        "@timestamp": "2016-07-31T01:11:17Z",
+        "@version": "1",
+        "@changeset": "41136360",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0500101,
+          39.0150156
+        ]
+      },
+      "id": "node/4328525157"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328527273",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Early Blacksmith Shop",
+        "@timestamp": "2016-07-31T01:14:45Z",
+        "@version": "1",
+        "@changeset": "41136377",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1613037,
+          38.9925655
+        ]
+      },
+      "id": "node/4328527273"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328532622",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Gold Mining in Maryland",
+        "@timestamp": "2018-12-14T16:57:29Z",
+        "@version": "2",
+        "@changeset": "65479673",
+        "@user": "VinW",
+        "@uid": "9234122"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.212516,
+          39.0228762
+        ]
+      },
+      "id": "node/4328532622"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328537091",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Elton",
+        "@timestamp": "2016-07-31T01:19:15Z",
+        "@version": "1",
+        "@changeset": "41136403",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0596283,
+          39.2226321
+        ]
+      },
+      "id": "node/4328537091"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328539776",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "General Edward Braddock",
+        "@timestamp": "2016-07-31T01:25:10Z",
+        "@version": "1",
+        "@changeset": "41136446",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1943216,
+          39.1382893
+        ]
+      },
+      "id": "node/4328539776"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328543640",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Jeremiah Crabbe",
+        "@timestamp": "2016-07-31T01:32:06Z",
+        "@version": "1",
+        "@changeset": "41136497",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1608218,
+          39.1111153
+        ]
+      },
+      "id": "node/4328543640"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328543978",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Rowser's Ford",
+        "@timestamp": "2016-07-31T01:36:02Z",
+        "@version": "1",
+        "@changeset": "41136529",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.3265003,
+          39.0750875
+        ]
+      },
+      "id": "node/4328543978"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328547128",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Seneca Schoolhouse",
+        "@timestamp": "2016-07-31T01:39:38Z",
+        "@version": "1",
+        "@changeset": "41136549",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.3514597,
+          39.0808185
+        ]
+      },
+      "id": "node/4328547128"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328547272",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "The Clara Barton House",
+        "wikidata": "Q5125943",
+        "wikipedia": "en:Clara Barton National Historic Site",
+        "@timestamp": "2020-06-21T16:07:56Z",
+        "@version": "3",
+        "@changeset": "86939315",
+        "@user": "wvdp",
+        "@uid": "436419"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1393899,
+          38.9686851
+        ]
+      },
+      "id": "node/4328547272"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328549049",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "Washington's Farm",
+        "@timestamp": "2016-07-31T01:44:40Z",
+        "@version": "1",
+        "@changeset": "41136576",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.4286723,
+          39.1981347
+        ]
+      },
+      "id": "node/4328549049"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328549715",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "White's Ferry",
+        "@timestamp": "2016-07-31T01:46:35Z",
+        "@version": "1",
+        "@changeset": "41136586",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.3430507,
+          39.12862
+        ]
+      },
+      "id": "node/4328549715"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4328550700",
+        "authority": "mht",
+        "historic": "marker",
+        "name": "White's Ford",
+        "@timestamp": "2016-07-31T01:48:15Z",
+        "@version": "1",
+        "@changeset": "41136592",
+        "@user": "MatthewGoguen",
+        "@uid": "4322733"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.4755885,
+          39.1641576
+        ]
+      },
+      "id": "node/4328550700"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4394144907",
+        "historic": "marker",
+        "name": "Sacred Path",
+        "@timestamp": "2016-09-09T21:33:27Z",
+        "@version": "1",
+        "@changeset": "42047967",
+        "@user": "Memoire",
+        "@uid": "2176227"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.4369456,
+          40.4858556
+        ]
+      },
+      "id": "node/4394144907"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4419765113",
+        "historic": "marker",
+        "name": "John McKinley",
+        "@timestamp": "2016-09-27T02:54:23Z",
+        "@version": "1",
+        "@changeset": "42459916",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.671598,
+          34.796229
+        ]
+      },
+      "id": "node/4419765113"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4419765114",
+        "historic": "marker",
+        "name": "Dr. Hicks Boulevard",
+        "@timestamp": "2016-09-27T02:54:23Z",
+        "@version": "1",
+        "@changeset": "42459916",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6717003,
+          34.7986546
+        ]
+      },
+      "id": "node/4419765114"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4419765115",
+        "historic": "marker",
+        "name": "Lauderdale County",
+        "@timestamp": "2016-09-27T02:54:23Z",
+        "@version": "1",
+        "@changeset": "42459916",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6754797,
+          34.7991201
+        ]
+      },
+      "id": "node/4419765115"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420946421",
+        "board_type": "history",
+        "historic": "marker",
+        "information": "board",
+        "name": "Saint Paul African Methodist Episcopal Church",
+        "tourism": "information",
+        "@timestamp": "2017-08-11T20:27:32Z",
+        "@version": "2",
+        "@changeset": "51044231",
+        "@user": "maxerickson",
+        "@uid": "360392"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6832462,
+          34.7969685
+        ]
+      },
+      "id": "node/4420946421"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420946440",
+        "historic": "marker",
+        "name": "First Presbyterian Church",
+        "@timestamp": "2016-09-27T19:15:15Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6741935,
+          34.8019529
+        ]
+      },
+      "id": "node/4420946440"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420946444",
+        "historic": "marker",
+        "name": "Southall Drugs",
+        "@timestamp": "2016-09-27T19:15:15Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6766116,
+          34.8010992
+        ]
+      },
+      "id": "node/4420946444"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420946457",
+        "historic": "marker",
+        "name": "Trinity Episcopal Church 1894",
+        "@timestamp": "2016-09-27T19:15:15Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6789069,
+          34.8024784
+        ]
+      },
+      "id": "node/4420946457"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947589",
+        "historic": "marker",
+        "name": "First Methodist Church 1822",
+        "@timestamp": "2016-09-27T19:15:15Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6767567,
+          34.8032856
+        ]
+      },
+      "id": "node/4420947589"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947612",
+        "historic": "marker",
+        "name": "Regions Bank",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6763611,
+          34.8032072
+        ]
+      },
+      "id": "node/4420947612"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947613",
+        "historic": "marker",
+        "name": "Sannoner Historic District Medical Arts Building",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6779757,
+          34.8031572
+        ]
+      },
+      "id": "node/4420947613"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947614",
+        "historic": "marker",
+        "name": "Sannoner Historic District",
+        "wikidata": "Q24260710",
+        "@timestamp": "2018-02-18T15:42:57Z",
+        "@version": "2",
+        "@changeset": "56466357",
+        "@user": "Edward",
+        "@uid": "364"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6780885,
+          34.8038481
+        ]
+      },
+      "id": "node/4420947614"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947616",
+        "historic": "marker",
+        "name": "Courtview, Rogers Hall 1855",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6792697,
+          34.8056054
+        ]
+      },
+      "id": "node/4420947616"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947617",
+        "historic": "marker",
+        "name": "Edward and O'Neal Home",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.678891,
+          34.8051015
+        ]
+      },
+      "id": "node/4420947617"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947618",
+        "historic": "marker",
+        "name": "Locust Dell Academy",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6785122,
+          34.8079862
+        ]
+      },
+      "id": "node/4420947618"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947620",
+        "historic": "marker",
+        "name": "Florence State Teachers College",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6786159,
+          34.8087727
+        ]
+      },
+      "id": "node/4420947620"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947621",
+        "historic": "marker",
+        "name": "Colonel Pickett Place 1833",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6768422,
+          34.8048392
+        ]
+      },
+      "id": "node/4420947621"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947622",
+        "historic": "marker",
+        "name": "Pope's Tavern Museum",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6770368,
+          34.804825
+        ]
+      },
+      "id": "node/4420947622"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947623",
+        "historic": "marker",
+        "name": "Seminary - O'Neal Historic District",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6772747,
+          34.8050603
+        ]
+      },
+      "id": "node/4420947623"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947624",
+        "historic": "marker",
+        "name": "Wood Avenue Historic District",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6751405,
+          34.8043925
+        ]
+      },
+      "id": "node/4420947624"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947625",
+        "historic": "marker",
+        "name": "Wood Avenue Church of Christ 1886",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6747506,
+          34.8041122
+        ]
+      },
+      "id": "node/4420947625"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947626",
+        "historic": "marker",
+        "name": "Walnut Street Historic District",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6754368,
+          34.8071173
+        ]
+      },
+      "id": "node/4420947626"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947627",
+        "historic": "marker",
+        "name": "The Grave of \"Mountain\" Tom Clark",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6660949,
+          34.8042572
+        ]
+      },
+      "id": "node/4420947627"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947628",
+        "historic": "marker",
+        "name": "Patton Elementary School",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6677261,
+          34.8024751
+        ]
+      },
+      "id": "node/4420947628"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947629",
+        "historic": "marker",
+        "name": "Florence Cemetery 1818",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6671885,
+          34.8028568
+        ]
+      },
+      "id": "node/4420947629"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947631",
+        "historic": "marker",
+        "name": "Sweetwater 1828",
+        "@timestamp": "2016-09-27T19:15:16Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6444203,
+          34.8252249
+        ]
+      },
+      "id": "node/4420947631"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947638",
+        "historic": "marker",
+        "name": "East Florence Historic District",
+        "@timestamp": "2016-09-27T19:15:17Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6588159,
+          34.8040657
+        ]
+      },
+      "id": "node/4420947638"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947652",
+        "historic": "marker",
+        "name": "Maud McKnight Lindsay",
+        "website": "https://www.hmdb.org/m.asp?m=84041",
+        "@timestamp": "2020-04-17T16:33:10Z",
+        "@version": "3",
+        "@changeset": "83717526",
+        "@user": "micahcochran",
+        "@uid": "397719"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6494842,
+          34.8075178
+        ]
+      },
+      "id": "node/4420947652"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947658",
+        "historic": "marker",
+        "name": "Florence Wagon Works",
+        "@timestamp": "2016-09-27T19:15:17Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6444645,
+          34.8059782
+        ]
+      },
+      "id": "node/4420947658"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947659",
+        "historic": "marker",
+        "name": "Muscle Shoals Canal",
+        "@timestamp": "2016-09-27T19:15:17Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.542098,
+          34.8571966
+        ]
+      },
+      "id": "node/4420947659"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947660",
+        "historic": "marker",
+        "name": "Kennedy Gun Factory",
+        "@timestamp": "2016-09-27T19:15:17Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.5310518,
+          34.9457032
+        ]
+      },
+      "id": "node/4420947660"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947661",
+        "historic": "marker",
+        "name": "Lone Cedar Church of Christ 1898",
+        "@timestamp": "2016-09-27T19:15:17Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.5629826,
+          34.9236887
+        ]
+      },
+      "id": "node/4420947661"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947699",
+        "historic": "marker",
+        "name": "Center Star Methodist Church 1818",
+        "@timestamp": "2016-09-27T19:15:17Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.4595378,
+          34.8614534
+        ]
+      },
+      "id": "node/4420947699"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947717",
+        "historic": "marker",
+        "name": "Gov. Hugh McVay",
+        "@timestamp": "2016-09-27T19:15:18Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6600968,
+          34.8440034
+        ]
+      },
+      "id": "node/4420947717"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4420947718",
+        "historic": "marker",
+        "name": "Larimore Home 1870",
+        "@timestamp": "2016-09-27T19:15:18Z",
+        "@version": "1",
+        "@changeset": "42477963",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6603133,
+          34.8469568
+        ]
+      },
+      "id": "node/4420947718"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4422511687",
+        "historic": "marker",
+        "name": "New Hope Church of Chirst",
+        "@timestamp": "2016-09-28T18:43:31Z",
+        "@version": "1",
+        "@changeset": "42501881",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.7985072,
+          34.8728812
+        ]
+      },
+      "id": "node/4422511687"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4422610106",
+        "historic": "marker",
+        "name": "Wesley Chapel United Methodist Church and Cemetery",
+        "@timestamp": "2016-09-28T19:21:16Z",
+        "@version": "1",
+        "@changeset": "42502800",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.7883041,
+          34.9087243
+        ]
+      },
+      "id": "node/4422610106"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4422623927",
+        "historic": "marker",
+        "name": "Macedonia Church of Christ",
+        "@timestamp": "2016-09-28T19:33:41Z",
+        "@version": "1",
+        "@changeset": "42503135",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.8678251,
+          34.9182127
+        ]
+      },
+      "id": "node/4422623927"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4422631729",
+        "historic": "marker",
+        "name": "Wilson's Headquarters and Camp Winter, 1865",
+        "@timestamp": "2016-09-28T19:41:02Z",
+        "@version": "1",
+        "@changeset": "42503289",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.9077874,
+          34.8856931
+        ]
+      },
+      "id": "node/4422631729"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4422631733",
+        "historic": "marker",
+        "name": "Andrew Lee Phillips",
+        "@timestamp": "2016-09-28T19:41:02Z",
+        "@version": "1",
+        "@changeset": "42503289",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.3713565,
+          34.9685087
+        ]
+      },
+      "id": "node/4422631733"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4422812664",
+        "historic": "marker",
+        "name": "College Place Historic District",
+        "@timestamp": "2016-09-28T21:22:22Z",
+        "@version": "1",
+        "@changeset": "42505498",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6798435,
+          34.8096232
+        ]
+      },
+      "id": "node/4422812664"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4422812665",
+        "historic": "marker",
+        "name": "College Place Historic District",
+        "@timestamp": "2016-09-28T21:22:22Z",
+        "@version": "1",
+        "@changeset": "42505498",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.682951,
+          34.8132145
+        ]
+      },
+      "id": "node/4422812665"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4422812666",
+        "historic": "marker",
+        "name": "Major General George Washington Goethal's Home",
+        "@timestamp": "2016-09-28T21:22:22Z",
+        "@version": "1",
+        "@changeset": "42505498",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6773933,
+          34.8076893
+        ]
+      },
+      "id": "node/4422812666"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4422812675",
+        "historic": "marker",
+        "name": "First Baptist Church 1888",
+        "@timestamp": "2016-09-28T21:22:22Z",
+        "@version": "1",
+        "@changeset": "42505498",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.674119,
+          34.8031196
+        ]
+      },
+      "id": "node/4422812675"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4423671314",
+        "historic": "marker",
+        "name": "Greater Mount Moriah Primitive Baptist Church 1896",
+        "@timestamp": "2016-09-29T13:30:11Z",
+        "@version": "1",
+        "@changeset": "42518850",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6894867,
+          34.8012028
+        ]
+      },
+      "id": "node/4423671314"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4423694252",
+        "historic": "marker",
+        "name": "Downtown Florence Historic District",
+        "wikidata": "Q18352496",
+        "@timestamp": "2018-02-18T15:42:55Z",
+        "@version": "2",
+        "@changeset": "56466357",
+        "@user": "Edward",
+        "@uid": "364"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6757473,
+          34.8001307
+        ]
+      },
+      "id": "node/4423694252"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4423775042",
+        "historic": "marker",
+        "name": "North Wood Avenue Historic District Expansion",
+        "@timestamp": "2016-09-29T14:59:43Z",
+        "@version": "1",
+        "@changeset": "42521485",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6764551,
+          34.8118759
+        ]
+      },
+      "id": "node/4423775042"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4423775043",
+        "historic": "marker",
+        "name": "Cherry Street Historic District",
+        "wikidata": "Q18205959",
+        "@timestamp": "2018-02-18T15:42:55Z",
+        "@version": "2",
+        "@changeset": "56466357",
+        "@user": "Edward",
+        "@uid": "364"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6736633,
+          34.8098346
+        ]
+      },
+      "id": "node/4423775043"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4423775045",
+        "historic": "marker",
+        "name": "Church Spring Church and School",
+        "@timestamp": "2016-09-29T14:59:43Z",
+        "@version": "1",
+        "@changeset": "42521485",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6738257,
+          34.7952809
+        ]
+      },
+      "id": "node/4423775045"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4423775046",
+        "historic": "marker",
+        "name": "St. Joseph Catholic Church",
+        "@timestamp": "2016-09-29T14:59:43Z",
+        "@version": "1",
+        "@changeset": "42521485",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6633729,
+          34.8045244
+        ]
+      },
+      "id": "node/4423775046"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4423933097",
+        "historic": "marker",
+        "name": "Homer Givens",
+        "@timestamp": "2016-09-29T17:05:16Z",
+        "@version": "1",
+        "@changeset": "42523881",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6803499,
+          34.8176052
+        ]
+      },
+      "id": "node/4423933097"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4423933100",
+        "historic": "marker",
+        "name": "Old Confederate Fort",
+        "@timestamp": "2016-09-29T17:05:16Z",
+        "@version": "1",
+        "@changeset": "42523881",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6638616,
+          34.799522
+        ]
+      },
+      "id": "node/4423933100"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4424007271",
+        "historic": "marker",
+        "name": "General Hood's Narrow Escape",
+        "@timestamp": "2016-09-29T18:18:02Z",
+        "@version": "1",
+        "@changeset": "42525338",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.5937907,
+          34.8410451
+        ]
+      },
+      "id": "node/4424007271"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4424047461",
+        "historic": "marker",
+        "name": "The University of North Alabama Football Program National NCAA Division II Championship Titles",
+        "@timestamp": "2016-09-29T18:32:47Z",
+        "@version": "1",
+        "@changeset": "42525608",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.683506,
+          34.8093015
+        ]
+      },
+      "id": "node/4424047461"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4424129465",
+        "authority": "Alabama Historical Commission",
+        "historic": "marker",
+        "marker_date": "2000-05-25",
+        "name": "Deibert Park",
+        "url": "http://www.hmdb.org/marker.asp?marker=33086",
+        "@timestamp": "2017-01-20T15:18:12Z",
+        "@version": "3",
+        "@changeset": "45328993",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6457733,
+          34.8402141
+        ]
+      },
+      "id": "node/4424129465"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4424223808",
+        "historic": "marker",
+        "name": "Pesthouse and Cemetery",
+        "@timestamp": "2016-09-29T20:20:04Z",
+        "@version": "1",
+        "@changeset": "42528306",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6982503,
+          34.8054505
+        ]
+      },
+      "id": "node/4424223808"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4424253533",
+        "historic": "marker",
+        "name": "Pleasant Hill United Methodist Church Cemetery",
+        "@timestamp": "2016-09-29T20:46:49Z",
+        "@version": "1",
+        "@changeset": "42528952",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.7788555,
+          34.8736325
+        ]
+      },
+      "id": "node/4424253533"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4424290718",
+        "historic": "marker",
+        "name": "Andrew Jackson's Military Road",
+        "@timestamp": "2016-09-30T20:41:34Z",
+        "@version": "3",
+        "@changeset": "42552215",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6464674,
+          34.8433468
+        ]
+      },
+      "id": "node/4424290718"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4424480466",
+        "historic": "marker",
+        "name": "St. Michael's Catholic Church",
+        "@timestamp": "2016-09-30T03:10:28Z",
+        "@version": "1",
+        "@changeset": "42532498",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.626161,
+          34.874876
+        ]
+      },
+      "id": "node/4424480466"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4424508944",
+        "historic": "marker",
+        "name": "Daniel White",
+        "@timestamp": "2016-09-30T04:12:58Z",
+        "@version": "1",
+        "@changeset": "42533066",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.4109042,
+          34.8547605
+        ]
+      },
+      "id": "node/4424508944"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425024061",
+        "historic": "marker",
+        "name": "Dred Scott",
+        "@timestamp": "2016-09-30T13:53:28Z",
+        "@version": "1",
+        "@changeset": "42542983",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.677541,
+          34.7999173
+        ]
+      },
+      "id": "node/4425024061"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425048928",
+        "historic": "marker",
+        "name": "Capture of John A. Murrell, Natchez Trace Outlaw 1834",
+        "@timestamp": "2016-09-30T14:12:24Z",
+        "@version": "1",
+        "@changeset": "42543388",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.7011622,
+          34.8081352
+        ]
+      },
+      "id": "node/4425048928"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425048929",
+        "historic": "marker",
+        "name": "Justice John McKinley Federal Building",
+        "@timestamp": "2016-09-30T14:12:24Z",
+        "@version": "1",
+        "@changeset": "42543388",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6752646,
+          34.8022064
+        ]
+      },
+      "id": "node/4425048929"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425048930",
+        "board_type": "history",
+        "historic": "marker",
+        "information": "board",
+        "name": "Burrell-Slater School",
+        "tourism": "information",
+        "@timestamp": "2017-08-11T20:27:32Z",
+        "@version": "2",
+        "@changeset": "51044231",
+        "@user": "maxerickson",
+        "@uid": "360392"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.682862,
+          34.7961225
+        ]
+      },
+      "id": "node/4425048930"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425098829",
+        "historic": "marker",
+        "name": "Wheeler Rifles",
+        "@timestamp": "2016-09-30T14:56:05Z",
+        "@version": "1",
+        "@changeset": "42544470",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6765037,
+          34.7998135
+        ]
+      },
+      "id": "node/4425098829"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425243846",
+        "historic": "marker",
+        "name": "Sculpture Relief-Books and Learning",
+        "@timestamp": "2016-09-30T15:34:16Z",
+        "@version": "1",
+        "@changeset": "42545581",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6745349,
+          34.8034431
+        ]
+      },
+      "id": "node/4425243846"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425243858",
+        "historic": "marker",
+        "name": "Woodrow Wilson Park 1818",
+        "@timestamp": "2016-09-30T15:34:16Z",
+        "@version": "1",
+        "@changeset": "42545581",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6750197,
+          34.80374
+        ]
+      },
+      "id": "node/4425243858"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425264189",
+        "historic": "marker",
+        "name": "The American Legion",
+        "@timestamp": "2016-09-30T15:52:03Z",
+        "@version": "1",
+        "@changeset": "42546032",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6745444,
+          34.7976496
+        ]
+      },
+      "id": "node/4425264189"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425302166",
+        "historic": "marker",
+        "name": "Ante-Bellum Cottom Mills",
+        "@timestamp": "2016-09-30T16:27:12Z",
+        "@version": "1",
+        "@changeset": "42546899",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6940141,
+          34.8187739
+        ]
+      },
+      "id": "node/4425302166"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425414554",
+        "historic": "marker",
+        "name": "Locust Street Historic District 1818",
+        "@timestamp": "2016-09-30T18:22:20Z",
+        "@version": "1",
+        "@changeset": "42549238",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6815768,
+          34.7989975
+        ]
+      },
+      "id": "node/4425414554"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425414555",
+        "historic": "marker",
+        "name": "Simpson House-Irvine Place-Coby Hall",
+        "@timestamp": "2016-09-30T18:22:20Z",
+        "@version": "1",
+        "@changeset": "42549238",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6790714,
+          34.8049027
+        ]
+      },
+      "id": "node/4425414555"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425414556",
+        "historic": "marker",
+        "name": "Original Site of Fame Recording Studio",
+        "@timestamp": "2016-09-30T18:22:20Z",
+        "@version": "1",
+        "@changeset": "42549238",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6748418,
+          34.8007811
+        ]
+      },
+      "id": "node/4425414556"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425414557",
+        "historic": "marker",
+        "name": "Sam Phillips in Florence",
+        "@timestamp": "2016-09-30T18:22:21Z",
+        "@version": "1",
+        "@changeset": "42549238",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6305051,
+          34.8093666
+        ]
+      },
+      "id": "node/4425414557"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425445215",
+        "board_type": "history",
+        "historic": "marker",
+        "information": "board",
+        "name": "W.C. Handy Birthplace",
+        "tourism": "information",
+        "@timestamp": "2017-08-11T20:27:32Z",
+        "@version": "2",
+        "@changeset": "51044231",
+        "@user": "maxerickson",
+        "@uid": "360392"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.684769,
+          34.795517
+        ]
+      },
+      "id": "node/4425445215"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425449161",
+        "historic": "marker",
+        "name": "Florence Little League Baseball",
+        "@timestamp": "2016-09-30T18:55:53Z",
+        "@version": "1",
+        "@changeset": "42549890",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6749037,
+          34.7907894
+        ]
+      },
+      "id": "node/4425449161"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425463862",
+        "historic": "marker",
+        "name": "Florence Bethel Cmberland Presbyterian Church in America",
+        "@timestamp": "2016-09-30T19:04:16Z",
+        "@version": "1",
+        "@changeset": "42550031",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6703032,
+          34.8001873
+        ]
+      },
+      "id": "node/4425463862"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425490639",
+        "historic": "marker",
+        "name": "Wilson Family and Slave Cemetery",
+        "@timestamp": "2016-09-30T19:24:24Z",
+        "@version": "1",
+        "@changeset": "42550435",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6292605,
+          34.8508972
+        ]
+      },
+      "id": "node/4425490639"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425601830",
+        "historic": "marker",
+        "name": "Center (Centre) Star",
+        "@timestamp": "2016-09-30T20:37:12Z",
+        "@version": "1",
+        "@changeset": "42552145",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.4547725,
+          34.8612814
+        ]
+      },
+      "id": "node/4425601830"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425602685",
+        "historic": "marker",
+        "name": "Cherokee Chief Doubleheads Village Around 1800",
+        "url": "http://www.hmdb.org/marker.asp?marker=83942",
+        "@timestamp": "2016-09-30T20:41:57Z",
+        "@version": "2",
+        "@changeset": "42552227",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.4118797,
+          34.8552775
+        ]
+      },
+      "id": "node/4425602685"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425623769",
+        "historic": "marker",
+        "name": "Florence Synodical Female College",
+        "@timestamp": "2016-09-30T20:50:24Z",
+        "@version": "1",
+        "@changeset": "42552376",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6744037,
+          34.8029026
+        ]
+      },
+      "id": "node/4425623769"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425647730",
+        "historic": "marker",
+        "name": "Forks of Cypress Plantation",
+        "@timestamp": "2016-09-30T21:19:51Z",
+        "@version": "1",
+        "@changeset": "42552780",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.7251179,
+          34.8475713
+        ]
+      },
+      "id": "node/4425647730"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425984378",
+        "historic": "marker",
+        "name": "McFarland Park and Recreation Area",
+        "@timestamp": "2016-10-01T02:39:56Z",
+        "@version": "1",
+        "@changeset": "42555761",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6744043,
+          34.7849257
+        ]
+      },
+      "id": "node/4425984378"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4425984379",
+        "historic": "marker",
+        "name": "Prehistoric / Historic Native Americans",
+        "@timestamp": "2016-10-01T02:39:56Z",
+        "@version": "1",
+        "@changeset": "42555761",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6756608,
+          34.7843124
+        ]
+      },
+      "id": "node/4425984379"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4430866141",
+        "historic": "marker",
+        "name": "Jackson's Military Road",
+        "@timestamp": "2016-10-04T13:51:25Z",
+        "@version": "1",
+        "@changeset": "42630453",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6710949,
+          34.8134067
+        ]
+      },
+      "id": "node/4430866141"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4431600166",
+        "historic": "marker",
+        "name": "Coleman Family",
+        "url": "https://www.hmdb.org/marker.asp?marker=85389",
+        "@timestamp": "2016-10-04T21:04:47Z",
+        "@version": "1",
+        "@changeset": "42642997",
+        "@user": "micahcochran",
+        "@uid": "397719"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -86.9755432,
+          34.7964992
+        ]
+      },
+      "id": "node/4431600166"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4449958283",
+        "historic": "marker",
+        "name": "College Hall",
+        "start_date": "1930",
+        "@timestamp": "2016-10-16T02:36:43Z",
+        "@version": "1",
+        "@changeset": "42928648",
+        "@user": "Memoire",
+        "@uid": "2176227"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.4436313,
+          40.4933126
+        ]
+      },
+      "id": "node/4449958283"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4452347987",
+        "historic": "marker",
+        "name": "General John Coffee",
+        "@timestamp": "2016-12-07T20:19:37Z",
+        "@version": "2",
+        "@changeset": "44243910",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6887063,
+          34.8422329
+        ]
+      },
+      "id": "node/4452347987"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4473125248",
+        "historic": "marker",
+        "information": "history",
+        "source": "survey 2016-10-30",
+        "tourism": "information",
+        "@timestamp": "2016-10-31T16:21:42Z",
+        "@version": "1",
+        "@changeset": "43307782",
+        "@user": "Jack the Ripper",
+        "@uid": "1946151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.95276,
+          34.5772355
+        ]
+      },
+      "id": "node/4473125248"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4479769398",
+        "historic": "marker",
+        "@timestamp": "2016-11-03T17:52:41Z",
+        "@version": "1",
+        "@changeset": "43385442",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6785418,
+          34.8014987
+        ]
+      },
+      "id": "node/4479769398"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4542117986",
+        "historic": "marker",
+        "@timestamp": "2016-12-06T23:20:04Z",
+        "@version": "1",
+        "@changeset": "44222584",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6647959,
+          34.8058522
+        ]
+      },
+      "id": "node/4542117986"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4581999493",
+        "historic": "marker",
+        "inscription": "IN SEARCH OF THE PONY EXPRESS\nSTATION MARKER",
+        "@timestamp": "2019-07-29T01:59:41Z",
+        "@version": "2",
+        "@changeset": "72750655",
+        "@user": "Willsun",
+        "@uid": "7551886"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.9878244,
+          38.3565381
+        ]
+      },
+      "id": "node/4581999493"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4582015055",
+        "description": "Official scenic historic marker",
+        "historic": "marker",
+        "name": "Marilyn Buduke",
+        "@timestamp": "2016-12-31T01:13:02Z",
+        "@version": "2",
+        "@changeset": "44798402",
+        "@user": "sinclarius",
+        "@uid": "4153060"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -105.9406099,
+          35.6832159
+        ]
+      },
+      "id": "node/4582015055"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4636613216",
+        "historic": "marker",
+        "name": "Confederate Skirmish Marker",
+        "@timestamp": "2017-01-27T03:43:04Z",
+        "@version": "1",
+        "@changeset": "45540765",
+        "@user": "Kelly Summerlin",
+        "@uid": "5186414"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.477835,
+          34.618624
+        ]
+      },
+      "id": "node/4636613216"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4736574334",
+        "addr:city": "Austin",
+        "addr:housenumber": "801",
+        "addr:postcode": "78758",
+        "addr:state": "TX",
+        "addr:street": "Payton Gin Road",
+        "historic": "marker",
+        "name": "T.H.C. Marker: Fiskville",
+        "@timestamp": "2018-04-07T15:53:31Z",
+        "@version": "2",
+        "@changeset": "57894362",
+        "@user": "Skybunny",
+        "@uid": "1751737"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.7009191,
+          30.3578314
+        ]
+      },
+      "id": "node/4736574334"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4843209888",
+        "historic": "marker",
+        "@timestamp": "2017-05-09T07:36:53Z",
+        "@version": "1",
+        "@changeset": "48523323",
+        "@user": "nmixter",
+        "@uid": "55774"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.4767032,
+          37.9953912
+        ]
+      },
+      "id": "node/4843209888"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4843209898",
+        "historic": "marker",
+        "@timestamp": "2017-05-09T07:36:53Z",
+        "@version": "1",
+        "@changeset": "48523323",
+        "@user": "nmixter",
+        "@uid": "55774"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.4744032,
+          37.9904374
+        ]
+      },
+      "id": "node/4843209898"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4903005957",
+        "historic": "marker",
+        "inscription": "Traveled by General George Washington and the Continental Army during the American Revolutionary War from the Dey Mansion at Preskness to the Acquackanonk Landing on Passaic River July - October - November 1780",
+        "name": "York Road",
+        "@timestamp": "2017-06-08T01:20:41Z",
+        "@version": "1",
+        "@changeset": "49352104",
+        "@user": "Prof Eric Cameron",
+        "@uid": "5177123"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1403895,
+          40.9066076
+        ]
+      },
+      "id": "node/4903005957"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4949550798",
+        "historic": "marker",
+        "name": "David McKee Historical Marker",
+        "@timestamp": "2017-07-03T19:41:30Z",
+        "@version": "1",
+        "@changeset": "50017782",
+        "@user": "katycat5e",
+        "@uid": "2944411"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.8277009,
+          40.3414262
+        ]
+      },
+      "id": "node/4949550798"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4951351509",
+        "historic": "marker",
+        "@timestamp": "2017-07-04T17:58:56Z",
+        "@version": "1",
+        "@changeset": "50040314",
+        "@user": "HubMiner",
+        "@uid": "238419"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.4154916,
+          48.7199192
+        ]
+      },
+      "id": "node/4951351509"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4993845637",
+        "historic": "marker",
+        "material": "stone",
+        "name": "Hart's Woods National Natural Landmark",
+        "@timestamp": "2017-10-31T09:21:16Z",
+        "@version": "2",
+        "@changeset": "53388970",
+        "@user": "baloona",
+        "@uid": "4615898"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.4498561,
+          43.0872739
+        ]
+      },
+      "id": "node/4993845637"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4998287627",
+        "historic": "marker",
+        "@timestamp": "2017-07-27T19:14:41Z",
+        "@version": "1",
+        "@changeset": "50629135",
+        "@user": "Natfoot",
+        "@uid": "567792"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.0539202,
+          47.4418308
+        ]
+      },
+      "id": "node/4998287627"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5150645845",
+        "authority": "Kentuck Historical Society",
+        "historic": "marker",
+        "marker_date": "1986",
+        "name": "Silversmith Shop of Asa Blanchard",
+        "ref": "1784",
+        "@timestamp": "2017-10-06T02:25:42Z",
+        "@version": "2",
+        "@changeset": "52670149",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4982809,
+          38.0485241
+        ]
+      },
+      "id": "node/5150645845"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5150875663",
+        "authority": "Kentuck Historical Society",
+        "historic": "marker",
+        "marker_date": "1978",
+        "name": "Henry Clay's Law Office",
+        "ref": "139",
+        "wikidata": "Q5719457",
+        "wikipedia": "en:Henry Clay's Law Office",
+        "@timestamp": "2017-10-07T07:54:59Z",
+        "@version": "2",
+        "@changeset": "52701514",
+        "@user": "Aleks-Berlin",
+        "@uid": "85218"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4967688,
+          38.049552
+        ]
+      },
+      "id": "node/5150875663"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5150875664",
+        "authority": "Kentuck Historical Society",
+        "historic": "marker",
+        "marker_date": "2011",
+        "name": "Hunt-Morgan House",
+        "ref": "2365 (copy of #3)",
+        "wikidata": "Q5943837",
+        "wikipedia": "en:Hunt–Morgan House",
+        "@timestamp": "2017-10-07T07:54:26Z",
+        "@version": "2",
+        "@changeset": "52701502",
+        "@user": "Aleks-Berlin",
+        "@uid": "85218"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4961086,
+          38.0501234
+        ]
+      },
+      "id": "node/5150875664"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5150875665",
+        "Authority": "Bryan Station Chapter N. S. D. A. R.",
+        "Marker_date": "1931",
+        "historic": "marker",
+        "name": "Transylvania College",
+        "@timestamp": "2017-10-06T02:25:41Z",
+        "@version": "1",
+        "@changeset": "52670149",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4944374,
+          38.0510669
+        ]
+      },
+      "id": "node/5150875665"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5156127829",
+        "authority": "Historical Markers Society",
+        "historic": "marker",
+        "name": "Beck House",
+        "ref": "14",
+        "@timestamp": "2017-10-08T23:29:49Z",
+        "@version": "1",
+        "@changeset": "52744044",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4962768,
+          38.0431244
+        ]
+      },
+      "id": "node/5156127829"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5156412435",
+        "authority": "Kentucky Historical Society",
+        "historic": "marker",
+        "marker_date": "1990",
+        "name": "James Lane Allen (1849-1925)",
+        "ref": "1875",
+        "@timestamp": "2017-10-09T05:46:17Z",
+        "@version": "3",
+        "@changeset": "52747685",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4944389,
+          38.0507129
+        ]
+      },
+      "id": "node/5156412435"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5156972990",
+        "authority": "Kentucky Historical Society",
+        "historic": "marker",
+        "marker_date": "1977",
+        "name": "Col Robert Patterson (1753-1827)",
+        "ref": "1613",
+        "@timestamp": "2017-10-09T12:30:27Z",
+        "@version": "1",
+        "@changeset": "52758348",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4948255,
+          38.0517207
+        ]
+      },
+      "id": "node/5156972990"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5156972992",
+        "description": "embedded in concrete sidewalk",
+        "historic": "marker",
+        "inscription": "PRESENTED/BY/CLASSES/OF 1923",
+        "marker": "plaque",
+        "@timestamp": "2017-10-09T12:30:28Z",
+        "@version": "1",
+        "@changeset": "52758348",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4944225,
+          38.0513409
+        ]
+      },
+      "id": "node/5156972992"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5158041443",
+        "authority": "Kentucky Historical Society",
+        "historic": "marker",
+        "marker_date": "2007",
+        "name": "Hampton Court",
+        "ref": "2245",
+        "@timestamp": "2017-10-09T23:45:06Z",
+        "@version": "1",
+        "@changeset": "52775224",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4968425,
+          38.0546806
+        ]
+      },
+      "id": "node/5158041443"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5164318431",
+        "authority": "Historical Markers Society",
+        "historic": "marker",
+        "name": "Jefferson Davis",
+        "ref": "4",
+        "@timestamp": "2017-11-02T18:08:35Z",
+        "@version": "3",
+        "@changeset": "53459224",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4988526,
+          38.0451981
+        ]
+      },
+      "id": "node/5164318431"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5173758946",
+        "authority": "Kentucky Historical Society",
+        "historic": "marker",
+        "marker_date": "2016",
+        "name": "Phoenix Hotel",
+        "ref": "2488",
+        "@timestamp": "2017-10-17T21:20:27Z",
+        "@version": "1",
+        "@changeset": "53024973",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4970153,
+          38.0461426
+        ]
+      },
+      "id": "node/5173758946"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5179297260",
+        "authority": "Kentucky Historical Society",
+        "historic": "marker",
+        "marker_date": "1972",
+        "name": "Clay Villa ca. 1845",
+        "ref": "1459",
+        "@timestamp": "2017-10-21T04:41:19Z",
+        "@version": "1",
+        "@changeset": "53119144",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4880051,
+          38.0397199
+        ]
+      },
+      "id": "node/5179297260"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5195384685",
+        "authority": "Kentucky Historical Society",
+        "historic": "marker",
+        "marker_date": "1976",
+        "name": "Lexington Cemetery",
+        "ref": "1550",
+        "@timestamp": "2017-10-28T05:18:55Z",
+        "@version": "1",
+        "@changeset": "53308761",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5084225,
+          38.0560294
+        ]
+      },
+      "id": "node/5195384685"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5195384688",
+        "authority": "The Citizens of Lexington",
+        "historic": "marker",
+        "inscription": "AT A SPRING / NEAR THIS SPOT / ON / JUNE 4, 1775 / PIONEER HUNTERS / BIVOUACKED AND / NAMED THEIR CAMP / LEXINGTON / ... / THIS TABLET ERECTED BY THE / CITIZENS OF LEXINGTON / JUNE 4, 1925",
+        "marker_date": "June 4, 1925",
+        "name": "Pioneer Hunters named their camp Lexington",
+        "@timestamp": "2017-10-28T05:18:55Z",
+        "@version": "1",
+        "@changeset": "53308761",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5108637,
+          38.0575324
+        ]
+      },
+      "id": "node/5195384688"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5206952355",
+        "authority": "Kentucky Historical Society",
+        "historic": "marker",
+        "name": "Town Branch",
+        "ref": "1556",
+        "todo": "location is approximate, need to refine it",
+        "@timestamp": "2017-11-02T18:08:34Z",
+        "@version": "1",
+        "@changeset": "53459224",
+        "@user": "herrick67",
+        "@uid": "1834047"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.5015305,
+          38.0503326
+        ]
+      },
+      "id": "node/5206952355"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5266908208",
+        "historic": "marker",
+        "inscription": "Near this site stood the former Custer Homestead of Emanuel and Maria Custer from 1856-1865. (For more information visit https://www.hmdb.org/marker.asp?marker=20439 )",
+        "name": "Custer Homestead",
+        "@timestamp": "2017-12-07T05:23:25Z",
+        "@version": "3",
+        "@changeset": "54421181",
+        "@user": "Silverwren",
+        "@uid": "7121521"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.7384692,
+          41.4225965
+        ]
+      },
+      "id": "node/5266908208"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5269193070",
+        "historic": "marker",
+        "name": "Fort Miamis Reserve/Miltonville",
+        "@timestamp": "2017-12-07T05:23:25Z",
+        "@version": "1",
+        "@changeset": "54421181",
+        "@user": "Silverwren",
+        "@uid": "7121521"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.7144347,
+          41.4891366
+        ]
+      },
+      "id": "node/5269193070"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5320847597",
+        "description": "historic natural landmark for emigrants on the Oregon Trail",
+        "historic": "marker",
+        "landmark": "large_rock",
+        "name": "Chimney Rock",
+        "@timestamp": "2018-01-04T20:37:12Z",
+        "@version": "1",
+        "@changeset": "55169573",
+        "@user": "Georgos20",
+        "@uid": "6849485"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -103.347759,
+          41.703836
+        ]
+      },
+      "id": "node/5320847597"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5341732851",
+        "historic": "marker",
+        "inscription": "Hamlin Garland Historical Marker",
+        "@timestamp": "2018-01-15T23:26:51Z",
+        "@version": "1",
+        "@changeset": "55477971",
+        "@user": "mneko",
+        "@uid": "158194"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -91.0761683,
+          43.9121016
+        ]
+      },
+      "id": "node/5341732851"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5470050028",
+        "historic": "marker",
+        "inscription": "Marking the end of the Oregon Trail 1844.",
+        "@timestamp": "2018-03-10T22:58:22Z",
+        "@version": "1",
+        "@changeset": "57069669",
+        "@user": "KitSEA",
+        "@uid": "7460236"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.9011251,
+          47.0430147
+        ]
+      },
+      "id": "node/5470050028"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5500157255",
+        "crossing_ref": "zebra",
+        "highway": "crossing",
+        "historic": "marker",
+        "@timestamp": "2018-03-24T05:15:34Z",
+        "@version": "1",
+        "@changeset": "57475180",
+        "@user": "Rich1234",
+        "@uid": "5046269"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1282178,
+          38.8604025
+        ]
+      },
+      "id": "node/5500157255"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5500157256",
+        "crossing_ref": "zebra",
+        "highway": "crossing",
+        "historic": "marker",
+        "@timestamp": "2018-03-24T05:15:34Z",
+        "@version": "1",
+        "@changeset": "57475180",
+        "@user": "Rich1234",
+        "@uid": "5046269"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1284016,
+          38.8603471
+        ]
+      },
+      "id": "node/5500157256"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5500157257",
+        "crossing": "zebra",
+        "crossing_ref": "zebra",
+        "highway": "crossing",
+        "historic": "marker",
+        "@timestamp": "2018-06-15T13:24:55Z",
+        "@version": "2",
+        "@changeset": "59874441",
+        "@user": "speaketh",
+        "@uid": "189712"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1284441,
+          38.8605302
+        ]
+      },
+      "id": "node/5500157257"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5554826177",
+        "historic": "marker",
+        "name": "Hall's Hill Wall",
+        "website": "https://projects.arlingtonva.us/events/unveiling-ceremony-halls-hill-wall-historic-marker/",
+        "@timestamp": "2018-04-15T16:12:10Z",
+        "@version": "1",
+        "@changeset": "58113720",
+        "@user": "Rich1234",
+        "@uid": "5046269"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1219065,
+          38.8908606
+        ]
+      },
+      "id": "node/5554826177"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5565475143",
+        "historic": "marker",
+        "@timestamp": "2018-04-20T01:42:52Z",
+        "@version": "1",
+        "@changeset": "58249319",
+        "@user": "skew-t",
+        "@uid": "294728"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -94.6007687,
+          39.254754
+        ]
+      },
+      "id": "node/5565475143"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5572366707",
+        "historic": "marker",
+        "@timestamp": "2018-04-23T01:30:53Z",
+        "@version": "1",
+        "@changeset": "58323754",
+        "@user": "Rich1234",
+        "@uid": "5046269"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1242025,
+          38.8984703
+        ]
+      },
+      "id": "node/5572366707"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5612828557",
+        "historic": "marker",
+        "@timestamp": "2018-05-12T02:16:23Z",
+        "@version": "1",
+        "@changeset": "58893318",
+        "@user": "Rich1234",
+        "@uid": "5046269"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0838372,
+          38.8784811
+        ]
+      },
+      "id": "node/5612828557"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5635586727",
+        "fixme": "need to resurvey to get inscription",
+        "historic": "marker",
+        "inscription": "Floyd Springs",
+        "name": "Floyd Springs",
+        "@timestamp": "2018-05-22T16:48:49Z",
+        "@version": "1",
+        "@changeset": "59185841",
+        "@user": "Jack the Ripper",
+        "@uid": "1946151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.1553406,
+          34.4268612
+        ]
+      },
+      "id": "node/5635586727"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5640763642",
+        "historic": "marker",
+        "inscription": "Beginning of civil war \" Trail Head \" as described by city posted road sign.",
+        "@timestamp": "2018-05-25T00:22:39Z",
+        "@version": "1",
+        "@changeset": "59256027",
+        "@user": "RGeorge68",
+        "@uid": "8324556"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.3850106,
+          36.1870455
+        ]
+      },
+      "id": "node/5640763642"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5683594100",
+        "historic": "marker",
+        "inscription": "Buckner's Trestle",
+        "@timestamp": "2018-06-12T01:53:34Z",
+        "@version": "1",
+        "@changeset": "59758083",
+        "@user": "Fredlyfish4",
+        "@uid": "1683838"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.5514799,
+          34.3421758
+        ]
+      },
+      "id": "node/5683594100"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5694474128",
+        "historic": "marker",
+        "@timestamp": "2018-06-16T09:43:52Z",
+        "@version": "1",
+        "@changeset": "59891165",
+        "@user": "davenport651",
+        "@uid": "43649"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.1479025,
+          44.1035146
+        ]
+      },
+      "id": "node/5694474128"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5709379467",
+        "historic": "marker",
+        "name": "Pound Virginia",
+        "ref": "Z-90",
+        "website": "http://www.markerhistory.com/pound-virginia-marker-z-90/",
+        "@timestamp": "2018-06-21T18:37:23Z",
+        "@version": "1",
+        "@changeset": "60052522",
+        "@user": "Rich1234",
+        "@uid": "5046269"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.5980882,
+          37.1187922
+        ]
+      },
+      "id": "node/5709379467"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5729193760",
+        "historic": "marker",
+        "@timestamp": "2018-06-29T22:16:50Z",
+        "@version": "1",
+        "@changeset": "60290805",
+        "@user": "Rich1234",
+        "@uid": "5046269"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.6296229,
+          36.9335693
+        ]
+      },
+      "id": "node/5729193760"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5731290438",
+        "historic": "marker",
+        "name": "Francis Gary Powers",
+        "ref": "KA 20",
+        "website": "http://www.waymarking.com/waymarks/WMHP10_Francis_Gary_Powers_U2_Pilot",
+        "@timestamp": "2018-06-30T21:48:07Z",
+        "@version": "1",
+        "@changeset": "60310958",
+        "@user": "Rich1234",
+        "@uid": "5046269"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.5996459,
+          37.100202
+        ]
+      },
+      "id": "node/5731290438"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5852249345",
+        "historic": "marker",
+        "inscription": "\"A RIOT IS THE LANGUAGE OF THE UNHEARD\" DR. MARTIN LUTHER KING DEDICATED TO ALL THE VICTIMS OF THE RACE RIOT THAT BEGAN NEAR THIS PLACE SUNDAY, JULY 27, 1919 A GROUP OF BOYS RAFTING ON LAKE MICHIGAN DRIFTED OVER AN INVISIBLE RACIAL BARRIER. ROCKS...",
+        "memorial": "plaque",
+        "name": "1919 Race Riot Plaque",
+        "subject:wikipedia": "en:Chicago race riot of 1919",
+        "@timestamp": "2019-11-25T08:51:20Z",
+        "@version": "4",
+        "@changeset": "77509290",
+        "@user": "pyrog",
+        "@uid": "270456"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6089375,
+          41.842497
+        ]
+      },
+      "id": "node/5852249345"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5905625984",
+        "direction": "330;150",
+        "gnis:feature_id": "931681",
+        "historic": "marker",
+        "inscription": "The foothills and higher peaks to the north are part of the Southern Rocky Mountains, which extend from southern Wyoming through Colorado and New Mexico. The Sangre de Cristo Mountains (Spanish for \"Blood of Christ\") trend from Salida, Colorado, in ...",
+        "inscription:backward": "Galisteo Basin",
+        "inscription:forward": "Sangre de Cristos",
+        "memorial": "plaque",
+        "name": "Southern Rockies & Galisteo Basin Historical Marker",
+        "ref:hmdb": "55295",
+        "@timestamp": "2020-11-24T14:34:48Z",
+        "@version": "4",
+        "@changeset": "94712877",
+        "@user": "mueschel",
+        "@uid": "616774"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -105.9042231,
+          35.4705169
+        ]
+      },
+      "id": "node/5905625984"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5969273140",
+        "historic": "marker",
+        "name": "Old Railroad Bed",
+        "@timestamp": "2018-10-09T13:57:43Z",
+        "@version": "1",
+        "@changeset": "63347702",
+        "@user": "Monkey D Luffy",
+        "@uid": "4570922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6672575,
+          34.7793454
+        ]
+      },
+      "id": "node/5969273140"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5983877140",
+        "historic": "marker",
+        "inscription": "Bowling Green was first platted in 1835. The main street historic district represents the commercial buildings constructed around Bowling Green's brief boom era in the late 1800's and early 1990's. Many of the first story storefronts have been altered",
+        "inscription_1": "but the upper stories are generally intact. Queen Anne and classical revival style buildings dominate the district. Although other styles are also represented, namely Italianate and Romanesque revival.",
+        "@timestamp": "2018-10-14T19:28:39Z",
+        "@version": "1",
+        "@changeset": "63518192",
+        "@user": "Johnny Mapperseed",
+        "@uid": "1723055"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.6505278,
+          41.3739263
+        ]
+      },
+      "id": "node/5983877140"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5999274102",
+        "historic": "marker",
+        "inscription": "Jonesboro CC since 1919",
+        "@timestamp": "2018-10-19T23:59:25Z",
+        "@version": "1",
+        "@changeset": "63693696",
+        "@user": "GFunkDub",
+        "@uid": "8962922"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.690751,
+          35.8287561
+        ]
+      },
+      "id": "node/5999274102"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6056267530",
+        "historic": "marker",
+        "inscription": "Hardee's Corps at Mud Creek",
+        "@timestamp": "2018-11-13T02:04:24Z",
+        "@version": "1",
+        "@changeset": "64426380",
+        "@user": "Jack the Ripper",
+        "@uid": "1946151"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6206268,
+          33.9622073
+        ]
+      },
+      "id": "node/6056267530"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6193616967",
+        "authority": "Historical Society of Harford County",
+        "historic": "marker",
+        "name": "\"Constant Friendship\"",
+        "@timestamp": "2019-01-08T21:41:13Z",
+        "@version": "1",
+        "@changeset": "66142029",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.3093661,
+          39.4703862
+        ]
+      },
+      "id": "node/6193616967"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6228690617",
+        "historic": "marker",
+        "name": "Old Spanish Trail Zero Milestone",
+        "@timestamp": "2019-01-23T04:13:26Z",
+        "@version": "1",
+        "@changeset": "66557491",
+        "@user": "3yoda",
+        "@uid": "632378"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.3142199,
+          29.8985819
+        ]
+      },
+      "id": "node/6228690617"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6258336397",
+        "historic": "marker",
+        "inscription": "Baxter Springs Massacre- On October 6, 1863, Gen James Blunt and about 100 men were met near Baxter's Springs by William Quantrill and several hundred Confederate Troops masquerading as Union troops...",
+        "@timestamp": "2019-02-04T17:29:20Z",
+        "@version": "1",
+        "@changeset": "66910246",
+        "@user": "AbbyO12",
+        "@uid": "5343027"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -94.7263376,
+          37.0670951
+        ]
+      },
+      "id": "node/6258336397"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6273353731",
+        "authority": "Maryland Historical Trust;Maryland State Highway Administration;",
+        "historic": "marker",
+        "name": "Sophia's Dairy",
+        "@timestamp": "2019-02-12T01:47:16Z",
+        "@version": "1",
+        "@changeset": "67117786",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.2330066,
+          39.4718959
+        ]
+      },
+      "id": "node/6273353731"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6273404530",
+        "authority": "Maryland Historical Trust;Maryland State Highway Administration;",
+        "historic": "marker",
+        "name": "This is a Section of “The General’s Highway”",
+        "@timestamp": "2019-02-12T03:12:06Z",
+        "@version": "2",
+        "@changeset": "67119055",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.1636339,
+          39.509663
+        ]
+      },
+      "id": "node/6273404530"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6287111786",
+        "authority": "Maryland Historical Trust;Maryland State Highway Administration;",
+        "historic": "marker",
+        "name": "Havre de Grace Racetrack",
+        "website": "https://www.hmdb.org/Marker.asp?Marker=1269",
+        "wikidata": "Q5684078",
+        "wikipedia": "en:Havre de Grace Racetrack",
+        "@timestamp": "2019-02-18T22:51:31Z",
+        "@version": "2",
+        "@changeset": "67332703",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.1121334,
+          39.536933
+        ]
+      },
+      "id": "node/6287111786"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6292196753",
+        "authority": "Maryland Historical Society",
+        "historic": "marker",
+        "name": "Joppa Town",
+        "website": "http://www.waymarking.com/waymarks/WME817_Joppa_Town",
+        "website_1": "https://www.hmdb.org/Marker.asp?Marker=1232",
+        "@timestamp": "2019-02-20T23:26:15Z",
+        "@version": "1",
+        "@changeset": "67411110",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.3633612,
+          39.4063966
+        ]
+      },
+      "id": "node/6292196753"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6322147377",
+        "historic": "marker",
+        "name": "Historic Claiborne Marker",
+        "@timestamp": "2019-03-07T02:33:43Z",
+        "@version": "1",
+        "@changeset": "67865843",
+        "@user": "PrussianFool",
+        "@uid": "9495691"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.5129581,
+          31.5444746
+        ]
+      },
+      "id": "node/6322147377"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6355625048",
+        "historic": "marker",
+        "name": "Harrisville City Historic Marker",
+        "source": "survey",
+        "@timestamp": "2019-03-23T00:07:03Z",
+        "@version": "1",
+        "@changeset": "68431373",
+        "@user": "Val",
+        "@uid": "65769"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.9787395,
+          41.2718598
+        ]
+      },
+      "id": "node/6355625048"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6426325553",
+        "authority": "Michigan",
+        "historic": "marker",
+        "name": "Western Theological Seminary",
+        "@timestamp": "2019-04-24T17:06:26Z",
+        "@version": "1",
+        "@changeset": "69534702",
+        "@user": "slack",
+        "@uid": "11129"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -86.1042031,
+          42.7865938
+        ]
+      },
+      "id": "node/6426325553"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6433225369",
+        "authority": "Orange County",
+        "historic": "marker",
+        "name": "Hoffman Homestead",
+        "@timestamp": "2019-04-27T21:57:32Z",
+        "@version": "1",
+        "@changeset": "69651065",
+        "@user": "n76",
+        "@uid": "318696"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.6011539,
+          33.6642644
+        ]
+      },
+      "id": "node/6433225369"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6460774903",
+        "historic": "marker",
+        "inscription": "Bowen-Thompson Quadrangle",
+        "start_date": "2019-05",
+        "@timestamp": "2019-05-09T03:12:41Z",
+        "@version": "1",
+        "@changeset": "70056844",
+        "@user": "Johnny Mapperseed",
+        "@uid": "1723055"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.640604,
+          41.3762724
+        ]
+      },
+      "id": "node/6460774903"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6460774904",
+        "historic": "marker",
+        "inscription": "Bowen-Thompson Quadrangle",
+        "start_date": "2019-05",
+        "@timestamp": "2019-05-09T03:12:41Z",
+        "@version": "1",
+        "@changeset": "70056844",
+        "@user": "Johnny Mapperseed",
+        "@uid": "1723055"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.6406114,
+          41.3756549
+        ]
+      },
+      "id": "node/6460774904"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6625293958",
+        "alt_name": "Mason-Dixon Survey",
+        "authority": "Pennsylvania Historical & Museum Commission",
+        "historic": "marker",
+        "marker_date": "2013",
+        "name": "Mason-Dixon Survey Historical Marker",
+        "source": "Mapbox and historical marker project",
+        "@timestamp": "2019-07-18T01:54:14Z",
+        "@version": "1",
+        "@changeset": "72369359",
+        "@user": "JessAk71",
+        "@uid": "381909"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.1439024,
+          39.9409284
+        ]
+      },
+      "id": "node/6625293958"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6680755239",
+        "historic": "marker",
+        "@timestamp": "2019-08-04T01:55:21Z",
+        "@version": "1",
+        "@changeset": "72980165",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.3489002,
+          39.535813
+        ]
+      },
+      "id": "node/6680755239"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6717441088",
+        "historic": "marker",
+        "@timestamp": "2019-08-17T00:46:24Z",
+        "@version": "1",
+        "@changeset": "73433432",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.3470888,
+          39.5324579
+        ]
+      },
+      "id": "node/6717441088"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6814465529",
+        "historic": "marker",
+        "inscription": "Old Post Road\nEstablished 1666\nGov. William Paca\n_\nSigner of the Declaration of Independence. Born October 31, 1740 on Chilberry Hill Farm, 1 1/4 miles south of here. Died October 27, 1799.",
+        "name": "Gov. William Paca",
+        "@timestamp": "2019-09-21T18:54:01Z",
+        "@version": "1",
+        "@changeset": "74756861",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.2955,
+          39.4494342
+        ]
+      },
+      "id": "node/6814465529"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6814465568",
+        "historic": "marker",
+        "inscription": "Harford Town\nOr Bush\nThe French troops of Count de Rouchambeau in five divisions camped here at the end of August 1782 -the 22nd camp on the return march from the Yorktown victory to the North.",
+        "name": "Harford Town or Bush",
+        "operator": "State Roads Commission",
+        "@timestamp": "2019-09-21T18:54:01Z",
+        "@version": "1",
+        "@changeset": "74756861",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.2669312,
+          39.4717598
+        ]
+      },
+      "id": "node/6814465568"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6814465569",
+        "historic": "marker",
+        "@timestamp": "2019-09-21T18:54:01Z",
+        "@version": "1",
+        "@changeset": "74756861",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.2659765,
+          39.4725016
+        ]
+      },
+      "id": "node/6814465569"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6814465570",
+        "historic": "marker",
+        "name": "\"The Bush Declaration\"",
+        "operator": "Maryland Historical Society",
+        "@timestamp": "2019-09-21T18:54:01Z",
+        "@version": "1",
+        "@changeset": "74756861",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.2660358,
+          39.4724605
+        ]
+      },
+      "id": "node/6814465570"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6928766989",
+        "historic": "marker",
+        "inscription": "Built c. 1848. From 1930 to 1962 home of novelist William Faulkner, who named it for the rowan tree, ...",
+        "name": "Rowan Oak",
+        "@timestamp": "2019-10-29T22:09:21Z",
+        "@version": "1",
+        "@changeset": "76367263",
+        "@user": "rjgambrel",
+        "@uid": "10002721"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.5242368,
+          34.3586877
+        ]
+      },
+      "id": "node/6928766989"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6932239381",
+        "authority": "North Carolina Highway Historical Marker Program",
+        "contact:website": "http://www.ncmarkers.com/Markers.aspx?MarkerId=N-48",
+        "historic": "marker",
+        "inscription": "1882-1976. Boy Scouts of America leader. Founded Scouts' Interracial Service in 1926. Lived 100 yards north.",
+        "name": "Stanley Harris",
+        "ref": "N-48",
+        "start_date": "2010",
+        "@timestamp": "2019-11-26T22:14:22Z",
+        "@version": "2",
+        "@changeset": "77598041",
+        "@user": "somasis",
+        "@uid": "8379033"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.6916548,
+          36.2208918
+        ]
+      },
+      "id": "node/6932239381"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6943621125",
+        "historic": "marker",
+        "name": "Mary Johnston",
+        "ref": "Q 35",
+        "@timestamp": "2019-11-03T19:40:32Z",
+        "@version": "1",
+        "@changeset": "76560837",
+        "@user": "Rich1234",
+        "@uid": "5046269"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.7860904,
+          38.04697
+        ]
+      },
+      "id": "node/6943621125"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6990492218",
+        "historic": "marker",
+        "name": "Susquehanna River Crossing",
+        "@timestamp": "2019-11-19T17:34:32Z",
+        "@version": "1",
+        "@changeset": "77284848",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.0918315,
+          39.5520218
+        ]
+      },
+      "id": "node/6990492218"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6990809663",
+        "historic": "marker",
+        "name": "Rochambeau Plaza",
+        "@timestamp": "2019-11-19T19:50:33Z",
+        "@version": "1",
+        "@changeset": "77289768",
+        "@user": "m86",
+        "@uid": "128382"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.0896993,
+          39.5495026
+        ]
+      },
+      "id": "node/6990809663"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7012516591",
+        "authority": "North Carolina Highway Historical Marker Program",
+        "contact:website": "http://www.ncmarkers.com/Markers.aspx?MarkerId=N-9",
+        "historic": "marker",
+        "inscription": "Established in 1842 by Bishop Levi S. Ives. Reorganized in 1895 by Bishop J. B. Cheshire.",
+        "name": "Valle Crucis Episcopal Mission",
+        "ref": "N-9",
+        "start_date": "1939",
+        "@timestamp": "2019-11-26T22:14:22Z",
+        "@version": "1",
+        "@changeset": "77598041",
+        "@user": "somasis",
+        "@uid": "8379033"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.7895509,
+          36.1970885
+        ]
+      },
+      "id": "node/7012516591"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7590303898",
+        "historic": "marker",
+        "inscription": "... In 1998, the school cistern and steps, a teacherage, native rock fences, and a few buildings on private land were all that remained of this once thriving village.",
+        "name": "Mt. Gainer Village",
+        "website": "https://atlas.thc.texas.gov/Details/5209011982",
+        "year": "1858",
+        "@timestamp": "2020-06-03T19:44:52Z",
+        "@version": "1",
+        "@changeset": "86151552",
+        "@user": "kallisti5",
+        "@uid": "661130"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.1369051,
+          30.1436064
+        ]
+      },
+      "id": "node/7590303898"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8236416713",
+        "historic": "marker",
+        "@timestamp": "2020-12-17T05:08:53Z",
+        "@version": "1",
+        "@changeset": "95975885",
+        "@user": "IanH",
+        "@uid": "306962"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.2164205,
+          42.2777709
+        ]
+      },
+      "id": "node/8236416713"
+    }
+  ]
+}

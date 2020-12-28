@@ -16,7 +16,7 @@ from lib.math_utils import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="tmp/records.csv", help="Input csv file")
-parser.add_argument('-props', dest="PROPS", default="duration,samples", help="Comma-separated list of properties")
+parser.add_argument('-props', dest="PROPS", default="duration,samples", help="Comma-separated list of properties; leave blank to see a summary of all props")
 parser.add_argument('-enc', dest="ENCODING", default="utf8", help="Encoding of source file")
 parser.add_argument('-filter', dest="FILTER", default="", help="Filter string")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default="", help="If a list, provide delimeter(s)")
@@ -28,8 +28,43 @@ a = parser.parse_args()
 PROPS = [p.strip() for p in a.PROPS.strip().split(",")]
 
 # Read rows
-fields, rows = readCsv(a.INPUT_FILE, encoding=a.ENCODING)
+filenames = getFilenames(a.INPUT_FILE)
+rows = []
+for fn in filenames:
+    _, fRows = readCsv(fn, encoding=a.ENCODING)
+    rows += fRows
 rowCount = len(rows)
+print(f'{rowCount} total rows found')
+
+if len(a.PROPS) < 1:
+    allProps = {}
+    for row in rows:
+        for key, value in row.items():
+            if len(str(value).strip()) < 1:
+                continue
+            if key in allProps:
+                allProps[key]["count"] += 1
+            else:
+                allProps[key] = {
+                    "count": 1,
+                    "example": value
+                }
+
+    allPropsSorted = []
+    for key, p in allProps.items():
+        allPropsSorted.append({
+            "key": key,
+            "count": p["count"],
+            "example": p["example"]
+        })
+    allPropsSorted = sorted(allPropsSorted, key=lambda p: -p["count"])
+
+    print("Unique properties:")
+    for p in allPropsSorted:
+        print(f'- {p["key"]}: {p["count"]} (e.g. "{p["example"]}")')
+
+    sys.exit()
+
 
 if len(a.FILTER) > 0:
     rows = filterByQueryString(rows, a.FILTER)

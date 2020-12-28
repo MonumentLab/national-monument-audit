@@ -13,6 +13,7 @@ var Map = (function() {
       startZoom: 4, // see the whole country
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       centerLatLon: [38.5767, -92.1736], // Jefferson City, MO as center
+      showRecordsWithNoYear: true,
       dataUrl: 'data/locations.json'
       // searchUrl: 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search'
     };
@@ -28,6 +29,7 @@ var Map = (function() {
     this.activeYearRange = this.opt.yearRange ? this.opt.yearRange : false;
     this.activeFacets = false;
     this.$countEl = $(this.opt.countEl);
+    this.showRecordsWithNoYear = this.opt.showRecordsWithNoYear;
 
     // only take data with lat lon set
     this.data = _.filter(this.opt.data, function(d){
@@ -116,6 +118,11 @@ var Map = (function() {
       _this.onChangeMapType($(this).val());
     });
 
+    $('input[name="map-no-year"]').on('change', function(e){
+      var value = $('input[name="map-no-year"]:checked').val();
+      _this.onChangeMapShowNoYear((value == "yes"));
+    });
+
     $(document).on('change-year-range', function(e, newRange) {
       _this.onChangeYearRange(newRange);
     });
@@ -137,6 +144,13 @@ var Map = (function() {
     if (type === this.mapType) return;
 
     this.mapType = type;
+    this.refreshLayers();
+  };
+
+  Map.prototype.onChangeMapShowNoYear = function(showRecordsWithNoYear){
+    this.showRecordsWithNoYear = showRecordsWithNoYear;
+    this.clusterLayer = false;
+    this.heatLayer = false;
     this.refreshLayers();
   };
 
@@ -168,13 +182,16 @@ var Map = (function() {
   Map.prototype.refreshLayers = function(){
     var activeFacets = this.activeFacets;
     var activeYearRange = this.activeYearRange;
-    if (activeFacets !== false || activeYearRange !== false) {
+    var showRecordsWithNoYear = this.showRecordsWithNoYear;
+    if ((activeFacets !== false || activeYearRange !== false)) {
       this.filteredData = _.filter(this.data, function(d){
-        if (isNaN(d.year) || d.year < 0) return false;
         var isValid = true;
-        // check for valid year range
-        if (activeYearRange !== false) {
-          isValid = d.year >= activeYearRange[0] && d.year <= activeYearRange[1];
+        if (!showRecordsWithNoYear) {
+          if (isNaN(d.year) || d.year < 0) return false;
+          // check for valid year range
+          if (activeYearRange !== false) {
+            isValid = d.year >= activeYearRange[0] && d.year <= activeYearRange[1];
+          }
         }
         // check for valid facets
         if (isValid && activeFacets !== false) {

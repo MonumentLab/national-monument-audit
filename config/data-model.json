@@ -23,6 +23,8 @@
     {"key": "Honorees", "type": "string_list", "search": true},
     {"key": "Year Removed", "type": "int"},
     {"key": "Dimensions", "type": "string"},
-    {"key": "Description", "type": "text"}
+    {"key": "Description", "type": "text"},
+    {"key": "Material", "type": "string"},
+    {"key": "Wikipedia", "type": "string"}
   ]
 }

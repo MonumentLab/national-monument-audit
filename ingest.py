@@ -70,6 +70,7 @@ for dSourceIndex, d in enumerate(dataSources):
 
     mappings = d["mappings"] if "mappings" in d else {}
     firstWarning = True
+    uids = [] # keep track of UIDs if we need to merge
     for rowIn in data:
         rowOut = {
             "Source": d["name"]
@@ -172,9 +173,19 @@ for dSourceIndex, d in enumerate(dataSources):
                     value = [value]
                 if not isinstance(existingValue, list):
                     existingValue = [existingValue]
-                rowOut[toProperty] = existingValue + value
+                rowOut[toProperty] = unique(existingValue + value)
             else:
                 rowOut[toProperty] = value
+
+        if "needsMerge" in d and d["needsMerge"] and "Vendor Entry ID" in rowOut:
+            uid = rowOut["Vendor Entry ID"]
+            if uid not in uids:
+                uids.append(uid)
+            # skip if already found
+            else:
+                dataSources[dSourceIndex]['recordCount'] -= 1
+                continue
+
         rowsOut.append(rowOut)
 
 if a.PROBE:
