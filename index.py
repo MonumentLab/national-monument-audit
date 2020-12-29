@@ -17,6 +17,7 @@ parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab
 parser.add_argument('-config', dest="CONFIG_FILE", default="config/data-model.json", help="Input config .json file")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
 parser.add_argument('-out', dest="OUTPUT_DIR", default="search-index/documents/", help="Output directory")
+parser.add_argument('-prev', dest="PREV_DIR", default="", help="Optional previous directory of .json documents for determining deletions")
 parser.add_argument('-batchsize', dest="DOCS_PER_BATCH", default=3500, type=int, help="Documents per batch")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 a = parser.parse_args()
@@ -68,6 +69,7 @@ batchCount = ceilInt(1.0 * len(rows) / a.DOCS_PER_BATCH)
 invalidCount = 0
 currentBatchIndex = 0
 currentBatch = []
+newIds = []
 for i, row in enumerate(rows):
     docFields = {}
     docId = ""
@@ -142,6 +144,7 @@ for i, row in enumerate(rows):
         "id": docId,
         "fields": docFields
     }
+    newIds.append(docId)
     currentBatch.append(doc)
     if len(currentBatch) >= a.DOCS_PER_BATCH and not a.PROBE:
         batchname = f'{a.OUTPUT_DIR}batch_{padNum(currentBatchIndex, batchCount)}.json'
@@ -154,3 +157,35 @@ if len(currentBatch) >= 0 and not a.PROBE:
     writeJSON(batchname, currentBatch)
 
 print(f'{invalidCount} invalid records')
+
+if len(a.PREV_DIR) > 0:
+    print("Checking for deletions...")
+    prevFilenames = getFilenames(a.PREV_DIR + "*.json", verbose=True)
+    prevIds = []
+    for fn in prevFilenames:
+        batch = readJSON(fn)
+        for row in batch:
+            if "type" in row and row["type"] == "add" and "id" in row:
+                prevIds.append(row["id"])
+
+    deleteIds = list(set(prevIds).difference(newIds))
+
+    if len(deleteIds) > 0:
+        print(f'Deleting {len(deleteIds)} records')
+        docsPerBatch = a.DOCS_PER_BATCH * 10
+        currentBatch = []
+        currentBatchIndex = 0
+        batchCount = ceilInt(1.0 * len(deleteIds) / docsPerBatch)
+        for id in deleteIds:
+            currentBatch.append({
+                "type": "delete",
+                "id": id
+            })
+            if len(currentBatch) >= docsPerBatch and not a.PROBE:
+                batchname = f'{a.OUTPUT_DIR}batch_deletions_{padNum(currentBatchIndex, batchCount)}.json'
+                writeJSON(batchname, currentBatch)
+                currentBatch = []
+                currentBatchIndex += 1
+        if len(currentBatch) >= 0 and not a.PROBE:
+            batchname = f'{a.OUTPUT_DIR}batch_deletions_{padNum(currentBatchIndex, batchCount)}.json'
+            writeJSON(batchname, currentBatch)

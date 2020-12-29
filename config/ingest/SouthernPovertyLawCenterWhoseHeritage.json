@@ -1,5 +1,7 @@
 {
-  "name": "Whose Heritage? Public Symbols of the Confederacy",
+  "id": "splc",
+  "name": "Whose Heritage?",
+  "verboseName": "Whose Heritage? Public Symbols of the Confederacy",
   "provider": "The Southern Poverty Law Center",
   "url": "https://www.splcenter.org/20190201/whose-heritage-public-symbols-confederacy",
   "geographicCoverage": "national",

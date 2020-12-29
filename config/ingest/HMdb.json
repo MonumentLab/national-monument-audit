@@ -1,9 +1,11 @@
 {
-  "name": "HMdb Historical Markers and War Memorials",
+  "id": "hmdb",
+  "name": "HMdb",
+  "verboseName": "HMdb Historical Markers and War Memorials",
   "provider": "HMdb Historical Marker Database",
   "url": "https://www.hmdb.org/geolists.asp",
   "geographicCoverage": "national",
-  "dataPath": "data/vendor/national/hmdb/*.csv",
+  "dataPath": "data/vendor/national/hmdb/HMdb-Historical-Markers-and-War-Memorials*.csv",
   "dateDataAccessed": "2020-12-04",
   "properties": ["MarkerID", "Title", "Subtitle", "Year Erected", "Erected By", "Latitude (minus=S)", "Longitude (minus=W)", "Street Address", "City or Town", "County or Parish", "State or Prov.", "Location", "Missing", "Link"],
   "mappings": {

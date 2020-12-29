@@ -1,4 +1,5 @@
 {
+  "id": "txatlas",
   "name": "Texas Historical Sites Atlas",
   "provider": "The Texas Historical Commission",
   "url": "https://atlas.thc.state.tx.us/Data/DataDownload",

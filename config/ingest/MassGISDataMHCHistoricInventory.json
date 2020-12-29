@@ -1,5 +1,7 @@
 {
-  "name": "MassGIS Data: MHC Historic Inventory ",
+  "id": "massgis",
+  "name": "MassGIS Data",
+  "verboseName": "MassGIS Data: MHC Historic Inventory",
   "provider": "MassGIS (Bureau of Geographic Information)",
   "url": "https://docs.digital.mass.gov/dataset/massgis-data-mhc-historic-inventory",
   "geographicCoverage": "state",

@@ -1,5 +1,7 @@
 {
-  "name": "Open Street Map Points of Interest: Historic Monuments and Memorials",
+  "id": "osm",
+  "name": "Open Street Map",
+  "verboseName": "Open Street Map Points of Interest: Historic Monuments and Memorials",
   "provider": "Open Street Map",
   "url": "https://wiki.openstreetmap.org/wiki/Key:historic",
   "geographicCoverage": "national",

@@ -74,7 +74,8 @@ var Dashboard = (function() {
     var html = '';
     _.each(sources, function(s){
       html += '<div class="data-source">';
-        html += '<h4><a href="'+s.url+'" target="_blank">'+s.name+' 🔗</a></h4>';
+        var name = s.verboseName ? s.verboseName : s.name;
+        html += '<h4><a href="'+s.url+'" target="_blank">'+name+' 🔗</a></h4>';
 
         html += '<div class="record-count-container">';
           if (s.percentOfTotal > 0) html += '<div class="record-count-bar" style="width: '+s.percentOfTotal+'%"></div>';
