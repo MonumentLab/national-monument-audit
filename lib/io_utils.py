@@ -6,12 +6,23 @@ import json
 import os
 from pprint import pprint
 import re
+import requests
 import shutil
 import sys
 import zipfile
 
 from lib.collection_utils import *
 from lib.math_utils import *
+
+def downloadFileFromUrl(url, filename):
+    print(f'Downloading {url} to {filename}...')
+    r = requests.get(url)
+    contents = r.text
+
+    with open(filename, "w", encoding="utf8", errors="replace") as f:
+        f.write(contents)
+
+    return contents
 
 def getBasename(fn):
     return os.path.splitext(os.path.basename(fn))[0]

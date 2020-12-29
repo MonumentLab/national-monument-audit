@@ -81,7 +81,7 @@ def parseYear(string):
     except ValueError:
         return False
 
-def parseNumbers(arr, keyExceptions=['id', 'identifier', 'uid']):
+def parseNumbers(arr, keyExceptions=['id', 'identifier', 'uid', 'Vendor Entry ID']):
     for i, item in enumerate(arr):
         if isinstance(item, (list,)):
             for j, v in enumerate(item):
@@ -91,6 +91,11 @@ def parseNumbers(arr, keyExceptions=['id', 'identifier', 'uid']):
                 if key not in keyExceptions:
                     arr[i][key] = parseNumber(item[key])
     return arr
+
+def printProgress(step, total, prepend=""):
+    sys.stdout.write('\r')
+    sys.stdout.write("%s%s%%" % (prepend, round(1.0*step/total*100,2)))
+    sys.stdout.flush()
 
 def roundInt(n):
     return int(round(n))
