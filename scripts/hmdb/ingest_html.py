@@ -21,7 +21,7 @@ from lib.io_utils import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Path to .csv file for hmdb data")
-parser.add_argument('-filter', dest="FILTER", default="Source=HMdb Historical Markers and War Memorials", help="Filter query string")
+parser.add_argument('-filter', dest="FILTER", default="Source=HMdb", help="Filter query string")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="tmp/hmdb_html/%s.html", help="Output file pattern")
 parser.add_argument('-overwrite', dest="OVERWRITE", action="store_true", help="Overwrite existing data?")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just print details?")

@@ -182,10 +182,10 @@ if len(a.PREV_DIR) > 0:
                 "id": id
             })
             if len(currentBatch) >= docsPerBatch and not a.PROBE:
-                batchname = f'{a.OUTPUT_DIR}batch_deletions_{padNum(currentBatchIndex, batchCount)}.json'
+                batchname = f'{a.OUTPUT_DIR}_batch_deletions_{padNum(currentBatchIndex, batchCount)}.json'
                 writeJSON(batchname, currentBatch)
                 currentBatch = []
                 currentBatchIndex += 1
         if len(currentBatch) >= 0 and not a.PROBE:
-            batchname = f'{a.OUTPUT_DIR}batch_deletions_{padNum(currentBatchIndex, batchCount)}.json'
+            batchname = f'{a.OUTPUT_DIR}_batch_deletions_{padNum(currentBatchIndex, batchCount)}.json'
             writeJSON(batchname, currentBatch)

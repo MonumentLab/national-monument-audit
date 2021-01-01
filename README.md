@@ -16,6 +16,12 @@ You must be using Python 3.x for running the scripts in this repository (develop
 pip install -r requirements.txt
 ```
 
+If you will be doing name entity extraction, you must also download the corpus:
+
+```
+python -m spacy download en_core_web_sm
+```
+
 ## Adding new data sources
 
 1. Create a new .json file in folder [./config/ingest/](https://github.com/MonumentLab/national-monument-audit/tree/main/config/ingest). You can copy the contents of an existing .json file as a template

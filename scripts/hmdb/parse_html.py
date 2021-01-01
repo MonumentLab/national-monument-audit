@@ -22,7 +22,7 @@ from lib.io_utils import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Path to .csv file for hmdb data")
-parser.add_argument('-filter', dest="FILTER", default="Source=HMdb Historical Markers and War Memorials", help="Filter query string")
+parser.add_argument('-filter', dest="FILTER", default="Source=HMdb", help="Filter query string")
 parser.add_argument('-html', dest="HTML_FILE", default="tmp/hmdb_html/%s.html", help="HTML file pattern")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/vendor/national/hmdb/hmdb_additional_metadata.csv", help="Where to store additional metadata")
 a = parser.parse_args()

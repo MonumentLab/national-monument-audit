@@ -5,3 +5,5 @@
 utm
 # For reading ESRI Shapefiles
 pyshp
+# For name entity extraction
+spacy
