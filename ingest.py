@@ -22,6 +22,7 @@ a = parser.parse_args()
 # Parse arguments
 
 OUTPUT_DIR = os.path.dirname(a.OUTPUT_FILE) + "/"
+ID_NAME = "Vendor Entry ID"
 
 ################################################################
 # Read config JSON FILES
@@ -59,6 +60,20 @@ for dSourceIndex, d in enumerate(dataSources):
         print(f' {len(data)} total records found')
     dataSources[dSourceIndex]['recordCountBeforeFiltering'] = len(data)
 
+    # check for additional data from pre-processes
+    additionalData = None
+    if "additionalData" in d:
+        print(" Parsing additional data...")
+        additionalData = []
+        for pathString in d["additionalData"]:
+            dataPaths = getFilenames(pathString)
+            for dataPath in dataPaths:
+                _, fData = readCsv(dataPath)
+                additionalData += fData
+        # create a look-up dictionary based on ID
+        print(f' Found {len(additionalData)} rows of additional data.')
+        additionalData = createLookup(additionalData, ID_NAME)
+
     if len(data) <= 0:
         print(" No data found, skipping.")
         continue
@@ -75,6 +90,18 @@ for dSourceIndex, d in enumerate(dataSources):
         rowOut = {
             "Source": d["name"]
         }
+
+        # merge with additional data
+        if additionalData is not None:
+            idName = None
+            for k, v in mappings.items():
+                if "to" in v and v["to"] == ID_NAME:
+                    idName = k
+                    break
+            if idName is not None:
+                id = str(rowIn[idName])
+                if id in additionalData:
+                    rowIn.update(additionalData[id])
 
         # inherit city/count/state from dataset metadata as defaults
         if "state" in d:
@@ -177,8 +204,8 @@ for dSourceIndex, d in enumerate(dataSources):
             else:
                 rowOut[toProperty] = value
 
-        if "needsMerge" in d and d["needsMerge"] and "Vendor Entry ID" in rowOut:
-            uid = rowOut["Vendor Entry ID"]
+        if "needsMerge" in d and d["needsMerge"] and ID_NAME in rowOut:
+            uid = rowOut[ID_NAME]
             if uid not in uids:
                 uids.append(uid)
             # skip if already found
@@ -369,7 +396,7 @@ for row in rowsOut:
         year = parseYear(row["Year Constructed"]) if "Year Constructed" in row else False
     if year is False:
         year = -1
-    id = row["Vendor Entry ID"]
+    id = row[ID_NAME]
     # subjects = []
     # if "Subjects" in row:
     #     subjectValues = row["Subjects"]
