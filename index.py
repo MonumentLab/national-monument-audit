@@ -18,7 +18,7 @@ parser.add_argument('-config', dest="CONFIG_FILE", default="config/data-model.js
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
 parser.add_argument('-out', dest="OUTPUT_DIR", default="search-index/documents/", help="Output directory")
 parser.add_argument('-prev', dest="PREV_DIR", default="", help="Optional previous directory of .json documents for determining deletions")
-parser.add_argument('-batchsize', dest="DOCS_PER_BATCH", default=3500, type=int, help="Documents per batch")
+parser.add_argument('-batchsize', dest="DOCS_PER_BATCH", default=2800, type=int, help="Documents per batch")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 a = parser.parse_args()
 # Parse arguments
