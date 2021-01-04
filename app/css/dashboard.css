@@ -91,6 +91,12 @@ body.hidden.loading > .loader {
   position: relative;
   overflow: hidden;
 }
+.explore-container.loading > * {
+  display: none;
+}
+.explore-container.loading > .loader {
+  display: flex;
+}
 
 .map-container {
   width: 100%;
@@ -276,6 +282,13 @@ body.hidden.loading > .loader {
 }
 .data-summary span {
   font-weight: bold;
+}
+.refreshing-map {
+  display: none;
+}
+.data-summary p.refreshing-map.active {
+  display: block;
+  margin-top: 1rem;
 }
 
 .data-sources {

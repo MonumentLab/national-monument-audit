@@ -26,15 +26,17 @@ var Dashboard = (function() {
     };
 
     $('body').removeClass('hidden');
-    $.when(
-      this.loadSummaryData(),
-      this.loadRecords()
 
-    ).done(function(){
-      console.log('Loaded data.');
-      $('body').removeClass('loading');
-      _this.onDataLoaded();
+    $.when(this.loadSummaryData()).done(function(){
+      console.log('Loaded summary data.');
+      _this.onSummaryDataLoaded();
     });
+
+    $.when(this.loadRecords()).done(function(){
+      console.log('Loaded record data.');
+      _this.onRecordDataLoaded();
+    });
+
   };
 
   Dashboard.prototype.loadDataTables = function(){
@@ -182,15 +184,19 @@ var Dashboard = (function() {
     this.timeline = new Timeline({data: this.recordData});
   };
 
-  Dashboard.prototype.onDataLoaded = function(){
-    console.log('Loaded data');
+  Dashboard.prototype.onRecordDataLoaded = function(){
+    $('.explore-container').removeClass('loading');
+    this.loadTimeline();
+    this.loadMap();
+    this.loadFacets();
+  };
+
+  Dashboard.prototype.onSummaryDataLoaded = function(){
+    $('body').removeClass('loading');
     this.loadSummary();
     this.loadSources();
     this.loadPieCharts();
     this.loadDataTables();
-    this.loadTimeline();
-    this.loadMap();
-    this.loadFacets();
   };
 
   return Dashboard;

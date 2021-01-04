@@ -19,7 +19,7 @@
     "addr_city": {"to": "City"},
     "addr_state": {"to": "State"},
     "addr_street": {"to": "Street Address"},
-    "memorial": {"to": "Object Types"},
+    "memorial": {"to": "Object Types", "valueMaps": {"yes": "memorial"}},
     "monument": {"to": "Object Types"},
     "historic": {"to": "Object Types"},
     "inscription": {"to": "Text"},

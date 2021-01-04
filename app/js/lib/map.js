@@ -30,6 +30,9 @@ var Map = (function() {
     this.activeFacets = false;
     this.$countEl = $(this.opt.countEl);
     this.showRecordsWithNoYear = this.opt.showRecordsWithNoYear;
+    this.$refreshMessage = $('.refreshing-map');
+    this.isLoading = false;
+    this.$container = $('.explore-container');
 
     // only take data with lat lon set
     this.data = _.filter(this.opt.data, function(d){
@@ -115,27 +118,44 @@ var Map = (function() {
     var _this = this;
 
     $('input[name="map-type"]').on('change', function(e){
+      if (_this.isLoading) return false;
       _this.onChangeMapType($(this).val());
     });
 
     $('input[name="map-no-year"]').on('change', function(e){
+      if (_this.isLoading) return false;
       var value = $('input[name="map-no-year"]:checked').val();
       _this.onChangeMapShowNoYear((value == "yes"));
     });
 
     $(document).on('change-year-range', function(e, newRange) {
+      if (_this.isLoading) return false;
       _this.onChangeYearRange(newRange);
     });
 
     $(document).on('change-facets', function(e, newFacets) {
+      if (_this.isLoading) return false;
       _this.onChangeFacets(newFacets);
     });
+  };
+
+  Map.prototype.loadingOff = function(){
+    this.$refreshMessage.removeClass('active');
+    this.isLoading = false;
+    this.$container.find('input, select').prop('disabled', false);
+  };
+
+  Map.prototype.loadingOn = function(){
+    this.$refreshMessage.addClass('active');
+    this.isLoading = true;
+    this.$container.find('input, select').prop('disabled', true);
   };
 
   Map.prototype.onChangeFacets = function(newFacets){
     this.clusterLayer = false;
     this.heatLayer = false;
     this.activeFacets = newFacets;
+    this.loadingOn();
 
     this.refreshLayers();
   };
@@ -144,6 +164,7 @@ var Map = (function() {
     if (type === this.mapType) return;
 
     this.mapType = type;
+    this.loadingOn();
     this.refreshLayers();
   };
 
@@ -151,6 +172,7 @@ var Map = (function() {
     this.showRecordsWithNoYear = showRecordsWithNoYear;
     this.clusterLayer = false;
     this.heatLayer = false;
+    this.loadingOn();
     this.refreshLayers();
   };
 
@@ -158,6 +180,7 @@ var Map = (function() {
     this.clusterLayer = false;
     this.heatLayer = false;
     this.activeYearRange = newRange;
+    this.loadingOn();
 
     this.refreshLayers();
   };
@@ -208,6 +231,8 @@ var Map = (function() {
     this.featureLayer.addLayer(dataLayer);
 
     this.$countEl.text(Util.formatNumber(this.filteredData.length));
+
+    this.loadingOff();
   };
 
   return Map;

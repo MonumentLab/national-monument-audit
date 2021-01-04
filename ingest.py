@@ -131,6 +131,9 @@ for dSourceIndex, d in enumerate(dataSources):
             if "to" in propMap:
                 toProperty = propMap["to"]
 
+            if "valueMaps" in propMap and isinstance(value, str) and value in propMap["valueMaps"]:
+                value = propMap["valueMaps"][value]
+
             # Interpret coordinates as lat lon
             if toProperty == "Coordinates":
                 lat = lon = None
@@ -200,7 +203,9 @@ for dSourceIndex, d in enumerate(dataSources):
                     value = [value]
                 if not isinstance(existingValue, list):
                     existingValue = [existingValue]
-                rowOut[toProperty] = unique(existingValue + value)
+                uValues = unique(existingValue + value)
+                uValues = [v for v in uValues if len(str(v)) > 0]
+                rowOut[toProperty] = uValues
             else:
                 rowOut[toProperty] = value
 
