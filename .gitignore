@@ -7,3 +7,5 @@ node_modules/
 package-lock.json
 s3_website.yml
 search-index/
+data/compiled/*
+!data/compiled/.keep
