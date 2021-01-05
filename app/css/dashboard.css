@@ -153,6 +153,19 @@ body.hidden.loading > .loader {
   margin: 3px 0;
 }
 
+.map-search {
+  position: absolute;
+  top: 5px;
+  right: 160px;
+  z-index: 10000;
+}
+.map-search input {
+  width: 240px;
+  height: 40px;
+  line-height: 40px;
+  border: 2px solid black;
+}
+
 .timeline-container {
   width: 0;
   height: 0;

@@ -14,12 +14,17 @@ var Map = (function() {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       centerLatLon: [38.5767, -92.1736], // Jefferson City, MO as center
       showRecordsWithNoYear: true,
-      dataUrl: 'data/locations.json'
+      dataUrl: 'data/locations.json',
+      nominatimUrl: 'https://nominatim.openstreetmap.org/search?q={q}&format=json'
       // searchUrl: 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search'
     };
     this.opt = _.extend({}, defaults, config);
     this.init();
   }
+
+  function urlencode(str){
+    return encodeURIComponent(str).replace('%20','+');
+  };
 
   Map.prototype.init = function(){
 
@@ -106,7 +111,7 @@ var Map = (function() {
 
     this.featureLayer = new L.FeatureGroup();
     map.addLayer(this.featureLayer);
-
+    this.map = map;
     // map.on('popupopen', function(e) {
     //   _this.onPopup(e.popup);
     // });
@@ -126,6 +131,12 @@ var Map = (function() {
       if (_this.isLoading) return false;
       var value = $('input[name="map-no-year"]:checked').val();
       _this.onChangeMapShowNoYear((value == "yes"));
+    });
+
+    $('.map-search').on('submit', function(e){
+      console.log('here')
+      e.preventDefault();
+      _this.queryMap($(this).find('input').first().val());
     });
 
     $(document).on('change-year-range', function(e, newRange) {
@@ -199,6 +210,26 @@ var Map = (function() {
       if (p.isOpen()) {
 
       }
+    });
+  };
+
+  Map.prototype.queryMap = function(value){
+    value = value.trim();
+    if (value.length < 1) return;
+
+    var _this = this;
+    $.getJSON(this.opt.nominatimUrl.replace('{q}', urlencode(value)), function(data) {
+      if (!data.length) {
+        alert('No matches found for '+value);
+        return false;
+      }
+      var address = data[0];
+      var name = address.display_name;
+
+      var lat = parseFloat(address.lat);
+      var lon = parseFloat(address.lon);
+
+      _this.map.flyTo(new L.LatLng(lat, lon), 12);
     });
   };
 
