@@ -79,7 +79,7 @@ for i, row in enumerate(rows):
         search_key = stringToId(key)
         type = field["type"]
         required = ("required" in field and field["required"])
-        isSearch = ("search" in field and field["search"])
+        isFacetAndSearch = ("facetAndSearch" in field and field["facetAndSearch"])
         if key not in row:
             if i < 1:
                 print(f'Warning: no key {key}')
@@ -120,8 +120,9 @@ for i, row in enumerate(rows):
             docId = stringToId(row["Source"]) + "_" + value
 
         docFields[search_key] = value
-        # replicate field for separate search indexing
-        if isSearch:
+        # replicate field for separate free text search indexing
+        # (in CloudSearch, a single field cannot be both free text search and faceted)
+        if isFacetAndSearch:
             docFields[search_key+"_search"] = value
 
     if len(docId) < 1:

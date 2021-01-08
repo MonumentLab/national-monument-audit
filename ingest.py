@@ -10,10 +10,12 @@ import sys
 from lib.collection_utils import *
 from lib.geo_utils import *
 from lib.io_utils import *
+from lib.string_utils import *
 
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-config', dest="INPUT_FILE", default="config/ingest/*.json", help="Input .json config files")
+parser.add_argument('-model', dest="DATA_MODEL_FILE", default="config/data-model.json", help="Input .json data model file")
 parser.add_argument('-app', dest="APP_DIRECTORY", default="app/", help="App directory")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Output csv file")
@@ -22,7 +24,6 @@ a = parser.parse_args()
 # Parse arguments
 
 OUTPUT_DIR = os.path.dirname(a.OUTPUT_FILE) + "/"
-ID_NAME = "Vendor Entry ID"
 
 ################################################################
 # Read config JSON FILES
@@ -33,6 +34,17 @@ for fn in filenames:
     data = readJSON(fn)
     data["configFile"] = fn.replace("\\", "/")
     dataSources.append(data)
+
+################################################################
+# Read data model
+################################################################
+dataModel = readJSON(a.DATA_MODEL_FILE)
+idField = findByValue(dataModel["fields"], "identifier", True)
+if idField is None:
+    print("Could not find identifier in data model")
+    sys.exit()
+ID_NAME = idField["key"]
+dataModel = createLookup(dataModel["fields"], "key")
 
 ################################################################
 # Parse raw data and do light processing
@@ -162,6 +174,18 @@ for dSourceIndex, d in enumerate(dataSources):
                 rowOut[toProperty] = value
                 continue
 
+            # check for formatting
+            if toProperty in dataModel:
+                propModel = dataModel[toProperty]
+                if "format" in propModel:
+                    for formatType in propModel["format"]:
+                        if formatType == "title":
+                            value = validateTitleString(value)
+                        elif formatType == "name":
+                            value = validateNameString(value)
+                        elif formatType == "state":
+                            value = validateStateString(value)
+
             # check to see if this is a list
             if "delimeter" in propMap:
                 value = [v.strip() for v in re.split(propMap["delimeter"], str(value))]
@@ -219,6 +243,9 @@ for dSourceIndex, d in enumerate(dataSources):
                 continue
 
         rowsOut.append(rowOut)
+
+# states = unique([row["State"] for row in rowsOut if "State" in row])
+# pprint(states)
 
 if a.PROBE:
     sys.exit()
