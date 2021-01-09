@@ -17,7 +17,7 @@
     {"key": "Year Dedicated", "type": "int"},
     {"key": "Creators", "type": "string_list", "facetAndSearch": true, "format": ["name"]},
     {"key": "Subjects", "type": "string_list", "facetAndSearch": true, "format": ["title"]},
-    {"key": "Object Types", "type": "string_list", "format": ["title"]},
+    {"key": "Object Types", "type": "string_list", "facetAndSearch": true, "format": ["title"]},
     {"key": "Use Types", "type": "string_list", "format": ["title"]},
     {"key": "Text", "type": "text"},
     {"key": "Honorees", "type": "string_list", "facetAndSearch": true, "format": ["name"]},
