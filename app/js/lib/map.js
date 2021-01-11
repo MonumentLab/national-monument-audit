@@ -15,8 +15,8 @@ var Map = (function() {
       centerLatLon: [38.5767, -92.1736], // Jefferson City, MO as center
       showRecordsWithNoYear: true,
       dataUrl: 'data/locations.json',
-      nominatimUrl: 'https://nominatim.openstreetmap.org/search?q={q}&format=json'
-      // searchUrl: 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search'
+      nominatimUrl: 'https://nominatim.openstreetmap.org/search?q={q}&format=json',
+      searchUrl: 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search'
     };
     this.opt = _.extend({}, defaults, config);
     this.init();
@@ -63,13 +63,17 @@ var Map = (function() {
     var markers = L.markerClusterGroup();
 
     _.each(this.filteredData, function(d){
-        var marker = L.marker(new L.LatLng(d.lat, d.lon), { title: d.name });
-        var html = '<h3>'+d.name+'</h3>';
-        html += '<p><strong>Source:</strong> '+d.source+'</p>';
-        var year = d.year > 0 ? d.year : 'Unknown';
-        html += '<p><strong>Year:</strong> '+year+'</p>';
+        var marker = L.marker(new L.LatLng(d.lat, d.lon));
+        var html = '';
+        // var html = '<h3>'+d.name+'</h3>';
+        // html += '<p><strong>Source:</strong> '+d.source+'</p>';
+        // var year = d.year > 0 ? d.year : 'Unknown';
+        // html += '<p><strong>Year:</strong> '+year+'</p>';
         var p = {q: '_id:\''+d.searchId+'\''};
-        html += '<p><a href="search.html?'+$.param(p)+'" target="_blank">[View full record]</a></p>';
+        html += '<div data-id="'+d.searchId+'">';
+          html += '<div class="dynamic-content"><p>Loading metadata...</p></div>';
+          html += '<p><a href="search.html?'+$.param(p)+'" target="_blank">[View full record]</a></p>';
+        html += '</div>'
         marker.bindPopup(html);
         markers.addLayer(marker);
     });
@@ -112,9 +116,9 @@ var Map = (function() {
     this.featureLayer = new L.FeatureGroup();
     map.addLayer(this.featureLayer);
     this.map = map;
-    // map.on('popupopen', function(e) {
-    //   _this.onPopup(e.popup);
-    // });
+    map.on('popupopen', function(e) {
+      _this.onPopup(e.popup);
+    });
 
     this.refreshLayers();
   };
@@ -200,17 +204,36 @@ var Map = (function() {
     var content = p.getContent();
     if (content.indexOf('Loading') < 0) return;
 
-    var searchId = '';
-    var p = {
+    var $content = $(content);
+    var searchId = $content.attr('data-id');
+
+    var q = {
       'q.parser': 'structured',
       'q': '_id:\''+searchId+'\''
     }
-    var url = this.opt.searchUrl + '?q='
+    var qstring = $.param(q);
+    var url = this.opt.searchUrl + '?' + qstring;
     $.getJSON(url, function(resp) {
-      if (p.isOpen()) {
-
+      if (p.isOpen() && resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
+        var d = resp.hits.hit[0].fields;
+        var html = '<h3>'+d.name+'</h3>';
+        _.each(d, function(value, key){
+          if (key === 'name') return;
+          if (Array.isArray(value)){
+            value = value.join(', ');
+          }
+          value = '' + value;
+          if (value.length > 400) {
+            value = value.substring(0, 400) + '...';
+          }
+          html += '<p><strong>'+key.replace('_search', '').replaceAll('_', ' ')+'</strong>: '+value+'</p>';
+          $content.find('.dynamic-content').html(html);
+          var newHtml = $content.prop('outerHTML');
+          p.setContent(newHtml);
+        });
       }
     });
+
   };
 
   Map.prototype.queryMap = function(value){

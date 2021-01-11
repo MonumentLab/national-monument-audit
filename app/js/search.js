@@ -393,7 +393,7 @@ var Search = (function() {
         _.each(fields, function(value, key){
           var isList = Array.isArray(value);
           html += '<tr>';
-            html += '<td>'+key.replace('_search', '').replace('_', ' ')+'</td>';
+            html += '<td>'+key.replace('_search', '').replaceAll('_', ' ')+'</td>';
             if (isList) {
               value = _.map(value, function(v){
                 var params = {

@@ -407,7 +407,7 @@ topSubjects = list(allCounts["Subjects"])
 if len(topSubjects) > 100:
     topSubjects = topSubjects[:100]
 jsonOut = {
-    "cols": ["lat", "lon", "name", "source", "year", "id"],
+    "cols": ["lat", "lon", "source", "year", "id"],
     "groups": {
         "source": [d["name"] for d in dataSources]
         # "subjects": [value for value, count in topSubjects]
@@ -421,7 +421,6 @@ for row in rowsOut:
         lat = row["Latitude"]
         lon = row["Longitude"]
     jsonRow = [lat, lon]
-    name = row["Name"] if "Name" in row and str(row["Name"]).strip() != "" else "<untitled>"
     source = jsonOut["groups"]["source"].index(row["Source"])
     year = parseYear(row["Year Dedicated"]) if "Year Dedicated" in row else False
     if year is False:
@@ -437,7 +436,7 @@ for row in rowsOut:
     #     for value in subjectValues:
     #         if value in jsonOut["groups"]["subjects"]:
     #             subjects.append(jsonOut["groups"]["subjects"].index(value))
-    jsonRow += [name, source, year, id]
+    jsonRow += [source, year, id]
     jsonRows.append(jsonRow)
 jsonOut["rows"] = jsonRows
 writeJSON(a.APP_DIRECTORY + "data/records.json", jsonOut)
