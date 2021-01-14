@@ -55,7 +55,8 @@ def parseHTMLFile(fn):
     isEmpty = True
     item = {
         "Subjects": "",
-        "Text": ""
+        "Text": "",
+        "Image": ""
     }
 
     # Look for article
@@ -83,6 +84,18 @@ def parseHTMLFile(fn):
         isEmpty = False
         item["Subjects"] = subjects
 
+    # Look for image
+    photoContainer = article.find("div", {"class": "photoright"})
+    if photoContainer:
+        imageTag = photoContainer.find("img", {"class": "photoimage"})
+        if imageTag:
+            imageSrc = imageTag.get("src")
+            if imageSrc:
+                path = imageSrc.strip()
+                if path and len(path) > 0:
+                    url = "https://www.hmdb.org/" + path
+                    item["Image"] = url
+
     if isEmpty:
         return None
 
@@ -98,4 +111,4 @@ for i, row in enumerate(rows):
         items.append(item)
     printProgress(i+1, rowCount)
 
-writeCsv(a.OUTPUT_FILE, items, headings=["Vendor Entry ID", "Subjects", "Text"])
+writeCsv(a.OUTPUT_FILE, items, headings=["Vendor Entry ID", "Subjects", "Text", "Image"])
