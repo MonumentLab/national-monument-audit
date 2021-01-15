@@ -64,7 +64,7 @@ var Search = (function() {
         var fqstring = '(and ';
         var filterString = _.map(facets, function(values, key){
           if (values.length === 1) {
-            if (isNaN(values[0])) {
+            if (isNaN(values[0]) && key != 'latlon') {
               return key + ":'" + values[0] + "'";
             } else {
               return key + ":" + values[0];
@@ -134,6 +134,7 @@ var Search = (function() {
   };
 
   Search.prototype.load = function(){
+    var _this = this;
     this.isLoading = false;
     this.$form = $('#search-form');
     this.$facetsContainer = $('#facets-container');
@@ -148,8 +149,13 @@ var Search = (function() {
     this.start = parseInt(this.opt.start);
     this.sort = this.opt.sort;
     this.isDocumentSearch = this.opt.q.startsWith('_id');
+    this.mapData = false;
 
-    this.map = new SearchMap({});
+    this.map = new SearchMap({
+      onQuery: function(data){
+        _this.onMapQuery(data);
+      }
+    });
 
     this.loadFromOptions();
     this.loadListeners();
@@ -185,6 +191,18 @@ var Search = (function() {
       });
       this.facets = _.object(pairs);
     }
+
+    if (this.opt.mapWidth) {
+      this.mapData = {
+        urlProps: {
+          mapCenterLat: this.opt.mapCenterLat,
+          mapCenterLon: this.opt.mapCenterLon,
+          mapWidth: this.opt.mapWidth,
+          mapHeight: this.opt.mapHeight
+        }
+      }
+    }
+
   };
 
   Search.prototype.loading = function(isLoading){
@@ -233,6 +251,12 @@ var Search = (function() {
   Search.prototype.onFacetCheckboxChange = function($input){
     var $parent = $input.closest('.facet');
     $parent.addClass('changed');
+  };
+
+  Search.prototype.onMapQuery = function(data){
+    this.mapData = data;
+    this.facets.latlon = [JSON.stringify(data.latlon).replaceAll('"', "'")];
+    this.query();
   };
 
   Search.prototype.onQueryResponse = function(resp){
@@ -284,6 +308,11 @@ var Search = (function() {
 
   Search.prototype.removeFacet = function(key, value){
     if (!_.has(this.facets, key)) return;
+
+    if (key === 'latlon'){
+      this.map.reset();
+      this.mapData = false;
+    }
 
     this.facets[key] = _.without(this.facets[key], value);
     if (this.facets[key].length < 1) {
@@ -442,6 +471,8 @@ var Search = (function() {
 
   Search.prototype.updateFacets = function(){
     var facets = {};
+    // retain latlon if present
+    var latlon = _.has(this.facets, 'latlon') ? this.facets.latlon : false;
     $('.facet-checkbox:checked').each(function(){
       var $input = $(this);
       var facetName = $input.attr('name');
@@ -452,6 +483,7 @@ var Search = (function() {
         facets[facetName] = [facetValue];
       }
     });
+    if (latlon !== false) facets.latlon = latlon;
     this.facets = facets;
     this.start = 0;
     this.query();
@@ -491,6 +523,10 @@ var Search = (function() {
       });
       facetsString = facetsString.join('__');
       params.facets = facetsString;
+    }
+
+    if (this.mapData !== false) {
+      params = _.extend({}, params, this.mapData.urlProps);
     }
 
     if (window.history.pushState) {

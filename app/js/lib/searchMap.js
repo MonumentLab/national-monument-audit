@@ -10,9 +10,14 @@ var SearchMap = (function() {
       maxZoom: 4,
       startZoom: 4, // see the whole country
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetSearchMap</a> contributors',
-      centerLatLon: [37.8, -96]
+      mapCenterLat: 37.8,
+      mapCenterLon: -96,
+      mapWidth: 580,
+      mapHeight: 320,
+      onQuery: function(){ /* override me */ }
     };
-    this.opt = _.extend({}, defaults, config);
+    var q = Util.queryParams();
+    this.opt = _.extend({}, defaults, config, q);
     this.init();
   }
 
@@ -27,11 +32,38 @@ var SearchMap = (function() {
   }
 
   SearchMap.prototype.init = function(){
-    this.isLoading = false;
+    this.bbox = false;
     this.$el = $('#'+this.el);
+    this.$button = $('.map-query-button');
 
     this.loadMap();
     this.loadListeners();
+  };
+
+  SearchMap.prototype.doQuery = function(){
+    if (this.bbox === false) return;
+    var d = {}
+
+    var center = this.map.getCenter();
+    d.mapCenterLat = center.lat,
+    d.mapCenterLon = center.lng,
+    d.mapWidth = this.boxWidth;
+    d.mapHeight = this.boxHeight;
+
+    var data = {
+      urlProps: d,
+      latlon: this.bbox
+    };
+    this.opt.onQuery(data);
+    this.$button.removeClass('active');
+  };
+
+  SearchMap.prototype.loadListeners = function(){
+    var _this = this;
+
+    this.$button.on('click', function(e){
+      _this.doQuery();
+    });
   };
 
   SearchMap.prototype.loadMap = function(){
@@ -43,7 +75,7 @@ var SearchMap = (function() {
       maxZoom: opt.maxZoom,
       attribution: opt.attribution
     });
-    var latlng = L.latLng(opt.centerLatLon[0], opt.centerLatLon[1]);
+    var latlng = L.latLng(parseFloat(opt.mapCenterLat), parseFloat(opt.mapCenterLon));
     var map = L.map(this.opt.el, {center: latlng, zoom: opt.startZoom, layers: [tiles]});
     this.featureLayer = new L.FeatureGroup();
     map.addLayer(this.featureLayer);
@@ -67,12 +99,28 @@ var SearchMap = (function() {
     };
     legend.addTo(map);
 
+    // add area select
+    this.firstLoad = true;
+    var areaSelect = L.areaSelect({width: parseInt(this.opt.mapWidth), height: parseInt(this.opt.mapHeight)});
+    areaSelect.on('change', function() {
+      var bounds = this.getBounds();
+      var bbox = [bounds.getNorthWest().lat + ',' + bounds.getNorthWest().lng, bounds.getSouthEast().lat + ',' + bounds.getSouthEast().lng]
+      _this.onChangeBounds(bbox, this._width, this._height);
+    });
+    areaSelect.addTo(map);
+    this.areaSelect = areaSelect;
+
     this.map = map;
   };
 
-  SearchMap.prototype.loadListeners = function(){
+  SearchMap.prototype.onChangeBounds = function(bbox, newW, newH){
     var _this = this;
-
+    this.boxWidth = newW;
+    this.boxHeight = newH;
+    this.bbox = bbox;
+    // console.log(bbox, newW, newH);
+    if (this.firstLoad) this.firstLoad = false;
+    else this.$button.addClass('active');
   };
 
   // https://leafletjs.com/examples/choropleth/
@@ -114,6 +162,11 @@ var SearchMap = (function() {
       }
     });
     this.featureLayer.addLayer(dataLayer);
+  };
+
+  SearchMap.prototype.reset = function(){
+    this.areaSelect.setDimensions({width: 580, height: 320});
+    this.map.setView(L.latLng(37.8, -96));
   };
 
   return SearchMap;

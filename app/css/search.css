@@ -177,12 +177,23 @@ body.loading .search-sort {
   position: relative;
   margin: 1rem 0;
 }
-body.loading .search-map {
+body.loading .search-map-wrapper {
   visibility: hidden;
+}
+.search-map-wrapper > p {
+  margin-top: -20px;
+  margin-bottom: 0;
+}
+.map-query-button {
+  margin-bottom: 2rem;
+  display: none;
+}
+.map-query-button.active {
+  display: inline-block;
 }
 .legend {
     line-height: 18px;
-    color: #555;
+    color: #000;
 }
 .legend i {
     width: 18px;
