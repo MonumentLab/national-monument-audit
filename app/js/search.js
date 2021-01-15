@@ -7,6 +7,11 @@ var Search = (function() {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
       'returnFacets': ['city', 'county', 'creators', 'honorees', 'object_types', 'source', 'sponsors', 'state', 'status', 'subjects', 'use_types', 'year_constructed', 'year_dedicated'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X
       'facetSize': 30,
+      'customFacetSizes': {
+        'state': 100,
+        'year_constructed': 100,
+        'year_dedicated': 100
+      },
       'start': 0,
       'size': 100,
       'sort': '',
@@ -29,6 +34,7 @@ var Search = (function() {
     var isStructured = queryText.startsWith('(');
     var isDocumentSearch = this.isDocumentSearch;
     var facetSize = this.opt.facetSize;
+    var customFacetSizes = this.opt.customFacetSizes;
     var q = {
       q: queryText,
       size: this.size
@@ -110,7 +116,9 @@ var Search = (function() {
     // build facet string
     if (!isDocumentSearch) {
       var facetString = _.each(this.opt.returnFacets, function(facet){
-        q['facet.'+facet] = '{sort:\'count\', size:'+facetSize+'}';
+        var _size = facetSize;
+        if (_.has(customFacetSizes, facet)) _size = customFacetSizes[facet];
+        q['facet.'+facet] = '{sort:\'count\', size:'+_size+'}';
       });
     }
 
@@ -140,6 +148,8 @@ var Search = (function() {
     this.start = parseInt(this.opt.start);
     this.sort = this.opt.sort;
     this.isDocumentSearch = this.opt.q.startsWith('_id');
+
+    this.map = new SearchMap({});
 
     this.loadFromOptions();
     this.loadListeners();
@@ -299,10 +309,14 @@ var Search = (function() {
 
     this.$facetsContainer.addClass('active');
     var html = '';
+    var facetSize = this.opt.facetSize;
     _.each(facets, function(obj, key){
       var title = key.replace('_', ' ');
       var buckets = obj.buckets;
       html += '<fieldset class="facet active">';
+        if (buckets.length > facetSize) {
+          buckets = buckets.slice(0, facetSize);
+        }
         var sectionTitle = title+' ('+buckets.length+')';
         html += '<legend class="toggle-parent" data-active="'+sectionTitle+' ▼" data-inactive="'+sectionTitle+' ◀">'+sectionTitle+' ▼</legend>';
         html += '<div class="facet-input-group">';
@@ -316,6 +330,12 @@ var Search = (function() {
         html += '</div>';
       html += '</fieldset>';
     });
+
+    if (_.has(facets, 'state')) {
+      this.map.renderResults(facets.state.buckets);
+    } else {
+      this.map.renderResults([]);
+    }
 
     this.$facets.html(html);
   };
