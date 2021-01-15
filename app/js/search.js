@@ -6,7 +6,7 @@ var Search = (function() {
     var defaults = {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
       'returnFacets': ['city', 'county', 'creators', 'honorees', 'object_types', 'source', 'sponsors', 'state', 'status', 'subjects', 'use_types', 'year_constructed', 'year_dedicated'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X
-      'facetSize': 20,
+      'facetSize': 30,
       'start': 0,
       'size': 100,
       'sort': '',
@@ -202,12 +202,13 @@ var Search = (function() {
     });
 
     $('body').on('change', '.facet-checkbox', function(e){
-      _this.onFacetCheckboxChange($(this));
-    });
-
-    $('body').on('click', '.apply-facet-changes-button', function(e){
+      // _this.onFacetCheckboxChange($(this));
       if (!_this.isLoading) _this.updateFacets();
     });
+
+    // $('body').on('click', '.apply-facet-changes-button', function(e){
+    //   if (!_this.isLoading) _this.updateFacets();
+    // });
 
     $('body').on('click', '.remove-facet', function(e){
       if (!_this.isLoading) {
