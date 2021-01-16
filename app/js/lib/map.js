@@ -263,12 +263,10 @@ var Map = (function() {
     if ((activeFacets !== false || activeYearRange !== false)) {
       this.filteredData = _.filter(this.data, function(d){
         var isValid = true;
-        if (!showRecordsWithNoYear) {
-          if (isNaN(d.year) || d.year < 0) return false;
-          // check for valid year range
-          if (activeYearRange !== false) {
-            isValid = d.year >= activeYearRange[0] && d.year <= activeYearRange[1];
-          }
+        if ((isNaN(d.year) || d.year < 0) && !showRecordsWithNoYear) return false;
+        // check for valid year range
+        if (activeYearRange !== false) {
+          isValid = d.year >= activeYearRange[0] && d.year <= activeYearRange[1];
         }
         // check for valid facets
         if (isValid && activeFacets !== false) {

@@ -5,7 +5,7 @@ var Search = (function() {
   function Search(config) {
     var defaults = {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
-      'returnFacets': ['city', 'county', 'creators', 'honorees', 'object_types', 'source', 'sponsors', 'state', 'status', 'subjects', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X
+      'returnFacets': ['city', 'county', 'creators', 'honorees', 'object_types', 'source', 'sponsors', 'state', 'status', 'subjects', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
       'facetSize': 30,
       'customFacetSizes': {
         'state': 100,
@@ -21,6 +21,14 @@ var Search = (function() {
     var q = Util.queryParams();
     this.opt = _.extend({}, defaults, config, q);
     this.init();
+  }
+
+  function isArrayString(value) {
+    var returnValue = false;
+    if (typeof value === 'string' || value instanceof String) {
+      if (value.startsWith('[')) returnValue = true;
+    }
+    return returnValue;
   }
 
   Search.prototype.init = function(msg){
@@ -63,7 +71,7 @@ var Search = (function() {
         var fqstring = '(and ';
         var filterString = _.map(facets, function(values, key){
           if (values.length === 1) {
-            if (isNaN(values[0]) && key != 'latlon') {
+            if (isNaN(values[0]) && !isArrayString(values[0])) {
               return key + ":'" + values[0] + "'";
             } else {
               return key + ":" + values[0];
@@ -71,7 +79,7 @@ var Search = (function() {
           } else {
             var orString = '(or ';
             var orValuesString = _.map(values, function(value){
-              if (isNaN(value)) {
+              if (isNaN(value) && !isArrayString(value)) {
                 return key + ":'" + value + "'";
               } else {
                 return key + ":" + value;
@@ -149,6 +157,7 @@ var Search = (function() {
     this.sort = this.opt.sort;
     this.isDocumentSearch = this.opt.q.startsWith('_id');
     this.mapData = false;
+    this.yearRangeValue = false;
 
     this.map = new SearchMap({
       onQuery: function(data){
@@ -206,6 +215,12 @@ var Search = (function() {
       }
     }
 
+    if (_.has(this.facets, 'year_dedicated_or_constructed') && isArrayString(this.facets.year_dedicated_or_constructed[0])) {
+      this.yearRangeValue = this.facets.year_dedicated_or_constructed[0];
+      var yearRange = JSON.parse(this.yearRangeValue);
+      this.timeline.setRange(yearRange);
+    }
+
   };
 
   Search.prototype.loading = function(isLoading){
@@ -256,7 +271,16 @@ var Search = (function() {
   };
 
   Search.prototype.onChangeYearRange = function(newYearRange){
-    console.log('New year range: '+newYearRange);
+    console.log('New year range triggered: '+newYearRange);
+    if (!newYearRange || newYearRange.length !== 2) return;
+    var yearRange = _.map(newYearRange, function(y){ return parseInt(y); });
+    this.yearRangeValue = JSON.stringify(yearRange).replaceAll('"', "'");
+    if (_.has(this.facets, 'year_dedicated_or_constructed') && !isArrayString(this.facets.year_dedicated_or_constructed[0])) {
+      console.log('Remove "year dedicated or constructed" facet before using year range selector');
+    } else {
+      this.facets.year_dedicated_or_constructed = [this.yearRangeValue];
+    }
+    this.query();
   };
 
   Search.prototype.onFacetCheckboxChange = function($input){
@@ -320,9 +344,16 @@ var Search = (function() {
   Search.prototype.removeFacet = function(key, value){
     if (!_.has(this.facets, key)) return;
 
+    console.log('Removing ', key, value);
+
     if (key === 'latlon'){
       this.map.reset();
       this.mapData = false;
+    }
+
+    if (key === 'year_dedicated_or_constructed'){
+      this.yearRangeValue = false;
+      this.timeline.reset();
     }
 
     this.facets[key] = _.without(this.facets[key], value);
@@ -486,7 +517,7 @@ var Search = (function() {
 
   Search.prototype.updateFacets = function(){
     var facets = {};
-    // retain latlon if present
+    // retain latlon, year if present
     var latlon = _.has(this.facets, 'latlon') ? this.facets.latlon : false;
     $('.facet-checkbox:checked').each(function(){
       var $input = $(this);
@@ -499,6 +530,15 @@ var Search = (function() {
       }
     });
     if (latlon !== false) facets.latlon = latlon;
+    // add year range if year not present
+    var yearRangeValue = this.yearRangeValue;
+    if (!_.has(facets, 'year_dedicated_or_constructed') && yearRangeValue !== false) {
+      facets.year_dedicated_or_constructed = [yearRangeValue];
+    // year facet has been selected; ignore year range
+    } else if (_.has(facets, 'year_dedicated_or_constructed')) {
+      this.yearRangeValue = false;
+      this.timeline.reset();
+    }
     this.facets = facets;
     this.start = 0;
     this.query();

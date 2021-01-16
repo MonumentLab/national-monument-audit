@@ -210,7 +210,7 @@ body.loading .search-map-wrapper {
   position: relative;
   border: 1px solid black;
   background: white;
-  display: none;
+  margin: 1rem 0;
 }
 body.loading .timeline-container {
   visibility: hidden;

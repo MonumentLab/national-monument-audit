@@ -23,6 +23,7 @@ var Timeline = (function() {
 
   Timeline.prototype.init = function(){
     this.range = false;
+    this.noTrigger = false;
     if (this.opt.data.length < 1) {
       this.range = this.opt.yearRange;
     }
@@ -171,8 +172,14 @@ var Timeline = (function() {
   };
 
   Timeline.prototype.onChangeRange = function(minYear, maxYear){
-    console.log('Range change', minYear, maxYear);
-    $(document).trigger('change-year-range', [ [minYear, maxYear] ]);
+    console.log('UI range change heard', minYear, maxYear);
+    var trigger = true;
+    if (this.noTrigger !== false) {
+      var now = new Date().getTime();
+      var delta = now - this.noTrigger;
+      if (delta < 1000) trigger = false;
+    }
+    if (trigger) $(document).trigger('change-year-range', [ [minYear, maxYear] ]);
     this.$minYear.text(minYear);
     this.$maxYear.text(maxYear);
   };
@@ -231,6 +238,24 @@ var Timeline = (function() {
     this.chart.data.labels = labels;
     this.chart.data.datasets[0].data = values;
     this.chart.update();
+  };
+
+  Timeline.prototype.reset = function(){
+    this.setRange(this.range);
+  };
+
+  Timeline.prototype.setRange = function(range){
+    if (range && range.length === 2) {
+      range = _.map(range, function(year){ return parseInt(year); });
+    }
+    this.noTrigger = new Date().getTime();
+    console.log('Setting new range: ', range);
+    this.$slider.slider( "values", range );
+
+    this.$slider.children('.ui-slider-handle').each(function(index){
+      $(this).html('<span class="label">'+range[index]+'</span>');
+    });
+
   };
 
   return Timeline;
