@@ -23,6 +23,9 @@ var Timeline = (function() {
 
   Timeline.prototype.init = function(){
     this.range = false;
+    if (this.opt.data.length < 1) {
+      this.range = this.opt.yearRange;
+    }
     this.data = _.filter(this.opt.data, function(d){
       return !isNaN(d.year) && d.year > 0;
     });
@@ -174,7 +177,7 @@ var Timeline = (function() {
     this.$maxYear.text(maxYear);
   };
 
-  Timeline.prototype.parseYears = function(data){
+  Timeline.prototype.parseYears = function(data, hasCount){
     var dataByYear = _.groupBy(data, function(row){ return parseInt(row.year); });
     var years = _.keys(dataByYear);
     years = _.map(years, function(year){ return parseInt(year); })
@@ -198,6 +201,9 @@ var Timeline = (function() {
       if (_.has(dataByYear, year)) {
         var dataYear = dataByYear[year];
         var sum = dataYear.length;
+        if (hasCount) {
+          sum = _.reduce(dataYear, function(memo, d){ return memo + d.count; }, 0);
+        }
         yearData.push({
           label: year + ': ' + sum,
           value: {x: new Date(year, 0), y: sum}
@@ -210,6 +216,21 @@ var Timeline = (function() {
       }
     }
     return yearData;
+  };
+
+  Timeline.prototype.renderResults = function(results){
+    var data = _.map(results, function(d){
+      d.year = d.value;
+      return d;
+    });
+    data = this.parseYears(data, true);
+
+    var labels = _.pluck(data, 'label');
+    var values = _.pluck(data, 'value');
+
+    this.chart.data.labels = labels;
+    this.chart.data.datasets[0].data = values;
+    this.chart.update();
   };
 
   return Timeline;

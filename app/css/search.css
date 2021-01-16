@@ -202,3 +202,58 @@ body.loading .search-map-wrapper {
     margin-right: 8px;
     opacity: 0.7;
 }
+
+
+.timeline-container {
+  width: 700px;
+  height: 150px;
+  position: relative;
+  border: 1px solid black;
+  background: white;
+  display: none;
+}
+body.loading .timeline-container {
+  visibility: hidden;
+}
+.timeline-container canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.time-range-selector {
+  width: 635px;
+  position: absolute;
+  top: 30px;
+  left: 42px;
+  height: 85px;
+}
+.time-range-selector .ui-slider-range {
+  background: rgba(255, 235, 0, 0.2);
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+.time-range-selector .ui-slider-handle {
+  background: black;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  margin-left: -5px;
+  outline: black;
+}
+.time-range-selector .ui-slider-handle .label {
+  display: block;
+  position: absolute;
+  font-size: 0.9rem;
+  background: black;
+  color: white;
+  height: 20px;
+  line-height: 20px;
+  width: 40px;
+  top: -20px;
+  left: 50%;
+  margin-left: -20px;
+  text-align: center;
+  border-radius: 2px;
+}

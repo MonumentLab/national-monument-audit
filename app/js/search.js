@@ -5,12 +5,11 @@ var Search = (function() {
   function Search(config) {
     var defaults = {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
-      'returnFacets': ['city', 'county', 'creators', 'honorees', 'object_types', 'source', 'sponsors', 'state', 'status', 'subjects', 'use_types', 'year_constructed', 'year_dedicated'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X
+      'returnFacets': ['city', 'county', 'creators', 'honorees', 'object_types', 'source', 'sponsors', 'state', 'status', 'subjects', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X
       'facetSize': 30,
       'customFacetSizes': {
         'state': 100,
-        'year_constructed': 100,
-        'year_dedicated': 100
+        'year_dedicated_or_constructed': 100
       },
       'start': 0,
       'size': 100,
@@ -157,6 +156,10 @@ var Search = (function() {
       }
     });
 
+    this.timeline = new Timeline({
+      yearRange: [1700, 2021]
+    });
+
     this.loadFromOptions();
     this.loadListeners();
     this.query();
@@ -234,6 +237,10 @@ var Search = (function() {
       if (!_this.isLoading) _this.updateFacets();
     });
 
+    $(document).on('change-year-range', function(e, newRange) {
+      if (!_this.isLoading) _this.onChangeYearRange(newRange);
+    });
+
     // $('body').on('click', '.apply-facet-changes-button', function(e){
     //   if (!_this.isLoading) _this.updateFacets();
     // });
@@ -246,6 +253,10 @@ var Search = (function() {
         _this.removeFacet(key, value);
       }
     });
+  };
+
+  Search.prototype.onChangeYearRange = function(newYearRange){
+    console.log('New year range: '+newYearRange);
   };
 
   Search.prototype.onFacetCheckboxChange = function($input){
@@ -365,6 +376,10 @@ var Search = (function() {
     } else {
       this.map.renderResults([]);
     }
+
+    var years = [];
+    if (_.has(facets, 'year_dedicated_or_constructed')) years = facets.year_dedicated_or_constructed.buckets;
+    this.timeline.renderResults(years);
 
     this.$facets.html(html);
   };

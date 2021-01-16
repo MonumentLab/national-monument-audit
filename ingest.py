@@ -244,6 +244,15 @@ for dSourceIndex, d in enumerate(dataSources):
 
         rowsOut.append(rowOut)
 
+# Create a combined year field
+for i, row in enumerate(rowsOut):
+    year = ""
+    if "Year Dedicated" in row and parseYear(row["Year Dedicated"]) is not False:
+        year = row["Year Dedicated"]
+    elif "Year Constructed" in row and parseYear(row["Year Constructed"]) is not False:
+        year = row["Year Constructed"]
+    rowsOut[i]["Year Dedicated Or Constructed"] = year
+
 # states = unique([row["State"] for row in rowsOut if "State" in row])
 # pprint(states)
 
@@ -321,8 +330,7 @@ pieChartData["data-field-availability-location"] = {
     "labels": [d["value"] for d in geographicResolutionData]
 }
 availabilityConfig = [
-    {"srcKey": "Year Constructed", "outKey": "data-field-availability-date-constructed"},
-    {"srcKey": "Year Dedicated", "outKey": "data-field-availability-date-dedicated"},
+    {"srcKey": "Year Dedicated Or Constructed", "outKey": "data-field-availability-date"},
     {"srcKey": "Honorees", "outKey": "data-field-availability-honoree"},
     {"srcKey": "Creators", "outKey": "data-field-availability-creator"},
     {"srcKey": "Sponsors", "outKey": "data-field-availability-sponsor"},
@@ -422,9 +430,7 @@ for row in rowsOut:
         lon = row["Longitude"]
     jsonRow = [lat, lon]
     source = jsonOut["groups"]["source"].index(row["Source"])
-    year = parseYear(row["Year Dedicated"]) if "Year Dedicated" in row else False
-    if year is False:
-        year = parseYear(row["Year Constructed"]) if "Year Constructed" in row else False
+    year = parseYear(row["Year Dedicated Or Constructed"]) if "Year Dedicated Or Constructed" in row else False
     if year is False:
         year = -1
     id = row[ID_NAME]
