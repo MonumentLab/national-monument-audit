@@ -17,6 +17,13 @@ def cleanText(value):
 
     return value
 
+def itemToId(row):
+    if "Source" not in row:
+        return None
+    if "Vendor Entry ID" not in row or str(row["Vendor Entry ID"]).strip() == "":
+        return None
+    return stringToId(row["Source"]) + "_" + str(row["Vendor Entry ID"]).strip()
+
 def padNum(number, total):
     padding = len(str(total))
     return str(number).zfill(padding)

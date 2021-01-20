@@ -72,8 +72,14 @@ currentBatch = []
 newIds = []
 for i, row in enumerate(rows):
     docFields = {}
-    docId = ""
     isValid = True
+
+    docId = itemToId(row)
+    if docId is None:
+        invalidCount += 1
+        print(f'Warning: no valid ID for row {(i+1)}')
+        continue
+
     for field in dataModel["fields"]:
         key = field["key"]
         search_key = stringToId(key)
@@ -116,19 +122,11 @@ for i, row in enumerate(rows):
             isValid = False
             continue
 
-        if key == "Vendor Entry ID":
-            docId = stringToId(row["Source"]) + "_" + value
-
         docFields[search_key] = value
         # replicate field for separate free text search indexing
         # (in CloudSearch, a single field cannot be both free text search and faceted)
         if isFacetAndSearch:
             docFields[search_key+"_search"] = value
-
-    if len(docId) < 1:
-        invalidCount += 1
-        print(f'Warning: no valid ID for row {(i+1)}')
-        continue
 
     if not isValid:
         invalidCount += 1

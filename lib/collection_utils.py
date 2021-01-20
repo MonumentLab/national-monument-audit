@@ -32,6 +32,10 @@ def filterByQuery(arr, ors, delimeter="|", caseSensitive=False):
     if len(ors) < 1:
         return arr
 
+    # print("===============")
+    # pprint(ors)
+    # print("===============")
+
     results = []
     for item in arr:
         for ands in ors:

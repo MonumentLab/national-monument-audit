@@ -14,6 +14,16 @@ import zipfile
 from lib.collection_utils import *
 from lib.math_utils import *
 
+def downloadBinaryFile(url, filename, overwrite=False):
+    if os.path.isfile(filename) and not overwrite:
+        print("%s already exists." % filename)
+        return True
+    print("Downloading %s..." % url)
+    response = requests.get(url, stream=True)
+    with open(filename, 'wb') as f:
+        shutil.copyfileobj(response.raw, f)
+    del response
+
 def downloadFileFromUrl(url, filename):
     print(f'Downloading {url} to {filename}...')
     r = requests.get(url)
