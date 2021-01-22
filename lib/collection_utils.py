@@ -100,8 +100,11 @@ def filterByQuery(arr, ors, delimeter="|", caseSensitive=False):
     return results
 
 def filterByQueryString(arr, str):
-    ors = parseQueryString(str)
-    return filterByQuery(arr, ors)
+    queries = [parseQueryString(str) for str in str.split(" | ")]
+    filteredArr = arr[:]
+    for query in queries:
+        filteredArr = filterByQuery(filteredArr, query)
+    return filteredArr
 
 def flattenList(arr):
     return [item for sublist in arr for item in sublist]

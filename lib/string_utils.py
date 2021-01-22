@@ -24,6 +24,41 @@ def itemToId(row):
         return None
     return stringToId(row["Source"]) + "_" + str(row["Vendor Entry ID"]).strip()
 
+def normalizeName(value):
+    value = str(value).strip()
+    value = value.replace("'s", "")
+    value = value.replace("’s", "")
+    value = value.replace('-', ' ')
+    value = re.sub('\s', ' ', value) # replace all whitespace with a single space
+
+    # e.g. Smith, John -> John Smith
+    if "," in value:
+        parts = [p.strip() for p in value.split(",")]
+        if len(parts) == 2:
+            parts.reverse()
+            value = ' '.join(parts)
+    value = value.lower()
+
+    replaceWords = [("americans", "american")]
+    for fromWord, toWord in replaceWords:
+        value = value.replace(fromWord, toWord)
+
+    # remove "the" from the beginning
+    trimBeginningWords = ["the"]
+    for w in trimBeginningWords:
+        testStr = w + " "
+        if value.startswith(testStr):
+            value = value[len(testStr):]
+
+    trimEndingWords = ["jr", "jr.", "memorial", "monument", "'s"]
+    for w in trimEndingWords:
+        testStr = " "+w
+        if value.endswith(testStr):
+            value = value[:-len(testStr)]
+
+    value = re.sub('[^a-z0-9 ]+', '', value)
+    return value
+
 def padNum(number, total):
     padding = len(str(total))
     return str(number).zfill(padding)
@@ -32,6 +67,21 @@ def stringToId(value):
     value = value.lower()
     value = re.sub('[^a-z0-9]+', '_', value)
     return value
+
+def stringToTitle(value):
+    value = value.replace("'s", "")
+    value = value.replace("’s", "")
+    words = [word for word in value.split()]
+    formattedWords = []
+    stopWords = ("a", "of", "the")
+    for i, word in enumerate(words):
+        if i > 0 and word in stopWords:
+            formattedWords.append(word)
+        else:
+            fword = word[0].upper() + word[1:]
+            formattedWords.append(fword)
+    formatted = " ".join(formattedWords)
+    return formatted
 
 def validateNameString(value):
     return validateTitleString(value)

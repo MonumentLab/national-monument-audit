@@ -1,0 +1,37 @@
+
+nav {
+  width: 100%;
+  position: fixed;
+  height: 40px;
+  line-height: 40px;
+  display: flex;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  z-index: 1000;
+  border-bottom: 2px solid black;
+  align-items: center;
+  background: black;
+  color: white;
+}
+nav label {
+  margin-right: 1rem;
+}
+.wordcloud {
+  margin-top: 60px;
+  position: relative;
+}
+.wordcloud a {
+  display: inline-block;
+  vertical-align: baseline;
+  margin: 0 0 1rem 1rem;
+  text-decoration: none;
+  background: black;
+  color: white;
+  padding: 2px 4px;
+}
+.wordcloud a:hover {
+  background: #ccc;
+  color: black;
+}
