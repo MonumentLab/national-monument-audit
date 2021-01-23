@@ -17,7 +17,7 @@ from lib.string_utils import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities.csv", help="Input .csv data file")
-parser.add_argument('-alias', dest="ALIAS_FILE", default="data/entities_synonyms.csv", help="Input .csv data file with synonyms")
+parser.add_argument('-alias', dest="ALIAS_FILE", default="data/entities_aliases.csv", help="Input .csv data file with synonyms")
 parser.add_argument('-filter', dest="FILTER", default="", help="Filter query")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_normalized.csv", help="Output file")
 parser.add_argument('-stats', dest="STATS_OUTPUT_FILE", default="tmp/entities_type_%s.csv", help="Output stats file pattern")
@@ -76,6 +76,7 @@ for i, row in enumerate(rows):
         ntextLookup[ntext]["count"] += 1
         if ntextLookup[ntext]["originalText"] != text and text not in ntextLookup[ntext]["alternateTexts"]:
             ntextLookup[ntext]["alternateTexts"].append(text)
+            titleText = ntextLookup[ntext]["originalText"]
 
     rowOut = row.copy()
     rowOut["Normalized Text"] = titleText

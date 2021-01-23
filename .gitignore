@@ -9,3 +9,4 @@ s3_website.yml
 search-index/
 data/compiled/*
 !data/compiled/.keep
+data/wikidata/*

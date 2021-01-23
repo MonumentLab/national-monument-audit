@@ -1,5 +1,7 @@
+import hashlib
 import re
 import string
+import urllib
 
 def cleanText(value):
     value = re.sub('\s', ' ', value)
@@ -23,6 +25,9 @@ def itemToId(row):
     if "Vendor Entry ID" not in row or str(row["Vendor Entry ID"]).strip() == "":
         return None
     return stringToId(row["Source"]) + "_" + str(row["Vendor Entry ID"]).strip()
+
+def md5string(value):
+    return hashlib.md5(str(value).encode('utf-8')).hexdigest()
 
 def normalizeName(value):
     value = str(value).strip()
@@ -57,11 +62,24 @@ def normalizeName(value):
             value = value[:-len(testStr)]
 
     # strip words
-    stripWords = ["historic", "building", "landmark", "memorial", "monument", "trail", "site", "marker"]
+    stripWords = ["historic", "building", "landmark", "memorial", "monument", "trail", "site", "marker", "library", "center", "space", "lake"]
     for word in stripWords:
         value = value.replace(word, "")
 
     value = re.sub('[^a-z0-9 ]+', '', value)
+    value = re.sub('\s', ' ', value)
+    value = value.strip()
+
+    # remove middle initial
+    words = value.split(" ")
+    if len(words) == 3 and len(words[1]) == 1:
+        words = [words[0]] + [words[2]]
+        value = " ".join(words)
+
+    return value
+
+def normalizeWhitespace(value):
+    value = str(value)
     value = re.sub('\s', ' ', value)
     value = value.strip()
     return value
@@ -90,7 +108,7 @@ def stringToTitle(value):
     words = [word.strip() for word in value.split()]
     formattedWords = []
     # strip words
-    stripWords = ("Historic", "Building", "Landmark", "Memorial", "Monument", "Trail", "Site", "Marker")
+    stripWords = ("Historic", "Building", "Landmark", "Memorial", "Monument", "Trail", "Site", "Marker", "Library", "Center", "Space", "Lake")
     stopWords = ("a", "of", "the")
     for i, word in enumerate(words):
         if i > 0 and word in stopWords:
@@ -102,6 +120,9 @@ def stringToTitle(value):
 
     formatted = " ".join(formattedWords)
     return formatted
+
+def urlEncodeString(value):
+    return urllib.parse.quote_plus(value)
 
 def validateNameString(value):
     return validateTitleString(value)

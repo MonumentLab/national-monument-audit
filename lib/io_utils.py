@@ -34,6 +34,21 @@ def downloadFileFromUrl(url, filename):
 
     return contents
 
+def downloadJSONFromURL(url, filename, overwrite=False):
+    if os.path.isfile(filename) and not overwrite:
+        return readJSON(filename)
+
+    print("Downloading %s" % url)
+    data = {}
+    try:
+        r = requests.get(url)
+        data = r.json()
+        writeJSON(filename, data)
+    except json.decoder.JSONDecodeError:
+        print("Decode error for %s" % url)
+        data = {}
+    return data
+
 def getBasename(fn):
     return os.path.splitext(os.path.basename(fn))[0]
 
