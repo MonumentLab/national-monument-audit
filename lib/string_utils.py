@@ -50,13 +50,20 @@ def normalizeName(value):
         if value.startswith(testStr):
             value = value[len(testStr):]
 
-    trimEndingWords = ["jr", "jr.", "memorial", "monument", "'s"]
+    trimEndingWords = ["jr.", "jr", "'s"]
     for w in trimEndingWords:
         testStr = " "+w
         if value.endswith(testStr):
             value = value[:-len(testStr)]
 
+    # strip words
+    stripWords = ["historic", "building", "landmark", "memorial", "monument", "trail", "site", "marker"]
+    for word in stripWords:
+        value = value.replace(word, "")
+
     value = re.sub('[^a-z0-9 ]+', '', value)
+    value = re.sub('\s', ' ', value)
+    value = value.strip()
     return value
 
 def padNum(number, total):
@@ -71,15 +78,28 @@ def stringToId(value):
 def stringToTitle(value):
     value = value.replace("'s", "")
     value = value.replace("’s", "")
-    words = [word for word in value.split()]
+    value = re.sub('\s', ' ', value)
+
+    # e.g. Smith, John -> John Smith
+    if "," in value:
+        parts = [p.strip() for p in value.split(",")]
+        if len(parts) == 2:
+            parts.reverse()
+            value = ' '.join(parts)
+
+    words = [word.strip() for word in value.split()]
     formattedWords = []
+    # strip words
+    stripWords = ("Historic", "Building", "Landmark", "Memorial", "Monument", "Trail", "Site", "Marker")
     stopWords = ("a", "of", "the")
     for i, word in enumerate(words):
         if i > 0 and word in stopWords:
             formattedWords.append(word)
         else:
             fword = word[0].upper() + word[1:]
-            formattedWords.append(fword)
+            if fword not in stripWords:
+                formattedWords.append(fword)
+
     formatted = " ".join(formattedWords)
     return formatted
 
