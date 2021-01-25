@@ -33,7 +33,10 @@ aliasLookup = {}
 for i, row in enumerate(aliases):
     nmatch = normalizeName(row["match"])
     ntarget = normalizeName(row["target"])
-    aliasLookup[nmatch] = ntarget
+    aliasLookup[nmatch] = {
+        "ntext": ntarget,
+        "text": row["target"]
+    }
 
 if len(a.FILTER) > 0:
     print("  Filtering data...")
@@ -51,7 +54,8 @@ for i, row in enumerate(rows):
         continue
 
     if ntext in aliasLookup:
-        ntext = aliasLookup[ntext]
+        text = aliasLookup[ntext]["text"]
+        ntext = aliasLookup[ntext]["ntext"]
 
     nwords = ntext.split(" ")
     wordcount = len(nwords)

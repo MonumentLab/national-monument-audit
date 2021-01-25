@@ -17,11 +17,11 @@ from lib.string_utils import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_normalized.csv", help="Input .csv data file")
-parser.add_argument('-filter', dest="FILTER", default="Type=PERSON", help="Filter query")
+parser.add_argument('-filter', dest="FILTER", default="Type=PERSON OR Type=EVENT", help="Filter query")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_resolved.csv", help="Output file")
 parser.add_argument('-stats', dest="STATS_OUTPUT_FILE", default="tmp/resolved_entities.csv", help="Output stats file pattern")
 parser.add_argument('-wdir', dest="WIKI_DATA_DIR", default="data/wikidata/", help="Output directory for storing wikidata responses")
-parser.add_argument('-count', dest="MINIMUM_COUNT",  default=20, type=int, help="Resolve if count above this number?")
+parser.add_argument('-count', dest="MINIMUM_COUNT",  default=10, type=int, help="Resolve if count above this number?")
 parser.add_argument('-overwrite', dest="OVERWRITE", action="store_true", help="Overwrite data files if they exist")
 parser.add_argument('-debug', dest="DEBUG", action="store_true", help="Use test data")
 parser.add_argument('-probe', dest="PROBE",  default=0, type=int, help="Just output details and don't write data?")
@@ -120,12 +120,15 @@ for i, group in enumerate(groups):
     rowOut["Wikidata"] = ""
     rowOut["Wikidata Type"] = ""
     rowOut["Image"] = ""
+    rowOut["Image Filename"] = ""
     rowOut["Description"] = ""
     rowOut["Gender"] = "NA"
     rowOut["Birth Date"] = "NA"
     rowOut["Occupation"] = "NA"
     rowOut["Ethnic Group"] = "NA"
+    rowOut["Date"] = "NA"
 
+    groupType = group["items"][0]["Type"]
     qString = urlEncodeString(ntext)
     searchUrl = f'https://www.wikidata.org/w/api.php?action=wbsearchentities&search={qString}&language=en&format=json'
     searchFilename = wikiSearchDir + stringToId(ntext) + ".json"
@@ -159,7 +162,7 @@ for i, group in enumerate(groups):
 
                         # check for type
                         rowOut["Wikidata Type"] = getClaimValue(claims, "P31")
-                        isValidType = (rowOut["Wikidata Type"] in ("human"))
+                        isValidType = (groupType == "PERSON" and rowOut["Wikidata Type"] in ("human") or groupType != "PERSON")
 
                         if isValidType or j < 1:
                             rowOut["Resolved Text"] = rtext
@@ -173,6 +176,7 @@ for i, group in enumerate(groups):
                         if len(image) > 0:
                             imageFn = urlEncodeString(image.replace(' ', '_'))
                             rowOut["Image"] = f'https://commons.wikimedia.org/w/thumb.php?width=256&f={imageFn}'
+                            rowOut["Image Filename"] = imageFn
                             # https://stackoverflow.com/questions/34393884/how-to-get-image-url-property-from-wikidata-item-by-api
                             # hash = md5string(imageFn)
                             # a = hash[:1]
@@ -185,6 +189,9 @@ for i, group in enumerate(groups):
                             rowOut["Birth Date"] = getClaimValue(claims, "P569")
                             rowOut["Occupation"]  = getClaimValue(claims, "P106")
                             rowOut["Ethnic Group"] = getClaimValue(claims, "P172")
+
+                        else:
+                            rowOut["Date"] = getClaimValue(claims, "P585")
 
                         if isValidType:
                             foundValid = True
@@ -205,6 +212,14 @@ if a.PROBE > 0:
     sys.exit()
 
 # pprint(groupedRows)
+def sorter(row):
+    if row["Wikidata Type"] == "human":
+        return "aaa"
+    elif len(row["Wikidata Type"]) < 1:
+        return "zzz"
+    else:
+        return row["Wikidata Type"]
+groupedRows = sorted(groupedRows, key=sorter)
 writeCsv(a.STATS_OUTPUT_FILE, groupedRows)
 
 # Update original rows
