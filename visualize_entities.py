@@ -48,6 +48,10 @@ for i, typeGroup in enumerate(groupsByType):
     groupsByEnt = groupList(typeGroup["items"], "NameGroup", sort=True)
     if len(groupsByEnt) > a.MAX_COUNT:
         groupsByEnt = groupsByEnt[:a.MAX_COUNT]
+        updatedGroupItems = []
+        for entGroup in groupsByEnt:
+            updatedGroupItems += entGroup["items"]
+        groupsByType[i]["items"] = updatedGroupItems
     groupsByType[i]["groupsByEnt"] = groupsByEnt
 
 
@@ -61,8 +65,16 @@ for typeGroup in groupsByType:
     if typeGroup["normType"] == "PERSON":
         jcols = ["Count", "Name", "Wikidata Type", "Image Filename", "Description", "Gender", "Occupation", "Ethnic Group"]
         jfacets = ["Gender", "Occupation", "Ethnic Group"]
-    elif typeGroup == "EVENT":
+    elif typeGroup["normType"] == "EVENT":
         jfacets = ["Wikidata Type"]
+
+    facetGroups = {}
+    facetCounts = {}
+    for facet in jfacets:
+        facetItems = groupList(typeGroup["items"], facet, sort=True)
+        facetGroups[facet] = [item[facet] for item in facetItems]
+        facetCounts[facet] = [0 for item in facetItems]
+
     jrows = []
     for entGroup in typeGroup["groupsByEnt"]:
         if len(entGroup["items"]) < 1:
@@ -70,16 +82,25 @@ for typeGroup in groupsByType:
         entity = entGroup["items"][0]
         jrow = [entGroup["count"]]
         for col in jcols:
-            if col != "Count":
+            if col == "Count":
+                continue
+            if col in facetGroups:
+                valueIndex = facetGroups[col].index(entity[col])
+                jrow.append(valueIndex)
+                facetCounts[col][valueIndex] += 1
+            else:
                 jrow.append(entity[col])
         jrows.append(jrow)
     minCount = min([entGroup["count"] for entGroup in typeGroup["groupsByEnt"]])
     maxCount = max([entGroup["count"] for entGroup in typeGroup["groupsByEnt"]])
+
     entities[typeName] = {
         "cols": jcols,
         "rows": jrows,
         "min": minCount,
-        "max": maxCount
+        "max": maxCount,
+        "groups": facetGroups,
+        "groupCounts": facetCounts
     }
 
 jsonOut = {"entities": entities}

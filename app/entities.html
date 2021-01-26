@@ -25,14 +25,15 @@
 <body>
 
   <div id="app" class="app">
-    <nav>
-      <label for="categories-select">Top <span id="categories-count"></span> entries for:</label>
+    <nav id="nav">
+      <label for="categories-select">Type:</label>
       <select id="categories-select">
         <option value="PERSON">People</option>
         <option value="EVENT">Events</option>
         <option value="ORG">Organizations</option>
         <option value="NORP">Nationalities or religious or political groups</option>
       </select>
+
     </nav>
     <div id="wordcloud" class="wordcloud"></div>
   </div>
