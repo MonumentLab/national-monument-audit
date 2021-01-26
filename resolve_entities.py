@@ -33,8 +33,8 @@ fieldnames = []
 
 if a.DEBUG:
     rows = [
-        {"Normalized Text": "Martin Luther King", "Type": "PERSON"},
-        {"Normalized Text": "Booker T. Washington", "Type": "PERSON"}
+        {"Normalized Text": "martin luther king", "Formatted Text": "Martin Luther King", "Type": "PERSON"},
+        {"Normalized Text": "booker t washington", "Formatted Text": "Booker T. Washington", "Type": "PERSON"}
     ]
 else:
     fieldnames, rows = readCsv(a.INPUT_FILE)
@@ -110,12 +110,18 @@ groupedRows = []
 groupCount = len(groups)
 for i, group in enumerate(groups):
     ntext = str(group["Normalized Text"]).strip()
-    if len(ntext) < 1:
+
+    if len(ntext) < 1 or len(group["items"]) < 1:
         continue
+
+    first = group["items"][0]
+    groupType = first["Type"]
+    formattedText = str(first["Formatted Text"]).strip()
 
     rowOut = {}
     rowOut["Count"] = group["count"]
     rowOut["Normalized Text"] = ntext
+    rowOut["Formatted Text"] = formattedText
     rowOut["Resolved Text"] = ""
     rowOut["Wikidata"] = ""
     rowOut["Wikidata Type"] = ""
@@ -128,10 +134,9 @@ for i, group in enumerate(groups):
     rowOut["Ethnic Group"] = "NA"
     rowOut["Date"] = "NA"
 
-    groupType = group["items"][0]["Type"]
-    qString = urlEncodeString(ntext)
+    qString = urlEncodeString(formattedText)
     searchUrl = f'https://www.wikidata.org/w/api.php?action=wbsearchentities&search={qString}&language=en&format=json'
-    searchFilename = wikiSearchDir + stringToId(ntext) + ".json"
+    searchFilename = wikiSearchDir + stringToId(formattedText) + ".json"
     response = downloadJSONFromURL(searchUrl, searchFilename, overwrite=a.OVERWRITE)
     foundValid = False
 
@@ -143,7 +148,7 @@ for i, group in enumerate(groups):
                 break
 
             if j == 1:
-                print(f"   Looking for the next entry for {ntext}...")
+                print(f"   Looking for the next entry for {formattedText}...")
 
             if respRow and "match" in respRow and "id" in respRow and "text" in respRow["match"] and not foundValid:
                 rtext = respRow["match"]["text"]
@@ -227,7 +232,7 @@ for i, group in enumerate(groups):
     for row in group["items"]:
         index = row["index"]
         for key, value in group["data"].items():
-            if key not in ("Count", "Normalized Text"):
+            if key not in ("Count", "Normalized Text", "Formatted Text"):
                 if key not in fieldnames:
                     fieldnames.append(key)
                 rows[index][key] = value

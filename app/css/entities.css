@@ -35,3 +35,7 @@ nav label {
   background: #ccc;
   color: black;
 }
+.wordcloud img {
+  display: block;
+  margin: auto;
+}

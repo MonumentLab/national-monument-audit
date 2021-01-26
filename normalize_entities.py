@@ -83,7 +83,8 @@ for i, row in enumerate(rows):
             titleText = ntextLookup[ntext]["originalText"]
 
     rowOut = row.copy()
-    rowOut["Normalized Text"] = titleText
+    rowOut["Normalized Text"] = ntext
+    rowOut["Formatted Text"] = titleText
     rowsOut.append(rowOut)
     printProgress(i+1, rowCount, "  ")
 
@@ -107,7 +108,7 @@ for group in groups:
     outputFile = a.STATS_OUTPUT_FILE % group["type"]
     writeCsv(outputFile, group["items"], headings=["originalText", "count", "alternateTexts", "ntext"])
 
-fieldnames.append("Normalized Text")
+fieldnames += ["Normalized Text", "Formatted Text"]
 writeCsv(a.OUTPUT_FILE, rowsOut, headings=fieldnames)
 # sumCount = sum([f["count"] for f in frequencies])
 # meanCount = roundInt(1.0 * sumCount / len(frequencies))

@@ -19,7 +19,7 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="css/vendor/normalize.css">
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/cloud.css">
+  <link rel="stylesheet" href="css/entities.css">
 </head>
 
 <body>
@@ -28,10 +28,10 @@
     <nav>
       <label for="categories-select">Top <span id="categories-count"></span> entries for:</label>
       <select id="categories-select">
-        <option value="entities_people">People</option>
-        <option value="entities_events">Events</option>
-        <option value="entities_orgs">Organizations</option>
-        <option value="entities_norp">Nationalities or religious or political groups</option>
+        <option value="PERSON">People</option>
+        <option value="EVENT">Events</option>
+        <option value="ORG">Organizations</option>
+        <option value="NORP">Nationalities or religious or political groups</option>
       </select>
     </nav>
     <div id="wordcloud" class="wordcloud"></div>
@@ -43,7 +43,7 @@
 
   <script src="js/lib/auth.js"></script>
   <script src="js/lib/util.js"></script>
-  <script src="js/cloud.js"></script>
+  <script src="js/entities.js"></script>
 
 </body>
 
