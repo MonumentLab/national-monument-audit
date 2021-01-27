@@ -93,12 +93,35 @@
       <div class="pie-chart-container"><canvas id="data-field-availability-text"></canvas></div>
     </div>
 
+    <h2>Most frequent entities</h2>
+
+    <p>These entities were extracted using Natural language processing (NLP) and Named entity recognition (NER) via <a href="https://spacy.io/" target="_blank">Spacy</a> from all applicable text fields (such as name, plaque text, object types). "Person" entities were all matched against <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" target="_blank">Wikidata</a> to estimate gender, ethnic group, and occupation (see <a href="https://www.wikidata.org/wiki/Q8027" target="_blank">this example entry</a> to get a sense of what data is available for a well-known figure).</p>
+
+    <p>This is also available as a separate interface:</p>
+
+    <p>
+      <a href="entities.html" class="button large">Explore entities</a>
+    </p>
+
+    <div id="entity-frequencies" class="data-container"></div>
+
+    <p>Analyzing the <strong>top 1,000</strong> identified people, the following approximate breakdowns are found:</p>
+
+    <div id="data-field-availability" class="data-container">
+      <div class="pie-chart-container"><canvas id="entity-gender"></canvas></div>
+      <div class="pie-chart-container"><canvas id="entity-ethnic_group"></canvas></div>
+      <div class="pie-chart-container"><canvas id="entity-occupation"></canvas></div>
+    </div>
+
+    <p>
+      <a href="entities.html" class="button large">Explore more entities</a>
+    </p>
+
     <h2>Most frequent entry values</h2>
 
-    <p>Only counted if a value is present. If a value is present but is blank (i.e. an empty string), it will be represented as "<em>&lt;blank&gt;</em>".
+    <p>This is <strong>un-edited</strong> data values taken straight from the data source, so the there may be duplicates and inconsistencies between how different sources track each category. Only counted if a value is present. If a value is present but is blank (i.e. an empty string), it will be represented as "<em>&lt;blank&gt;</em>".
 
     <div id="data-frequencies" class="data-container"></div>
-
 
     <!-- <h2>Types</h2>
 

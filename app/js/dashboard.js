@@ -4,6 +4,7 @@ var Dashboard = (function() {
 
   function Dashboard(config) {
     var defaults = {
+      'entityDataUrl': 'data/entities-summary.json',
       'summaryDataUrl': 'data/dashboard.json',
       'recordsUrl': 'data/records.json'
     };
@@ -27,7 +28,7 @@ var Dashboard = (function() {
 
     $('body').removeClass('hidden');
 
-    $.when(this.loadSummaryData()).done(function(){
+    $.when(this.loadSummaryData(), this.loadEntityData()).done(function(){
       console.log('Loaded summary data.');
       _this.onSummaryDataLoaded();
     });
@@ -45,6 +46,18 @@ var Dashboard = (function() {
     _.each(this.summaryData.frequencies, function(entry){
       var table = new DataTable(_.extend(entry, {'$parent': $parent}));
     });
+
+    $parent = $('#entity-frequencies');
+    _.each(this.entityData.frequencies, function(entry){
+      var table = new DataTable(_.extend(entry, {'$parent': $parent}));
+    });
+  };
+
+  Dashboard.prototype.loadEntityData = function(){
+    var _this = this;
+    return $.getJSON(this.opt.entityDataUrl, function(data){
+      _this.entityData = data;
+    });
   };
 
   Dashboard.prototype.loadMap = function(){
@@ -57,6 +70,10 @@ var Dashboard = (function() {
 
   Dashboard.prototype.loadPieCharts = function(){
     _.each(this.summaryData.pieCharts, function(params, key){
+      var chart = new PieChart(_.extend(params, {el: '#'+key}));
+    });
+
+    _.each(this.entityData.pieCharts, function(params, key){
       var chart = new PieChart(_.extend(params, {el: '#'+key}));
     });
   };
@@ -185,9 +202,12 @@ var Dashboard = (function() {
   };
 
   Dashboard.prototype.onRecordDataLoaded = function(){
+    var _this = this;
     $('.explore-container').removeClass('loading');
     this.loadTimeline();
-    this.loadMap();
+    setTimeout(function(){
+      _this.loadMap();
+    }, 10);
     this.loadFacets();
   };
 

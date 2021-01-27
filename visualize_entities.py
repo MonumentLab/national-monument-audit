@@ -18,6 +18,7 @@ from lib.string_utils import *
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_resolved.csv", help="Input .csv data file")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="app/data/entities.json", help="Output file")
+parser.add_argument('-summary', dest="SUMMARY_FILE", default="app/data/entities-summary.json", help="Output summary file")
 parser.add_argument('-count', dest="MAX_COUNT",  default=1000, type=int, help="How many entities per group?")
 parser.add_argument('-probe', dest="PROBE",  default=0, type=int, help="Just output details and don't write data?")
 a = parser.parse_args()
@@ -56,7 +57,6 @@ for i, typeGroup in enumerate(groupsByType):
 
 
 # Cols: Wikidata, Wikidata Type, Image, Image Filename, Description, Gender, Birth Date, Occupation, Ethnic Group
-makeDirectories([a.OUTPUT_FILE])
 entities = {}
 for typeGroup in groupsByType:
     typeName = typeGroup["normType"]
@@ -107,4 +107,55 @@ jsonOut = {"entities": entities}
 
 if a.PROBE:
     sys.exit()
+
+makeDirectories([a.OUTPUT_FILE, a.SUMMARY_FILE])
 writeJSON(a.OUTPUT_FILE, jsonOut)
+
+################################################################
+# Generate pie chart data
+################################################################
+
+pieChartData = {}
+people = [row for row in validRows if row["normType"] == "PERSON" and row["Wikidata Type"] == "human"]
+for property in ["Gender", "Ethnic Group", "Occupation"]:
+    pdata = getCountPercentages(people, property, otherTreshhold=5)
+    pkey = f'entity-{stringToId(property)}'
+    pieChartData[pkey] = {
+        "title": property,
+        "values": [d["percent"] for d in pdata],
+        "labels": [d["value"] for d in pdata]
+    }
+
+################################################################
+# Generate record value top frequencies
+################################################################
+
+entLabels = {
+    "PERSON": "People",
+    "EVENT": "Events",
+    "ORG": "Organizations",
+    "NORP": "Nationalities or religious or political groups"
+}
+showTop = 10
+freqData = []
+for typeGroup in groupsByType:
+    typeName = typeGroup["normType"]
+    rowFreqData = []
+    for entGroup in typeGroup["groupsByEnt"]:
+        if len(entGroup["items"]) < 1:
+            continue
+        entity = entGroup["items"][0]
+        rowFreqData.append([entity["Name"], formatNumber(entGroup["count"])])
+        if len(rowFreqData) >= showTop:
+            break
+    freqData.append({
+        "title": f'Top {showTop} values for "{entLabels[typeName]}"',
+        "rows": rowFreqData,
+        "cols": ["Value", "Count"],
+        "resourceLink": f'entities_type_{typeName}.csv'
+    })
+
+jsonOut = {}
+jsonOut["pieCharts"] = pieChartData
+jsonOut["frequencies"] = freqData
+writeJSON(a.SUMMARY_FILE, jsonOut)
