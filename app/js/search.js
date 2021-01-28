@@ -185,7 +185,7 @@ var Search = (function() {
       $('.field-checkbox').each(function(){
         var $input = $(this);
         var value = $input.val();
-        if (_.indexOf(selectedFields, value)) {
+        if (_.indexOf(selectedFields, value) >= 0) {
           $input.prop('checked', true);
         } else {
           $input.prop('checked', false);
@@ -425,7 +425,7 @@ var Search = (function() {
     var currentPage = Math.floor(offsetStart / size);
 
     var html = '<p>Go to page:';
-    var queryObj = _.clone(this.getQueryObject());
+    var queryObj = _.clone(this.currentQueryParams);
     queryObj = _.omit(queryObj, 'start');
     _.times(pages, function(page){
       if (page > 0) {
@@ -583,6 +583,8 @@ var Search = (function() {
     if (this.mapData !== false) {
       params = _.extend({}, params, this.mapData.urlProps);
     }
+
+    this.currentQueryParams = params;
 
     if (window.history.pushState) {
       var queryString = $.param(params);
