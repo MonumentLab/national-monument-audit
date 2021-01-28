@@ -11,7 +11,7 @@ from lib.io_utils import *
 
 # input
 parser = argparse.ArgumentParser()
-parser.add_argument('-in', dest="INPUT_FILE", default="search-index/documents/*.json", help="Input batch .json documents")
+parser.add_argument('-in', dest="INPUT_FILE", default="search-index/documents-latest/*.json", help="Input batch .json documents")
 parser.add_argument('-profile', dest="AWS_PROFILE", default="monumentlab", help="AWS CLI profile with your credentials")
 parser.add_argument('-url', dest="ENDPOINT", default="https://doc-national-monument-audit-nuccsr3nq7s5kshgvyx4kuxsdq.us-east-1.cloudsearch.amazonaws.com", help="End point")
 parser.add_argument('-wait', dest="WAIT_SECONDS", default=10, type=int, help="Wait this much time between requests (seconds)")

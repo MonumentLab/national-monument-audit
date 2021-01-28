@@ -14,6 +14,9 @@ import zipfile
 from lib.collection_utils import *
 from lib.math_utils import *
 
+def copyDir(src, dst):
+    shutil.copytree(src, dst)
+
 def downloadBinaryFile(url, filename, overwrite=False):
     if os.path.isfile(filename) and not overwrite:
         print("%s already exists." % filename)

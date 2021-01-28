@@ -16,7 +16,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Input .csv data file")
 parser.add_argument('-config', dest="CONFIG_FILE", default="config/data-model.json", help="Input config .json file")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
-parser.add_argument('-out', dest="OUTPUT_DIR", default="search-index/documents/", help="Output directory")
+parser.add_argument('-out', dest="OUTPUT_DIR", default="search-index/documents-latest/", help="Output directory")
+parser.add_argument('-backup', dest="BACKUP_DIR", default="search-index/backup-%Y-%m-%d-%H-%M/", help="Output backup directory")
 parser.add_argument('-prev', dest="PREV_DIR", default="", help="Optional previous directory of .json documents for determining deletions")
 parser.add_argument('-batchsize', dest="DOCS_PER_BATCH", default=2800, type=int, help="Documents per batch")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
@@ -188,3 +189,9 @@ if len(a.PREV_DIR) > 0:
         if len(currentBatch) >= 0 and not a.PROBE:
             batchname = f'{a.OUTPUT_DIR}_batch_deletions_{padNum(currentBatchIndex, batchCount)}.json'
             writeJSON(batchname, currentBatch)
+
+# create a backup based on this date and time
+now = datetime.now()
+backupDir = now.strftime(a.BACKUP_DIR)
+removeDir(backupDir)
+copyDir(a.OUTPUT_DIR, backupDir)
