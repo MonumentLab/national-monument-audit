@@ -1,0 +1,26 @@
+{
+  "id": "npsnr",
+  "name": "NPS National Register",
+  "verboseName": "National Park Service: National Register of Historic Places",
+  "provider": "National Park Service",
+  "url": "https://public-nps.opendata.arcgis.com/datasets/national-register-of-historic-places-points/data",
+  "geographicCoverage": "national",
+  "dataPath": "data/vendor/national/nps/NPS_-_National_Register_of_Historic_Places_Locations-shp.csv",
+  "dateDataAccessed": "2021-01-20",
+  "properties": ["X", "Y", "NRIS_Refnu", "RESNAME", "ResType", "Address", "City", "County", "State", "Listed_Dat", "NARA_URL"],
+  "mappings": {
+    "NRIS_Refnu": {"to": "Vendor Entry ID"},
+    "RESNAME": {"to": "Name"},
+    "ResType": {"to": "Object Types"},
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "Address": {"to": "Street Address"},
+    "Listed_Dat": {"to": "Year Dedicated", "dateFormat": "%Y/%m/%d 00:00:00+00"},
+    "NARA_URL": {"to": "URL"}
+  },
+  "filter": "ResType=Object OR Is_NHL=X",
+  "notes": [
+    "Not 100% about dates; there are fields called Status_Date, Listed_Date, and SRC_DATE which looks to all be the same thing; assuming this is approximately dedication date",
+    "Only taking objects or entries that are marked as National Historic Landmarks; there are also types: buildings, structures (e.g. bridges), districts, sites"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "npspoi",
+  "name": "NPS POIs",
+  "verboseName": "National Park Service: Points of Interest",
+  "provider": "National Park Service",
+  "url": "https://public-nps.opendata.arcgis.com/datasets/nps-points-of-interest-pois-web-mercator/data",
+  "geographicCoverage": "national",
+  "dataPath": "data/vendor/national/nps/NPS_-_Points_of_Interest__POIs__-_Web_WGS84.csv",
+  "dateDataAccessed": "2021-01-20",
+  "properties": ["X", "Y", "OBJECTID", "POINAME", "MAPLABEL", "POITYPE"],
+  "mappings": {
+    "OBJECTID": {"to": "Vendor Entry ID"},
+    "POINAME": {"to": "Name"},
+    "MAPLABEL": {"to": "Alternate Name"},
+    "POITYPE": {"to": "Object Types"},
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"}
+  },
+  "filter": "POITYPE=Historic Building OR POITYPE=Historic Marker OR POITYPE=Historic Site OR POITYPE=Historic Ruins OR POITYPE=Memorial OR POITYPE=Monument OR POITYPE=Monument or Memorial OR POITYPE=Sculpture",
+  "notes": [
+    "Only taking entries that are considered historic, monuments, memorials, and sculptures",
+    "There are no dates that look reliable"
+  ]
+}
