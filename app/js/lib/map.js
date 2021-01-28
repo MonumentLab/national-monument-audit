@@ -13,7 +13,7 @@ var Map = (function() {
       startZoom: 4, // see the whole country
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       centerLatLon: [38.5767, -92.1736], // Jefferson City, MO as center
-      showRecordsWithNoYear: true,
+      showRecordsWithNoYear: false,
       dataUrl: 'data/locations.json',
       nominatimUrl: 'https://nominatim.openstreetmap.org/search?q={q}&format=json',
       searchUrl: 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search'
