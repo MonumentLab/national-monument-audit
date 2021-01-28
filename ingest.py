@@ -244,8 +244,9 @@ for dSourceIndex, d in enumerate(dataSources):
 
         rowsOut.append(rowOut)
 
-# Create a combined year field
+# Post processing
 for i, row in enumerate(rowsOut):
+    # Create a combined year field
     year = ""
     if "Year Dedicated" in row and parseYear(row["Year Dedicated"]) is not False:
         year = row["Year Dedicated"]
@@ -253,8 +254,26 @@ for i, row in enumerate(rowsOut):
         year = row["Year Constructed"]
     rowsOut[i]["Year Dedicated Or Constructed"] = year
 
+    # Make alternate name the primary name if no name exists
+    if "Name" in row and "Alternate Name" in row and len(str(row["Name"])) < 1 and len(str(row["Alternate Name"])) > 0:
+        rowsOut[i]["Name"] = str(row["Alternate Name"])
+        rowsOut[i]["Alternate Name"] = ""
+
 # states = unique([row["State"] for row in rowsOut if "State" in row])
 # pprint(states)
+
+# Remove entries with required fields missing
+validRows = []
+for row in rowsOut:
+    isValid = True
+    for key, item in dataModel.items():
+        if "required" in item and item["required"]:
+            if key not in row or str(row[key]).strip() == "":
+                isValid = False
+                break
+    if isValid:
+        validRows.append(row)
+rowsOut = validRows
 
 if a.PROBE:
     sys.exit()

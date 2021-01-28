@@ -189,8 +189,13 @@ def validateStateString(value):
         "Puerto Rico": "PR",
         "Virgin Islands": "VI"
     }
-    if value in stateMap:
-        return stateMap[value]
+    # convert to lower case
+    nStateMap = {}
+    for key, value in stateMap.items():
+        nStateMap[key.lower()] = value
+    nvalue = value.lower()
+    if nvalue in stateMap:
+        return stateMap[nvalue]
     elif value in set(stateMap.values()):
         return value
     else:
