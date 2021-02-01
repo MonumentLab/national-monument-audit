@@ -19,6 +19,37 @@ def cleanText(value):
 
     return value
 
+def containsWord(rawValue, word, isFirstWord=False, isLastWord=False, caseSensitive=False):
+    response = False
+
+    # normalize everything to a list
+    values = rawValue
+    if not isinstance(values, list):
+        values = [values]
+
+    if not caseSensitive:
+        word = word.lower()
+
+    for value in values:
+        value = str(value).strip()
+        if len(value) < 1:
+            continue
+        if not caseSensitive:
+            value = value.lower()
+        words = value.split()
+        words = [word for word in words if len(word) > 0]
+        if len(words) < 1:
+            continue
+        if isLastWord:
+            words = [words[-1]]
+        elif isFirstWord:
+            words = [words[0]]
+        if word in words:
+            response = True
+            break
+
+    return response
+
 def getStates():
     return {
         "Alabama": "AL",
@@ -150,6 +181,19 @@ def normalizeWhitespace(value):
 def padNum(number, total):
     padding = len(str(total))
     return str(number).zfill(padding)
+
+def pluralizeString(value):
+    value = str(value).strip()
+    if len(value) < 1:
+        return value
+
+    lvalue = value.lower()
+    if lvalue.endswith('s'):
+        return value
+    elif lvalue.endswith('y'):
+        return value[:-1] + 'ies'
+    else:
+        return value + 's'
 
 def stringToId(value):
     value = value.lower()

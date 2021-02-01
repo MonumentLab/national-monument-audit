@@ -17,6 +17,7 @@
     {"key": "Creators", "type": "string_list", "facetAndSearch": true, "format": ["name"]},
     {"key": "Subjects", "type": "string_list", "facetAndSearch": true, "format": ["title"]},
     {"key": "Object Types", "type": "string_list", "facetAndSearch": true, "format": ["title"]},
+    {"key": "Monument Types", "type": "string_list"},
     {"key": "Use Types", "type": "string_list", "format": ["title"]},
     {"key": "Text", "type": "text"},
     {"key": "Honorees", "type": "string_list", "facetAndSearch": true, "format": ["name"]},
@@ -25,5 +26,95 @@
     {"key": "Description", "type": "text"},
     {"key": "Material", "type": "string", "format": ["title"]},
     {"key": "Wikipedia", "type": "string"}
+  ],
+  "types": [
+    {
+      "name": "monument_type",
+      "value": "conventional monument",
+      "conditions": [
+        {
+          "words": ["monument"],
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Description", "Text"]
+        },{
+          "words": ["memorial"],
+          "endswith": 1,
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
+        },{
+          "words": ["memorial"],
+          "startswith": 1,
+          "fields": ["Location Description"]
+        },{
+          "words": ["obelisk", "statue", "sculpture"],
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
+        }
+      ]
+    },{
+      "name": "monument_type",
+      "value": "marker",
+      "conditions": [
+        {
+          "words": ["marker"],
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
+        },{
+          "words": ["marker"],
+          "startswith": 1,
+          "fields": ["Location Description"]
+        }
+      ]
+    },{
+      "name": "monument_type",
+      "value": "building",
+      "conditions": [
+        {
+          "words": ["academy", "airport", "barrack", "bank", "barn", "building", "cabin", "cafe", "center", "chapel", "church", "club", "college", "convention", "cottage", "courthouse", "depot", "drugstore", "estate", "fort", "hall", "headquarter", "home", "hotel", "hospital", "house", "inn", "ironwork", "jail", "library", "lighthouse", "manor", "mansion", "mart", "mill", "motel", "museum", "office", "outpost", "prison", "refinery", "residence", "restaurant", "sawmill", "school", "schoolhouse", "station", "store", "tavern", "temple", "theater", "tower", "university", "vineyard", "warehouse"],
+          "pluralize": 1,
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
+        }
+      ]
+    },{
+      "name": "monument_type",
+      "value": "structure",
+      "conditions": [
+        {
+          "words": ["avenue", "bridge", "canal", "highway", "intersection", "junction", "market", "mine", "path", "railroad", "road", "shipyard", "street", "turnpike", "trail"],
+          "pluralize": 1,
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
+        }
+      ]
+    },{
+      "name": "monument_type",
+      "value": "site",
+      "conditions": [
+        {
+          "words": ["grounds", "mound", "ruin", "site", "tomb"],
+          "pluralize": 1,
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
+        }
+      ]
+    },{
+      "name": "monument_type",
+      "value": "place name",
+      "conditions": [
+        {
+          "words": ["arboretum", "bay", "borough", "boundary", "camp", "campground", "cemetary", "cemetery", "city", "community", "county", "creek", "district", "farm", "field", "garden", "graveyard", "hamlet", "harbor", "heights", "lake", "park", "plaza", "pond", "ranch", "reservoir", "river", "spring", "square", "town", "village"],
+          "pluralize": 1,
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
+        }
+      ]
+    },{
+      "name": "monument_type",
+      "value": "organization",
+      "conditions": [
+        {
+          "words": ["association", "company", "corporation", "llc", "organization", "partner", "partnership"],
+          "pluralize": 1,
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
+        }
+      ]
+    },{
+      "name": "monument_type",
+      "value": "uncategorized",
+      "remainder": 1
+    }
   ]
 }

@@ -44,6 +44,7 @@ if idField is None:
     print("Could not find identifier in data model")
     sys.exit()
 ID_NAME = idField["key"]
+dataTypes = dataModel["types"]
 dataModel = createLookup(dataModel["fields"], "key")
 
 ################################################################
@@ -274,6 +275,67 @@ for row in rowsOut:
     if isValid:
         validRows.append(row)
 rowsOut = validRows
+
+# break down by type
+
+def applyDataTypeConditions(rows, dataType):
+    conditionRows = []
+    remainingRows = []
+    name = dataType["name"]
+    value = dataType["value"]
+
+    if "remainder" in dataType:
+        for row in rows:
+            row[name] = value
+            conditionRows.append(row)
+        return (conditionRows, remainingRows)
+
+    conditions = dataType["conditions"]
+    for row in rows:
+        isValid = False
+        for cond in conditions:
+            pluralize = ("pluralize" in cond)
+            isFirstWord = ("startswith" in cond)
+            isLastWord = ("endswith" in cond)
+            words = []
+            for word in cond["words"]:
+                words.append(word)
+                if pluralize:
+                    pword = pluralizeString(word)
+                    if pword != word:
+                        words.append(pword)
+            for field in cond["fields"]:
+                if field not in row:
+                    continue
+                rawValue = row[field]
+                for word in words:
+                    if containsWord(rawValue, word, isFirstWord, isLastWord):
+                        isValid = True
+                        break
+                if isValid:
+                    break
+            if isValid:
+                break
+        if isValid:
+            row[name] = value
+            conditionRows.append(row)
+        else:
+            remainingRows.append(row)
+
+    return (conditionRows, remainingRows)
+
+print("Determining monument types...")
+dateTypeGroups = groupList(dataTypes, "name")
+for dataTypeGroup in dateTypeGroups:
+    name = dataTypeGroup["name"]
+    remainingRows = rowsOut[:]
+    updatedRows = []
+    for dataType in dataTypeGroup["items"]:
+        conditionRows, remainingRows = applyDataTypeConditions(remainingRows, dataType)
+        updatedRows += conditionRows
+    if len(remainingRows) > 0:
+        updatedRows += remainingRows
+    rowsOut = updatedRows[:]
 
 if a.PROBE:
     sys.exit()

@@ -114,6 +114,7 @@ items = []
 for i, stateString in enumerate(states):
     stateId = stringToId(stateString)
     stateFilesString = a.HTML_FILE % (stateId + '-*')
+    print(f'Parsing {stateFilesString}')
     stateFilenames = getFilenames(stateFilesString)
 
     for fn in stateFilenames:
