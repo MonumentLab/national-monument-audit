@@ -47,7 +47,7 @@ python -m spacy download en_core_web_sm
    python3 index.py -out "search-index/documents-2020-01-01/"
    ```
 
-   The output folder name can be anything; I usually use the current date. Optionally you can add the path to the previous index output to look for deletions:
+   The output folder name can be anything; I usually use the current date. If you do not pass in a folder name, it will put it in a folder `search-index/documents-latest/` (note, the script will always create a back-up directory at `search-index/backup/YYYY-MM-DD-HH-MM/`). Optionally you can add the path to the previous index output to look for deletions (otherwise, no documents will ever be deleted; only updated or added):
 
    ```
    python3 index.py -out "search-index/documents-2020-01-01/" -prev "search-index/documents-2019-12-01/"
@@ -71,4 +71,4 @@ python -m spacy download en_core_web_sm
    python3 index_upload.py -in "search-index/documents-2020-01-01/*.json"
    ```
 
-   It may take some time for re-indexing, but it should happen automatically. You can manually refresh the index through the AWS console.
+   If no directory is passed in, `search-index/documents-latest/*.json` will be uploaded. It may take some time for re-indexing, but it should happen automatically. You can manually refresh the index through the AWS console.
