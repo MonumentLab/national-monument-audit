@@ -326,6 +326,7 @@ def applyDataTypeConditions(rows, dataType):
 
 print("Determining monument types...")
 dateTypeGroups = groupList(dataTypes, "name")
+rowsByDataType = {}
 for dataTypeGroup in dateTypeGroups:
     name = dataTypeGroup["name"]
     remainingRows = rowsOut[:]
@@ -333,6 +334,8 @@ for dataTypeGroup in dateTypeGroups:
     for dataType in dataTypeGroup["items"]:
         conditionRows, remainingRows = applyDataTypeConditions(remainingRows, dataType)
         updatedRows += conditionRows
+        if len(conditionRows) > 0:
+            rowsByDataType[dataType["value"]] = conditionRows
     if len(remainingRows) > 0:
         updatedRows += remainingRows
     rowsOut = updatedRows[:]
@@ -350,6 +353,11 @@ for row in rowsOut:
             fieldsOut.append(field)
 makeDirectories(a.OUTPUT_FILE)
 writeCsv(a.OUTPUT_FILE, rowsOut, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
+
+# write type-specific output
+for typeValue, typeRows in rowsByDataType.items():
+    appendString = "_" + stringToId(typeValue)
+    writeCsv(appendToFilename(a.OUTPUT_FILE, appendString), typeRows, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
 ################################################################
 # Generate dashboard data

@@ -14,6 +14,11 @@ import zipfile
 from lib.collection_utils import *
 from lib.math_utils import *
 
+def appendToFilename(fn, appendString):
+    ext = getFileExt(fn)
+    extLen = len(ext)
+    return fn[:-extLen] + appendString + ext
+
 def copyDir(src, dst):
     shutil.copytree(src, dst)
 

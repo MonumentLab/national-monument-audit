@@ -19,7 +19,7 @@ parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="Ho
 parser.add_argument('-out', dest="OUTPUT_DIR", default="search-index/documents-latest/", help="Output directory")
 parser.add_argument('-backup', dest="BACKUP_DIR", default="search-index/backup-%Y-%m-%d-%H-%M/", help="Output backup directory")
 parser.add_argument('-prev', dest="PREV_DIR", default="", help="Optional previous directory of .json documents for determining deletions")
-parser.add_argument('-batchsize', dest="DOCS_PER_BATCH", default=2800, type=int, help="Documents per batch")
+parser.add_argument('-batchsize', dest="DOCS_PER_BATCH", default=2500, type=int, help="Documents per batch")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 a = parser.parse_args()
 # Parse arguments
