@@ -359,6 +359,8 @@ for typeValue, typeRows in rowsByDataType.items():
     appendString = "_" + stringToId(typeValue)
     writeCsv(appendToFilename(a.OUTPUT_FILE, appendString), typeRows, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
+monumentRows = rowsByDataType["Conventional monument"]
+
 ################################################################
 # Generate dashboard data
 ################################################################
@@ -383,38 +385,16 @@ dataSources = sorted(dataSources, key=lambda s: s["recordCount"], reverse=True)
 # Generate pie chart data
 ################################################################
 
-pieChartData = {}
-# record share
-# dataSourceRecordShare = getCountPercentages(rowsOut, "Source", otherTreshhold=7)
-# pieChartData["data-source-share"] = {
-#     "title": "Share of records by data source",
-#     "values": [d["percent"] for d in dataSourceRecordShare],
-#     "labels": [d["value"] for d in dataSourceRecordShare]
-# }
-# geographic coverage/resolution
-# geographicCoverageData = getCountPercentages(dataSources, "geographicCoverage")
-# pieChartData["data-source-coverage"] = {
-#     "title": "Geographical coverage of data sources",
-#     "values": [d["percent"] for d in geographicCoverageData],
-#     "labels": [d["value"] for d in geographicCoverageData]
-# }
+availabilityData = {}
 locData = []
 for row in rowsOut:
     if "Latitude" in row and row["Latitude"] != "" and row["Latitude"] > 0:
-        locData.append({"value": "lat/lon"})
-    elif "Street Address" in row and row["Street Address"] != "":
-        locData.append({"value": "street address"})
-    elif "City" in row and row["City"] != "":
-        locData.append({"value": "city"})
-    elif "County" in row and row["County"] != "":
-        locData.append({"value": "county"})
-    elif "State" in row and row["State"] != "":
-        locData.append({"value": "state"})
+        locData.append({"value": "yes"})
     else:
-        locData.append({"value": "no geographic data"})
-geographicResolutionData = getCountPercentages(locData, "value")
-pieChartData["data-field-availability-location"] = {
-    "title": "Geographical resolution of data",
+        locData.append({"value": ""})
+geographicResolutionData = getCountPercentages(locData, "value", presence=True)
+availabilityData["data-field-availability-location"] = {
+    "title": "Lat/lon available?",
     "values": [d["percent"] for d in geographicResolutionData],
     "labels": [d["value"] for d in geographicResolutionData]
 }
@@ -428,7 +408,7 @@ availabilityConfig = [
 ]
 for row in availabilityConfig:
     pdata = getCountPercentages(rowsOut, row["srcKey"], presence=True)
-    pieChartData[row["outKey"]] = {
+    availabilityData[row["outKey"]] = {
         "title": f'{row["srcKey"]} available?',
         "values": [d["percent"] for d in pdata],
         "labels": [d["value"] for d in pdata]
@@ -492,7 +472,7 @@ for row in freqConfig:
 jsonOut = {}
 jsonOut["summary"] = summaryData
 jsonOut["sources"] = dataSources
-jsonOut["pieCharts"] = pieChartData
+jsonOut["availabilities"] = availabilityData
 jsonOut["frequencies"] = freqData
 writeJSON(a.APP_DIRECTORY + "data/dashboard.json", jsonOut)
 

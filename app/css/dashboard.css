@@ -362,3 +362,23 @@ body.hidden.loading > .loader {
 .data-table.data-source-table th:last-child {
   text-align: left;
 }
+
+.bar-container {
+  position: relative;
+  width: 100%;
+  padding: 0.2rem;
+  border: 1px solid black;
+  margin-bottom: 1rem;
+}
+.bar-container .bar {
+  position: absolute;
+  height: 100%;
+  background: #ffa600;
+  top: 0;
+  left: 0;
+}
+.bar-container .label {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}

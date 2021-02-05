@@ -40,6 +40,19 @@ var Dashboard = (function() {
 
   };
 
+  Dashboard.prototype.loadAvailabilities = function(){
+    var $container = $('#data-field-availability');
+    var html = '';
+    _.each(this.summaryData.availabilities, function(params, key){
+      var percent = params.values[0];
+      html += '<div class="bar-container">';
+        html += '<div class="bar" style="width: '+percent+'%"></div>';
+        html += '<div class="label"><div>'+params.title+'</div> <div>'+percent+'%</div></div>';
+      html += '</div>';
+    });
+    $container.html(html);
+  };
+
   Dashboard.prototype.loadDataTables = function(){
     var $parent = $('#data-frequencies');
 
@@ -69,10 +82,6 @@ var Dashboard = (function() {
   };
 
   Dashboard.prototype.loadPieCharts = function(){
-    _.each(this.summaryData.pieCharts, function(params, key){
-      var chart = new PieChart(_.extend(params, {el: '#'+key}));
-    });
-
     _.each(this.entityData.pieCharts, function(params, key){
       var chart = new PieChart(_.extend(params, {el: '#'+key}));
     });
@@ -215,6 +224,7 @@ var Dashboard = (function() {
     $('body').removeClass('loading');
     this.loadSummary();
     this.loadSources();
+    this.loadAvailabilities();
     this.loadPieCharts();
     this.loadDataTables();
   };
