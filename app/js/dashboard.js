@@ -47,13 +47,25 @@ var Dashboard = (function() {
   };
 
   Dashboard.prototype.loadAvailabilities = function(){
-    var $container = $('#data-field-availability');
+    var barData = _.map(this.summaryData.availabilities, function(params, key){
+      return {
+        percent: params.values[0],
+        label: params.title
+      }
+    });
+    this.loadBars($('#data-field-availability'), barData);
+  };
+
+  Dashboard.prototype.loadBars = function($container, barData){
     var html = '';
-    _.each(this.summaryData.availabilities, function(params, key){
-      var percent = params.values[0];
+    _.each(barData, function(bar){
+      var value = bar.percent + '%';
+      if (_.has(bar, 'count')) value = Util.formatNumber(bar.count) + ' ('+value+')';
+      var label = bar.label;
+      if (bar.url) label = '<a href="'+bar.url+'">'+label+'</a>';
       html += '<div class="bar-container">';
-        html += '<div class="bar" style="width: '+percent+'%"></div>';
-        html += '<div class="label"><div>'+params.title+'</div> <div>'+percent+'%</div></div>';
+        html += '<div class="bar" style="width: '+bar.percent+'%"></div>';
+        html += '<div class="label"><div>'+label+'</div> <div>'+value+'</div></div>';
       html += '</div>';
     });
     $container.html(html);
@@ -96,7 +108,7 @@ var Dashboard = (function() {
       "facet.status": "{sort:'count', size:10}",
       "facet.subjects": "{sort:'count', size:10}",
       "facet.use_types": "{sort:'count', size:10}",
-      "q": "(and monument_types:'Conventional monument')",
+      "q": "matchall",
       "q.parser": "structured",
       "return": "_no_fields"
     };
@@ -115,6 +127,23 @@ var Dashboard = (function() {
 
   Dashboard.prototype.loadFacets = function(){
     var facets = new Facets({data: this.recordData, yearRange: this.timeline.range});
+  };
+
+  Dashboard.prototype.loadObjectTypes = function(){
+    var sum = _.reduce(this.monumentTypes.buckets, function(memo, bucket){ return memo + bucket.count; }, 0);
+    var barData = _.map(this.monumentTypes.buckets, function(bucket){
+      var params = {
+        facets: 'monument_types~'+bucket.value,
+        q: ''
+      }
+      return {
+        percent: MathUtil.round(bucket.count / sum * 100, 2),
+        count: bucket.count,
+        label: bucket.value,
+        url: 'search.html?' + $.param(params)
+      }
+    });
+    this.loadBars($('#data-types'), barData);
   };
 
   Dashboard.prototype.loadPieCharts = function(){
@@ -250,6 +279,7 @@ var Dashboard = (function() {
   Dashboard.prototype.onFacetDataLoaded = function(){
     this.loadDataTables();
     this.loadPieCharts();
+    this.loadObjectTypes();
   };
 
   Dashboard.prototype.onRecordDataLoaded = function(){
