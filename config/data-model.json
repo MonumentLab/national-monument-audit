@@ -53,10 +53,6 @@
           "endswith": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
         },{
-          "words": ["memorial"],
-          "startswith": 1,
-          "fields": ["Location Description"]
-        },{
           "words": ["obelisk", "statue", "sculpture"],
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
         }
