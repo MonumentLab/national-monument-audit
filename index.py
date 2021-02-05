@@ -20,6 +20,7 @@ parser.add_argument('-out', dest="OUTPUT_DIR", default="search-index/documents-l
 parser.add_argument('-backup', dest="BACKUP_DIR", default="search-index/backup-%Y-%m-%d-%H-%M/", help="Output backup directory")
 parser.add_argument('-prev', dest="PREV_DIR", default="", help="Optional previous directory of .json documents for determining deletions")
 parser.add_argument('-batchsize', dest="DOCS_PER_BATCH", default=2500, type=int, help="Documents per batch")
+parser.add_argument('-maxsize', dest="MAX_FILE_SIZE_MB", default=5, type=float, help="Max file size in megabytes")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 a = parser.parse_args()
 # Parse arguments
@@ -189,6 +190,15 @@ if len(a.PREV_DIR) > 0:
         if len(currentBatch) >= 0 and not a.PROBE:
             batchname = f'{a.OUTPUT_DIR}_batch_deletions_{padNum(currentBatchIndex, batchCount)}.json'
             writeJSON(batchname, currentBatch)
+
+# validate batch sizes
+if a.MAX_FILE_SIZE_MB > 0:
+    filenames = getFilenames(a.OUTPUT_DIR + "*.json")
+    for fn in filenames:
+        filesize = os.path.getsize(fn) / 1000.0 / 1000.0
+        if filesize >= a.MAX_FILE_SIZE_MB:
+            print(f'ERROR: {fn} is too large ({filesize}MB > {a.MAX_FILE_SIZE_MB}MB). Re-run with a lower -batchsize parameter (currently {a.DOCS_PER_BATCH})')
+            sys.exit()
 
 # create a backup based on this date and time
 now = datetime.now()
