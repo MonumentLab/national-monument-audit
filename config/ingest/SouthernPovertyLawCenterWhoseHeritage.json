@@ -13,7 +13,9 @@
     "feature_name": {"to": "Name"},
     "Symbol Type": {"to": "Object Types"},
     "Symbol Category": {"to": "Use Types"},
-    "Tracking Status": {"to": "Status"}
+    "Tracking Status": {"to": "Status"},
+    "Year Dedicated": {"to": "Year Dedicated", "year": 1},
+    "Year Removed": {"to": "Year Removed", "year": 1}
   },
   "filter": "Symbol Type=Monument",
   "notes": [

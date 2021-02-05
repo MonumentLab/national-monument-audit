@@ -12,7 +12,7 @@
   "mappings": {
     "OBJECTID": {"to": "Vendor Entry ID"},
     "Location": {"to": "Street Address"},
-    "Dedicated": {"to": "Year Dedicated", "dateFormat": "%A, %B %d, %Y"},
+    "Dedicated": {"to": "Year Dedicated", "year": 1},
     "Lattitude": {"to": "Latitude"},
     "Marker_Typ": {"to": "Object Types"},
     "Categories": {"to": "Subjects", "delimeter": ","},

@@ -12,7 +12,7 @@
   "mappings": {
     "osm_id": {"to": "Vendor Entry ID"},
     "name": {"to": "Name"},
-    "start_date": {"to": "Year Constructed"},
+    "start_date": {"to": "Year Constructed", "year": 1},
     "owner": {"to": "Sponsors"},
     "Y": {"to": "Latitude"},
     "X": {"to": "Longitude"},

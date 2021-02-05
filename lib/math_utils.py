@@ -72,10 +72,10 @@ def parseNumber(string, alwaysFloat=False):
     except TypeError:
         return ""
 
-def parseYear(string):
+def parseYear(string, minYear=1000, maxYear=2050):
     try:
         num = int(string)
-        if num > 1500 and num < 2050:
+        if num >= minYear and num <= maxYear:
             return num
         return False
     except ValueError:

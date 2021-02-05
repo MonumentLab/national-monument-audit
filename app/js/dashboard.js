@@ -6,7 +6,8 @@ var Dashboard = (function() {
     var defaults = {
       'entityDataUrl': 'data/entities-summary.json',
       'summaryDataUrl': 'data/dashboard.json',
-      'recordsUrl': 'data/records.json'
+      'recordsUrl': 'data/records.json',
+      'searchUrl': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search'
     };
     var q = Util.queryParams();
     this.opt = _.extend({}, defaults, config, q);
@@ -28,9 +29,14 @@ var Dashboard = (function() {
 
     $('body').removeClass('hidden');
 
-    $.when(this.loadSummaryData(), this.loadEntityData()).done(function(){
+    $.when(this.loadSummaryData()).done(function(){
       console.log('Loaded summary data.');
       _this.onSummaryDataLoaded();
+    });
+
+    $.when(this.loadFacetData(), this.loadEntityData()).done(function(){
+      console.log('Loaded facet and entity data.')
+      _this.onFacetDataLoaded();
     });
 
     $.when(this.loadRecords()).done(function(){
@@ -55,12 +61,18 @@ var Dashboard = (function() {
 
   Dashboard.prototype.loadDataTables = function(){
     var $parent = $('#data-frequencies');
+    $parent.empty();
 
-    _.each(this.summaryData.frequencies, function(entry){
+    _.each(this.facetData, function(entry, key){
+      entry.title = 'Top '+entry.buckets.length+' values for "'+key.replace('_', ' ')+'"';
+      entry.resourceLink = 'monumentlab_national_monuments_audit_final_'+key+'.csv';
+      entry.cols = ['Values', 'Count'];
+      entry.rows = _.map(entry.buckets, function(bucket){ return [bucket.value, Util.formatNumber(bucket.count)]; })
       var table = new DataTable(_.extend(entry, {'$parent': $parent}));
     });
 
     $parent = $('#entity-frequencies');
+    $parent.empty();
     _.each(this.entityData.frequencies, function(entry){
       var table = new DataTable(_.extend(entry, {'$parent': $parent}));
     });
@@ -71,6 +83,30 @@ var Dashboard = (function() {
     return $.getJSON(this.opt.entityDataUrl, function(data){
       _this.entityData = data;
     });
+  };
+
+  Dashboard.prototype.loadFacetData = function(){
+    var _this = this;
+    var query = {
+      "facet.creators": "{sort:'count', size:10}",
+      "facet.honorees": "{sort:'count', size:10}",
+      "facet.monument_types": "{sort:'count', size:10}",
+      "facet.object_types": "{sort:'count', size:10}",
+      "facet.sponsors": "{sort:'count', size:10}",
+      "facet.status": "{sort:'count', size:10}",
+      "facet.subjects": "{sort:'count', size:10}",
+      "facet.use_types": "{sort:'count', size:10}",
+      "q": "(and monument_types:'Conventional monument')",
+      "q.parser": "structured",
+      "return": "_no_fields"
+    };
+    var url = this.opt.searchUrl + '?' + $.param(query);
+
+    return $.getJSON(url, function(resp) {
+      _this.facetData =  _.omit(resp.facets, 'monument_types');
+      _this.monumentTypes = resp.facets.monument_types;
+    });
+
   };
 
   Dashboard.prototype.loadMap = function(){
@@ -91,6 +127,7 @@ var Dashboard = (function() {
     var _this = this;
     return $.getJSON(this.opt.recordsUrl, function(data){
       _this.recordData = Util.parseData(data);
+      console.log('Loaded '+_this.recordData.length+ ' records');
     });
   };
 
@@ -210,6 +247,11 @@ var Dashboard = (function() {
     this.timeline = new Timeline({data: this.recordData});
   };
 
+  Dashboard.prototype.onFacetDataLoaded = function(){
+    this.loadDataTables();
+    this.loadPieCharts();
+  };
+
   Dashboard.prototype.onRecordDataLoaded = function(){
     var _this = this;
     $('.explore-container').removeClass('loading');
@@ -225,8 +267,6 @@ var Dashboard = (function() {
     this.loadSummary();
     this.loadSources();
     this.loadAvailabilities();
-    this.loadPieCharts();
-    this.loadDataTables();
   };
 
   return Dashboard;

@@ -207,6 +207,14 @@ for dSourceIndex, d in enumerate(dataSources):
                 else:
                     value = int(dt.strftime("%Y"))
 
+            # else if marked as year, try to extract year
+            elif "year" in propMap:
+                yearValue = None
+                if isinstance(value, list):
+                    value = value[0]
+                yearValue = stringToYear(value)
+                value = yearValue if yearValue is not None else ""
+
             # parse bool
             if dtype == "bool":
                 value = str(value).lower()
@@ -421,13 +429,13 @@ for row in availabilityConfig:
 showTop = 10
 freqData = []
 freqConfig = [
-    {"srcKey": "Creators", "filename": "monumentlab_national_monuments_audit_final_creator_counts.csv"},
-    {"srcKey": "Subjects", "filename": "monumentlab_national_monuments_audit_final_subject_counts.csv"},
-    {"srcKey": "Object Types", "filename": "monumentlab_national_monuments_audit_final_object_type_counts.csv"},
-    {"srcKey": "Use Types", "filename": "monumentlab_national_monuments_audit_final_use_type_counts.csv"},
-    {"srcKey": "Honorees", "filename": "monumentlab_national_monuments_audit_final_honoree_counts.csv"},
-    {"srcKey": "Sponsors", "filename": "monumentlab_national_monuments_audit_final_sponsor_counts.csv"},
-    {"srcKey": "Status", "filename": "monumentlab_national_monuments_audit_final_status_counts.csv"}
+    {"srcKey": "Creators", "filename": "monumentlab_national_monuments_audit_final_creators.csv"},
+    {"srcKey": "Subjects", "filename": "monumentlab_national_monuments_audit_final_subjects.csv"},
+    {"srcKey": "Object Types", "filename": "monumentlab_national_monuments_audit_final_object_types.csv"},
+    {"srcKey": "Use Types", "filename": "monumentlab_national_monuments_audit_final_use_types.csv"},
+    {"srcKey": "Honorees", "filename": "monumentlab_national_monuments_audit_final_honorees.csv"},
+    {"srcKey": "Sponsors", "filename": "monumentlab_national_monuments_audit_final_sponsors.csv"},
+    {"srcKey": "Status", "filename": "monumentlab_national_monuments_audit_final_status.csv"}
 ]
 allCounts = {}
 for row in freqConfig:
@@ -473,16 +481,16 @@ jsonOut = {}
 jsonOut["summary"] = summaryData
 jsonOut["sources"] = dataSources
 jsonOut["availabilities"] = availabilityData
-jsonOut["frequencies"] = freqData
+# jsonOut["frequencies"] = freqData # ***** Made obsolete by using the search index instead *****
 writeJSON(a.APP_DIRECTORY + "data/dashboard.json", jsonOut)
 
 ################################################################
 # Generate map data
 ################################################################
 
-topSubjects = list(allCounts["Subjects"])
-if len(topSubjects) > 100:
-    topSubjects = topSubjects[:100]
+# topSubjects = list(allCounts["Subjects"])
+# if len(topSubjects) > 100:
+#     topSubjects = topSubjects[:100]
 jsonOut = {
     "cols": ["lat", "lon", "source", "year", "id"],
     "groups": {
@@ -491,7 +499,7 @@ jsonOut = {
     }
 }
 jsonRows = []
-for row in rowsOut:
+for row in monumentRows:
     lat = -999
     lon = -999
     if "Latitude" in row and row["Latitude"] != "" and row["Latitude"] > 0:

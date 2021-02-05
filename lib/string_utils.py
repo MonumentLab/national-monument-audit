@@ -228,6 +228,17 @@ def stringToTitle(value):
     formatted = " ".join(formattedWords)
     return formatted
 
+def stringToYear(value, minYear=1000, maxYear=2050):
+    matches = re.findall('\d{4}', str(value))
+    year = None
+    if matches:
+        for match in matches:
+            matchInt = int(match)
+            if (minYear is None or matchInt >= minYear) and (maxYear is None or matchInt <= maxYear):
+                year = matchInt
+                break
+    return year
+
 def urlEncodeString(value):
     return urllib.parse.quote_plus(value)
 

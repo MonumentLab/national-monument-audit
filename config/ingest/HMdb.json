@@ -13,7 +13,7 @@
     "MarkerID": {"to": "Vendor Entry ID"},
     "Title": {"to": "Name"},
     "Subtitle": {"to": "Alternate Name"},
-    "Year Erected": {"to": "Year Constructed"},
+    "Year Erected": {"to": "Year Constructed", "year": 1},
     "Erected By": {"to": "Sponsors"},
     "Latitude (minus=S)": {"to": "Latitude"},
     "Longitude (minus=W)": {"to": "Longitude"},

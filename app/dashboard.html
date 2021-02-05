@@ -77,13 +77,13 @@
 
     <h2>Data sources</h2>
 
-    <div id="data-sources" class="data-sources"></div>
+    <div id="data-sources" class="data-sources">Loading...</div>
 
     <h2>Data field availability</h2>
 
     <p>What data fields are available for each of the data sources?</p>
 
-    <div id="data-field-availability" class="data-container"></div>
+    <div id="data-field-availability" class="data-container">Loading...</div>
 
     <h2>Most frequent entities</h2>
 
@@ -95,7 +95,7 @@
       <a href="entities.html" class="button large">Explore entities</a>
     </p>
 
-    <div id="entity-frequencies" class="data-container"></div>
+    <div id="entity-frequencies" class="data-container">Loading...</div>
 
     <p>Analyzing the <strong>top 1,000</strong> identified people, the following approximate breakdowns are found:</p>
 
@@ -109,9 +109,11 @@
       <a href="entities.html" class="button large">Explore more entities</a>
     </p>
 
-    <h2>Most frequent entry values</h2>
+    <h2>Most frequent entry values for conventional monuments</h2>
 
-    <p>This is <strong>un-edited</strong> data values taken straight from the data source, so the there may be duplicates and inconsistencies between how different sources track each category. Only counted if a value is present. If a value is present but is blank (i.e. an empty string), it will be represented as "<em>&lt;blank&gt;</em>".
+    <p>This is <strong>un-edited</strong> data values taken straight from the data source, so the there may be duplicates and inconsistencies between how different sources track each category. Only counted if a value is present. If a value is present but is blank (i.e. an empty string), it will be represented as "<em>&lt;blank&gt;</em>".</p>
+
+    <p><strong>Limited to entries marked as "conventional monument"</strong></p>
 
     <div id="data-frequencies" class="data-container"></div>
 
@@ -127,7 +129,8 @@
 
     <div id="data-categories" class="data-container wordcloud-container"></div> -->
 
-    <h2>Interactive data map and timeline</h2>
+    <h2>Interactive data map and timeline for conventional monuments</h2>
+    <p>Due to limitations of this data map, this map is limited to entries marked as "conventional monuments".</p>
 
   </div>
 
@@ -155,8 +158,8 @@
       <p>
         Viewing <span id="record-count">0</span> records between <span id="active-year-min"></span> and <span id="active-year-max"></span> with <span id="facet-message">no filters</span>.
         <br />Show entries with no year:
-        <label for="map-no-year-yes"><input id="map-no-year-yes" type="radio" name="map-no-year" value="yes" /> yes</label>
-        <label for="map-no-year-no"><input id="map-no-year-no" type="radio" name="map-no-year" value="no" checked /> no</label>
+        <label for="map-no-year-yes"><input id="map-no-year-yes" type="radio" name="map-no-year" value="yes" checked /> yes</label>
+        <label for="map-no-year-no"><input id="map-no-year-no" type="radio" name="map-no-year" value="no" /> no</label>
       </p>
       <p class="refreshing-map"><em>Refreshing data on map...</em></p>
     </div>

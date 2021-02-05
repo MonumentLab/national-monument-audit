@@ -13,7 +13,7 @@ var Map = (function() {
       startZoom: 4, // see the whole country
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       centerLatLon: [38.5767, -92.1736], // Jefferson City, MO as center
-      showRecordsWithNoYear: false,
+      showRecordsWithNoYear: true,
       dataUrl: 'data/locations.json',
       nominatimUrl: 'https://nominatim.openstreetmap.org/search?q={q}&format=json',
       searchUrl: 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search'
@@ -263,9 +263,11 @@ var Map = (function() {
     if ((activeFacets !== false || activeYearRange !== false)) {
       this.filteredData = _.filter(this.data, function(d){
         var isValid = true;
-        if ((isNaN(d.year) || d.year < 0) && !showRecordsWithNoYear) return false;
+        var isValidYear = (!isNaN(d.year) && d.year > 0);
+        if (!isValidYear && !showRecordsWithNoYear) return false;
+
         // check for valid year range
-        if (activeYearRange !== false) {
+        if (isValidYear && activeYearRange !== false) {
           isValid = d.year >= activeYearRange[0] && d.year <= activeYearRange[1];
         }
         // check for valid facets

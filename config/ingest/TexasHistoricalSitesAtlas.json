@@ -15,7 +15,7 @@
     "address": {"to": "Street Address", "alternateProperty": "loc_desc"},
     "utm_east": {"to": "UTM", "utmNorthing": "utm_north", "utmZone": "utm_zone"},
     "code": {"to": "Subjects", "delimeter": ";|,"},
-    "year": {"to": "Year Dedicated"},
+    "year": {"to": "Year Dedicated", "year": 1},
     "size": {"to": "Dimensions"},
     "markertext": {"to": "Text"}
   },

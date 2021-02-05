@@ -15,7 +15,7 @@
     "Y": {"to": "Latitude"},
     "X": {"to": "Longitude"},
     "Address": {"to": "Street Address"},
-    "Listed_Dat": {"to": "Year Dedicated", "dateFormat": "%Y/%m/%d 00:00:00+00"},
+    "Listed_Dat": {"to": "Year Dedicated", "year": 1},
     "NARA_URL": {"to": "URL"}
   },
   "filter": "ResType=Object OR Is_NHL=X",
