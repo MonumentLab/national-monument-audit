@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>State Historic Sites of North Dakota</name>
+    <description>The State Historical Society of North Dakota manages 56 state historic sites around the state of North Dakota.  Our mission is to identify, preserve, interpret, and promote the heritage of North Dakota and its people.</description>
+    <Style id="icon-22-normal">
+      <IconStyle>
+        <scale>1.1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/22-blue-dot.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-22-highlight">
+      <IconStyle>
+        <scale>1.1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/22-blue-dot.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1.1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-22">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-22-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-22-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Sites</name>
+      <Placemark>
+        <name>Big Mound Battlefield</name>
+        <description><![CDATA[A headstone marks the place where Dr. Josiah S. Weiser was shot on July 24, 1863. This death precipitated the Battle of Big Mound, a skirmish between General Henry H. Sibley's Minnesota Volunteers and a group of Sioux who were believed to have been involved in the Dakota conflict of 1862.The site is marked by a stone fence and a headstone mounted on a granite boulder. The site is accessible year round.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -99.628838,47.022356,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bismarck-Deadwood Stage Trail Historic Marker</name>
+        <description>Located on the eastern edge of Flasher, this site marks a point along the stage trail from Bismarck to Deadwood, South Dakota, the main route used by immigrants and freighters to reach the Black Hills gold fields.  The site is marked by an aluminum plaque on the north side of Highway 21.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -101.219235,46.45867,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Brenner Crossing</name>
+        <description><![CDATA[Brenner Crossing State Historic Site lies near the military trail linking Fort Totten, Devil's Lake, to Fort Seward, near Jamestown. The actual river crossing, named for Ernest Brenner, lies several miles away on the Sheyenne River. The site is northeast of New Rockford, Eddy County, but is unmarked and has no visible remnants of the trail or other archaeological features.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -98.806806,47.779733,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Buffalo Creek</name>
+        <description><![CDATA[Buffalo Creek State Historic Site, in west-central Cass County, commemorates a point crossed by Sibley's expedition on August 15, 1863, on their way to Fort Abercrombie at the end of their summer campaign. The site is located one-eight mile east of the Maple River and about two miles nortwest of the town of Buffalo. It is marked by a bronze plaque mounted on a bolder on the north edge of a gravel road. The plaque was installed in 927 by the Dacotah Chapter of the Daughters of the American Revolution.The site is accessible year round.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.604701,46.919819,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camp Arnold</name>
+        <description>Camp Arnold, located five miles north of Oriska, Barnes County, was the August 14, 1863 campsite used by the Sibley expedition during its return to Minnesota at the end of the summer campaign. The site is marked with a pink granite marker and two headstones.The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.791066,46.993362,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camp Atchison</name>
+        <description>Camp Atchison, two and one-half miles south of Binford, Griggs County, served as a major base and landmark for the 1863 Sibley expedition.  A fieldstone monument and aluminum marker identify the site.  Only a small portion of the camp is preserved, including a small segment of the original rifle pits.  The largest part of the site lies on private land across Highway 1 to the west.The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -98.3292939,47.5239861,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camp Buell</name>
+        <description><![CDATA[Camp Buell, the Sibley expedition's overnight campsite of July 3, 1863 was named for Major Salmon Buell, a battalion commander in the First Regiment, Minnesota Mounted Rangers. It is located north of Highway 13 at Milnor, Sargent County. The site is marked by a fieldstone marker on the north side of the road.The site is accessible year round.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.45678,46.248851,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camp Corning</name>
+        <description><![CDATA[Camp Corning was the July 16, 1863 campground of the Sibley expedition.  The camp, named for the expedition's quartermaster, lies eight miles northeast of Dazey, Barnes County.  Camp Corning State Historic Site consists of a simple granite marker flanked by a stand of pines beside a county road ditch.The site is accessible year round.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -98.0704047,47.033517,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camp Grant</name>
+        <description>Located 6 miles northwest of Woodworth, Stutsman County, Camp Grant commemorates the July 23, 1863 campsite used by the Sibley Expedition.  It was named for Hiram Perry Grant, Captain of Company A, Sixth Minnesota Infantry. The site is marked by a metal plaque on a boulder north of the road.The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -99.371746,47.183022,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camp Hancock</name>
+        <description>This site preserves part of a military installation established as Camp Greeley in 1872 to provide protection for work gangs then building the Northern Pacific Railroad.  A log headquarters building still stands on the site; it has been enlarged and remodeled several times, and the logs have been concealed by clapboard siding.Site hours are as follows:1- 5 pm, Wednesday - Sunday.May 15th - September 16th.Other times by appointment.Admission is free, donations are welcome.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -100.790275,46.805167,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camp Kimball</name>
+        <description>Camp Kimball State Historic Site, named for assistant quartermaster George C. Kimball, was the July 22-23 campsite of the 1863 Sibley expedition.The site contains no marker, directional signs, or interpretation.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -99.203811,47.384131,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camp Sheardown</name>
+        <description>A bronze marker identifies this site, named for Dr. Samuel B. Sheardown, Regimental Surgeon of the 10th Minnesota Infantry ,as the July 14, 1863 campsite of the Sibley Expedition. Located three and one-half miles southeast of Valley City, the marker sits on the southern edge of a county road ditch.The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.970415,46.891311,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camp Weiser</name>
+        <description>A small granite marker identifies this site as the approximate location of the July 13-14 campsite of the 1863 Sibley expedition.Access is limited by road conditions and there are no visitor services or interpretation at the Camp Weiser State Historic Site.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.875285,46.644691,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Camp Whitney</name>
+        <description>This is the approximate location of a campsite used by the 1863 Sibley expedition following the Battle of Big Mound.Access is limited by road conditions and there are no visitor services or interpretation at the site.  The site is marked by an iron star at the end of a difficult trail well off the road.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -99.589605,46.993199,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cannonball Stage Station</name>
+        <description>The Cannonball Stage Station was the fifth stop after Bismarck on the Bismarck-Deadwood Stage Trail. Built in 1877 by the Northwest Express and Transportation Company, the stage station overlooked the Cannonball River fifteen miles southeast of Carson, Grant County. Visitors will find the remains of two dugouts and the rectangular outline of a barn. There is a park with hand-pump water fountain, picnic shelters and tables, and restrooms.The site is accessible year round, however surface features may not be visible if there is significant snow cover.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -101.477583,46.221664,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Chateau De Mores</name>
+        <description><![CDATA[This 26-room, two-story frame building was built in 1883 as the summer residence of the Marquis's family. The Chateau is now a historic house museum and contains many of the original furnishings and personal effects of the de Mores family. Site hours are as follows:Summer Hours (May 16-September 15): 8:30 a.m.- 6:15 p.m. MDT with the last tickets sold at 5:30 p.m. Allow one hour per visit. It is suggested that visitors enter the Chateau no later than 5:30 p.m. so as not to be rushed.Winter hours start September 16, 2008, 9 am - 5 pm (MT) Wed. - Sunday. Winter rates are ½ price which includes interpretive center galleries; if a tour of the house is arranged admission is full price.There is an admission charge:Adults: $7.00Children: ( age 6 -15) $3.00Preschool: FreeTour Bus $2.00 per person for groups of 20 or more.School Bus Tours $1.00 per student, adults accompanying children get free admission.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -103.534738,46.91245,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Chateau de Mores Interpretive Center</name>
+        <description>New interactive exhibits expand the story of the Marquis and his family.  A smaller-scale refrigerator car, along with the ‘Deadwood,’ an original stagecoach from the Marquis’ Deadwood and Medora Stage and Forwarding Company, are a central part of the exhibit. Young visitors can ride sidesaddle on a wooden horse and pretend to be Medora, Madame de Mores, or slide cow cutouts along a track to learn about the Marquis’ novel idea to ship dressed beef compared to the standard method of shipping of live cattle. Besides the main exhibit gallery, the expanded interpretive center includes a second exhibit space, a larger gift shop, offices, ADA-accessible restrooms, and a multi-purpose room opening onto an outdoor patio.Hours are the same as the Chateau De Mores and the admission fee covers both sites.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -103.534067,46.915353,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Chimney Park</name>
+        <description>Situated on the west edge of Medora, the site once contained the plant, a slaughterhouse, three icehouses, several outbuildings, a railroad spur track, and a corral. The building burned in 1907, leaving the tall, native clay brick chimney standing. A picnic area is located next to the plant.The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -103.528762,46.91739,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>David Thompson</name>
+        <description>This site lies near the supposed route followed by trappers and traders en route between Canadian trading posts and the Indian villages along the Missouri River. It is named after the famous English explorer, scientist, and cartographer, David Thompson.The David Thompson State Historic Site is enclosed by a barbwire fence and overlooks the Souris River Valley.  A granite globe marks the site south of the road.  The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -100.750101,48.12238,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>de Mores Memorial Park</name>
+        <description>Located in downtown Medora, the park has a bronze statue of the Marquis de Mores donated in 1926 by his sons. The statue is surrounded by a flagstone courtyard, the result of a 1938 WPA project.The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -103.525742,46.914382,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>de Mores Packing Plant</name>
+        <description>Situated on the western edge of Medora, the site once contained the meat-packing plant, a slaughterhouse, three icehouses, several outbuildings, a railroad spur track, and a corral. The building burned in 1907, leaving the tall, native clay brick chimney standing. A picnic area is located next to the plant.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -103.52807,46.916206,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Double Ditch Indian Village</name>
+        <description>This site contains the ruins of a large Mandan Indian earthlodge village inhabited during the period of A.D. 1500-1781. The remains of earthlodges, refuse mounds, and the two surrounding fortification ditches are clearly discernible.Interpretive signs provide a walking tour of the site.  There are no services available on the site and while it is accessible year round surface features are not visible if there is significant snow cover.Admission is free, donations are welcome.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -100.898695,46.934631,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Former Governors' Mansion]]></name>
+        <description>Located at 320 E. Ave. B in Bismarck, the site consists of a large two and one-half story, restored Victorian house and a carriage house. Constructed in 1884, it housed 21 chief executives between 1893 and 1960. Unique room exhibits feature the restoration process, architectural style changes, and furniture used by several governors.Site hours are:1:00pm - 5:00pm, Wed. - Sun., May 15th - September 16th.1:00pm - 5:00pm, Second Friday and Saturday of each month, October - MayOther times by appointment.Admission is free, donations are welcome.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -100.786465,46.810844,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fort Abercrombie</name>
+        <description>This site preserved the military post that served from 1858 until 1877 as the gateway to the Dakota frontier. A local museum and interpretive center display the history of the fort and the area. Only one original building remains, but blockhouses and the palisade wall have been reconstructed. Site hours are as follows:May 27 - September 4, 8 a.m. - 5 p.m. daily. There is an admission charge:Museum and Exhibits $8 for adults, $3 for children (ages 6-14), $1 for students in supervised school groups, $4 per person for groups of 20 or more.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -96.719931,46.4457163,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fort Buford</name>
+        <description><![CDATA[This site preserved remnants of a vital frontier plains military post. Fort Buford was built in 1866 near the confluence of the Missouri and Yellowstone rivers, and became a major supply depot for military field operations. Original features still existing on the site include a stone powder magazine, the post cemetery site, and a large officers' quarters building which now houses a museum.Site hours are as follows:9 a.m. - 6 p.m. daily from May 16 - September 15. September 16 - May 15, weekdays by appointment.There is an admission charge:$5.00 per adult and $2.50 per child.School groups: $1 per /student, adults with students get free admission.Tour buses: $2 per person for groups of 20 or more.North Dakota Heritage Foundation members and children five and under are admitted free. Admission fee includes admission to Missouri-Yellowstone Confluence Interpretive Center]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -104.000251,47.986457,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fort Clark</name>
+        <description><![CDATA[Fort Clark was built in 1830-1831 by the American Fur Company to served a Mandan Indian earthlodge village built on the site in 1822. A second fort, Primeau's Post, was built on the site in the early 1850s and operated in competition with Fort Clark for much of that decade. The site contains foundations of both fort structures, the remains of the earthlodge village, and a large native burial ground.The site is open May 16 through September 15. Modern restrooms, a picnic area, and an observation deck are located at the site. A self-guided tour brochure, available in the Civilian Conservation Corps kiosk on-site, interprets archeological features. Interpretive signs provide additional information.Admission is free, donations are welcome.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -101.278528,47.252997,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fort Dilts</name>
+        <description>This site marks the location of a sod-wall protective enclosure hastily constructed by an 80-wagon party and their cavalry escort. They were attacked by Sioux Indians while en route to Montana gold fields in September 1864 and stayed corralled within the six-foot-high and two-foot-thick walls for fourteen days until rescued by a column of troops from Fort Rice.The site is marked by a plaque on a petrified wood marker south of the road. The site is accessible year round however surface features may not be visible if there is significant snow cover.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -103.776424,46.279121,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fort Mandan Overlook</name>
+        <description><![CDATA[This site overlooks the area where Lewis and Clark established their headquarters for the winter of 1804-1805. The original Fort Mandan was a triangular fort which provided shelter, protection, and a place of cultural interchange between the explorers and the area's Indian inhabitants.The site is marked with an aluminum plaque on a fieldstone monument.  The site is accessible year round.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -101.285137,47.296306,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fort Ransom</name>
+        <description>This site marks the location of a 200-man military post built in 1867. Although building locations and the dry moat, once eight feet deep, are still clearly discernible, nothing else remains of the original fort of its twelve-feet-high sod and log stockade. A marker describing the military fort sites beside a parking area on the east side of the road.  Building remnants and cellars, a fortification ditch with an embankment, and a flagpole mark the remains of this post.  The site is accessible year round, however surface features may not be visible if there is significant snow cover.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.941447,46.518543,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fort Rice</name>
+        <description>This site preserved remaining vestiges of a military post established in 1864 by General Alfred Sully to supply his campaign into western Dakota and to protect traffic on the Missouri River, a function the fort continued until replaced by Fort Yates in 1877.None of the original buildings or structures remain at Fort Rice.  Visitors will see depressions, foundation lines, and WPA corner markers.  A brief history of the fort and a map appear on a site marker.  Parking space is available, but there are no visitor services.The site is accessible year round, however surface features may not be visible if there is significant snow cover.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -100.582972,46.512999,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Fort Totten</name>
+        <description>This site preserves a military post built in 1867 and used continuously as a military reservations until 1890 when it became a boarding school for Indian children.  The brick buildings, which replaced an earlier log fort, appear much as they did when build of locally made brick in 1868.  Original buildings are now being used to house museum exhibits.Site hours are as follows:8 a.m. - 5 p.m. (CDT) from May 16 - September 15. September 16 - May 15, weekdays by appointment.There is an admission fee:$4.00 per adult and $1.50 per child.School groups: $1 per /student, adults with students get free admission.Tour buses: $2 per person for groups of 20 or more.North Dakota Heritage Foundation members and children five and under are admitted free.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -98.993238,47.977667,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Gingras Trading Post</name>
+        <description>This site preserves the home and trading post established by Metis trader Antoine B. Gringras in the 1840s. His hand-hewn oak log store and home are among the few tangible remains of the fur trade in the valley of the Red River of the North.Site hours are as follows:May 16 through September 15, 10 am - 5 pm daily (CDT).Admission is free, donations are welcome.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.890866,48.936907,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hudson Townsite</name>
+        <description>The Hudson Townsite State Historic Site , southwest of Oakes, Dickey County,marks the original 1883 location of the first townsite in Dickey County.The site is marked by an aluminum plaque on a fieldstone marker east of the road. The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -98.131404,46.096,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Huff Indian Village</name>
+        <description>This site preserved a large village that was occupied by the Mandan Indians around A.D. 1480. Ruins of rectangular earthlodge dwellings and a large bastioned fortification ditch are discernible.Interpretive signs throughout the site provide a walking tour of the village.  The site is open year round.Admission is free, donations are welcome.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -100.642512,46.618568,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Killdeer Mountain Battlefield</name>
+        <description><![CDATA[This site commemorates a battle fought on July 28, 1864, between troops commanded by General Alfred Sully and Sioux Indians. Sully's 2,200 troops, with the aid of artillery batteries, scattered the encamped village reported to contain 6,000 warriors, with losses of 5 soldiers and perhaps 100-150 Indians.A sandstone slab monument and flagpole mark part of the battlefield. An unpaved parking lot is separated from the site by a log barrier. The site is accessible year round.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -102.916709,47.421706,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lake Jessie</name>
+        <description>Lake Jessie State Historic Site is located west if the town of Jessie, Griggs County.  In 1839, the Nicollet-Fremont expedition camped here; Isaac I. Stevens and his party stayed here during a survey of a proposed railroad route in the 1850s; and the site was also used by James L. Fisk and his wagon trains bound for the Montana gold fields. Enclosed by a fence, the .29 acre site sits atop a hill next to a farm yard.  An aluminum cast marker on a fieldstone and concrete marker describes the events that took place there.  A flagpole stands north of the marker.  The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -98.290654,47.540904,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lake Johnson</name>
+        <description>This site seven miles southwest of Cooperstown, Griggs County, honors George T. Johnson, Company G, Third Illinois Cavalry, who drowned in the lake during the 1863 Sibley expedition.The site is marked by a headstone and flagpole north of the road.  The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -98.135784,47.35551,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Maple Creek Crossing</name>
+        <description>This site marks a crossing over Maple creek on the Pembina Trail, a transportation route for settlers and freight. The site is across from a church and is marked by an aluminum plaque on a fieldstone marker east of the road.  The Maple Creek Crossing State Historic Site marker is made of stone from the first North Dakota State Capitol, which burned on December 28, 1930.  The site is accessible year round.  No visitor services are availabe at the site.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.325027,46.728154,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[McPhail's Butte Overlook]]></name>
+        <description><![CDATA[This site marks a position from which Colonel Samuel McPhail directed the movements of the First Minnesota Rangers in the Battle of Big Mound on July 24, 1863, during Sibley's expedition. A granite marker on top of a hill denotes Colonel McPhail's vantage point overlooking the battle.  There is a barbed wire fence separating the historic site from the county road.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -99.641104,46.980399,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Menoken Indian Village</name>
+        <description>This site preserved a prehistoric earthlodge village site surrounded by a large fortification ditch with four clearly defined bastions.  Although archeologists originally thought the village dated 1780-1845, they now believe it may have been occupied as early as A.D. 1100.Interpretive signs throughout the site provide a walking tour of the village.  The site is open year round.Admission is free, donations are welcome.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -100.518084,46.841436,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Missouri-Yellowstone Confluence Interpretive Center</name>
+        <description>This site tells the story of the confluence of these two mighty rivers, as well as providing the same magnificent view that Lewis and Clark Expedition members enjoyed when they visited in 1805 and 1806. The rotunda area includes three large murals featuring quotes from the Lewis and Clark Journals, and paintings of the Missouri River landscape by Colonel Philippe Régis de Trobriand, commanding officer of Fort Stevenson near present-day Garrison, N.D. in the late 1860s.Site hours are as follows:8 a.m. - 6 p.m. daily from May 16 - September 15. September 16 - May 15, Wed. - Sat. 9 am - 4 pm., Sun. 1 - 5 pm.There is an admission fee:$5.00 per adult and $2.50 per child.School groups: $1 per /student, adults with students get free admission.Tour buses: $2 per person for groups of 20 or more.North Dakota Heritage Foundation members and children five and under are admitted free. Admission fee includes admission to Fort Buford State Historic Site.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -103.988825,47.985064,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Molander Indian Village</name>
+        <description>This site preserved a large Mandan or Hidatsa earthlodge village (A.D. 1780-1845) protected by a fortification ditch reinforced by six bastions. Also present are the remains of an 1882 log cabin.There is a kiosk at the entrance to the village and a fieldstone marker which were built by the Civilian Conservation Corps.  The site is accessible year round, however surface features may not be visible if there is significant snow cover.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -100.966592,47.124261,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>North Dakota Heritage Center and State Museum</name>
+        <description>Located on the State Capital grounds off Exit 159 on I-94 in Bismarck, the North Dakota Heritage Center is the headquarters of the State Historical Society of North Dakota and the largest museum in the state. Opened in 1981 it features temporary and permanent exhibits that explore the story of life on the northern plains from prehistory to the present. The museum is open from 8am until 5pm 7 days a week year round. Admission is free, donations are welcome.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -100.778618,46.819335,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>November 33 Launch Facility</name>
+        <description>At November-33 visitors will see the topside of a launch facility, including the massive launch closure door which once protected a missile, an imposing security fence, the electronic security system, and the ventilation systems that served the underground equipment buildings. The topside appears exactly as it did during its existence as an active launch facility.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -98.066368,47.439931,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Oak Lawn Church</name>
+        <description>At the junction of Highway 5 and Highway 32 in Pembina County, a peaceful cemetery rests in a grove of trees.  Beside it, a fieldstone marker describes the log Presbyterian church that once stood near the cemetery, the Oak Lawn Church State Historic Site.  A grass fire destroyed the church on November 6, 1954.The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.927918,48.760557,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Palmer's Spring]]></name>
+        <description><![CDATA[Palmer's Spring State Historic Site near Esmond, Benson County, marks the location where on August 23, 1868, six soldiers from the 31st Infantry and two civilian scouts escorting a mail wagon stopped for their midday rest and were attacked by Yankton and Blackfeet Indians. One of the scouts, Frank Palmer, rode to Fort Totten to get help. The limestone boulder from which the Indians launched their attack is still in its original location surrounded by prairie grass. The site is unmarked on the north side of the road.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -99.719081,47.890746,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pembina State Museum</name>
+        <description>This area was home to several groups of native peoples, including the Ojibwa, Dakota, Assiniboine, and Cree. With their families, they hunted buffalo and gathered wild berries here.The region also played an important role in the fur trade business. From this, a new nation of people was born – the Métis – who were descendants of European traders and Indian women. Early fur trade posts and colonies led to the establishment of a river town named Pembina. The scene of international politics and major transportation routes, the region has served as a gateway of commerce between Canada and the United States since the early 1800s.Site hours are as follows:Open year roundMay 16 - Sept. 159 am. - 6 pm Mon - Sat., 1 pm - 6 pm Sun.September 16-May 159 am - 5 pm Mon.- Sat., 1 pm - 5 pm Sun.The Museum Store closes one half-hour before the museum closes.Closed New Year’s Day, Easter Sunday, Thanksgiving Day, and Christmas Day.Free admission for the exhibits and museum store.Observation</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.254243,48.973235,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ronald Reagan Minuteman Missile Site</name>
+        <description>The Ronald Reagan Minuteman Missile State Historic Site actually consists of two sites telling the story of the Cold War years in North Dakota. They are the Oscar-Zero Missile Alert Facility and the November-33 Launch Facility. They are the last remnants of the 321st Missile Wing, a cluster of intercontinental ballistic missile launch sites that were spread over a 6,500-square-mile area around the Grand Forks Air Force Base.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -98.126696,47.497568,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>St. Claude</name>
+        <description><![CDATA[The St. Claude State Historic Site was deeded to the State Historical Society in 1927 as a memorial to Father John Malo. A large wooden sign maker on the site bears the inscription: "The Old Mission, St. Claude,, May 3, 1882 by Pere J.F. Malo." A larger wooden sign describes some of the history of the site and depressions mark several of the 47 graves recorded. The site is two miles northwest of the town of St. John.The site is accessible year round.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -99.721793,48.968729,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Standing Rock</name>
+        <description>Perched on a high hill overlooking the Sheyenne River in Ransom County are a series of four interconnected burial mounds.  Three of these are circular while the fourth is linear.  The site derives its name from the bolder found on top of the largest mound.  The access road to the site is steep and access depends on weather and road conditions.  There is a gravel parking lot at the top of the hill.  The site is two miles east of Little Yellowstone Park.The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.908611,46.623505,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Steamboat Warehouse</name>
+        <description>The Steamboat Warehouse Historic Marker is located on the east bank of the Missouri River in Bismarck across the street from the water treatment plant on River Road (Hwy 1804). The marker commemorates the Northern Pacific Railroad warehouse built to store goods in transshipment between steamboats and freight trains. It was constructed in 1883 and torn down in 1925. There is a small parking area in front of the marker on the west side of the road. The site displays a large fieldstone monument with an aluminum plaque and is open year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -100.821417,46.814582,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Stutsman County Courthouse</name>
+        <description>This site located in Jamestown, N.D. holds the oldest surviving courthouse in North Dakota. Built in 1883, this building is considered a superb bur rare example in the Upper Midwest of the Gothic-Revival style of architecture. The interior is outstanding for its stamped metal ornamentation that dates to 1905.The courthouse is located at 504 3rd Avenue SE in Jamestown, Stutsman County.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -98.705817,46.903856,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Sweden</name>
+        <description>Established in April 28, 1879, the Sweden post office and general store in present day Walsh County was housed in a log building built by John Magnus Alumen who was the original postmaster.  All that remains of Sweden is a historical marker erected 450 yards north of its original location which has been cultivated for many years.  The marker can be seen just off North Dakota Highway 9, one and one-fourth miles west of Nash Walsh County.The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.542737,48.470289,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Wadeson Cabin</name>
+        <description>This hand-hewn oak log cabin stands on the east bank of the Sheyenne River. Built in 1878 by Carl Jensen and his nephew John Bjerke, the cabin served as a community hall, country store, pioneer home, and finally as an icehouse.The site is marked by an aluminum plaque on a fieldstone marker and a cabin south of the road by the river. The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.944859,46.673352,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Walhalla State Historic Site</name>
+        <description>This site marks the birthplace of Walhalla. The town was first called St. Joseph after a mission established near Pembina in 1848 by Father George Belcourt. An original trading post built by trader Norman Kittson in 1851 was later moved to the site.This site is marked by an aluminum plaque on a granite boulder and a log cabin which sits at the end of the road.  There is a gravel parking lot, interpretive sign, restrooms and a picnic shelter located at the site.  The site is accessible year round.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -97.92236,48.917684,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Whitestone Hill State Historic Site</name>
+        <description><![CDATA[This site marks a major battle between troops of General Alfred Sully's 1863 expedition and Sioux Indians. Site is open May 16 through September 15,Thursday - Monday.]]></description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -98.85682,46.168909,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Welk Homestead State Historic Site
+</name>
+        <description>This site interprets agriculture in the early 20th century, German-Russian culture and architecture, and the career of bandleader Lawrence Welk, who grew up on the farm.</description>
+        <styleUrl>#icon-22</styleUrl>
+        <Point>
+          <coordinates>
+            -100.207881,46.150277,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Untitled layer</name>
+    </Folder>
+  </Document>
+</kml>
