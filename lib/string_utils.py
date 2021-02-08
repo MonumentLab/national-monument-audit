@@ -1,7 +1,10 @@
+import datetime
 import hashlib
 import re
 import string
 import urllib
+
+from lib.math_utils import *
 
 def cleanText(value):
     value = re.sub('\s', ' ', value)
@@ -241,6 +244,23 @@ def stringToYear(value, minYear=1000, maxYear=2050):
                 year = matchInt
                 break
     return year
+
+def timestampToYear(value, isMilliseconds=False):
+    yearValue = None
+    intValue = parseInt(value, defaultValue=False)
+    if intValue is not False:
+        if isMilliseconds:
+            intValue = intValue / 1000
+        try:
+            if intValue < 0:
+                dt = datetime.datetime(1970, 1, 1) + datetime.timedelta(seconds=intValue)
+                yearValue = dt.year
+            else:
+                yearValue = int(datetime.datetime.utcfromtimestamp(intValue).strftime('%Y'))
+        except OSError:
+            print(f'Invalid timestamp: {intValue}')
+            yearValue = None
+    return yearValue
 
 def urlEncodeString(value):
     return urllib.parse.quote_plus(value)

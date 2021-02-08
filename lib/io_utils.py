@@ -95,7 +95,7 @@ def parseHeadings(arr, headings):
         newArr.append(newItem)
     return newArr
 
-def readCsv(filename, headings=False, doParseNumbers=True, skipLines=0, encoding="utf8", readDict=True, verbose=True):
+def readCsv(filename, headings=False, doParseNumbers=True, skipLines=0, encoding="utf-8-sig", readDict=True, verbose=True):
     rows = []
     fieldnames = []
     if os.path.isfile(filename):

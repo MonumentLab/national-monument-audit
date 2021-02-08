@@ -58,7 +58,7 @@ for dSourceIndex, d in enumerate(dataSources):
     # Read data
     dataPaths = getFilenames(d["dataPath"])
     dataFormat = d["dataFormat"] if "dataFormat" in d else None
-    dataEncoding = d["dataEncoding"] if "dataEncoding" in d else "utf8"
+    dataEncoding = d["dataEncoding"] if "dataEncoding" in d else "utf-8-sig"
     data = []
     for dataPath in dataPaths:
         if dataPath.endswith(".zip"):
@@ -68,6 +68,9 @@ for dSourceIndex, d in enumerate(dataSources):
             fData = readShapefile(dataPath)
         elif dataPath.endswith(".csv") or dataFormat == "csv":
             fFields, fData = readCsv(dataPath, encoding=dataEncoding)
+            # print(dataPath)
+            # print(fFields)
+            # print('============================')
         data += fData
     if len(dataPaths) > 1:
         print(f' {len(data)} total records found')
@@ -99,11 +102,12 @@ for dSourceIndex, d in enumerate(dataSources):
     mappings = d["mappings"] if "mappings" in d else {}
     firstWarning = True
     uids = [] # keep track of UIDs if we need to merge
-    for rowIn in data:
+    for rowIndex, rowIn in enumerate(data):
         rowOut = {
             "Vendor ID": d["id"],
             "Source": d["name"]
         }
+        rowOut[ID_NAME] = str(rowIndex+1) # this should be overwritten by vendor entry ID in source config if present
 
         # merge with additional data
         if additionalData is not None:
@@ -136,6 +140,11 @@ for dSourceIndex, d in enumerate(dataSources):
             toProperty = prop
             propMap = mappings[prop] if prop in mappings else {}
             dtype = propMap["dtype"] if "dtype" in propMap else None
+
+            # check for string pattern
+            if "stringPattern" in propMap:
+                stringPattern = propMap["stringPattern"]
+                value = stringPattern.format(**rowIn)
 
             # strip whitespace
             if isinstance(value, str):
@@ -216,6 +225,12 @@ for dSourceIndex, d in enumerate(dataSources):
                 yearValue = stringToYear(value)
                 value = yearValue if yearValue is not None else ""
 
+            # else check for timestamp
+            elif "isTimestamp" in propMap:
+                isMilliseconds = ("isMilliseconds" in propMap)
+                yearValue = timestampToYear(value, isMilliseconds)
+                value = yearValue if yearValue is not None else ""
+
             # parse bool
             if dtype == "bool":
                 value = str(value).lower()
@@ -230,8 +245,8 @@ for dSourceIndex, d in enumerate(dataSources):
                     if value == fromValue:
                         value = propMap["mapValues"][fromValue]
 
-            # check to see if property is already set; if so, add it as a list
-            if toProperty in rowOut:
+            # check to see if property is already set; if so, add it as a list (exclude identifiers)
+            if toProperty in rowOut and toProperty != ID_NAME:
                 existingValue = rowOut[toProperty]
                 if not isinstance(value, list):
                     value = [value]
@@ -278,18 +293,18 @@ for i, row in enumerate(rowsOut):
 # Validate entries
 print("Validating rows...")
 validRows = []
-uids = []
+uids = set([])
 for row in rowsOut:
     isValid = True
     # validate unique Id
     if row["Id"] is None:
-        print(f' ** Warning: No ID for {row["Source"]} / {row["Vendor Entry ID"]}')
+        print(f' ** Warning: No ID for {row["Source"]} / {row[ID_NAME]}')
         continue
     # check for duplicates
     if row["Id"] in uids:
         print(f' ** Warning: Duplicate ID: {row["Id"]}')
         continue
-    uids.append(row["Id"])
+    uids.add(row["Id"])
     # check for required fields
     for key, item in dataModel.items():
         if "required" in item and item["required"]:
@@ -370,7 +385,7 @@ if a.PROBE:
 ################################################################
 # Write processed data to .csv file
 ################################################################
-fieldsOut = ["Id", "Vendor ID", "Vendor Entry ID"]
+fieldsOut = ["Id", "Vendor ID", ID_NAME]
 for row in rowsOut:
     for field in row:
         if field not in fieldsOut:
