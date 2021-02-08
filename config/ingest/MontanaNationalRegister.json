@@ -1,0 +1,24 @@
+{
+  "id": "mtnrhp",
+  "name": "Montana National Register of Historic Places",
+  "verboseName": "Montana's National Register of Historic Places",
+  "provider": "Montana Historical Society",
+  "url": "https://montana.maps.arcgis.com/apps/webappviewer/index.html?id=5378695ae71b414ba66f478fc57241f6",
+  "geographicCoverage": "state",
+  "state": "MT",
+  "dataPath": "data/vendor/mt/Montana National Register of Historic Places.csv",
+  "dateDataAccessed": "2020-02-07",
+  "properties": ["X", "Y", "Name", "Type", "Street_Add", "Listing_Da", "NR_Referen", "Nomination", "Image", "County", "City"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "NR_Referen": {"to": "Vendor Entry ID"},
+    "Type": {"to": "Object Types"},
+    "Street_Add": {"to": "Street Address"},
+    "Listing_Da": {"to": "Year Dedicated", "isTimestamp": 1, "isMilliseconds": 1},
+    "Nomination": {"to": "URL"}
+  },
+  "notes": [
+    "Source data transformed from geojson via <a href=\"https://montana.maps.arcgis.com/apps/webappviewer/index.html?id=5378695ae71b414ba66f478fc57241f6\">public ArcGIS interface</a>"
+  ]
+}

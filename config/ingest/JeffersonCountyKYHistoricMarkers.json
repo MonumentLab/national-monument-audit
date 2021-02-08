@@ -1,0 +1,34 @@
+{
+  "id": "kyjchm",
+  "name": "Jefferson County KY Historic Markers",
+  "verboseName": "Jefferson County Kentucky Historic Markers",
+  "provider": "Commonwealth of Kentucky",
+  "url": "https://data.lojic.org/datasets/531de9b57999499691e48bcd409d904d_4",
+  "geographicCoverage": "county",
+  "state": "KY",
+  "county": "Jefferson",
+  "dataPath": "data/vendor/ky/Jefferson_County_KY_Historic_Markers.csv",
+  "dateDataAccessed": "2020-02-07",
+  "properties": ["X", "Y", "NAME", "MARKER_NUM", "CITY", "LOCATION", "DESCRIPTION", "SUBJECTS1", "SUBJECTS2", "SUBJECTS3", "SUBJECTS4", "SUBJECTS5", "SUBJECTS6", "SUBJECTS7", "SUBJECTS8", "SUBJECTS9"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "MARKER_NUM": {"to": "Vendor Entry ID"},
+    "NAME": {"to": "Name"},
+    "CITY": {"to": "City"},
+    "LOCATION": {"to": "Street Address"},
+    "DESCRIPTION": {"to": "Description"},
+    "SUBJECTS1": {"to": "Subjects"},
+    "SUBJECTS2": {"to": "Subjects"},
+    "SUBJECTS3": {"to": "Subjects"},
+    "SUBJECTS4": {"to": "Subjects"},
+    "SUBJECTS5": {"to": "Subjects"},
+    "SUBJECTS6": {"to": "Subjects"},
+    "SUBJECTS7": {"to": "Subjects"},
+    "SUBJECTS8": {"to": "Subjects"},
+    "SUBJECTS9": {"to": "Subjects"}
+  },
+  "notes": [
+    "Source data transformed from geojson in QGIS"
+  ]
+}

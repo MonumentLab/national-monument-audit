@@ -1,0 +1,25 @@
+{
+  "id": "laocd",
+  "name": "Louisiana OCD Standing Structures",
+  "verboseName": "Louisiana Office of Cultural Development Standing Structures and Districts",
+  "provider": "Louisiana Office of Cultural Development",
+  "url": "https://laocd.maps.arcgis.com/apps/webappviewer/index.html?id=d6b1d2a16f214aaf9339064bc0f26312",
+  "geographicCoverage": "state",
+  "state": "LA",
+  "dataPath": "data/vendor/la/National Register Individual Listings WGS84.csv",
+  "dateDataAccessed": "2020-02-07",
+  "properties": ["X", "Y", "RESNAME", "F2_1", "DateonRe_1", "Address_1", "City_1", "Status_1"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "RESNAME": {"to": "Name"},
+    "F2_1": {"to": "URL"},
+    "DateonRe_1": {"to": "Year Dedicated", "year": 1},
+    "Address_1": {"to": "Street Address"},
+    "City_1": {"to": "City"},
+    "Status_1": {"to": "Designations"}
+  },
+  "notes": [
+    "Re-projected data to WGS 84 in QGIS"
+  ]
+}

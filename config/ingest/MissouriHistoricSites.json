@@ -1,0 +1,27 @@
+{
+  "id": "mohds",
+  "name": "Missouri Historic Districts and Sites",
+  "verboseName": "Missouri Historic Districts and Sites",
+  "provider": "Missouri Department of Natural Resources",
+  "url": "https://dnr.mo.gov/shpo/mapgallery.htm",
+  "geographicCoverage": "state",
+  "state": "MO",
+  "dataPath": "data/vendor/mo/historic_districts_and_sites.csv",
+  "dateDataAccessed": "2020-02-07",
+  "properties": ["X", "Y", "OBJECTID", "HST_NAME", "OTHR_NAME", "COMMENT_", "PERIOD_SIG", "ARCHITECT", "PADDRESS", "PLOCALNAME"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "OBJECTID": {"to": "Vendor Entry ID"},
+    "HST_NAME": {"to": "Name"},
+    "OTHR_NAME": {"to": "Alternate Name"},
+    "COMMENT_": {"to": "Status"},
+    "PERIOD_SIG": {"to": "Year Constructed", "year": 1},
+    "ARCHITECT": {"to": "Creators"},
+    "PADDRESS": {"to": "Street Address"},
+    "PLOCALNAME": {"to": "City"}
+  },
+  "notes": [
+    "Source data transformed from geojson via <a href=\"https://modnr.maps.arcgis.com/apps/webappviewer/index.html?id=e3a6d822d215486ba20aadb6badd7174\">public ArcGIS interface</a>"
+  ]
+}

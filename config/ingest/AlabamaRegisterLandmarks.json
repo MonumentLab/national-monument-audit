@@ -7,7 +7,7 @@
   "geographicCoverage": "state",
   "state": "AL",
   "dataPath": "data/vendor/al/Alabama_Register_of_Landmarks_and_Heritage.csv",
-  "dateDataAccessed": "2020-02-08",
+  "dateDataAccessed": "2020-02-07",
   "properties": ["X", "Y", "OBJECTID", "Prop_Name", "Str_Add", "City", "Constr_Date", "Arch_Builder", "Phys_Cond", "COUNTY_NAME"],
   "mappings": {
     "Y": {"to": "Latitude"},

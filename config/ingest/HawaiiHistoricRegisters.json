@@ -1,0 +1,22 @@
+{
+  "id": "hirhp",
+  "name": "Hawaii Register of Historic Places",
+  "verboseName": "Hawai‘i Register of Historic Places",
+  "provider": "Hawai‘i State Historic Preservation Division",
+  "url": "https://dlnr.hawaii.gov/shpd/home/state-register/",
+  "geographicCoverage": "state",
+  "state": "HI",
+  "dataPath": "data/vendor/hi/HistoricRegisters_2018Aug10.xls - State Registered Places.csv",
+  "dateDataAccessed": "2020-02-07",
+  "properties": ["Island", "Project", "Address/Property Area", "Date Added to HRHP", "Notes"],
+  "mappings": {
+    "Project": {"to": "Name"},
+    "Address/Property Area": {"to": "Street Address"},
+    "Date Added to HRHP": {"to": "Year Dedicated", "year": 1},
+    "Island": {"to": "County"}
+  },
+  "notes": [
+    "No latitude/longitude data",
+    "Some addresses are restricted"
+  ]
+}

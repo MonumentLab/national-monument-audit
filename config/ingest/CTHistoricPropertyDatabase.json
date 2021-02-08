@@ -1,0 +1,23 @@
+{
+  "id": "cthpd",
+  "name": "CT Historic Property Database",
+  "verboseName": "Connecticut Historic Property Database",
+  "provider": "Connecticut State Historic Preservation Office",
+  "url": "https://portal.ct.gov/DECD/Content/Historic-Preservation/03_Technical_Assistance_Research/Research/Historic-Property-Database",
+  "geographicCoverage": "state",
+  "state": "CT",
+  "dataPath": "data/vendor/ct/ct_shpo_mastergeocode.csv",
+  "dateDataAccessed": "2020-02-07",
+  "properties": ["UniqueID", "PropName", "StreetName", "Municipality", "County", "DesigStatus", "ConstructDate"],
+  "mappings": {
+    "UniqueID": {"to": "Vendor Entry ID"},
+    "PropName": {"to": "Name"},
+    "StreetName": {"to": "Street Address", "stringPattern": "{StreetNum} {StreetName}"},
+    "Municipality": {"to": "City"},
+    "ConstructDate": {"to": "Year Constructed", "year": 1},
+    "DesigStatus": {"to": "Designations", "delimeter": ","}
+  },
+  "notes": [
+    "No latitude/longitude data"
+  ]
+}
