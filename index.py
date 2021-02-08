@@ -76,8 +76,8 @@ for i, row in enumerate(rows):
     docFields = {}
     isValid = True
 
-    docId = itemToId(row)
-    if docId is None:
+    docId = str(row["Id"])
+    if len(docId) < 1:
         invalidCount += 1
         print(f'Warning: no valid ID for row {(i+1)}')
         continue

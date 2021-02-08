@@ -101,6 +101,7 @@ for dSourceIndex, d in enumerate(dataSources):
     uids = [] # keep track of UIDs if we need to merge
     for rowIn in data:
         rowOut = {
+            "Vendor ID": d["id"],
             "Source": d["name"]
         }
 
@@ -255,6 +256,9 @@ for dSourceIndex, d in enumerate(dataSources):
 
 # Post processing
 for i, row in enumerate(rowsOut):
+    # Add Unique ID
+    rowsOut[i]["Id"] = itemToId(row)
+
     # Create a combined year field
     year = ""
     if "Year Dedicated" in row and parseYear(row["Year Dedicated"]) is not False:
@@ -271,10 +275,22 @@ for i, row in enumerate(rowsOut):
 # states = unique([row["State"] for row in rowsOut if "State" in row])
 # pprint(states)
 
-# Remove entries with required fields missing
+# Validate entries
+print("Validating rows...")
 validRows = []
+uids = []
 for row in rowsOut:
     isValid = True
+    # validate unique Id
+    if row["Id"] is None:
+        print(f' ** Warning: No ID for {row["Source"]} / {row["Vendor Entry ID"]}')
+        continue
+    # check for duplicates
+    if row["Id"] in uids:
+        print(f' ** Warning: Duplicate ID: {row["Id"]}')
+        continue
+    uids.append(row["Id"])
+    # check for required fields
     for key, item in dataModel.items():
         if "required" in item and item["required"]:
             if key not in row or str(row[key]).strip() == "":
@@ -354,7 +370,7 @@ if a.PROBE:
 ################################################################
 # Write processed data to .csv file
 ################################################################
-fieldsOut = []
+fieldsOut = ["Id", "Vendor ID", "Vendor Entry ID"]
 for row in rowsOut:
     for field in row:
         if field not in fieldsOut:

@@ -80,7 +80,7 @@ for i, row in enumerate(rows):
         for ent in doc.ents:
             if ent.label_ in TYPES:
                 validEnt = {
-                    "Id": itemToId(row),
+                    "Id": row["Id"],
                     "Extracted Text": ent.text,
                     "Type": ent.label_,
                     "Property": p

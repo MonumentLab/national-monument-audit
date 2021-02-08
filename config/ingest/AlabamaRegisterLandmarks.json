@@ -1,0 +1,26 @@
+{
+  "id": "alrlh",
+  "name": "Alabama Register of Landmarks and Heritage",
+  "verboseName": "Alabama Register of Landmarks and Heritage",
+  "provider": "Alabama Historical Commission",
+  "url": "https://ahc.alabama.gov/alabamaregister.aspx",
+  "geographicCoverage": "state",
+  "state": "AL",
+  "dataPath": "data/vendor/al/Alabama_Register_of_Landmarks_and_Heritage.csv",
+  "dateDataAccessed": "2020-02-08",
+  "properties": ["X", "Y", "OBJECTID", "Prop_Name", "Str_Add", "City", "Constr_Date", "Arch_Builder", "Phys_Cond", "COUNTY_NAME"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "OBJECTID": {"to": "Vendor Entry ID"},
+    "Prop_Name": {"to": "Name"},
+    "Str_Add": {"to": "Street Address"},
+    "Constr_Date": {"to": "Year Constructed", "year": 1},
+    "Arch_Builder": {"to": "Creators"},
+    "COUNTY_NAME": {"to": "County"},
+    "Phys_Cond": {"to": "Physical Condition"}
+  },
+  "notes": [
+    "Source data transformed from geojson via <a href=\"https://www.arcgis.com/home/webmap/viewer.html?useExisting=1&layers=2b21fdc752ff44dc823bdf1387375a77\">public ArcGIS interface</a>"
+  ]
+}

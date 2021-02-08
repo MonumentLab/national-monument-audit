@@ -114,11 +114,12 @@ def getStates():
     }
 
 def itemToId(row):
-    if "Source" not in row:
+    if "Vendor ID" not in row:
         return None
     if "Vendor Entry ID" not in row or str(row["Vendor Entry ID"]).strip() == "":
         return None
-    return stringToId(row["Source"]) + "_" + str(row["Vendor Entry ID"]).strip()
+
+    return stringToId(row["Vendor ID"]) + "_" + stringToId(str(row["Vendor Entry ID"]).strip(), lowercase=False)
 
 def md5string(value):
     return hashlib.md5(str(value).encode('utf-8')).hexdigest()
@@ -195,9 +196,11 @@ def pluralizeString(value):
     else:
         return value + 's'
 
-def stringToId(value):
-    value = value.lower()
-    value = re.sub('[^a-z0-9]+', '_', value)
+def stringToId(value, lowercase=True):
+    value = str(value)
+    if lowercase:
+        value = value.lower()
+    value = re.sub('[^A-Za-z0-9\-]+', '_', value)
     return value
 
 def stringToTitle(value):
