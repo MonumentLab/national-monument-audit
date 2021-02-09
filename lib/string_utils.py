@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timedelta
 import hashlib
 import re
 import string
@@ -253,10 +253,10 @@ def timestampToYear(value, isMilliseconds=False):
             intValue = intValue / 1000
         try:
             if intValue < 0:
-                dt = datetime.datetime(1970, 1, 1) + datetime.timedelta(seconds=intValue)
+                dt = datetime(1970, 1, 1) + timedelta(seconds=intValue)
                 yearValue = dt.year
             else:
-                yearValue = int(datetime.datetime.utcfromtimestamp(intValue).strftime('%Y'))
+                yearValue = int(datetime.utcfromtimestamp(intValue).strftime('%Y'))
         except OSError:
             print(f'Invalid timestamp: {intValue}')
             yearValue = None
