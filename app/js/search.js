@@ -484,7 +484,9 @@ var Search = (function() {
       }
       if (name.length < 1) name = '<em>[Untitled]</em>';
       html += '<li class="result-item">';
-        html += '<h4>'+(i+1+start)+'. '+name+'</h4>';
+        var itemParams = {'id': id}
+        var itemUrl = 'item.html?' + $.param(itemParams);
+        html += '<h4>'+(i+1+start)+'. <a href="'+itemUrl+'" target="_blank">'+name+'</a></h4>';
         html += '<table class="data-table">';
         _.each(fields, function(value, key){
           var isList = Array.isArray(value);

@@ -69,10 +69,10 @@ var Map = (function() {
         // html += '<p><strong>Source:</strong> '+d.source+'</p>';
         // var year = d.year > 0 ? d.year : 'Unknown';
         // html += '<p><strong>Year:</strong> '+year+'</p>';
-        var p = {q: '_id:\''+d.searchId+'\''};
+        var p = {id: d.searchId};
         html += '<div data-id="'+d.searchId+'">';
           html += '<div class="dynamic-content"><p>Loading metadata...</p></div>';
-          html += '<p><a href="search.html?'+$.param(p)+'" target="_blank">[View full record]</a></p>';
+          html += '<p><a href="item.html?'+$.param(p)+'" target="_blank">[View full record]</a></p>';
         html += '</div>'
         marker.bindPopup(html);
         markers.addLayer(marker);
