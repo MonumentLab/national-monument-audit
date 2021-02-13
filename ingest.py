@@ -129,6 +129,10 @@ for dSourceIndex, d in enumerate(dataSources):
         if "city" in d:
             rowOut["City"] = d["city"]
 
+        # inherit object type defaults
+        if "objectTypes" in d:
+            rowOut["Object Types"] = d["objectTypes"]
+
         for prop in d["properties"]:
             if prop not in rowIn:
                 if firstWarning:
@@ -397,6 +401,13 @@ writeCsv(a.OUTPUT_FILE, rowsOut, headings=fieldsOut, listDelimeter=a.LIST_DELIME
 for typeValue, typeRows in rowsByDataType.items():
     appendString = "_" + stringToId(typeValue)
     writeCsv(appendToFilename(a.OUTPUT_FILE, appendString), typeRows, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
+
+# write source-specific output
+rowsBySource = groupList(rowsOut, "Source")
+for sourceGroup in rowsBySource:
+    outSourceFilename = OUTPUT_DIR + "vendor/" + stringToId(sourceGroup["Source"]) + ".csv"
+    makeDirectories(outSourceFilename)
+    writeCsv(outSourceFilename, sourceGroup["items"], headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
 monumentRows = rowsByDataType["Conventional monument"]
 
