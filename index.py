@@ -136,8 +136,15 @@ for i, row in enumerate(rows):
 
     # reformat lat lon
     if "latitude" in docFields and "longitude" in docFields:
-        docFields["latlon"] = f'{docFields["latitude"]}, {docFields["longitude"]}'
+        if isNumber(docFields["latitude"]) and docFields["latitude"] > 0:
+            docFields["latlon"] = f'{docFields["latitude"]}, {docFields["longitude"]}'
         docFields.pop("latitude", None)
+        docFields.pop("longitude", None)
+
+    elif "latitude" in docFields:
+        docFields.pop("latitude", None)
+
+    elif "longitude" in docFields:
         docFields.pop("longitude", None)
 
     doc = {
