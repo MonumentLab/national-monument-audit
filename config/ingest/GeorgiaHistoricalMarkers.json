@@ -1,0 +1,19 @@
+{
+  "id": "gahm",
+  "name": "Georgia Historical Markers",
+  "verboseName": "Digital Library of Georgia: Georgia Historical Markers",
+  "provider": "Digital Library of Georgia",
+  "url": "https://dlg.usg.edu/collection/dlg_ghm?view=maps",
+  "geographicCoverage": "state",
+  "state": "GA",
+  "dataPath": "data/vendor/ga/GeorgiaHistoricalMarkers.csv",
+  "dateDataAccessed": "2021-02-13",
+  "properties": ["Vendor Entry ID", "Name", "Latitude", "Longitude", "Year Constructed", "Creators", "Location Description", "Text", "Notes"],
+  "mappings": {
+    "Year Constructed": {"to": "Year Constructed", "year": 1},
+    "Creators": {"to": "Creators"}
+  },
+  "notes": [
+    "Downloaded using <a href=\"https://dlg.usg.edu/collection/dlg_ghm?view=maps\" target=\"_blank\">DLG API</a>"
+  ]
+}

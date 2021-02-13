@@ -7,7 +7,7 @@
   "geographicCoverage": "state",
   "state": "NE",
   "dataPath": "data/vendor/ne/Nebraska Historical Marker Program.csv",
-  "dateDataAccessed": "2020-02-07",
+  "dateDataAccessed": "2021-02-07",
   "properties": ["X", "Y", "No", "County", "Title", "Community", "Location", "NarrativeW", "ImageURL", "WikiLink"],
   "mappings": {
     "Y": {"to": "Latitude"},

@@ -7,7 +7,7 @@
   "geographicCoverage": "state",
   "state": "NH",
   "dataPath": "data/vendor/nh/New Hampshire Historical Highway Markers.csv",
-  "dateDataAccessed": "2020-02-07",
+  "dateDataAccessed": "2021-02-07",
   "objectTypes": ["Marker"],
   "properties": ["X", "Y", "OBJECTID", "town", "descriptio", "location", "url"],
   "mappings": {

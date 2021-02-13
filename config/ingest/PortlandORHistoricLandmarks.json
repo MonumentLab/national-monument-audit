@@ -8,7 +8,7 @@
   "city": "Portland",
   "state": "OR",
   "dataPath": "data/vendor/or/Historic_Landmarks.csv",
-  "dateDataAccessed": "2020-02-07",
+  "dateDataAccessed": "2021-02-07",
   "properties": ["X", "Y", "HISTNAME", "LANDMARKID", "ADDRESS", "COMMONNAME", "YEARBUILT", "SHPO_DB_LI", "nr_status", "architect", "builder", "resource_t", "histFunc_1", "histFuntio", "primSiding", "comments"],
   "mappings": {
     "Y": {"to": "Latitude"},

@@ -7,7 +7,7 @@
   "geographicCoverage": "state",
   "state": "LA",
   "dataPath": "data/vendor/la/National Register Individual Listings WGS84.csv",
-  "dateDataAccessed": "2020-02-07",
+  "dateDataAccessed": "2021-02-07",
   "properties": ["X", "Y", "RESNAME", "F2_1", "DateonRe_1", "Address_1", "City_1", "Status_1"],
   "mappings": {
     "Y": {"to": "Latitude"},

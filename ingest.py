@@ -158,6 +158,14 @@ for dSourceIndex, d in enumerate(dataSources):
             if "to" in propMap:
                 toProperty = propMap["to"]
 
+            # check for regex
+            if "regex" in propMap:
+                match = re.match(toProperty, value)
+                if match:
+                    matchDict = match.groupdict()
+                    rowOut.update(matchDict)
+                continue
+
             if "valueMaps" in propMap and isinstance(value, str) and value in propMap["valueMaps"]:
                 value = propMap["valueMaps"][value]
 
@@ -290,6 +298,13 @@ for i, row in enumerate(rowsOut):
     if "Name" in row and "Alternate Name" in row and len(str(row["Name"])) < 1 and len(str(row["Alternate Name"])) > 0:
         rowsOut[i]["Name"] = str(row["Alternate Name"])
         rowsOut[i]["Alternate Name"] = ""
+
+    # Validate lat/lon
+    if "Latitude" in row and (not isNumber(row["Latitude"]) or row["Latitude"] <= 0):
+        if not isNumber(row["Latitude"]) and len(row["Latitude"]) > 0:
+            print(f' ** Warning: Invalid latitude: {row["Latitude"]}')
+        rowsOut[i]["Latitude"] = ""
+        rowsOut[i]["Longitude"] = ""
 
 # states = unique([row["State"] for row in rowsOut if "State" in row])
 # pprint(states)

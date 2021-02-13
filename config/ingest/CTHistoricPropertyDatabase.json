@@ -7,7 +7,7 @@
   "geographicCoverage": "state",
   "state": "CT",
   "dataPath": "data/vendor/ct/ct_shpo_mastergeocode.csv",
-  "dateDataAccessed": "2020-02-07",
+  "dateDataAccessed": "2021-02-07",
   "properties": ["UniqueID", "PropName", "StreetName", "Municipality", "County", "DesigStatus", "ConstructDate"],
   "mappings": {
     "UniqueID": {"to": "Vendor Entry ID"},

@@ -7,7 +7,7 @@
   "geographicCoverage": "state",
   "state": "SD",
   "dataPath": "data/vendor/sd/SDStatues.csv",
-  "dateDataAccessed": "2020-02-07",
+  "dateDataAccessed": "2021-02-07",
   "properties": ["County", "City/Town", "Title of Statue", "Address", "Location", "Description"],
   "mappings": {
     "Title of Statue": {"to": "Name"},

@@ -1,0 +1,24 @@
+{
+  "id": "pioneer",
+  "name": "Pioneer Monuments",
+  "verboseName": "Pioneer Monuments",
+  "provider": "Cynthia Culver Prescott",
+  "url": "https://pioneermonuments.net/explore/",
+  "geographicCoverage": "national",
+  "dataPath": "data/vendor/national/Pioneer Monuments.csv",
+  "dateDataAccessed": "2021-02-13",
+  "properties": ["Artist", "Sculpture Title", "Material", "Location", "Lat", "Lon", "City", "Date", "Description", "Image 1"],
+  "mappings": {
+    "Sculpture Title": {"to": "Name"},
+    "Artist": {"to": "Creators", "delimeter": ";"},
+    "Location": {"to": "Location Description"},
+    "Lat": {"to": "Latitude"},
+    "Lon": {"to": "Longitude"},
+    "City": {"to": "(?P<City>[^,]+), (?P<State>[A-Z]{2})", "regex": 1},
+    "Date": {"to": "Year Dedicated", "year": 1},
+    "Image 1": {"to": "Image"}
+  },
+  "notes": [
+    "Downloaded via <a href=\"https://docs.google.com/spreadsheets/d/1EZhXi3ekni0Z4dq3N1321ImsEYGRvTq8ktGy2kWY2ko/pubhtml#\" target=\"_blank\">public spreadsheet</a>"
+  ]
+}

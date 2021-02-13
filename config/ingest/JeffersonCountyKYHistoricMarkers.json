@@ -8,7 +8,7 @@
   "state": "KY",
   "county": "Jefferson",
   "dataPath": "data/vendor/ky/Jefferson_County_KY_Historic_Markers.csv",
-  "dateDataAccessed": "2020-02-07",
+  "dateDataAccessed": "2021-02-07",
   "properties": ["X", "Y", "NAME", "MARKER_NUM", "CITY", "LOCATION", "DESCRIPTION", "SUBJECTS1", "SUBJECTS2", "SUBJECTS3", "SUBJECTS4", "SUBJECTS5", "SUBJECTS6", "SUBJECTS7", "SUBJECTS8", "SUBJECTS9"],
   "mappings": {
     "Y": {"to": "Latitude"},

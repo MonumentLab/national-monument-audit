@@ -7,7 +7,7 @@
   "geographicCoverage": "state",
   "state": "HI",
   "dataPath": "data/vendor/hi/HistoricRegisters_2018Aug10.xls - State Registered Places.csv",
-  "dateDataAccessed": "2020-02-07",
+  "dateDataAccessed": "2021-02-07",
   "properties": ["Island", "Project", "Address/Property Area", "Date Added to HRHP", "Notes"],
   "mappings": {
     "Project": {"to": "Name"},

@@ -7,7 +7,7 @@
   "geographicCoverage": "state",
   "state": "WY",
   "dataPath": "data/vendor/wy/Wyoming Monuments and Markers.csv",
-  "dateDataAccessed": "2020-02-07",
+  "dateDataAccessed": "2021-02-07",
   "properties": ["X", "Y", "MAMID", "SIGNNAME", "LEGEND", "COUNTY", "PICTURE_LINK"],
   "mappings": {
     "Y": {"to": "Latitude"},

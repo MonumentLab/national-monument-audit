@@ -7,7 +7,7 @@
   "geographicCoverage": "state",
   "state": "MO",
   "dataPath": "data/vendor/mo/historic_districts_and_sites.csv",
-  "dateDataAccessed": "2020-02-07",
+  "dateDataAccessed": "2021-02-07",
   "properties": ["X", "Y", "OBJECTID", "HST_NAME", "OTHR_NAME", "COMMENT_", "PERIOD_SIG", "ARCHITECT", "PADDRESS", "PLOCALNAME"],
   "mappings": {
     "Y": {"to": "Latitude"},

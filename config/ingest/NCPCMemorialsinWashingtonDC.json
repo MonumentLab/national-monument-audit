@@ -1,0 +1,23 @@
+{
+  "id": "ncpcdc",
+  "name": "NCPC Memorials in Washington DC",
+  "verboseName": "NCPC Memorials in Washington DC",
+  "provider": "National Capital Planning Commission",
+  "url": "https://www.ncpc.gov/memorials/",
+  "geographicCoverage": "state",
+  "state": "DC",
+  "dataPath": "data/vendor/dc/ncpc_xy_memorials_supplemented.csv",
+  "dateDataAccessed": "2021-02-07",
+  "properties": ["OBJECTID", "TITLE", "LATITUDE", "LONGITUDE", "Dedicated", "Sponsor"],
+  "mappings": {
+    "LATITUDE": {"to": "Latitude"},
+    "LONGITUDE": {"to": "Longitude"},
+    "OBJECTID": {"to": "Vendor Entry ID"},
+    "TITLE": {"to": "Name"},
+    "Dedicated": {"to": "Year Dedicated", "year": 1},
+    "Sponsor": {"to": "Sponsors", "delimeter": ";"}
+  },
+  "notes": [
+    "Additional metadata (dates, sponsors) scraped from individual html pages"
+  ]
+}

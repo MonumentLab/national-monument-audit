@@ -7,7 +7,7 @@
   "geographicCoverage": "state",
   "state": "UT",
   "dataPath": "data/vendor/ut/Marriott Digital Library Markers and Monuments Collection.csv",
-  "dateDataAccessed": "2020-02-07",
+  "dateDataAccessed": "2021-02-07",
   "properties": ["X", "Y", "ID", "Name", "Type", "Primary_Th", "Sec_Th", "Commemorat", "Address", "City", "County", "YearPlaced", "URL"],
   "mappings": {
     "Y": {"to": "Latitude"},
