@@ -378,7 +378,10 @@ for dataTypeGroup in dateTypeGroups:
         conditionRows, remainingRows = applyDataTypeConditions(remainingRows, dataType)
         updatedRows += conditionRows
         if len(conditionRows) > 0:
-            rowsByDataType[dataType["value"]] = conditionRows
+            if dataType["value"] in rowsByDataType:
+                rowsByDataType[dataType["value"]] += conditionRows
+            else:
+                rowsByDataType[dataType["value"]] = conditionRows
     if len(remainingRows) > 0:
         updatedRows += remainingRows
     rowsOut = updatedRows[:]

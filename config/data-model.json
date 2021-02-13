@@ -43,6 +43,22 @@
       ]
     },{
       "name": "Monument Types",
+      "value": "Conventional monument",
+      "conditions": [
+        {
+          "words": ["monument"],
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
+        },{
+          "words": ["memorial"],
+          "endswith": 1,
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
+        },{
+          "words": ["obelisk", "statue", "sculpture"],
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
+        }
+      ]
+    },{
+      "name": "Monument Types",
       "value": "Building",
       "conditions": [
         {
@@ -97,14 +113,7 @@
       "conditions": [
         {
           "words": ["monument"],
-          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Description", "Text"]
-        },{
-          "words": ["memorial"],
-          "endswith": 1,
-          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
-        },{
-          "words": ["obelisk", "statue", "sculpture"],
-          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
+          "fields": ["Description", "Text"]
         }
       ]
     },{
