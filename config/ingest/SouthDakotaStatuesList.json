@@ -1,0 +1,21 @@
+{
+  "id": "sdsl",
+  "name": "South Dakota Statues List",
+  "verboseName": "South Dakota Statues List",
+  "provider": "South Dakota State Historic Preservation Office",
+  "url": "https://history.sd.gov/preservation/",
+  "geographicCoverage": "state",
+  "state": "SD",
+  "dataPath": "data/vendor/sd/SDStatues.csv",
+  "dateDataAccessed": "2020-02-07",
+  "properties": ["County", "City/Town", "Title of Statue", "Address", "Location", "Description"],
+  "mappings": {
+    "Title of Statue": {"to": "Name"},
+    "Address": {"to": "Street Address"},
+    "City/Town": {"to": "City"},
+    "Location": {"to": "Location Description"}
+  },
+  "notes": [
+    "No lat/lon or date"
+  ]
+}

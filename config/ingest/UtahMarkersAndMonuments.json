@@ -1,0 +1,28 @@
+{
+  "id": "utmm",
+  "name": "Utah Markers and Monuments",
+  "verboseName": "Marriott Digital Library Markers and Monuments Collection",
+  "provider": "Utah Department of Heritage and Arts",
+  "url": "https://utah.maps.arcgis.com/apps/webappviewer/index.html?id=da42db896ec540d4a359aede70e5e09a",
+  "geographicCoverage": "state",
+  "state": "UT",
+  "dataPath": "data/vendor/ut/Marriott Digital Library Markers and Monuments Collection.csv",
+  "dateDataAccessed": "2020-02-07",
+  "properties": ["X", "Y", "ID", "Name", "Type", "Primary_Th", "Sec_Th", "Commemorat", "Address", "City", "County", "YearPlaced", "URL"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "ID": {"to": "Vendor Entry ID"},
+    "Name": {"to": "Name"},
+    "Type": {"to": "Object Types", "delimeter": "/"},
+    "Primary_Th": {"to": "Subjects", "delimeter": "/"},
+    "Sec_Th": {"to": "Subjects", "delimeter": "/"},
+    "Commemorat": {"to": "Honorees"},
+    "Address": {"to": "Street Address"},
+    "YearPlaced": {"to": "Year Dedicated", "year": 1},
+    "URL": {"to": "Image"}
+  },
+  "notes": [
+    "Source data transformed from geojson"
+  ]
+}

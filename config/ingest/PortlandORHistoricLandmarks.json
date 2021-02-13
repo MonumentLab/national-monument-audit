@@ -1,0 +1,34 @@
+{
+  "id": "porhl",
+  "name": "Portland Historic Landmarks",
+  "verboseName": "Portland Oregon Historic Landmarks",
+  "provider": "Portland Bureau of Planning and Sustainability",
+  "url": "https://gis-pdx.opendata.arcgis.com/datasets/historic-landmarks?geometry=-123.697%2C45.237%2C-120.642%2C45.910",
+  "geographicCoverage": "city",
+  "city": "Portland",
+  "state": "OR",
+  "dataPath": "data/vendor/or/Historic_Landmarks.csv",
+  "dateDataAccessed": "2020-02-07",
+  "properties": ["X", "Y", "HISTNAME", "LANDMARKID", "ADDRESS", "COMMONNAME", "YEARBUILT", "SHPO_DB_LI", "nr_status", "architect", "builder", "resource_t", "histFunc_1", "histFuntio", "primSiding", "comments"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "LANDMARKID": {"to": "Vendor Entry ID"},
+    "HISTNAME": {"to": "Name"},
+    "COMMONNAME": {"to": "Alternate Name"},
+    "ADDRESS": {"to": "Street Address"},
+    "YEARBUILT": {"to": "Year Constructed", "year": 1},
+    "nr_status": {"to": "Designations"},
+    "SHPO_DB_LI": {"to": "URL"},
+    "resource_t": {"to": "Object Types"},
+    "primSiding": {"to": "Material"},
+    "architect": {"to": "Creators", "delimeter": ";"},
+    "builder": {"to": "Creators", "delimeter": ";"},
+    "histFunc_1": {"to": "Use Types", "delimeter": "/"},
+    "histFuntio": {"to": "Use Types", "delimeter": "/"},
+    "comments": {"to": "Notes"}
+  },
+  "notes": [
+    "Converted from shapefile via QGIS"
+  ]
+}

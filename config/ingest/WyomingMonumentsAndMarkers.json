@@ -1,0 +1,24 @@
+{
+  "id": "wymm",
+  "name": "Wyoming Monuments and Markers",
+  "verboseName": "Wyoming Monuments and Markers",
+  "provider": "Wyoming State Parks, Historic Sites, and Trails",
+  "url": "https://wysphst.maps.arcgis.com/apps/webappviewer/index.html?id=70c906c090a0466da9781e2a88ac72b6",
+  "geographicCoverage": "state",
+  "state": "WY",
+  "dataPath": "data/vendor/wy/Wyoming Monuments and Markers.csv",
+  "dateDataAccessed": "2020-02-07",
+  "properties": ["X", "Y", "MAMID", "SIGNNAME", "LEGEND", "COUNTY", "PICTURE_LINK"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "MAMID": {"to": "Vendor Entry ID"},
+    "SIGNNAME": {"to": "Name"},
+    "LEGEND": {"to": "Text"},
+    "COUNTY": {"to": "County"},
+    "PICTURE_LINK": {"to": "Image"}
+  },
+  "notes": [
+    "Source data transformed from geojson"
+  ]
+}

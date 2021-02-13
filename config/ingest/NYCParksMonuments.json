@@ -1,0 +1,37 @@
+{
+  "id": "nycpm",
+  "name": "NYC Parks Monuments",
+  "verboseName": "NYC Parks Monuments",
+  "provider": "NYC Department of Parks and Recreation",
+  "url": "https://data.cityofnewyork.us/Recreation/NYC-Parks-Monuments/6rrm-vxj9",
+  "geographicCoverage": "city",
+  "city": "New York City",
+  "state": "NY",
+  "dataPath": "data/vendor/ny/NYC_Parks_Monuments_WGS84.csv",
+  "dateDataAccessed": "2020-11-13",
+  "properties": ["X", "Y", "name", "number", "parkname", "Location", "dedicated", "cast", "descrip", "dimen", "sponsor", "materials", "foundry", "fabricator", "sculptor", "architect", "donor", "Name2", "Categories"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "number": {"to": "Vendor Entry ID"},
+    "name": {"to": "Name"},
+    "Name2": {"to": "Alternate Name"},
+    "Location": {"to": "Location Description"},
+    "parkname": {"to": "Location Description"},
+    "dedicated": {"to": "Year Dedicated", "year": 1},
+    "cast": {"to": "Year Constructed", "year": 1},
+    "descrip": {"to": "Object Types"},
+    "dimen": {"to": "Dimensions"},
+    "sponsor": {"to": "Sponsors", "delimeter": ",;"},
+    "donor": {"to": "Sponsors", "delimeter": ",;"},
+    "materials": {"to": "Material"},
+    "foundry": {"to": "Creators"},
+    "fabricator": {"to": "Creators"},
+    "sculptor": {"to": "Creators"},
+    "architect": {"to": "Creators"},
+    "Categories": {"to": "Subjects", "delimeter": ","}
+  },
+  "notes": [
+    "Re-projected data to WGS 84 with QGIS"
+  ]
+}

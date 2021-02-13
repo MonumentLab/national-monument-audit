@@ -1,0 +1,26 @@
+{
+  "id": "nehmp",
+  "name": "Nebraska Historical Marker Program",
+  "verboseName": "Nebraska Historical Marker Program",
+  "provider": "History Nebraska",
+  "url": "https://history.nebraska.gov/visit/nebraska-historical-marker-program",
+  "geographicCoverage": "state",
+  "state": "NE",
+  "dataPath": "data/vendor/ne/Nebraska Historical Marker Program.csv",
+  "dateDataAccessed": "2020-02-07",
+  "properties": ["X", "Y", "No", "County", "Title", "Community", "Location", "NarrativeW", "ImageURL", "WikiLink"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "No": {"to": "Vendor Entry ID"},
+    "Title": {"to": "Name"},
+    "Location": {"to": "Location Description"},
+    "Community": {"to": "City"},
+    "NarrativeW": {"to": "Text"},
+    "ImageURL": {"to": "Image"},
+    "WikiLink": {"to": "URL"}
+  },
+  "notes": [
+    "Source data transformed from geojson"
+  ]
+}

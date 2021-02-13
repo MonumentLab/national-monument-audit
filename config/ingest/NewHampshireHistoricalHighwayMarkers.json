@@ -1,0 +1,26 @@
+{
+  "id": "nhhhm",
+  "name": "New Hampshire Historical Highway Markers",
+  "verboseName": "New Hampshire Historical Highway Markers",
+  "provider": "New Hampshire Division of Historical Resources",
+  "url": "https://nhdhr.maps.arcgis.com/apps/MapSeries/index.html?appid=7d6a4a690be84dcab2c8b2ce637111e3",
+  "geographicCoverage": "state",
+  "state": "NH",
+  "dataPath": "data/vendor/nh/New Hampshire Historical Highway Markers.csv",
+  "dateDataAccessed": "2020-02-07",
+  "objectTypes": ["Marker"],
+  "properties": ["X", "Y", "OBJECTID", "town", "descriptio", "location", "url"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "OBJECTID": {"to": "Vendor Entry ID"},
+    "descriptio": {"to": "Name"},
+    "location": {"to": "Street Address"},
+    "town": {"to": "City"},
+    "url": {"to": "Image"}
+  },
+  "notes": [
+    "Source data transformed from geojson",
+    "Looks to be all markers"
+  ]
+}
