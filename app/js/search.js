@@ -5,7 +5,7 @@ var Search = (function() {
   function Search(config) {
     var defaults = {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
-      'returnFacets': ['monument_types', 'city', 'county', 'creators', 'honorees', 'object_types', 'source', 'sponsors', 'state', 'status', 'subjects', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
+      'returnFacets': ['monument_types', 'subjects', 'object_types', 'creators', 'honorees', 'city', 'county', 'source', 'sponsors', 'state', 'status', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
       'facetSize': 30,
       'customFacetSizes': {
         'state': 100,
@@ -381,7 +381,9 @@ var Search = (function() {
     this.$facetsContainer.addClass('active');
     var html = '';
     var facetSize = this.opt.facetSize;
-    _.each(facets, function(obj, key){
+    _.each(this.opt.returnFacets, function(key){
+      if (!_.has(facets, key)) return;
+      var obj = facets[key];
       var title = key.replace('_', ' ');
       var buckets = obj.buckets;
       html += '<fieldset class="facet active">';
@@ -452,7 +454,8 @@ var Search = (function() {
     var endNumber = Math.min(totalCount, startNumber + size - 1);
 
     var html = '<p>';
-      html += 'Found ' + Util.formatNumber(totalCount) + ' records with query <strong>"' + queryText + '"</strong>';
+      html += 'Found ' + Util.formatNumber(totalCount) + ' records';
+      if (queryText.length > 0) html +=' with query <strong>"' + queryText + '"</strong>';
       if (!_.isEmpty(this.facets)){
         html += ' with facets: ';
         _.each(this.facets, function(values, key){
