@@ -1,0 +1,22 @@
+{
+  "id": "mdahmsl",
+  "name": "Mississippi Landmarks",
+  "verboseName": "Mississippi Department of Archives and History: Mississippi Landmarks",
+  "provider": "Mississippi Department of Archives and History",
+  "url": "https://www.apps.mdah.ms.gov/Public/params.aspx?rpt=msLandmarkList",
+  "geographicCoverage": "state",
+  "state": "MS",
+  "dataPath": "data/vendor/ms/mdah_mississippi_landmarks_wgs84.csv",
+  "dateDataAccessed": "2021-02-14",
+  "properties": ["Vendor Entry ID", "URL", "Image", "X", "Y", "Name", "City", "County", "Construction Date", "Address"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "Address": {"to": "Street Address"},
+    "Construction Date": {"to": "Year Constructed", "year": 1}
+  },
+  "notes": [
+    "Source data scraped from website",
+    "Geographic data re-projected from Web Mercator to WGS 84 in QGIS"
+  ]
+}

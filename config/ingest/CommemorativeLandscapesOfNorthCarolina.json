@@ -1,0 +1,28 @@
+{
+  "id": "nccommland",
+  "name": "Commemorative Landscapes of North Carolina",
+  "verboseName": "Commemorative Landscapes of North Carolina",
+  "provider": "University of North Carolina",
+  "url": "https://docsouth.unc.edu/commland/",
+  "geographicCoverage": "state",
+  "state": "NC",
+  "dataPath": "data/vendor/nc/unc_docsouth_commland.csv",
+  "dateDataAccessed": "2021-02-14",
+  "properties": ["Vendor Entry ID", "URL", "Image", "Monument Name", "Type", "Subjects", "Creator", "City", "County", "Description", "Inscription", "Dedication Date", "Latitude", "Longitude", "Materials & Techniques", "Sponsors", "Monument Cost", "Subject Notes", "Location"],
+  "mappings": {
+    "Monument Name": {"to": "Name"},
+    "Type": {"to": "Object Types", "delimeter": "\\|"},
+    "Subjects": {"to": "Subjects", "delimeter": "\\|"},
+    "Creator": {"to": "Creators", "delimeter": "\\|"},
+    "Inscription": {"to": "Text"},
+    "Dedication Date": {"to": "Year Dedicated", "year": 1},
+    "Materials & Techniques": {"to": "Material"},
+    "Sponsors": {"to": "Sponsors", "delimeter": "\\|"},
+    "Monument Cost": {"to": "Cost"},
+    "Subject Notes": {"to": "Notes"},
+    "Location": {"to": "Location Description"}
+  },
+  "notes": [
+    "Source data scraped from web html"
+  ]
+}
