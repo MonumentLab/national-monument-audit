@@ -62,7 +62,7 @@
       "value": "Building",
       "conditions": [
         {
-          "words": ["academy", "airport", "barrack", "bank", "barn", "building", "cabin", "cafe", "center", "chapel", "church", "club", "college", "convention", "cottage", "courthouse", "depot", "drugstore", "estate", "fort", "hall", "headquarter", "home", "hotel", "hospital", "house", "inn", "ironwork", "jail", "library", "lighthouse", "manor", "mansion", "mart", "mill", "motel", "museum", "office", "outpost", "prison", "refinery", "residence", "restaurant", "sawmill", "school", "schoolhouse", "station", "store", "tavern", "temple", "theater", "tower", "university", "vineyard", "warehouse"],
+          "words": ["academy", "airport", "barrack", "bank", "barn", "building", "cabin", "cafe", "center", "chapel", "church", "club", "college", "convention", "cottage", "courthouse", "depot", "drugstore", "estate", "fort", "gallery", "garage", "hall", "headquarter", "home", "hotel", "hospital", "house", "inn", "ironwork", "jail", "library", "lighthouse", "manor", "mansion", "mart", "mill", "motel", "museum", "office", "outpost", "prison", "refinery", "residence", "restaurant", "sawmill", "school", "schoolhouse", "station", "store", "tavern", "temple", "theater", "tower", "university", "vineyard", "warehouse"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         }
