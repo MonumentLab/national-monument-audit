@@ -29,7 +29,8 @@
     "artwork_type": {"to": "Object Types"},
     "image": {"to": "Image"},
     "wikidata": {"to": "Wikidata"},
-    "wikipedia": {"to": "Wikipedia"}
+    "wikipedia": {"to": "Wikipedia"},
+    "website": {"to": "URL"}
   },
   "notes": [
     "Combines two OSM tags: <a href=\"https://wiki.openstreetmap.org/wiki/Tag%3Ahistoric%3Dmonument\" target=\"_blank\">historic:monument</a> and <a href=\"https://wiki.openstreetmap.org/wiki/Key:memorial\" target=\"_blank\">historic:memorial</a>",
