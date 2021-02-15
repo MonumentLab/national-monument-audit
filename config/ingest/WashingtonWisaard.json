@@ -1,0 +1,24 @@
+{
+  "id": "wisaard",
+  "name": "WISAARD",
+  "verboseName": "Washington Information System for Architectural & Archaeological Records Data",
+  "provider": "Washington Department of Archaeology and Historic Preservation",
+  "url": "https://dahp.wa.gov/historic-preservation/find-a-historic-place",
+  "geographicCoverage": "state",
+  "state": "WA",
+  "dataPath": "data/vendor/al/washington_wisaard_register_public_wgs84.csv",
+  "dateDataAccessed": "2021-02-14",
+  "properties": ["X", "Y", "AddressLine1", "ConstructionYear", "ResourceID", "RegisterName"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "ResourceID": {"to": "Vendor Entry ID"},
+    "RegisterName": {"to": "Name"},
+    "AddressLine1": {"to": "Street Address"},
+    "ConstructionYear": {"to": "Year Constructed", "year": 1}
+  },
+  "notes": [
+    "Source data exported from website and supplemented by json exports to get lat/lon",
+    "Re-projected from Mercator to WGS 84 using QGIS"
+  ]
+}

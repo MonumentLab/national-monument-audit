@@ -8,6 +8,7 @@ from pprint import pprint
 import re
 import requests
 import shutil
+import subprocess
 import sys
 import zipfile
 
@@ -21,6 +22,16 @@ def appendToFilename(fn, appendString):
 
 def copyDir(src, dst):
     shutil.copytree(src, dst)
+
+def curlRequest(string, filename, isJson=False):
+    result = subprocess.run(string, stdout=subprocess.PIPE)
+    content = result.stdout.decode('utf-8')
+    if isJson:
+        content = json.loads(content)
+        writeJSON(filename, content)
+    else:
+        writeTextFile(filename, content)
+    return content
 
 def downloadBinaryFile(url, filename, overwrite=False):
     if os.path.isfile(filename) and not overwrite:
