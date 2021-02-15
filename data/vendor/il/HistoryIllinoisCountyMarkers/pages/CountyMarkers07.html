@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html  lang="en-US">
+<head id="Head">
+<!--*********************************************-->
+<!-- DNN Platform - http://www.dnnsoftware.com   -->
+<!-- Copyright (c) 2002-2015, by DNN Corporation -->
+<!--*********************************************-->
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<meta name="REVISIT-AFTER" content="1 DAYS" />
+<meta name="RATING" content="GENERAL" />
+<meta name="RESOURCE-TYPE" content="DOCUMENT" />
+<meta content="text/javascript" http-equiv="Content-Script-Type" />
+<meta content="text/css" http-equiv="Content-Style-Type" />
+<title>
+	CountyMarkers
+</title><meta id="MetaKeywords" name="KEYWORDS" content=",DotNetNuke,DNN" /><meta id="MetaGenerator" name="GENERATOR" content="DotNetNuke " /><meta id="MetaRobots" name="ROBOTS" content="INDEX, FOLLOW" /><link href="/Resources/Shared/stylesheets/dnndefault/7.0.0/default.css?cdv=789" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Skins/Ozone/bootstrap/css/bootstrap.min.css?cdv=789" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Skins/Ozone/common/css/base.css?cdv=789" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Skins/Ozone/common/css/font-awesome.min.css?cdv=789" type="text/css" rel="stylesheet"/><link href="/DesktopModules/Links/module.css?cdv=789" type="text/css" rel="stylesheet"/><link href="/Resources/Search/SearchSkinObjectPreview.css?cdv=789" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Skins/Ozone/skin.css?cdv=789" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Containers/Ozone/container.css?cdv=789" type="text/css" rel="stylesheet"/><link href="/Portals/HistoricalSociety/portal.css?cdv=789" type="text/css" rel="stylesheet"/><script src="/Resources/libraries/jQuery/01_09_01/jquery.js?cdv=789" type="text/javascript"></script><script src="/Resources/libraries/jQuery-UI/01_11_03/jquery-ui.js?cdv=789" type="text/javascript"></script><link id="skinStyleCss_Ozone_style_custom_sisdq4we5t2" rel="stylesheet" type="text/css" href="/Portals/_default/Skins/Ozone/assets/css/custom/sisdq4we5t2.css" />     
+        
+			    <script type="text/javascript">
+			      var _gaq = _gaq || [];
+			      _gaq.push(['_setAccount', 'UA-71402705-1']);
+			      _gaq.push(['_trackPageview']);
+			 
+			      (function() {
+				    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			      })();
+			    </script>
+        
+		  <link rel='SHORTCUT ICON' href='/Portals/HistoricalSociety/favicon.ico?ver=2016-01-12-203818-410' type='image/x-icon' /><meta name="viewport" content="width=device-width, initial-scale=1" /></head>
+<body id="Body">
+    
+    <form method="post" action="/FindAMarker/CountyMarkers.aspx" id="Form" enctype="multipart/form-data">
+<div class="aspNetHidden">
+<input type="hidden" name="StylesheetManager_TSSM" id="StylesheetManager_TSSM" value="" />
+<input type="hidden" name="ScriptManager_TSM" id="ScriptManager_TSM" value="" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="KB_JSTester_JSEnabled" id="KB_JSTester_JSEnabled" value="0" />
+<input type="hidden" name="KB_JSTester_JQueryVsn" id="KB_JSTester_JQueryVsn" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form'];
+if (!theForm) {
+    theForm = document.Form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=pynGkmcFUV2FtB8gKK4rsEWp8g0H5QuLJa7o0FHZn_NzxqP1Mc5v_DEAi3I1&amp;t=636996002731294402" type="text/javascript"></script>
+
+
+<script src="/DesktopModules/Links/js/toggle.js" type="text/javascript"></script>
+<script src="/Telerik.Web.UI.WebResource.axd?_TSM_HiddenField_=ScriptManager_TSM&amp;compress=1&amp;_TSM_CombinedScripts_=%3b%3bSystem.Web.Extensions%2c+Version%3d4.0.0.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d31bf3856ad364e35%3aen-US%3a22727c22-244c-4537-8243-3c42cc5b20e2%3aea597d4b%3ab25378d2" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="CA0B0334" />
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="O17Fht9XHXE5BuFVmbLCyOtfvplzmzxoIqhm4S6go6zWONXnGcwymltegrihQnqd65dXyNbq1QEq18MUfGbCUqJZWc+W3lKOkDtrvtz1mxIDzT+dFjnZmWMfNEg/UfeCbGVxBmS/F5LNV5HTiPv8UjzzxGf8DoaSUCkMOQMmmvvvvYSgpOXlTdDGy4HwWZ7iuuTq8rGy0GcfbcnyIj50XLQt3r2PZ6vq3jxFqC0Tv5qyAZiMnw6XmEl8fqT2tEXBxizXsqYmzFF08uluAwJHxbx+OqF59kpJxI2nsM02S8I161qIdurGryh00CMDBosNGUrAXw==" />
+</div><script src="/js/dnn.js?cdv=789" type="text/javascript"></script><script src="/js/dnn.modalpopup.js?cdv=789" type="text/javascript"></script><script src="/Portals/_default/Skins/Ozone/bootstrap/js/bootstrap.min.js?cdv=789" type="text/javascript"></script><script src="/Portals/_default/Skins/Ozone/common/js/main.js?cdv=789" type="text/javascript"></script><script src="/js/dnncore.js?cdv=789" type="text/javascript"></script><script src="/Resources/Search/SearchSkinObjectPreview.js?cdv=789" type="text/javascript"></script><script src="/js/dnn.servicesframework.js?cdv=789" type="text/javascript"></script><script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ScriptManager', 'Form', [], [], [], 90, '');
+//]]>
+</script>
+
+        
+        
+        
+<!--CDF(Css|/Portals/_default/Skins/Ozone/bootstrap/css/bootstrap.min.css?cdv=789)-->
+<!--CDF(Css|/Portals/_default/Skins/Ozone/common/css/base.css?cdv=789)-->
+<!--CDF(Css|/Portals/_default/Skins/Ozone/common/css/font-awesome.min.css?cdv=789)-->
+<!--CDF(Javascript|/Portals/_default/Skins/Ozone/bootstrap/js/bootstrap.min.js?cdv=789)-->
+<!--CDF(Javascript|/Portals/_default/Skins/Ozone/common/js/main.js?cdv=789)-->
+
+
+<!-- loader_StyleWizardTemplateSection --><!-- loader_StyleWizardTemplateSectionEnd -->
+<!-- header_StyleWizardTemplateSection -->
+<div class="EasyDNNSkin_Ozone">
+	<div class="eds_headerContainer eds_headerContainer2">
+		<div class="eds_fixedHeader eds_headerHeight" data-placeholder-selector=".eds_headerHeightHolder">
+			<div class="eds_headerBackground">
+				<header class="eds_header">
+					<div class="eds_userLanguageBg clearfix">
+						<div class="center-block container-fluid">
+							
+							<div class="eds_userLogin pull-right">
+								
+<div id="dnn_USER1_registerGroup" class="registerGroup">
+    <ul class="buttonGroup">
+        
+        
+    	<li class="userDisplayName"><a id="dnn_USER1_enhancedRegisterLink" title="Register" rel="nofollow" onclick="return dnnModal.show(&#39;https://www.historyillinois.org/register.aspx?returnurl=https%253a%252f%252fwww.historyillinois.org%252fFindaMarker%252fCountyMarkers.aspx&amp;popUp=true&#39;,/*showReturn*/true,600,950,true,&#39;&#39;)" href="https://www.historyillinois.org/register.aspx?returnurl=https%3a%2f%2fwww.historyillinois.org%2fFindaMarker%2fCountyMarkers.aspx">Register</a></li>
+                                               
+    </ul>
+</div>
+								
+<div id="dnn_LOGIN1_loginGroup" class="loginGroup">
+    <a id="dnn_LOGIN1_enhancedLoginLink" title="Login" class="secondaryActionsList" rel="nofollow" onclick="return dnnModal.show(&#39;https://www.historyillinois.org/login.aspx?ReturnUrl=/FindAMarker/CountyMarkers.aspx&amp;popUp=true&#39;,/*showReturn*/true,300,650,true,&#39;&#39;)" href="https://www.historyillinois.org/login.aspx?ReturnUrl=%2fFindAMarker%2fCountyMarkers.aspx">Login</a>
+</div>
+							</div>
+						</div>
+					</div>
+					<div class="center-block container-fluid clearfix">
+						<div class="eds_logo eds_logoHeader2 pull-left"><a id="dnn_dnnLOGO_hypLogo" title="Illinois State Historical Society" href="https://www.historyillinois.org/Welcome.aspx"><img id="dnn_dnnLOGO_imgLogo" src="/Portals/HistoricalSociety/ISHS-LogoV2.gif?ver=2015-12-01-213819-387" alt="Illinois State Historical Society" /></a></div>
+						<div class="eds_headerRight pull-right">
+							<div id="dnn_HeaderBanner" class="eds_headerBanner DNNEmptyPane"></div>
+							<div class="header2search">
+								<span id="dnn_dnnSearch_ClassicSearch">
+    
+    
+    <span class="searchInputContainer" data-moreresults="See More Results" data-noresult="No Results Found">
+        <input name="dnn$dnnSearch$txtSearch" type="text" maxlength="255" size="20" id="dnn_dnnSearch_txtSearch" class="NormalTextBox" autocomplete="off" placeholder="Search..." />
+        <a class="dnnSearchBoxClearText" title="Clear search text"></a>
+    </span>
+    <a id="dnn_dnnSearch_cmdSearch" class="eds_searchButton2" href="javascript:__doPostBack(&#39;dnn$dnnSearch$cmdSearch&#39;,&#39;&#39;)">Search</a>
+</span>
+
+
+<script type="text/javascript">
+    $(function() {
+        if (typeof dnn != "undefined" && typeof dnn.searchSkinObject != "undefined") {
+            var searchSkinObject = new dnn.searchSkinObject({
+                delayTriggerAutoSearch : 400,
+                minCharRequiredTriggerAutoSearch : 2,
+                searchType: 'S',
+                enableWildSearch: true,
+                cultureCode: 'en-US',
+                portalId: -1
+                }
+            );
+            searchSkinObject.init();
+            
+            
+            // attach classic search
+            var siteBtn = $('#dnn_dnnSearch_SiteRadioButton');
+            var webBtn = $('#dnn_dnnSearch_WebRadioButton');
+            var clickHandler = function() {
+                if (siteBtn.is(':checked')) searchSkinObject.settings.searchType = 'S';
+                else searchSkinObject.settings.searchType = 'W';
+            };
+            siteBtn.on('change', clickHandler);
+            webBtn.on('change', clickHandler);
+            
+            
+        }
+    });
+</script>
+
+							</div>
+						</div>
+					</div>
+					<div class="eds_menuBg clearfix">
+						<div class="responsAbilityMenu eds_menuType2 center-block container-fluid">
+							<div class="raMenuTriggerWrapper">
+								<span class="raMenuTrigger">Menu</span>
+							</div>
+							<div class="raMenuWrapper"><ol>
+  <li class="edsmm_menuItem edsmm_first"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Welcome.aspx">Welcome</a><span class="edsmm_childIndicator"></span></span></li>
+  <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/HistoricalMarkers.aspx">Historical Markers</a><span class="edsmm_childIndicator"></span></span></li>
+  <li class="edsmm_menuItem edsmm_hasChild edsmm_disabled"><span><span class="edsmm_itemContainer">Support Us</span><span class="edsmm_childIndicator"></span></span><div class="edsmm_level_1">
+      <div class="edsmm_menuListsContainer">
+        <ol>
+          <li class="edsmm_menuItem edsmm_first"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/SupportUs/BecomeaMember.aspx">Become a Member</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/SupportUs/MakeaDonation.aspx">Make a Donation</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/SupportUs/TributesMemorials.aspx">Tributes &amp; Memorials</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/SupportUs/PrairieHeritageCircle.aspx">Prairie Heritage Circle</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/SupportUs/ThirdCenturyCircle.aspx">Third Century Circle</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/SupportUs/LegacyGiving.aspx">Legacy Giving</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem edsmm_last"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/SupportUs/IllinoisHistoryCollaborative.aspx">Illinois History Collaborative</a><span class="edsmm_childIndicator"></span></span></li>
+        </ol>
+      </div>
+    </div>
+  </li>
+  <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Calendar.aspx">Calendar</a><span class="edsmm_childIndicator"></span></span></li>
+  <li class="edsmm_menuItem edsmm_hasChild edsmm_disabled"><span><span class="edsmm_itemContainer">Awards</span><span class="edsmm_childIndicator"></span></span><div class="edsmm_level_1">
+      <div class="edsmm_menuListsContainer">
+        <ol>
+          <li class="edsmm_menuItem edsmm_first"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Awards/OliveFosterOutstandingTeacherAward.aspx">Olive Foster Outstanding Teacher Award</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Awards/RussellPStrangeMemorialBookAward.aspx">Russell P. Strange Memorial Book Award</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Awards/AnnualAwards.aspx">Annual Awards</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Awards/SesquicentennialHousesofWorship.aspx">Sesquicentennial Houses of Worship</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem edsmm_last"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Awards/CentennialBusinessAwards.aspx">Centennial Business Awards</a><span class="edsmm_childIndicator"></span></span></li>
+        </ol>
+      </div>
+    </div>
+  </li>
+  <li class="edsmm_menuItem edsmm_hasChild"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Scholarships.aspx">Scholarships</a><span class="edsmm_childIndicator"></span></span><div class="edsmm_level_1">
+      <div class="edsmm_menuListsContainer">
+        <ol>
+          <li class="edsmm_menuItem edsmm_first"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Scholarships/VernaRossOrndorffScholarship.aspx">Verna Ross Orndorff Scholarship</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem edsmm_last"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Scholarships/KingVHostickScholarship.aspx">King V. Hostick Scholarship</a><span class="edsmm_childIndicator"></span></span></li>
+        </ol>
+      </div>
+    </div>
+  </li>
+  <li class="edsmm_menuItem edsmm_hasChild"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Publications.aspx">Publications</a><span class="edsmm_childIndicator"></span></span><div class="edsmm_level_1">
+      <div class="edsmm_menuListsContainer">
+        <ol>
+          <li class="edsmm_menuItem edsmm_first"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Publications/Journal.aspx">Journal</a><span class="edsmm_childIndicator"></span></span></li>
+          <li class="edsmm_menuItem edsmm_last"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Publications/IllinoisHeritage.aspx">Illinois Heritage</a><span class="edsmm_childIndicator"></span></span></li>
+        </ol>
+      </div>
+    </div>
+  </li>
+  <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Store.aspx">Store</a><span class="edsmm_childIndicator"></span></span></li>
+  <li class="edsmm_menuItem edsmm_hasChild edsmm_disabled"><span><span class="edsmm_itemContainer">Special Events</span><span class="edsmm_childIndicator"></span></span><div class="edsmm_level_1">
+      <div class="edsmm_menuListsContainer">
+        <ol>
+          <li class="edsmm_menuItem edsmm_first edsmm_last"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/SpecialEvents/BestofIllinoisHistoryAwardsGala2020.aspx">Best of Illinois History Awards Gala 2020</a><span class="edsmm_childIndicator"></span></span></li>
+        </ol>
+      </div>
+    </div>
+  </li>
+  <li class="edsmm_menuItem"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/Videos.aspx">Videos</a><span class="edsmm_childIndicator"></span></span></li>
+  <li class="edsmm_menuItem edsmm_last"><span><a class="edsmm_itemContainer" href="https://www.historyillinois.org/SupportUs/becomeamember.aspx">Membership</a><span class="edsmm_childIndicator"></span></span></li>
+</ol></div>
+						</div>
+					</div>
+				</header>
+			</div>
+		</div>
+		<div class="eds_headerHeightHolder"></div>
+<!-- header_StyleWizardTemplateSectionEnd -->
+<!-- pageDetails_StyleWizardTemplateSection -->
+		<div class="eds_pageDetails eds_pageDetails1">
+			<div class="eds_headerHeightHolder eds_headerHeightHolderPd"></div>
+			<div class="container-fluid">
+				<span id="dnn_dnnCURRENTDATE_lblDate" class="eds_currentDate pull-right">Monday, February 15, 2021</span>
+
+				<div class="eds_breadCrumbs"><span id="dnn_dnnBreadcrumb_lblBreadCrumb" itemprop="breadcrumb" itemscope="" itemtype="https://schema.org/breadcrumb"><span itemscope itemtype="http://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="https://www.historyillinois.org/FindaMarker.aspx" class="eds_breadCrumb" itemprop="item"><span itemprop="name">Find a Marker</span></a><meta itemprop="position" content="1" /></span><span class="fa fa-chevron-right eds_breadcrumbSeparator"></span><span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="https://www.historyillinois.org/FindaMarker/CountyMarkers.aspx" class="eds_breadCrumb" itemprop="item"><span itemprop="name">CountyMarkers</span></a><meta itemprop="position" content="2" /></span></span></span></div>
+				<h1 class="eds_pageTitle"><span>CountyMarkers</span></h1>
+			</div>
+		</div><!-- pageDetails_StyleWizardTemplateSectionEnd -->
+		<div id="dnn_headerWide" class="eds_headerContent DNNEmptyPane"></div>
+	</div>
+	<div id="dnn_ContentPane" class="eds_container container-fluid"><div class="DnnModule DnnModule-XModPro DnnModule-7998"><a name="7998"></a>
+<div class="eds_containers_Ozone eds_templateGroup_default eds_template_Default eds_style_custom_sgutsv11c7s">
+	<h2 class="eds_bottomBorder"><span id="dnn_ctr7998_dnnTITLE_titleLabel" class="eds_containerTitle">County Markers</span>
+
+
+</h2>
+	<div id="dnn_ctr7998_ContentPane"><!-- Start_Module_7998 --><div id="dnn_ctr7998_ModuleContent" class="DNNModuleContent ModXModProC">
+	
+
+
+
+
+<div id="dnn_ctr7998_XModPro_ctl00_ctl01_pgrTop">
+		<div>
+			<a id="dnn_ctr7998_XModPro_ctl00_ctl01_pgrTop_lnkFirst" class="CommandButton" href="javascript:__doPostBack(&#39;dnn$ctr7998$XModPro$ctl00$ctl01$pgrTop$lnkFirst&#39;,&#39;&#39;)">First</a><a id="dnn_ctr7998_XModPro_ctl00_ctl01_pgrTop_lnkPrev" class="CommandButton" href="javascript:__doPostBack(&#39;dnn$ctr7998$XModPro$ctl00$ctl01$pgrTop$lnkPrev&#39;,&#39;&#39;)" style="margin-left:3px;">Prev</a><a id="dnn_ctr7998_XModPro_ctl00_ctl01_pgrTop_pgrTop_PageLink0" class="CommandButton" href="javascript:__doPostBack(&#39;dnn$ctr7998$XModPro$ctl00$ctl01$pgrTop$pgrTop_PageLink0&#39;,&#39;&#39;)" style="margin-left:5px;">5</a>&nbsp;<a id="dnn_ctr7998_XModPro_ctl00_ctl01_pgrTop_pgrTop_PageLink1" class="CommandButton" href="javascript:__doPostBack(&#39;dnn$ctr7998$XModPro$ctl00$ctl01$pgrTop$pgrTop_PageLink1&#39;,&#39;&#39;)">6</a>&nbsp;<span class="CommandButton" style="font-weight:bold;">7</span>&nbsp;<a id="dnn_ctr7998_XModPro_ctl00_ctl01_pgrTop_pgrTop_PageLink3" class="CommandButton" href="javascript:__doPostBack(&#39;dnn$ctr7998$XModPro$ctl00$ctl01$pgrTop$pgrTop_PageLink3&#39;,&#39;&#39;)">8</a>&nbsp;<a id="dnn_ctr7998_XModPro_ctl00_ctl01_pgrTop_pgrTop_PageLink4" class="CommandButton" href="javascript:__doPostBack(&#39;dnn$ctr7998$XModPro$ctl00$ctl01$pgrTop$pgrTop_PageLink4&#39;,&#39;&#39;)" style="margin-right:5px;">9</a><a id="dnn_ctr7998_XModPro_ctl00_ctl01_pgrTop_lnkNext" class="CommandButton" href="javascript:__doPostBack(&#39;dnn$ctr7998$XModPro$ctl00$ctl01$pgrTop$lnkNext&#39;,&#39;&#39;)" style="margin-right:3px;">Next</a><a id="dnn_ctr7998_XModPro_ctl00_ctl01_pgrTop_lnkLast" class="CommandButton" href="javascript:__doPostBack(&#39;dnn$ctr7998$XModPro$ctl00$ctl01$pgrTop$lnkLast&#39;,&#39;&#39;)">Last</a>
+		</div>
+	</div>
+    <div class="table-responsive"> 
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>County</th>
+                <th>Marker Name</th>
+                <th>Dedicated Date</th>
+            </tr>
+        </thead>
+        <tbody>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Massac">Massac</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=388">Fort Massac</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1988
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Massac">Massac</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=184">George Rogers Clark Campsite (1st)</a>
+        
+        
+      </td>
+    	<td>
+        
+          06/30/2003
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Massac">Massac</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=185">Illinois in the American Revolution</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1976
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Massac">Massac</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=389">Thy Wondrous Story, Illinois</a>
+        
+        
+      </td>
+    	<td>
+        
+          11/13/1964
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Massac">Massac</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=186">Welcome to Illinois</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1988
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McDonough">McDonough</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=485">Oakwood Cemetery</a>
+        
+        
+      </td>
+    	<td>
+        
+          05/25/2018
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McDonough">McDonough</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=509">Rev. Dr. C. T. Vivian Homesite</a>
+        
+        
+      </td>
+    	<td>
+        
+          09/26/2020
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McHenry">McHenry</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=439">David Haeger School and Cemetery</a>
+        
+        
+      </td>
+    	<td>
+        
+          09/01/2012
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McHenry">McHenry</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=479">Eugene Debs and Old McHenry County Courthouse</a>
+        
+        
+      </td>
+    	<td>
+        
+          10/21/2017
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McHenry">McHenry</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=438">Goodrich Homestead</a>
+        
+        
+      </td>
+    	<td>
+        
+          10/06/2012
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McHenry">McHenry</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=188">McHenry County's First Courthouse</a>
+        
+        
+      </td>
+    	<td>
+        
+          11/19/2006
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McHenry">McHenry</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=390">Welcome to Illinois</a>
+        
+        
+      </td>
+    	<td>
+        
+          07/13/1965
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=189">Benjaminville Friends Meeting House</a>
+        
+        
+      </td>
+    	<td>
+        
+          05/12/1995
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=190">Bloomington-Normal, Illinois</a>
+        
+        
+      </td>
+    	<td>
+        
+          09/01/1987
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=191">David Davis Mansion</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1970
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=433">Florence Fifer Bohrer (1877-1960)</a>
+        
+        
+      </td>
+    	<td>
+        
+          09/05/2005
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=193">Franklin Square Historic District</a>
+        
+        
+      </td>
+    	<td>
+        
+          05/13/1989
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=194">Home of Adlai E. Stevenson I</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1972
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=195">Home of Joseph W. Fifer</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1972
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=196">Illinois Soldiers' and Sailors' Children School</a>
+        
+        
+      </td>
+    	<td>
+        
+          09/16/2002
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=197">Illinois U.S. Route 66 (site 1)</a>
+        
+        
+      </td>
+    	<td>
+        
+          10/17/1996
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=391">John Patton Cabin, The</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1987
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=198">Matthew T. Scott</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1991
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=491">Miller Park's Segregated Beaches</a>
+        
+        
+      </td>
+    	<td>
+        
+          09/20/2018
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=McLean">McLean</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=199">Site of the Grand Village of the Kickapoo</a>
+        
+        
+      </td>
+    	<td>
+        
+          05/22/1999
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Menard">Menard</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=200">Dr. Benjamin Franklin Stephenson, 1823-1871</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1955
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Menard">Menard</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=201">Lincoln's Store Partner</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1953
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Menard">Menard</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=202">Long Nine Banquet Site</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1974
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Menard">Menard</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=203">Mentor Graham, 1800-1886: Teacher of Abraham Lincoln</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1955
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Mercer">Mercer</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=394">Abraham Lincoln in Mercer County</a>
+        
+        
+      </td>
+    	<td>
+        
+          08/01/2008
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Monroe">Monroe</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=204">Bellefontaine</a>
+        
+        
+      </td>
+    	<td>
+        
+          07/21/1976
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Monroe">Monroe</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=205">Holy Cross Lutheran Church of Wartburg</a>
+        
+        
+      </td>
+    	<td>
+        
+          11/03/1996
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Monroe">Monroe</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=206">Maeystown</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1988
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=207">Barton Warren Stone (1772-1844)</a>
+        
+        
+      </td>
+    	<td>
+        
+          05/22/2005
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=208">Big Eli Wheel No. 17</a>
+        
+        
+      </td>
+    	<td>
+        
+          09/24/1989
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=209">College Building</a>
+        
+        
+      </td>
+    	<td>
+        
+          05/21/2004
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=210">Farmers State Bank and Trust Company, The</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1987
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=211">First Illinois State Hospital for the Insane</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1992
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=212">Greene Vardiman Black</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1973
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=213">Historic Meredosia</a>
+        
+        
+      </td>
+    	<td>
+        
+          05/01/1988
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=214">Illinois College</a>
+        
+        
+      </td>
+    	<td>
+        
+          10/25/1966
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=215">Jacksonville, Illinois</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1966
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=379">New Method Book Bindery</a>
+        
+        
+      </td>
+    	<td>
+        
+          10/01/2010
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=459">Second Morgan County Courthouse (1830-1868), The</a>
+        
+        
+      </td>
+    	<td>
+        
+          09/13/2016
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Morgan">Morgan</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=216">Stephen Arnold Douglas</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1973
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Ogle">Ogle</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=217">Boles Trail, The</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1964
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Ogle">Ogle</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=218">Buffalo Grove</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1964
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Ogle">Ogle</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=219">Buffalo Grove Lime Kiln</a>
+        
+        
+      </td>
+    	<td>
+        
+          06/05/2007
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Ogle">Ogle</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=434">First House & Store in Forreston</a>
+        
+        
+      </td>
+    	<td>
+        
+          09/17/2005
+        
+        
+      </td>
+		</tr>
+  
+    <tr>
+			<td>
+				
+					<a href="/FindAMarker/CountyMarkers.aspx?County=Ogle">Ogle</a>
+        
+        
+      </td>
+      <td>
+      	
+          <a href="/FindAMarker/MarkerDetails.aspx?MarkerID=220">First Steel Plow, The</a>
+        
+        
+      </td>
+    	<td>
+        
+          01/01/1963
+        
+        
+      </td>
+		</tr>
+  
+    		</tbody>
+    	</table>
+		</div>
+  
+
+</div><!-- End_Module_7998 --></div>
+	<div class="eds_clear"></div>
+</div>
+</div></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div id="dnn_leftPane" class="col-sm-8 eds_container DNNEmptyPane"></div>
+			<div id="dnn_sidebarPane" class="col-sm-4 eds_container DNNEmptyPane"></div>
+		</div>
+		<div class="row">
+			<div id="dnn_sidebarLeftPane" class="col-sm-4 eds_container DNNEmptyPane"></div>
+			<div id="dnn_rightPane" class="col-sm-8 eds_container DNNEmptyPane"></div>
+		</div>
+		<div class="row">
+			<div id="dnn_contentLeftPane" class="col-sm-4 eds_container DNNEmptyPane"></div>
+			<div id="dnn_contentMiddlePane" class="col-sm-4 eds_container DNNEmptyPane"></div>
+			<div id="dnn_contentRightPane" class="col-sm-4 eds_container DNNEmptyPane"></div>
+		</div>
+		<div class="row">
+			<div id="dnn_contentColumnAPane" class="col-sm-3 eds_container DNNEmptyPane"></div>
+			<div id="dnn_contentColumnBPane" class="col-sm-3 eds_container DNNEmptyPane"></div>
+			<div id="dnn_contentColumnCPane" class="col-sm-3 eds_container DNNEmptyPane"></div>
+			<div id="dnn_contentColumnDPane" class="col-sm-3 eds_container DNNEmptyPane"></div>
+		</div>
+	</div>
+	<div class="eds_contentBellowBackground">
+		<div id="dnn_contentPane2" class="eds_container container-fluid DNNEmptyPane"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div id="dnn_leftPane2" class="col-sm-6 eds_container DNNEmptyPane"></div>
+				<div id="dnn_rightPane2" class="col-sm-6 eds_container DNNEmptyPane"></div>
+			</div>
+			<div class="row">
+				<div id="dnn_threeColumnLeftPane2" class="col-sm-4 eds_container DNNEmptyPane"></div>
+				<div id="dnn_threeColumnMiddlePane2" class="col-sm-4 eds_container DNNEmptyPane"></div>
+				<div id="dnn_threeColumnRightPane2" class="col-sm-4 eds_container DNNEmptyPane"></div>
+			</div>
+		</div>
+	</div>
+	<div id="dnn_contentPane3" class="eds_contentBellow2 container-fluid eds_container DNNEmptyPane"></div>
+	<div class="eds_paralaxBackground eds_pBackground1">
+		<div id="dnn_contentPane4" class="eds_contentBellow3 container-fluid eds_container DNNEmptyPane"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div id="dnn_leftPane4" class="col-sm-8 eds_container DNNEmptyPane"></div>
+				<div id="dnn_sidebarPane4" class="col-sm-4 eds_container DNNEmptyPane"></div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div id="dnn_sidebarPane5" class="col-sm-4 eds_container DNNEmptyPane"></div>
+			<div id="dnn_rightPane5" class="col-sm-8 eds_container DNNEmptyPane"></div>
+		</div>
+	</div>
+	<div id="dnn_contentPane5" class="eds_contentBellow4 container-fluid eds_container DNNEmptyPane"></div>
+	<div class="eds_contentBellow5Background">
+		<div id="dnn_contentPane6" class="container-fluid eds_container DNNEmptyPane"></div>
+	</div>
+	<div class="eds_paralaxBackground eds_pBackground2">
+		<div id="dnn_contentPane7" class="eds_contentBellow6 container-fluid eds_container DNNEmptyPane"></div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div id="dnn_leftPane8" class="col-sm-8 eds_container DNNEmptyPane"></div>
+			<div id="dnn_sidebarPane8" class="col-sm-4 eds_container DNNEmptyPane"></div>
+		</div>
+	</div>
+	<div id="dnn_contentPane8" class="container-fluid DNNEmptyPane"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div id="dnn_sidebarLeftPane8" class="col-sm-4 eds_container DNNEmptyPane"></div>
+			<div id="dnn_rightPane8" class="col-sm-8 eds_container DNNEmptyPane"></div>
+		</div>
+	</div>
+	<div class="eds_bottomBannerBg">
+		<div id="dnn_BottomBanner" class="container-fluid eds_container DNNEmptyPane"></div>
+	</div>
+	<div id="dnn_BottomPane1" class="container-fluid eds_container DNNEmptyPane"></div>
+	<div id="dnn_BottomPane2" class="eds_bottomPaneWide DNNEmptyPane"></div>
+	<div id="dnn_BottomPane3" class="container-fluid eds_container DNNEmptyPane"></div>
+	<div class="edsFooterBackground clearfix">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-3 footerBoxContainer" >
+					<div id="dnn_Footer1" class="footerBox"><div class="DnnModule DnnModule-DNN_HTML DnnModule-9410"><a name="9410"></a>
+<div class="eds_containers_Ozone eds_templateGroup_footer eds_template_Footer">
+	<h2><span id="dnn_ctr9410_dnnTITLE_titleLabel" class="eds_containerTitle">Address</span>
+
+
+</h2>
+	<div id="dnn_ctr9410_ContentPane"><!-- Start_Module_9410 --><div id="dnn_ctr9410_ModuleContent" class="DNNModuleContent ModDNNHTMLC">
+	<div id="dnn_ctr9410_HtmlModule_lblContent" class="Normal">
+	<p style="color:white;text-align:center;font-size:1.4em;">Illinois State Historical Society&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Strawbridge-Shepherd House&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;5255 Shepherd Road&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Springfield, IL 62703</p>
+
+</div>
+
+</div><!-- End_Module_9410 --></div>
+	<div class="eds_clear"></div>
+</div>
+</div></div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 footerBoxContainer">
+					<div id="dnn_Footer2" class="footerBox eds_second"><div class="DnnModule DnnModule-DNN_HTML DnnModule-9411"><a name="9411"></a>
+<div class="eds_containers_Ozone eds_templateGroup_footer eds_template_Footer">
+	<h2><span id="dnn_ctr9411_dnnTITLE_titleLabel" class="eds_containerTitle">About Us</span>
+
+
+</h2>
+	<div id="dnn_ctr9411_ContentPane"><!-- Start_Module_9411 --><div id="dnn_ctr9411_ModuleContent" class="DNNModuleContent ModDNNHTMLC">
+	<div id="dnn_ctr9411_HtmlModule_lblContent" class="Normal">
+	<ul>
+ <li><a href="/FooterLinks/MissionandPrinciples.aspx">Mission and Principles</a></li>
+ <li><a href="/FooterLinks/BoardMembers.aspx">Board Members</a></li>
+ <li><a href="/FooterLinks/OurStaff.aspx">Our Staff</a></li>
+ <li><a href="/FooterLinks/PhotoGallery.aspx">Photo and Video Presentations Gallery</a></li>
+</ul>
+
+</div>
+
+</div><!-- End_Module_9411 --></div>
+	<div class="eds_clear"></div>
+</div>
+</div></div>
+				</div>
+				<div class="clearfix visible-sm"></div>
+				<div class="col-xs-12 col-sm-6 col-md-3 footerBoxContainer">
+					<div id="dnn_Footer3" class="footerBox"><div class="DnnModule DnnModule-DNN_Links DnnModule-9412"><a name="9412"></a>
+<div class="eds_containers_Ozone eds_templateGroup_footer eds_template_Footer">
+	<h2><span id="dnn_ctr9412_dnnTITLE_titleLabel" class="eds_containerTitle">Resources</span>
+
+
+</h2>
+	<div id="dnn_ctr9412_ContentPane"><!-- Start_Module_9412 --><div id="dnn_ctr9412_ModuleContent" class="DNNModuleContent ModDNNLinksC">
+	<div id="dnn_ctr9412_Links_pnlList" class="link_module">
+		
+    
+            <ul class="linklist ">
+        
+            <li class="linkitem " >
+                
+                
+                <a href="/LinkClick.aspx?fileticket=pX1wgCmuGpA%3d&tabid=3299&portalid=35&mid=9412" id="dnn_ctr9412_Links_lstLinks_linkHyp_0" class="Normal&lt;%#PopupTrigger%>" alt="" target="_blank">
+                    Directory of Illinois Historical Societies
+                </a>
+                <div id="dnn_ctr9412_Links_lstLinks_pnlDescription_0" class="item_desc" style="display: none">
+			
+                    <span id="dnn_ctr9412_Links_lstLinks_lbldescrdiv_0" class="Normal"></span>
+                
+		</div>
+                
+            </li>
+        
+            <li class="linkitem " >
+                
+                
+                <a href="https://www.historyillinois.org/Resources.aspx" id="dnn_ctr9412_Links_lstLinks_linkHyp_1" class="Normal&lt;%#PopupTrigger%>" alt="" target="_self">
+                    Teaching History Resources
+                </a>
+                <div id="dnn_ctr9412_Links_lstLinks_pnlDescription_1" class="item_desc" style="display: none">
+			
+                    <span id="dnn_ctr9412_Links_lstLinks_lbldescrdiv_1" class="Normal"></span>
+                
+		</div>
+                
+            </li>
+        
+            <li class="linkitem " >
+                
+                
+                <a href="http://www.cyberdriveillinois.com/departments/archives/home.html" id="dnn_ctr9412_Links_lstLinks_linkHyp_2" class="Normal&lt;%#PopupTrigger%>" alt="" target="_self">
+                    Illinois State Archives
+                </a>
+                <div id="dnn_ctr9412_Links_lstLinks_pnlDescription_2" class="item_desc" style="display: none">
+			
+                    <span id="dnn_ctr9412_Links_lstLinks_lbldescrdiv_2" class="Normal"></span>
+                
+		</div>
+                
+            </li>
+        
+            <li class="linkitem " >
+                
+                
+                <a href="https://www.illinois.gov/alplm" id="dnn_ctr9412_Links_lstLinks_linkHyp_3" class="Normal&lt;%#PopupTrigger%>" alt="" target="_self">
+                    Abraham Lincoln Presidential Library and Museum
+                </a>
+                <div id="dnn_ctr9412_Links_lstLinks_pnlDescription_3" class="item_desc" style="display: none">
+			
+                    <span id="dnn_ctr9412_Links_lstLinks_lbldescrdiv_3" class="Normal"></span>
+                
+		</div>
+                
+            </li>
+        
+            <li class="linkitem " >
+                
+                
+                <a href="http://www.idaillinois.org/digital/" id="dnn_ctr9412_Links_lstLinks_linkHyp_4" class="Normal&lt;%#PopupTrigger%>" alt="" target="_blank">
+                    Illinois Digital Archives (IDA)
+                </a>
+                <div id="dnn_ctr9412_Links_lstLinks_pnlDescription_4" class="item_desc" style="display: none">
+			
+                    <span id="dnn_ctr9412_Links_lstLinks_lbldescrdiv_4" class="Normal"></span>
+                
+		</div>
+                
+            </li>
+        
+            <li class="linkitem " >
+                
+                
+                <a href="http://www.cyberdriveillinois.com/departments/library/home.html" id="dnn_ctr9412_Links_lstLinks_linkHyp_5" class="Normal&lt;%#PopupTrigger%>" alt="" target="_self">
+                    Illinois State Library
+                </a>
+                <div id="dnn_ctr9412_Links_lstLinks_pnlDescription_5" class="item_desc" style="display: none">
+			
+                    <span id="dnn_ctr9412_Links_lstLinks_lbldescrdiv_5" class="Normal"></span>
+                
+		</div>
+                
+            </li>
+        
+            <li class="linkitem " >
+                
+                
+                <a href="https://www.historyillinois.org/Resources.aspx" id="dnn_ctr9412_Links_lstLinks_linkHyp_6" class="Normal&lt;%#PopupTrigger%>" alt="" target="_self">
+                    More Links...
+                </a>
+                <div id="dnn_ctr9412_Links_lstLinks_pnlDescription_6" class="item_desc" style="display: none">
+			
+                    <span id="dnn_ctr9412_Links_lstLinks_lbldescrdiv_6" class="Normal"></span>
+                
+		</div>
+                
+            </li>
+        
+            <div style="clear: both;" />
+            </ul>
+        
+
+	</div>
+
+
+
+</div><!-- End_Module_9412 --></div>
+	<div class="eds_clear"></div>
+</div>
+</div></div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 footerBoxContainer">
+					<div id="dnn_Footer4" class="footerBox eds_last"><div class="DnnModule DnnModule-DNN_HTML DnnModule-9413"><a name="9413"></a>
+<div class="eds_containers_Ozone eds_templateGroup_footer eds_template_Footer">
+	<h2><span id="dnn_ctr9413_dnnTITLE_titleLabel" class="eds_containerTitle">Contact Us</span>
+
+
+</h2>
+	<div id="dnn_ctr9413_ContentPane"><!-- Start_Module_9413 --><div id="dnn_ctr9413_ModuleContent" class="DNNModuleContent ModDNNHTMLC">
+	<div id="dnn_ctr9413_HtmlModule_lblContent" class="Normal">
+	<p style="color:white;">Office Phone: 217-525-2781<br />
+<a href="/FooterLinks/MissionandPrinciples.aspx">Email Us</a><br />
+<a href="/Membership.aspx">Membership Signup</a><br />
+Phone: <a href="tel:1-866-244-0626">1-866-244-0626</a></p>
+<p><a href="http://www.jstor.org/journal/jillistathistsoc" target="_blank"><img alt="Click here to access the JSTOR" src="/portals/historicalsociety/JSTOR-LogoV2.jpg" style="border: 1px solid #000000;" /></a></p>
+
+</div>
+
+</div><!-- End_Module_9413 --></div>
+	<div class="eds_clear"></div>
+</div>
+</div></div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div id="dnn_Footer5" class="col-sm-4 footerBoxContainer2 DNNEmptyPane"></div>
+				<div id="dnn_Footer6" class="col-sm-4 footerBoxContainer2 DNNEmptyPane"></div>
+				<div id="dnn_Footer7" class="col-sm-4 footerBoxContainer2 DNNEmptyPane"></div>
+			</div>
+			<div class="row">
+				<div id="dnn_Footer8" class="col-sm-12 footerBoxContainer2 DNNEmptyPane"></div>
+			</div>
+		</div>
+	</div>
+	<div class="edsCopyrightBg">
+		<div class="edsCopyright container-fluid clearfix"><a id="dnn_dnnTerms_hypTerms" class="pull-right" rel="nofollow" href="https://www.historyillinois.org/terms.aspx">Terms Of Use</a><a id="dnn_dnnPrivacy_hypPrivacy" class="pull-right" rel="nofollow" href="https://www.historyillinois.org/privacy.aspx">Privacy Statement</a><span id="dnn_dnnCopyright_lblCopyright" class="pull-left">Copyright 2021 by Illinois State Historical Society</span>
+</div>
+	</div>
+</div>
+<a data-options='{ "speed": 700,"easing": "easeOutQuint","updateURL": false }' href="#" class="eds_scrollTo eds_backToTop"><span>Back To Top</span></a>
+
+        <input name="ScrollTop" type="hidden" id="ScrollTop" value="0" />
+        <input name="__dnnVariable" type="hidden" id="__dnnVariable" autocomplete="off" value="`{`__scdoff`:`1`,`sf_siteRoot`:`/`,`sf_tabId`:`3299`}" />
+        <input name="__RequestVerificationToken" type="hidden" value="SOQsQlzRqRZ8tblpRFNPA56o3PKwGQcAqnVesJgk9Sbcqa92BBaeZC8KzYvnp2Qc-lC_aA2" />
+    
+
+<script type="text/javascript">
+//<![CDATA[
+__dnn_setScrollTop();//]]>
+</script>
+<script type="text/javascript">
+  document.getElementById("KB_JSTester_JSEnabled").value = "1";
+  if(typeof jQuery != 'undefined'){document.getElementById("KB_JSTester_JQueryVsn").value = jQuery.fn.jquery;}
+</script>
+</form>
+    <!--CDF(Javascript|/js/dnncore.js?cdv=789)--><!--CDF(Javascript|/js/dnn.modalpopup.js?cdv=789)--><!--CDF(Css|/Resources/Shared/stylesheets/dnndefault/7.0.0/default.css?cdv=789)--><!--CDF(Css|/Portals/_default/Skins/Ozone/skin.css?cdv=789)--><!--CDF(Css|/Portals/_default/Containers/Ozone/container.css?cdv=789)--><!--CDF(Css|/Portals/_default/Containers/Ozone/container.css?cdv=789)--><!--CDF(Css|/Portals/_default/Containers/Ozone/container.css?cdv=789)--><!--CDF(Css|/Portals/_default/Containers/Ozone/container.css?cdv=789)--><!--CDF(Css|/DesktopModules/Links/module.css?cdv=789)--><!--CDF(Css|/DesktopModules/Links/module.css?cdv=789)--><!--CDF(Css|/Portals/_default/Containers/Ozone/container.css?cdv=789)--><!--CDF(Css|/Portals/HistoricalSociety/portal.css?cdv=789)--><!--CDF(Javascript|/js/dnn.js?cdv=789)--><!--CDF(Css|/Resources/Search/SearchSkinObjectPreview.css?cdv=789)--><!--CDF(Javascript|/Resources/Search/SearchSkinObjectPreview.js?cdv=789)--><!--CDF(Javascript|/js/dnn.servicesframework.js?cdv=789)--><!--CDF(Javascript|/Resources/libraries/jQuery/01_09_01/jquery.js?cdv=789)--><!--CDF(Javascript|/Resources/libraries/jQuery-UI/01_11_03/jquery-ui.js?cdv=789)-->
+    
+</body>
+</html>
