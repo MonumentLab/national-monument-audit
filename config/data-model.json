@@ -25,7 +25,10 @@
     {"key": "Dimensions", "type": "string", "format": ["title"]},
     {"key": "Description", "type": "text"},
     {"key": "Material", "type": "string", "format": ["title"]},
-    {"key": "Wikipedia", "type": "string"}
+    {"key": "Wikipedia", "type": "string"},
+    {"key": "Image", "type": "string"},
+    {"key": "Entities People", "type": "string_list"},
+    {"key": "Entities Events", "type": "string_list"}
   ],
   "types": [
     {

@@ -18,6 +18,7 @@ from lib.string_utils import *
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_resolved.csv", help="Input .csv data file")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="app/data/entities.json", help="Output file")
+parser.add_argument('-index', dest="INDEX_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Output file .csv for indexing")
 parser.add_argument('-summary', dest="SUMMARY_FILE", default="app/data/entities-summary.json", help="Output summary file")
 parser.add_argument('-count', dest="MAX_COUNT",  default=1000, type=int, help="How many entities per group?")
 parser.add_argument('-probe', dest="PROBE",  default=0, type=int, help="Just output details and don't write data?")
@@ -108,7 +109,7 @@ jsonOut = {"entities": entities}
 if a.PROBE:
     sys.exit()
 
-makeDirectories([a.OUTPUT_FILE, a.SUMMARY_FILE])
+makeDirectories([a.OUTPUT_FILE, a.SUMMARY_FILE, a.INDEX_FILE])
 writeJSON(a.OUTPUT_FILE, jsonOut)
 
 ################################################################
@@ -159,3 +160,26 @@ jsonOut = {}
 jsonOut["pieCharts"] = pieChartData
 jsonOut["frequencies"] = freqData
 writeJSON(a.SUMMARY_FILE, jsonOut)
+
+################################################################
+# Generate file for use in indexing
+################################################################
+indexRows = []
+for typeGroup in groupsByType:
+    typeName = typeGroup["normType"]
+    if typeName not in ("PERSON", "EVENT"):
+        continue
+
+    for entGroup in typeGroup["groupsByEnt"]:
+        ids = set([])
+        for item in entGroup["items"]:
+            id = item["Id"]
+            if id in ids:
+                continue
+            ids.add(id)
+            indexRows.append({
+                "Id": id,
+                "Type": typeName,
+                "Value": item["Name"]
+            })
+writeCsv(a.INDEX_FILE, indexRows, headings=["Id", "Type", "Value"])
