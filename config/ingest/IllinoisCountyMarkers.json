@@ -1,0 +1,22 @@
+{
+  "id": "ilcm",
+  "name": "Illinois County Markers",
+  "verboseName": "Illinois State Historical Society County Markers",
+  "provider": "Illinois State Historical Society",
+  "url": "https://www.historyillinois.org/FindaMarker/CountyMarkers.aspx",
+  "geographicCoverage": "state",
+  "state": "IL",
+  "dataPath": "data/vendor/il/HistoryIllinoisCountyMarkers/HistoryIllinoisCountyMarkers.csv",
+  "dateDataAccessed": "2021-02-15",
+  "properties": ["Vendor Entry ID", "URL", "Historical Marker", "County", "Image", "Location", "Latitude", "Longitude", "Dedication Date", "Dedication By", "Marker Description"],
+  "mappings": {
+    "Historical Marker": {"to": "Name"},
+    "Location": {"to": "Location Description"},
+    "Dedication Date": {"to": "Year Dedicated", "year": 1},
+    "Dedication By": {"to": "Sponsors", "delimeter": "\\|"},
+    "Marker Description": {"to": "Text"}
+  },
+  "notes": [
+    "Source data scraped from website"
+  ]
+}
