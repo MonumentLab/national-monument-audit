@@ -6,16 +6,17 @@
   "url": "https://dahp.wa.gov/historic-preservation/find-a-historic-place",
   "geographicCoverage": "state",
   "state": "WA",
-  "dataPath": "data/vendor/al/washington_wisaard_register_public_wgs84.csv",
+  "dataPath": "data/vendor/wa/washington_wisaard_register_public_wgs84.csv",
   "dateDataAccessed": "2021-02-14",
-  "properties": ["X", "Y", "AddressLine1", "ConstructionYear", "ResourceID", "RegisterName"],
+  "properties": ["X", "Y", "AddressLine1", "ConstructionYear", "ResourceID", "RegisterName", "RegisterTypeName"],
   "mappings": {
     "Y": {"to": "Latitude"},
     "X": {"to": "Longitude"},
     "ResourceID": {"to": "Vendor Entry ID"},
     "RegisterName": {"to": "Name"},
     "AddressLine1": {"to": "Street Address"},
-    "ConstructionYear": {"to": "Year Constructed", "year": 1}
+    "ConstructionYear": {"to": "Year Constructed", "year": 1},
+    "RegisterTypeName": {"to": "Designations", "delimeter": ";"}
   },
   "notes": [
     "Source data exported from website and supplemented by json exports to get lat/lon",
