@@ -245,6 +245,11 @@ def stringToYear(value, minYear=1000, maxYear=2050):
                 break
     return year
 
+def stripTags(text):
+    text = str(text)
+    text = re.sub('<[^<]+?>', '', text)
+    return text
+
 def timestampToYear(value, isMilliseconds=False):
     yearValue = None
     intValue = parseInt(value, defaultValue=False)

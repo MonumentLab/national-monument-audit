@@ -15,6 +15,7 @@ from lib.string_utils import *
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Input .csv data file")
 parser.add_argument('-entities', dest="ENTITIES_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Input entities .csv data file")
+parser.add_argument('-filter', dest="FILTER", default="", help="Filter string")
 parser.add_argument('-config', dest="CONFIG_FILE", default="config/data-model.json", help="Input config .json file")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
 parser.add_argument('-out', dest="OUTPUT_DIR", default="search-index/documents-latest/", help="Output directory")
@@ -28,6 +29,11 @@ a = parser.parse_args()
 
 fields, rows = readCsv(a.INPUT_FILE)
 dataModel = readJSON(a.CONFIG_FILE)
+
+if len(a.FILTER) > 0:
+    rows = filterByQueryString(rows, a.FILTER)
+    rowCount = len(rows)
+    print(f'{rowCount} rows after filtering')
 
 entFields, entRows = readCsv(a.ENTITIES_FILE)
 entLookup = {}

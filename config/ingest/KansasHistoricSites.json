@@ -1,0 +1,27 @@
+{
+  "id": "kstravel",
+  "name": "Kansas Historic Sites",
+  "verboseName": "Kansas Historic Sites",
+  "provider": "Kansas Tourism Office",
+  "url": "https://www.travelks.com/things-to-do/history-heritage/historic-sites/",
+  "geographicCoverage": "state",
+  "state": "KS",
+  "dataPath": "data/vendor/ks/travelks.csv",
+  "dateDataAccessed": "2021-02-16",
+  "properties": ["recid", "title", "address1", "city", "description", "absolute_url", "latitude", "longitude", "primary_image_url", "categories"],
+  "mappings": {
+    "latitude": {"to": "Latitude"},
+    "longitude": {"to": "Longitude"},
+    "recid": {"to": "Vendor Entry ID"},
+    "title": {"to": "Name"},
+    "address1": {"to": "Street Address"},
+    "city": {"to": "City"},
+    "description": {"to": "Description"},
+    "absolute_url": {"to": "URL"},
+    "primary_image_url": {"to": "Image"},
+    "categories": {"to": "Subjects", "delimeter": "\\|"}
+  },
+  "notes": [
+    "Source data scraped from website"
+  ]
+}
