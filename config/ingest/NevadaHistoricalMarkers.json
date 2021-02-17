@@ -1,0 +1,24 @@
+{
+  "id": "nvmarkers",
+  "name": "Nevada State Historical Markers",
+  "verboseName": "Nevada State Historical Markers",
+  "provider": "Nevada State Historic Preservation Office",
+  "url": "https://shpo.nv.gov/nevadas-historical-markers/historical-markers",
+  "geographicCoverage": "state",
+  "state": "NV",
+  "dataPath": "data/vendor/nv/historical-markers.csv",
+  "dateDataAccessed": "2021-02-17",
+  "properties": ["node_id", "title", "latitude", "longitude", "city", "county", "url", "Description"],
+  "mappings": {
+    "latitude": {"to": "Latitude"},
+    "longitude": {"to": "Longitude"},
+    "node_id": {"to": "Vendor Entry ID"},
+    "title": {"to": "Name"},
+    "city": {"to": "City"},
+    "county": {"to": "County"},
+    "url": {"to": "URL"}
+  },
+  "notes": [
+    "Source data description was scraped from website"
+  ]
+}
