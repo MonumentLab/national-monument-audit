@@ -1,0 +1,20 @@
+{
+  "id": "ndhs",
+  "name": "State Historic Sites of North Dakota",
+  "verboseName": "State Historic Sites of North Dakota",
+  "provider": "The State Historical Society of North Dakota",
+  "url": "https://www.google.com/maps/d/u/0/viewer?mid=1FkEzCbJ5HJmFQqEyW7bdRDtdt8w&ll=47.5543602788529%2C-100.36009100000001&z=7",
+  "geographicCoverage": "state",
+  "state": "ND",
+  "dataPath": "data/vendor/nd/State Historic Sites of North Dakota.csv",
+  "dateDataAccessed": "2021-02-07",
+  "properties": ["X", "Y", "Name", "description"],
+  "mappings": {
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "description": {"to": "Description"}
+  },
+  "notes": [
+    "Source data transformed from kml via QGIS"
+  ]
+}

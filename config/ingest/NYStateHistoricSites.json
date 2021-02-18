@@ -1,0 +1,16 @@
+{
+  "id": "nyshs",
+  "name": "New York State Historic Sites",
+  "verboseName": "New York State Historic Sites",
+  "provider": "New York State Office of Parks, Recreation and Historic Preservation",
+  "url": "https://data.ny.gov/Recreation/State-Historic-Sites/m384-u5q6",
+  "geographicCoverage": "state",
+  "state": "NY",
+  "dataPath": "data/vendor/ny/State_Historic_Sites.csv",
+  "dateDataAccessed": "2021-02-06",
+  "properties": ["Name", "County", "Facility URL", "Longitude", "Latitude"],
+  "mappings": {
+    "Facility URL": {"to": "URL"}
+  },
+  "notes": []
+}
