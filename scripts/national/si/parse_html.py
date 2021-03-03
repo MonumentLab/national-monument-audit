@@ -34,7 +34,7 @@ stateMap = getStates()
 states = stateMap.keys()
 stateCount = len(states)
 
-fieldnames = ["Name", "Id", "Url", "Latitude", "Longitude"]
+fieldnames = ["Name", "Id", "Url", "Latitude", "Longitude", "State"]
 
 def parseHTMLFile(fn):
     global fieldnames
@@ -106,7 +106,6 @@ def parseHTMLFile(fn):
 
             item[dkey] = dvalue
 
-
         items.append(item)
 
     return items
@@ -117,9 +116,14 @@ for i, stateString in enumerate(states):
     stateFilesString = a.HTML_FILE % (stateId + '-*')
     print(f'Parsing {stateFilesString}')
     stateFilenames = getFilenames(stateFilesString)
+    stateAbbrev = stateMap[stateString]
 
     for fn in stateFilenames:
         fileItems = parseHTMLFile(fn)
+
+        for j, item in enumerate(fileItems):
+            fileItems[j]["State"] = stateAbbrev
+
         if len(fileItems) > 0:
             items += fileItems
 
