@@ -169,7 +169,12 @@ var Dashboard = (function() {
     _.each(sources, function(s){
       html += '<div class="data-source">';
         var name = s.verboseName ? s.verboseName : s.name;
-        html += '<h4><a href="'+s.url+'" target="_blank">'+name+' 🔗</a></h4>';
+        var searchQ = {
+          q: '',
+          facets: 'source~'+s.name
+        };
+        var searchUrl = 'search.html?' + $.param(searchQ);
+        html += '<h4>'+name+' <a href="'+s.url+'" target="_blank" class="button small">source link</a> <a href="'+searchUrl+'" class="button small">browse data</a></h4>';
 
         html += '<div class="record-count-container">';
           if (s.percentOfTotal > 0) html += '<div class="record-count-bar" style="width: '+s.percentOfTotal+'%"></div>';

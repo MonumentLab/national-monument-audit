@@ -35,6 +35,13 @@ button:hover {
 button.large {
   font-size: 1.3rem;
 }
+.button.small,
+button.small {
+  font-size: 0.9rem;
+  padding: 2px 4px;
+  border-width: 1px;
+  vertical-align: middle;
+}
 code {
   background: #ddd;
   font-size: 0.9rem;
