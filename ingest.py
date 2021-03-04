@@ -356,18 +356,24 @@ def applyDataTypeConditions(rows, dataType):
             isFirstWord = ("startswith" in cond)
             isLastWord = ("endswith" in cond)
             words = []
-            for word in cond["words"]:
-                words.append(word)
-                if pluralize:
-                    pword = pluralizeString(word)
-                    if pword != word:
-                        words.append(pword)
+            if "words" in cond:
+                for word in cond["words"]:
+                    words.append(word)
+                    if pluralize:
+                        pword = pluralizeString(word)
+                        if pword != word:
+                            words.append(pword)
+            phrases = cond["phrases"] if "phrases" in cond else []
             for field in cond["fields"]:
                 if field not in row:
                     continue
                 rawValue = row[field]
                 for word in words:
                     if containsWord(rawValue, word, isFirstWord, isLastWord):
+                        isValid = True
+                        break
+                for phrase in phrases:
+                    if containsPhrase(rawValue, phrase):
                         isValid = True
                         break
                 if isValid:

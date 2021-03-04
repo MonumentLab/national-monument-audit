@@ -38,10 +38,15 @@
         {
           "words": ["marker"],
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
-        },{
-          "words": ["marker"],
-          "startswith": 1,
-          "fields": ["Location Description"]
+        }
+      ]
+    },{
+      "name": "Monument Types",
+      "value": "Site",
+      "conditions": [
+        {
+          "phrases": ["national monument"],
+          "fields": ["Name", "Alternate Name"]
         }
       ]
     },{
@@ -61,6 +66,16 @@
         }
       ]
     },{
+      "name": "Monument Types",
+      "value": "Marker",
+      "conditions": [
+        {
+          "words": ["marker"],
+          "startswith": 1,
+          "fields": ["Location Description"]
+        }
+      ]
+    }, {
       "name": "Monument Types",
       "value": "Building",
       "conditions": [

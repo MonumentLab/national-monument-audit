@@ -21,6 +21,7 @@
   },
   "notes": [
     "Retrieved data from <a href=\"https://collections.si.edu/search/results.htm?date.slider=&q=&dsort=&fq=object_type%3A%22Outdoor+sculpture%22&fq=data_source%3A%22Art+Inventories+Catalog%2C+Smithsonian+American+Art+Museum%22\" target=\"_blank\">online portal</a>.",
-    "May also need to scrape additional metadata from full record: <a href=\"https://siris-artinventories.si.edu/ipac20/ipac.jsp?&profile=ariall&source=~!siartinventories&uri=full=3100001~!436206~!0#focus\" target=\"_blank\">example</a>"
+    "May also need to scrape additional metadata from full record: <a href=\"https://siris-artinventories.si.edu/ipac20/ipac.jsp?&profile=ariall&source=~!siartinventories&uri=full=3100001~!436206~!0#focus\" target=\"_blank\">example</a>",
+    "Dates look like a non-standardized mix of commissioned, installed, and dedicated"
   ]
 }

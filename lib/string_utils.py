@@ -22,6 +22,12 @@ def cleanText(value):
 
     return value
 
+def containsPhrase(rawValue, phrase):
+    value = str(rawValue).lower().strip()
+    phrase = str(phrase).lower().strip()
+
+    return (phrase in value)
+
 def containsWord(rawValue, word, isFirstWord=False, isLastWord=False, caseSensitive=False):
     response = False
 
