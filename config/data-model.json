@@ -13,6 +13,7 @@
     {"key": "Status", "type": "string", "format": ["title"]},
     {"key": "URL", "type": "string"},
     {"key": "State", "type": "string", "format": ["state"]},
+    {"key": "Location Description", "type": "text"},
     {"key": "Year Dedicated Or Constructed", "type": "int"},
     {"key": "Creators", "type": "string_list", "facetAndSearch": true, "format": ["name"]},
     {"key": "Subjects", "type": "string_list", "facetAndSearch": true, "format": ["title"]},
@@ -28,7 +29,12 @@
     {"key": "Wikipedia", "type": "string"},
     {"key": "Image", "type": "string"},
     {"key": "Entities People", "type": "string_list"},
-    {"key": "Entities Events", "type": "string_list"}
+    {"key": "Entities Events", "type": "string_list"},
+    {"key": "Is Verified", "type": "int"},
+    {"key": "Is Duplicate", "type": "int"},
+    {"key": "Has Duplicates", "type": "int"},
+    {"key": "Duplicates", "type": "string_list"},
+    {"key": "Duplicate Of", "type": "string"}
   ],
   "types": [
     {

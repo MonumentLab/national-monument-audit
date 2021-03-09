@@ -6,6 +6,7 @@
   "url": "https://wiki.openstreetmap.org/wiki/Key:historic",
   "geographicCoverage": "national",
   "dataPath": "data/vendor/national/osm/quickOSM/*.csv",
+  "sourceType": "Crowdsourced",
   "dateDataAccessed": "2020-12-13",
   "needsMerge": true,
   "properties": ["osm_id", "X", "Y", "memorial", "monument", "historic", "name", "inscription", "material", "start_date", "wikidata", "description", "wikipedia", "website", "owner", "artist_name", "artwork_type", "addr_city", "addr_state", "addr_street", "image"],

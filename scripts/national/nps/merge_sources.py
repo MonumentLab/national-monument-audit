@@ -21,6 +21,7 @@ from lib.string_utils import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/vendor/national/nps/nps_nrhp_combined.csv", help="Where to store merged data")
+parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 a = parser.parse_args()
 
 files = [
@@ -66,6 +67,21 @@ files = [
             "STATE": "State",
             "LISTED_DAT": "Listed_Dat"
         }
+    },{
+        "filename": "data/vendor/mt/Montana National Register of Historic Places.csv",
+        "id": "NR_Referen",
+        "State": "MT",
+        "columns": {
+            "NR_Referen": "NRIS_Refnu",
+            "Name": "RESNAME",
+            "Street_Add": "Address",
+            "City": "City",
+            "County": "County",
+            "X": "X",
+            "Y": "Y",
+            "Type": "ResType",
+            "Nomination": "NARA_URL"
+        }
     }
 ]
 
@@ -94,6 +110,9 @@ for f in files:
                 fieldsOut.append(colTo)
         mergedRows.append(newRow)
     print(f' {newEntries} new entries found.')
+
+if a.PROBE:
+    sys.exit()
 
 makeDirectories(a.OUTPUT_FILE)
 writeCsv(a.OUTPUT_FILE, mergedRows, headings=fieldsOut)

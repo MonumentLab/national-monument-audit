@@ -84,7 +84,13 @@ var Item = (function() {
           var isList = Array.isArray(value);
           html += '<tr>';
             html += '<td>'+key.replace('_search', '').replaceAll('_', ' ')+'</td>';
-            if (isList) {
+            if (isList && key === 'duplicates') {
+              value = _.map(value, function(v){
+                var dupeUrl =  'item.html?' + $.param({'id': v});
+                return '<a href="'+dupeUrl+'" target="_blank" class="button">'+v+'</a>';
+              })
+              value = value.join(' ');
+            } else if (isList) {
               value = _.map(value, function(v){
                 var params = {
                   q: '',
@@ -98,6 +104,11 @@ var Item = (function() {
               value = '<a href="'+value+'" target="_blank">'+value+'</a>';
             } else if (key === 'latlon') {
               value = '<a href="https://www.google.com/maps/search/?api=1&query='+value.replace(' ','')+'" target="_blank">'+value+'</a>';
+            } else if (key === 'image') {
+              value = '<a href="'+value+'" target="_blank">Image link</a>';
+            } else if (key === 'duplicate_of') {
+              var parentItemUrl = 'item.html?' + $.param({'id': value});
+              value = '<a href="'+parentItemUrl+'" target="_blank" class="button">'+value+'</a>';
             }
             html += '<td>'+value+'</td>';
           html += '</tr>';

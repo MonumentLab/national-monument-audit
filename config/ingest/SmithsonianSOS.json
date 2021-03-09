@@ -7,6 +7,7 @@
   "geographicCoverage": "national",
   "dataPath": "data/vendor/national/si/sos_data.csv",
   "dateDataAccessed": "2021-02-01",
+  "priority": 2,
   "properties": ["Name", "Id", "Url", "State", "Latitude", "Longitude", "Sculptor", "Founder", "Medium", "Type", "Owner/Location", "Date", "Topic"],
   "mappings": {
     "Id": {"to": "Vendor Entry ID"},

@@ -9,6 +9,7 @@
   "dataPath": "data/vendor/mt/Montana National Register of Historic Places.csv",
   "dateDataAccessed": "2021-02-07",
   "properties": ["X", "Y", "Name", "Type", "Street_Add", "Listing_Da", "NR_Referen", "Nomination", "Image", "County", "City"],
+  "isDisabled": true,
   "mappings": {
     "Y": {"to": "Latitude"},
     "X": {"to": "Longitude"},
@@ -19,6 +20,7 @@
     "Nomination": {"to": "URL"}
   },
   "notes": [
-    "Source data transformed from geojson via <a href=\"https://montana.maps.arcgis.com/apps/webappviewer/index.html?id=5378695ae71b414ba66f478fc57241f6\">public ArcGIS interface</a>"
+    "Source data transformed from geojson via <a href=\"https://montana.maps.arcgis.com/apps/webappviewer/index.html?id=5378695ae71b414ba66f478fc57241f6\">public ArcGIS interface</a>",
+    "Source data already contained in NPS National Register of Historic Places"
   ]
 }

@@ -7,6 +7,7 @@
   "geographicCoverage": "national",
   "dataPath": "data/vendor/national/nps/nps_nrhp_combined.csv",
   "dateDataAccessed": "2021-01-20",
+  "priority": 1,
   "properties": ["X", "Y", "NRIS_Refnu", "RESNAME", "ResType", "Address", "City", "County", "State", "Listed_Dat", "NARA_URL"],
   "mappings": {
     "NRIS_Refnu": {"to": "Vendor Entry ID"},

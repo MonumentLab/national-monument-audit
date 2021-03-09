@@ -5,6 +5,7 @@
   "provider": "HMdb Historical Marker Database",
   "url": "https://www.hmdb.org/geolists.asp",
   "geographicCoverage": "national",
+  "sourceType": "Crowdsourced",
   "dataPath": "data/vendor/national/hmdb/HMdb-Historical-Markers-and-War-Memorials*.csv",
   "additionalData": ["data/vendor/national/hmdb/hmdb_additional_metadata.csv"],
   "dateDataAccessed": "2020-12-04",

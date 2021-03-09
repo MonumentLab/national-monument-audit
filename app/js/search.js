@@ -5,7 +5,7 @@ var Search = (function() {
   function Search(config) {
     var defaults = {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
-      'returnFacets': ['monument_types', 'entities_people', 'entities_events', 'source', 'subjects', 'object_types', 'creators', 'city', 'county', 'sponsors', 'state', 'status', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
+      'returnFacets': ['monument_types', 'is_duplicate', 'has_duplicates', 'entities_people', 'entities_events', 'source', 'subjects', 'object_types', 'creators', 'city', 'county', 'sponsors', 'state', 'status', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
       'facetSize': 30,
       'customFacetSizes': {
         'state': 100,
@@ -397,7 +397,12 @@ var Search = (function() {
           var id = 'facet-'+key+'-'+j;
           var checked = '';
           if (_.has(selectedFacets, key) && _.indexOf(selectedFacets[key], bucket.value) >= 0) checked = 'checked ';
-          html += '<label for="'+id+'"><input type="checkbox" name="'+key+'" id="'+id+'" value="'+bucket.value+'" class="facet-checkbox" '+checked+'/>'+bucket.value+' ('+Util.formatNumber(bucket.count)+')</label>'
+          var label = ''+bucket.value;
+          if (title.startsWith("is ") || title.startsWith("has ")) {
+            if (label=="1") label = "yes";
+            else if (label=="0") label = "no";
+          }
+          html += '<label for="'+id+'"><input type="checkbox" name="'+key+'" id="'+id+'" value="'+bucket.value+'" class="facet-checkbox" '+checked+'/>'+label+' ('+Util.formatNumber(bucket.count)+')</label>'
         });
         html += '<button type="button" class="apply-facet-changes-button">Apply all changes</button>';
         html += '</div>';
@@ -495,7 +500,13 @@ var Search = (function() {
           var isList = Array.isArray(value);
           html += '<tr>';
             html += '<td>'+key.replace('_search', '').replaceAll('_', ' ')+'</td>';
-            if (isList) {
+            if (isList && key === 'duplicates') {
+              value = _.map(value, function(v){
+                var dupeUrl =  'item.html?' + $.param({'id': v});
+                return '<a href="'+dupeUrl+'" target="_blank" class="button">'+v+'</a>';
+              })
+              value = value.join(' ');
+            } else if (isList) {
               value = _.map(value, function(v){
                 var params = {
                   q: '',
@@ -511,6 +522,9 @@ var Search = (function() {
               value = '<a href="https://www.google.com/maps/search/?api=1&query='+value.replace(' ','')+'" target="_blank">'+value+'</a>';
             } else if (key === 'image') {
               value = '<a href="'+value+'" target="_blank">Image link</a>';
+            } else if (key === 'duplicate_of') {
+              var parentItemUrl = 'item.html?' + $.param({'id': value});
+              value = '<a href="'+parentItemUrl+'" target="_blank" class="button">'+value+'</a>';
             }
             html += '<td>'+value+'</td>';
           html += '</tr>';

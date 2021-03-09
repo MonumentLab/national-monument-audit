@@ -8,8 +8,10 @@ import re
 import sys
 
 from lib.collection_utils import *
+from lib.data_utils import *
 from lib.geo_utils import *
 from lib.io_utils import *
+from lib.math_utils import *
 from lib.string_utils import *
 
 # input
@@ -33,6 +35,8 @@ dataSources = []
 for fn in filenames:
     data = readJSON(fn)
     data["configFile"] = fn.replace("\\", "/")
+    if "isDisabled" in data and data["isDisabled"]:
+        continue
     dataSources.append(data)
 
 ################################################################
@@ -128,6 +132,18 @@ for dSourceIndex, d in enumerate(dataSources):
             rowOut["County"] = d["county"]
         if "city" in d:
             rowOut["City"] = d["city"]
+
+        # set source priority
+        if "priority" in d:
+            rowOut["Source Priority"] = d["priority"]
+        else:
+            rowOut["Source Priority"] = 999
+
+        # set source type
+        if "sourceType" in d:
+            rowOut["Source Type"] = d["sourceType"]
+        else:
+            rowOut["Source Type"] = "Official"
 
         # inherit object type defaults
         if "objectTypes" in d:
@@ -335,67 +351,16 @@ for row in rowsOut:
 rowsOut = validRows
 
 # break down by type
-
-def applyDataTypeConditions(rows, dataType):
-    conditionRows = []
-    remainingRows = []
-    name = dataType["name"]
-    value = dataType["value"]
-
-    if "remainder" in dataType:
-        for row in rows:
-            row[name] = value
-            conditionRows.append(row)
-        return (conditionRows, remainingRows)
-
-    conditions = dataType["conditions"]
-    for row in rows:
-        isValid = False
-        for cond in conditions:
-            pluralize = ("pluralize" in cond)
-            isFirstWord = ("startswith" in cond)
-            isLastWord = ("endswith" in cond)
-            words = []
-            if "words" in cond:
-                for word in cond["words"]:
-                    words.append(word)
-                    if pluralize:
-                        pword = pluralizeString(word)
-                        if pword != word:
-                            words.append(pword)
-            phrases = cond["phrases"] if "phrases" in cond else []
-            for field in cond["fields"]:
-                if field not in row:
-                    continue
-                rawValue = row[field]
-                for word in words:
-                    if containsWord(rawValue, word, isFirstWord, isLastWord):
-                        isValid = True
-                        break
-                for phrase in phrases:
-                    if containsPhrase(rawValue, phrase):
-                        isValid = True
-                        break
-                if isValid:
-                    break
-            if isValid:
-                break
-        if isValid:
-            row[name] = value
-            conditionRows.append(row)
-        else:
-            remainingRows.append(row)
-
-    return (conditionRows, remainingRows)
-
 print("Determining monument types...")
 dateTypeGroups = groupList(dataTypes, "name")
 rowsByDataType = {}
 for dataTypeGroup in dateTypeGroups:
     name = dataTypeGroup["name"]
+    print(f'  {name}...')
     remainingRows = rowsOut[:]
     updatedRows = []
-    for dataType in dataTypeGroup["items"]:
+    itemCount = len(dataTypeGroup["items"])
+    for j, dataType in enumerate(dataTypeGroup["items"]):
         conditionRows, remainingRows = applyDataTypeConditions(remainingRows, dataType)
         updatedRows += conditionRows
         if len(conditionRows) > 0:
@@ -403,9 +368,13 @@ for dataTypeGroup in dateTypeGroups:
                 rowsByDataType[dataType["value"]] += conditionRows
             else:
                 rowsByDataType[dataType["value"]] = conditionRows
+        printProgress(j+1, itemCount, prepend="  ")
     if len(remainingRows) > 0:
         updatedRows += remainingRows
     rowsOut = updatedRows[:]
+
+print("Looking for duplicates...")
+duplicateCount, duplicateRows, rowsOut = applyDuplicationFields(rowsOut)
 
 if a.PROBE:
     sys.exit()
@@ -416,10 +385,13 @@ if a.PROBE:
 fieldsOut = ["Id", "Vendor ID", ID_NAME]
 for row in rowsOut:
     for field in row:
-        if field not in fieldsOut:
+        if field not in fieldsOut and not field.startswith("_"):
             fieldsOut.append(field)
 makeDirectories(a.OUTPUT_FILE)
 writeCsv(a.OUTPUT_FILE, rowsOut, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
+
+# write duplicate rows
+writeCsv(appendToFilename(a.OUTPUT_FILE, "_duplicates"), duplicateRows, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
 # write type-specific output
 for typeValue, typeRows in rowsByDataType.items():
@@ -446,6 +418,7 @@ summaryData = {}
 summaryData["dataSourceTotal"] = formatNumber(dataSourceTotal)
 summaryData["dataRecordTotal"] = formatNumber(dataRecordTotal)
 summaryData["dataRecordAverage"] = formatNumber(round(1.0 * dataRecordTotal / dataSourceTotal))
+summaryData["dataRecordDuplicates"] = formatNumber(duplicateCount)
 
 ################################################################
 # Generate data source data
