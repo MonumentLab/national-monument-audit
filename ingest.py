@@ -20,6 +20,7 @@ parser.add_argument('-config', dest="INPUT_FILE", default="config/ingest/*.json"
 parser.add_argument('-model', dest="DATA_MODEL_FILE", default="config/data-model.json", help="Input .json data model file")
 parser.add_argument('-app', dest="APP_DIRECTORY", default="app/", help="App directory")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
+parser.add_argument('-geo', dest="GEOCACHE_FILE", default="data/preprocessed/geocoded.csv", help="Cached csv file for storing geocoded addresses")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Output csv file")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 a = parser.parse_args()
@@ -349,6 +350,13 @@ for row in rowsOut:
     if isValid:
         validRows.append(row)
 rowsOut = validRows
+
+# Validate lat/lon
+print("Checking lat/lon data...")
+rowsOut = applyGeoTypes(rowsOut)
+geoValueCounts = getCounts(rowsOut, "Geo Type")
+for value, count in geoValueCounts:
+    print(f'  {value}: {formatNumber(count)}')
 
 # break down by type
 print("Determining monument types...")
