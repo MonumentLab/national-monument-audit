@@ -70,7 +70,8 @@ def applyDuplicationFields(rows, latlonPrecision=2):
     for i, row in enumerate(rows):
         lat = roundInt(row["Latitude"] * multiplier) if "Latitude" in row and isNumber(row["Latitude"]) else ""
         lon = roundInt(row["Longitude"] * multiplier) if "Longitude" in row and isNumber(row["Longitude"]) else ""
-        if lat == "" or lon == "":
+        # exclude entries with only approximated
+        if lat == "" or lon == "" or row["Geo Type"] not in ("Exact coordinates provided", "Geocoded based on street address provided"):
             continue
         row["_latlonGroup"] = (lat, lon)
         row["_nameGroup"] = normalizeName(row["Name"])
@@ -94,8 +95,8 @@ def applyDuplicationFields(rows, latlonPrecision=2):
 
             itemsBySource = groupList(itemsSortedByPriority, "Vendor ID")
             # all items are from the same source and the source is official, assume they are not duplicates
-            if len(itemsBySource) <= 1 and primaryRecord["Source Type"] == "Official":
-                continue
+            # if len(itemsBySource) <= 1 and primaryRecord["Source Type"] == "Official":
+            #     continue
 
             duplicateRecords = itemsSortedByPriority[1:]
 

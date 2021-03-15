@@ -35,7 +35,15 @@
     {"key": "Has Duplicates", "type": "int"},
     {"key": "Duplicates", "type": "string_list"},
     {"key": "Duplicate Of", "type": "string"},
-    {"key": "Geo Type", "type": "string"}
+    {"key": "Geo Type", "type": "string", "values": [
+        "No coordinates provided",
+        "Exact coordinates provided",
+        "Approximate coordinates provided",
+        "Geocoded based on street address provided",
+        "Approximate coordinates geocoded based on city",
+        "No geographic data provided",
+        "No valid geographic data provided"
+    ]}
   ],
   "types": [
     {
