@@ -257,3 +257,7 @@ body.loading .timeline-container {
   text-align: center;
   border-radius: 2px;
 }
+
+#dupe-results {
+  margin-left: 40px;
+}

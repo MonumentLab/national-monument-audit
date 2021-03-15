@@ -34,6 +34,7 @@ var Item = (function() {
 
   Item.prototype.load = function(){
     this.$results = $('#search-results');
+    this.$dupes = $('#dupe-results');
     this.query();
   };
 
@@ -42,6 +43,7 @@ var Item = (function() {
 
     if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
       this.renderResults(resp.hits.hit);
+      this.queryDuplicates(resp.hits.hit[0])
 
     } else {
       this.renderResults([]);
@@ -60,8 +62,38 @@ var Item = (function() {
     });
   };
 
-  Item.prototype.renderResults = function(results){
-    this.$results.empty();
+  Item.prototype.queryDuplicates = function(result){
+    var _this = this;
+    var id = result.id;
+    var fields = result.fields;
+    if (!_.has(fields, 'duplicates')) return;
+
+    var duplicateIds = fields.duplicates;
+    var qstring = _.map(duplicateIds, function(id){ return "_id:'"+id+"'" });
+    qstring = qstring.join(" ");
+    qstring = '(or '+qstring+')';
+
+    var q = {
+      q: qstring,
+      size: duplicateIds.length
+    };
+    q['q.parser'] = 'structured';
+    var queryString = $.param(q);
+
+    var url = this.opt.endpoint + '?' + queryString;
+    console.log('Duplicates URL: ', url);
+
+    $.getJSON(url, function(resp) {
+      if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
+        _this.renderResults(resp.hits.hit, _this.$dupes);
+        _this.$dupes.prepend($('<h2>Duplicate entries</h2>'));
+      }
+    });
+  };
+
+  Item.prototype.renderResults = function(results, $el){
+    $el = $el || this.$results;
+    $el.empty();
     if (!results || !results.length) return;
     var html = '';
 
@@ -117,7 +149,7 @@ var Item = (function() {
       html += '</li>';
     });
     html += '</ul>';
-    this.$results.html(html);
+    $el.html(html);
   };
 
   return Item;
