@@ -2,6 +2,7 @@
 
 import argparse
 from datetime import datetime
+from geopy.geocoders import Nominatim
 import os
 from pprint import pprint
 import re
@@ -354,9 +355,14 @@ rowsOut = validRows
 # Validate lat/lon
 print("Checking lat/lon data...")
 rowsOut = applyGeoTypes(rowsOut)
+
+print("Geocoding data...")
+geolocator = Nominatim(user_agent="national-monument-audit/1.0 (brian.foo@monumentlab.com)")
+rowsOut = geocodeItems(rowsOut, a.GEOCACHE_FILE, geolocator)
 geoValueCounts = getCounts(rowsOut, "Geo Type")
 for value, count in geoValueCounts:
     print(f'  {value}: {formatNumber(count)}')
+sys.exit()
 
 # break down by type
 print("Determining monument types...")

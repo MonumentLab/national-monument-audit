@@ -122,6 +122,9 @@ def getStates():
         "Virgin Islands": "VI"
     }
 
+def itemNotEmpty(row, key):
+    return (key in row and len(str(row[key]).strip()) > 0)
+
 def itemToId(row):
     if "Vendor ID" not in row:
         return None

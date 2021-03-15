@@ -7,3 +7,5 @@ utm
 pyshp
 # For name entity extraction
 spacy
+# For geocoding addresses
+geopy
