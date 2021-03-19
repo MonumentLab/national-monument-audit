@@ -362,7 +362,6 @@ rowsOut = geocodeItems(rowsOut, a.GEOCACHE_FILE, geolocator)
 geoValueCounts = getCounts(rowsOut, "Geo Type")
 for value, count in geoValueCounts:
     print(f'  {value}: {formatNumber(count)}')
-sys.exit()
 
 # break down by type
 print("Determining monument types...")

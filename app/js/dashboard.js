@@ -104,6 +104,7 @@ var Dashboard = (function() {
       "facet.honorees": "{sort:'count', size:10}",
       "facet.monument_types": "{sort:'count', size:10}",
       "facet.object_types": "{sort:'count', size:10}",
+      "facet.geo_type": "{sort:'count', size:10}",
       "facet.sponsors": "{sort:'count', size:10}",
       "facet.status": "{sort:'count', size:10}",
       "facet.subjects": "{sort:'count', size:10}",
@@ -117,6 +118,8 @@ var Dashboard = (function() {
     return $.getJSON(url, function(resp) {
       _this.facetData =  _.omit(resp.facets, 'monument_types');
       _this.monumentTypes = resp.facets.monument_types;
+      _this.facetData =  _.omit(resp.facets, 'geo_type');
+      _this.geoTypes = resp.facets.geo_type;
     });
 
   };
@@ -129,21 +132,29 @@ var Dashboard = (function() {
     var facets = new Facets({data: this.recordData, yearRange: this.timeline.range});
   };
 
-  Dashboard.prototype.loadObjectTypes = function(){
-    var sum = _.reduce(this.monumentTypes.buckets, function(memo, bucket){ return memo + bucket.count; }, 0);
-    var barData = _.map(this.monumentTypes.buckets, function(bucket){
-      var params = {
-        facets: 'monument_types~'+bucket.value,
-        q: ''
-      }
-      return {
-        percent: MathUtil.round(bucket.count / sum * 100, 2),
-        count: bucket.count,
-        label: bucket.value,
-        url: 'search.html?' + $.param(params)
-      }
+  Dashboard.prototype.loadBarCharts = function(){
+    var _this = this;
+    var fields = [
+      {key: 'monumentTypes', facet_key: 'monument_types', el: '#data-types'},
+      {key: 'geoTypes', facet_key: 'geo_type', el: '#geo-types'}
+    ];
+
+    _.each(fields, function(field){
+      var sum = _.reduce(_this[field.key].buckets, function(memo, bucket){ return memo + bucket.count; }, 0);
+      var barData = _.map(_this[field.key].buckets, function(bucket){
+        var params = {
+          facets: field.facet_key+'~'+bucket.value,
+          q: ''
+        }
+        return {
+          percent: MathUtil.round(bucket.count / sum * 100, 2),
+          count: bucket.count,
+          label: bucket.value,
+          url: 'search.html?' + $.param(params)
+        }
+      });
+      _this.loadBars($(field.el), barData);
     });
-    this.loadBars($('#data-types'), barData);
   };
 
   Dashboard.prototype.loadPieCharts = function(){
@@ -284,7 +295,7 @@ var Dashboard = (function() {
   Dashboard.prototype.onFacetDataLoaded = function(){
     this.loadDataTables();
     this.loadPieCharts();
-    this.loadObjectTypes();
+    this.loadBarCharts();
   };
 
   Dashboard.prototype.onRecordDataLoaded = function(){
