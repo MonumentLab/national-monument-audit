@@ -39,7 +39,7 @@ while True:
 
     if not os.path.isfile(filename) or a.OVERWRITE:
 
-        url = f'https://njwebmap.state.nj.us/arcgis/rest/services/Features/Land/MapServer/55/query?f=json&where=(DIGIPOST%20%3D%204)%20AND%20(DEMOLISHED%20%3C%3E%20%27YES%27)&returnGeometry=false&spatialRel=esriSpatialRelIntersects&geometry=%7B%22xmin%22%3A-8699525.138486328%2C%22ymin%22%3A4700378.730237906%2C%22xmax%22%3A-7900299.570736563%2C%22ymax%22%3A5070945.443364422%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%7D%7D&geometryType=esriGeometryEnvelope&inSR=102100&outFields=*&orderByFields=OBJECTID%20ASC&outSR=102100&resultOffset={offset}&resultRecordCount={per_page}'
+        url = f'https://njwebmap.state.nj.us/arcgis/rest/services/Features/Land/MapServer/55/query?f=json&where=(DIGIPOST%20%3D%204)%20AND%20(DEMOLISHED%20%3C%3E%20%27YES%27)&returnGeometry=geojson&spatialRel=esriSpatialRelIntersects&geometry=%7B%22xmin%22%3A-8699525.138486328%2C%22ymin%22%3A4700378.730237906%2C%22xmax%22%3A-7900299.570736563%2C%22ymax%22%3A5070945.443364422%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%7D%7D&geometryType=esriGeometryEnvelope&inSR=102100&outFields=*&orderByFields=OBJECTID%20ASC&outSR=102100&resultOffset={offset}&resultRecordCount={per_page}'
 
         if a.PROBE:
             print(url)
