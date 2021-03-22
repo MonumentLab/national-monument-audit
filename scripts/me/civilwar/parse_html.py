@@ -64,7 +64,18 @@ def parseHTMLFile(fn):
             continue
 
         key, value = tuple(content.split(":", 1))
-        item[key.strip()] = value.strip()
+        key = key.strip()
+        value = value.strip()
+
+        if key == "Town/County":
+            town = value
+            county = ""
+            if "/" in value:
+                town, county = tuple(value.split("/", 1))
+            item["City"] = town
+            item["County"] = county
+        else:
+            item[key] = value
 
     img = table.find("img")
     if img:
