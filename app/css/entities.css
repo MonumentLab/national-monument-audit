@@ -45,11 +45,22 @@ nav select {
 .entity.active {
   display: inline-block;
 }
-.entity:hover {
+a.entity:hover {
   background: #ccc;
   color: black;
 }
 .entity img {
   display: block;
   margin: auto;
+  border: 2px solid transparent;
+}
+.entity a {
+  color: white;
+  text-decoration: none;
+}
+.entity a:hover {
+  text-decoration: underline;
+}
+div.entity img:hover {
+  border-color: white;
 }

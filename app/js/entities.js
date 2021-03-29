@@ -64,6 +64,7 @@ var WordCloud = (function() {
       var count = row['Count'];
       var em = row.em;
       var url = linkPattern.replaceAll('{}', text);
+      var wikiurl = 'https://en.wikipedia.org/wiki/' + row['Name'].replaceAll(' ', '_');
       var isActive = true;
 
       _.each(entityFacets, function(index, key){
@@ -73,10 +74,10 @@ var WordCloud = (function() {
       var active = isActive ? ' active' : '';
       if (_.has(row, 'Image Filename') && row['Image Filename'].length > 0 && i < showTopImages) {
         var imgH = row.imageH;
-        html += '<a href="'+url+'" target="_blank" style="font-size: '+em+'em" class="entity '+active+'">';
-          html += '<img src="https://commons.wikimedia.org/w/thumb.php?width='+imgH+'&f='+row['Image Filename']+'" /> '
-          html += '<small class="label">'+(i+1)+'. '+text+' ('+Util.formatNumber(count)+')</small>';
-        html += '</a>';
+        html += '<div style="font-size: '+em+'em" class="entity '+active+'">';
+          html += '<a href="'+wikiurl+'" target="_blank"><img src="https://commons.wikimedia.org/w/thumb.php?width='+imgH+'&f='+row['Image Filename']+'" /></a>'
+          html += '<a href="'+url+'" target="_blank"><small class="label">'+(i+1)+'. '+text+' ('+Util.formatNumber(count)+')</small></a>';
+        html += '</div>';
       } else {
         html += '<a href="'+url+'" target="_blank" style="font-size: '+em+'em" class="entity '+active+'">'+(i+1)+'. '+text+' ('+Util.formatNumber(count)+')</a>';
       }
