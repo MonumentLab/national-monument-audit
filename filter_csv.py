@@ -11,7 +11,7 @@ from lib.io_utils import *
 
 # input
 parser = argparse.ArgumentParser()
-parser.add_argument('-config', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Input csv file")
+parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Input csv file")
 parser.add_argument('-filter', dest="FILTER", default="", help="Filter string")
 parser.add_argument('-sort', dest="SORT", default="", help="Sort string")
 parser.add_argument('-limit', dest="LIMIT", default=-1, type=int, help="Limit results; -1 for all")

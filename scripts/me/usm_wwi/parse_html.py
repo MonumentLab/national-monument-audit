@@ -53,7 +53,7 @@ def parseHTMLFile(fn):
         # mapOptions.lat = 43.51533077062756;
     	# mapOptions.lng = -70.37611218993527;
     lats = re.findall(r'mapOptions.lat = ([0-9\.]+)', contents)
-    lons = re.findall(r'mapOptions.lon = ([0-9\.]+)', contents)
+    lons = re.findall(r'mapOptions.lon = ([0-9\.\-]+)', contents)
     if len(lats) > 0 and len(lons) > 0:
         item["Latitude"] = lats[0]
         item["Longitude"] = lons[0]
