@@ -139,6 +139,16 @@ def parseContents(html):
 
         row[key] = value
 
+    # validate lat/lon
+    easternMostLon = -64.565
+    southernMostLat = 0
+    if "Longitude" in row and "Latitude" in row and (float(row["Longitude"]) > easternMostLon or float(row["Latitude"]) < southernMostLat):
+        print(f'Invalid coordinates for:')
+        print(f' {row["Title"]}')
+        if "Location Description" in row:
+            print(f' {row["Location Description"]}')
+        return None
+
     return row
 
 page = 1

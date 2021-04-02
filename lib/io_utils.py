@@ -43,12 +43,14 @@ def downloadBinaryFile(url, filename, overwrite=False):
         shutil.copyfileobj(response.raw, f)
     del response
 
-def downloadFileFromUrl(url, filename, overwrite=False):
+def downloadFileFromUrl(url, filename, overwrite=False, verbose=True):
     if os.path.isfile(filename) and not overwrite:
-        print("%s already exists." % filename)
+        if verbose:
+            print("%s already exists." % filename)
         return readTextFile(filename)
 
-    print(f'Downloading {url} to {filename}...')
+    if verbose:
+        print(f'Downloading {url} to {filename}...')
     r = requests.get(url)
     contents = r.text
 
