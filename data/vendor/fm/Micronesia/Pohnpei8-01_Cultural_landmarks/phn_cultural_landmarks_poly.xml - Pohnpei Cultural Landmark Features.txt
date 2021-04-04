@@ -1,0 +1,157 @@
+Identification_Information:
+  Citation:
+    Citation_Information:
+      Originator: Alex Zuccarelli
+      Originator: Island Research & Education Initiative (iREi)
+      Publication_Date: 20170717
+      Title: Pohnpei Cultural Landmark Features
+      Geospatial_Data_Presentation_Form: vector digital data
+      Online_Linkage: http://www.islands.fm/atlas/#/pohnpei-state
+  Description:
+    Abstract: This dataset shows the features of some of the most significant landmarks on Pohnpei. The data layer was formatted for GIS by Island Research & Education Initiative (iREi) (2017), using exclusively KML files created by Alex Zuccarelli for Pohnpei Eco-Adventure Map Guide Series (2013).
+    Purpose: To show the features of cultural landmarks on Pohnpei.
+    Supplemental_Information: The dataset is included the Digital Atlas of Micronesia, module Pohnpei, by Island Research & Education Initiative (iREi), in collaboration with Water and Environmental Research Institute of the Western Pacific (WERI) University of Guam and partial funding from United States Geological Survey (USGS), under WRRI 104-B Program, project # 2016GU302B.
+  Status:
+    Maintenance_and_Update_Frequency: None planned
+  Spatial_Domain:
+    Bounding_Coordinates:
+      West_Bounding_Coordinate: 158.188039
+      East_Bounding_Coordinate: 158.31513
+      North_Bounding_Coordinate: 6.994351
+      South_Bounding_Coordinate: 6.872556
+  Keywords:
+    Theme:
+      Theme_Keyword_Thesaurus: None
+      Theme_Keyword: cultural landmarks
+      Theme_Keyword: cultural feature
+      Theme_Keyword: place of interest
+    Place:
+      Place_Keyword_Thesaurus: None
+      Place_Keyword: Pohnpei
+      Place_Keyword: Federated States of Micronesia (FSM)
+      Place_Keyword: U.S. Affiliated Pacific Islands (USAPI)
+      Place_Keyword: Caroline Islands
+      Place_Keyword: Micronesia
+      Place_Keyword: Northwestern Pacific
+      Place_Keyword: Pacific Ocean
+  Access_Constraints: None
+  Use_Constraints: There are no expressed warranties associated with the release of these databases. Specifically, no warranty is made that the GIS data or any subsequent updates will be error free and no warranty is made regarding the positional or thematic accuracy of the GIS data. The GIS data and any features it depicts do not represent or confer any legal rights, privileges, benefits, boundaries or claims of any kind.
+  Point_of_Contact:
+    Contact_Information:
+      Contact_Person_Primary:
+        Contact_Person: Alex Zuccarelli
+      Contact_Electronic_Mail_Address: alexzuccarelli@gmail.com
+  Point_of_Contact:
+    Contact_Information:
+      Contact_Organization_Primary:
+        Contact_Organization: Island Research & Education Initiative (iREi)
+      Contact_Address:
+        Address_Type: mailing
+        Address: P.O. Box PS 303
+        City: Palikir
+        State_or_Province: Pohnpei
+        Postal_Code: 96941
+        Country: FM
+      Contact_Voice_Telephone: 691.320.5212
+      Contact_Electronic_Mail_Address: irei@islandresearch.org
+  Data_Set_Credit: Original data created by Alex Zuccarelli for Pohnpei Eco-Adventure Map Guide Series (2013). GIS dataset by Island Research & Education Initiative (iREi)
+  Native_Data_Set_Environment: Version 6.2 (Build 9200) ; Esri ArcGIS 10.2.2.3552
+Data_Quality_Information:
+  Lineage:
+    Source_Information:
+      Source_Citation:
+        Citation_Information:
+          Originator: Alex Zuccarelli
+          Title: Pohnpei Eco-Adventure Map Guide Series
+          Online_Linkage: http://www.pohnpei-adventure.com/#
+      Type_of_Source_Media: onLine
+      Source_Citation_Abbreviation: Pohnpei Eco-Adventure Map Guide Series
+      Source_Contribution: KML dataset downloaded online.
+    Process_Step:
+      Process_Description: a. Converted KML dataset to shapefile; b. Projected shapefile to WGS84 UTM zone 57N; c. Formatted attribute table and added field (name, source, etc).
+      Process_Date: 20170204
+      Process_Contact:
+        Contact_Information:
+          Contact_Person_Primary:
+            Contact_Person: Maria Kottermair
+          Contact_Position: GIS Specialist
+          Contact_Electronic_Mail_Address: mariakottermair@triton.uog.edu
+Spatial_Data_Organization_Information:
+  Direct_Spatial_Reference_Method: Vector
+  Point_and_Vector_Object_Information:
+    SDTS_Terms_Description:
+      SDTS_Point_and_Vector_Object_Type: Complete chain
+      Point_and_Vector_Object_Count: 1
+Entity_and_Attribute_Information:
+  Detailed_Description:
+    Entity_Type:
+      Entity_Type_Label: phn_cultural_landmarks_poly
+    Attribute:
+      Attribute_Label: Name
+      Attribute_Definition: Name of the feature
+      Attribute_Definition_Source: KML source file
+    Attribute:
+      Attribute_Label: Shape
+      Attribute_Definition: Feature geometry.
+      Attribute_Definition_Source: Esri
+      Attribute_Domain_Values:
+        Unrepresentable_Domain: Coordinates defining the features.
+    Attribute:
+      Attribute_Label: Notes
+      Attribute_Definition: Additional notes. The information imported from the KML may not be complete because of the character limitation of the text field.
+      Attribute_Definition_Source: KML source file
+    Attribute:
+      Attribute_Label: Type
+    Attribute:
+      Attribute_Label: Site_Name
+      Attribute_Definition: Name of the site
+    Attribute:
+      Attribute_Label: Source
+      Attribute_Definition: Original data
+    Attribute:
+      Attribute_Label: Site_Name2
+    Attribute:
+      Attribute_Label: Area_m2
+      Attribute_Definition: In square meters
+    Attribute:
+      Attribute_Label: Area_ft2
+      Attribute_Definition: in square feet
+    Attribute:
+      Attribute_Label: Area_ac
+      Attribute_Definition: in acres
+    Attribute:
+      Attribute_Label: SubType
+      Attribute_Definition: Type of colonial period
+    Attribute:
+      Attribute_Label: FID
+      Attribute_Definition: Internal feature number.
+      Attribute_Definition_Source: Esri
+      Attribute_Domain_Values:
+        Unrepresentable_Domain: Sequential unique whole numbers that are automatically generated.
+Distribution_Information:
+  Distributor:
+    Contact_Information:
+      Contact_Organization_Primary:
+        Contact_Organization: Island Research & Education Initiative (iREi)
+      Contact_Address:
+        Address_Type: mailing
+        Address: P.O. Box PS 303
+        City: Palikir
+        State_or_Province: Pohnpei
+        Postal_Code: 96941
+        Country: FM
+      Contact_Voice_Telephone: 691.320.5212
+      Contact_Electronic_Mail_Address: irei@islandresearch.org
+  Distribution_Liability: See access and use constraints information.
+Metadata_Reference_Information:
+  Metadata_Date: 20170715
+  Metadata_Contact:
+    Contact_Information:
+      Contact_Person_Primary:
+        Contact_Person: Maria Kottermair
+      Contact_Position: GIS Specialist
+      Contact_Electronic_Mail_Address: mariakottermair@triton.uog.edu
+  Metadata_Standard_Name: FGDC Content Standard for Digital Geospatial Metadata
+  Metadata_Standard_Version: FGDC-STD-001-1998
+  Metadata_Time_Convention: local time
+  Metadata_Use_Constraints:
