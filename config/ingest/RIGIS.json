@@ -1,0 +1,22 @@
+{
+  "id": "rigis",
+  "name": "Rhode Island HPC GIS",
+  "verboseName": "Rhode Island Historic Preservation Commission Rhode Island Geographic Information Systems",
+  "provider": "Rhode Island Historic Preservation Commission",
+  "url": "https://github.com/NewportDataPortal/RIGIS-historic-sites-1995",
+  "geographicCoverage": "state",
+  "state": "RI",
+  "dataPath": "data/vendor/ri/RIGIS-historic-sites-1995.csv",
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["X", "Y", "CODE", "NAME", "TOWN"],
+  "mappings": {
+    "CODE": {"to": "Vendor Entry ID"},
+    "NAME": {"to": "Name"},
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "TOWN": {"to": "City"}
+  },
+  "notes": [
+    "Source data converted from geojson in QGIS"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "gnahrgis",
+  "name": "GNAHRGIS",
+  "verboseName": "Georgia's Natural, Archaeological, and Historic Resources GIS",
+  "provider": "Georgia Department of Community Affairs, Historic Preservation Division",
+  "url": "https://www.gnahrgis.org/",
+  "geographicCoverage": "state",
+  "state": "GA",
+  "dataPath": "data/vendor/ga/GNAHRGISExportReport.csv",
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["Resource ID", "Classification", "Latitude", "Longitude", "County", "Name", "Address", "City", "Date of construction", "Current use"],
+  "mappings": {
+    "Resource ID": {"to": "Vendor Entry ID"},
+    "Classification": {"to": "Object Types"},
+    "Date of construction": {"to": "Year Constructed", "year": 1},
+    "Address": {"to": "Street Address"},
+    "Current use": {"to": "Use Types"}
+  },
+  "notes": [
+    "Source data converted from xls"
+  ]
+}

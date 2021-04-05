@@ -1,0 +1,21 @@
+{
+  "id": "prrnlh",
+  "name": "Puerto Rico RNLH",
+  "verboseName": "Puerto Rico: Registro Nacional de Lugares Históricos",
+  "provider": "La Oficina Estatal de Conservación Histórica",
+  "url": "https://oech.maps.arcgis.com/apps/OnePane/basicviewer/index.html?appid=62443199488c4cbea51369978f92ae33 ",
+  "geographicCoverage": "state",
+  "state": "PR",
+  "dataPath": "data/vendor/pr/Puerto Rico Registro Nacional de Lugares Historicos Reprojected.csv",
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["X", "Y", "FID", "designacio"],
+  "mappings": {
+    "FID": {"to": "Vendor Entry ID"},
+    "designacio": {"to": "Name"},
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"}
+  },
+  "notes": [
+    "Source data scraped from web map viewer and reprojected in QGIS"
+  ]
+}

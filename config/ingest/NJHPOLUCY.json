@@ -1,0 +1,25 @@
+{
+  "id": "njlucy",
+  "name": "LUCY",
+  "verboseName": "LUCY NJ CRGIS Online Viewer",
+  "provider": "New Jersey Historic Preservation Office",
+  "url": "https://njdep.maps.arcgis.com/apps/webappviewer/index.html?id=44ce3eb3c53349639040fe205d69bb79",
+  "geographicCoverage": "state",
+  "state": "NJ",
+  "dataPath": "data/vendor/nj/lucy_historic_properties_reprojected.csv",
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["X", "Y", "NJEMS_STID", "NAME", "ALT_NAME", "ADDRESS", "STATUS", "NOTES"],
+  "mappings": {
+    "NJEMS_STID": {"to": "Vendor Entry ID"},
+    "NAME": {"to": "Name"},
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "ALT_NAME": {"to": "Alternate Name"},
+    "ADDRESS": {"to": "Street Address"},
+    "STATUS": {"to": "Designations"},
+    "NOTES": {"to": "Notes"}
+  },
+  "notes": [
+    "Source data scraped from web map viewer"
+  ]
+}

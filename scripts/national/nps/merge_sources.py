@@ -82,6 +82,105 @@ files = [
             "Type": "ResType",
             "Nomination": "NARA_URL"
         }
+    },{
+        "filename": "data/vendor/as/Naval_Postgraduate_School_Cultural_Resources_Buildings.csv",
+        "id": "NRIS_Refnu",
+        "State": "AS",
+        "columns": {
+            "NRIS_Refnu": "NRIS_Refnu",
+            "RESNAME": {"to": "Name",},
+            "Y": {"to": "Y"},
+            "X": {"to": "X"},
+            "SRC_DATE": {"to": "Year Listed"}
+        }
+    },{
+        "filename": "data/vendor/as/Naval_Postgraduate_School_Cultural_Resources_Sites.csv",
+        "id": "NRIS_Refnu",
+        "State": "AS",
+        "columns": {
+            "NRIS_Refnu": "NRIS_Refnu",
+            "RESNAME": {"to": "Name",},
+            "Y": {"to": "Y"},
+            "X": {"to": "X"},
+            "SRC_DATE": {"to": "Year Listed"}
+        }
+    },{
+        "filename": "data/vendor/as/Naval_Postgraduate_School_Cultural_Resources_Structures.csv",
+        "id": "NRIS_Refnu",
+        "State": "AS",
+        "columns": {
+            "NRIS_Refnu": "NRIS_Refnu",
+            "RESNAME": {"to": "Name",},
+            "Y": {"to": "Y"},
+            "X": {"to": "X"},
+            "SRC_DATE": {"to": "Year Listed"}
+        }
+    },{
+        "filename": "data/vendor/gu/National_Registry_Historic_Places_Buildings.csv",
+        "id": "NRIS_Refnu",
+        "State": "GU",
+        "columns": {
+            "NRIS_Refnu": "NRIS_Refnu",
+            "RESNAME": {"to": "Name",},
+            "Y": {"to": "Y"},
+            "X": {"to": "X"},
+            "SRC_DATE": {"to": "Year Listed"}
+        }
+    },{
+        "filename": "data/vendor/gu/National_Registry_Historic_Places_Objects.csv",
+        "id": "NRIS_Refnu",
+        "State": "GU",
+        "columns": {
+            "NRIS_Refnu": "NRIS_Refnu",
+            "RESNAME": {"to": "Name",},
+            "Y": {"to": "Y"},
+            "X": {"to": "X"},
+            "SRC_DATE": {"to": "Year Listed"}
+        }
+    },{
+        "filename": "data/vendor/gu/National_Registry_Historic_Places_Sites.csv",
+        "id": "NRIS_Refnu",
+        "State": "GU",
+        "columns": {
+            "NRIS_Refnu": "NRIS_Refnu",
+            "RESNAME": {"to": "Name",},
+            "Y": {"to": "Y"},
+            "X": {"to": "X"},
+            "SRC_DATE": {"to": "Year Listed"}
+        }
+    },{
+        "filename": "data/vendor/mp/CNMI_historic_places_buildings.csv",
+        "id": "NRIS_Refnu",
+        "State": "MP",
+        "columns": {
+            "NRIS_Refnu": "NRIS_Refnu",
+            "RESNAME": {"to": "Name",},
+            "Y": {"to": "Y"},
+            "X": {"to": "X"},
+            "SRC_DATE": {"to": "Year Listed"}
+        }
+    },{
+        "filename": "data/vendor/mp/CNMI_historic_places_buildings.csv",
+        "id": "NRIS_Refnu",
+        "State": "MP",
+        "columns": {
+            "NRIS_Refnu": "NRIS_Refnu",
+            "RESNAME": {"to": "Name",},
+            "Y": {"to": "Y"},
+            "X": {"to": "X"},
+            "SRC_DATE": {"to": "Year Listed"}
+        }
+    },{
+        "filename": "data/vendor/mp/CNMI_historic_places_buildings.csv",
+        "id": "NRIS_Refnu",
+        "State": "MP",
+        "columns": {
+            "NRIS_Refnu": "NRIS_Refnu",
+            "RESNAME": {"to": "Name",},
+            "Y": {"to": "Y"},
+            "X": {"to": "X"},
+            "SRC_DATE": {"to": "Year Listed"}
+        }
     }
 ]
 

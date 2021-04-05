@@ -1,0 +1,23 @@
+{
+  "id": "orveteran",
+  "name": "Veteran Memorials in Oregon",
+  "verboseName": "Veteran Memorials in Oregon",
+  "provider": "Oregon Open Data Portal",
+  "url": "https://data.oregon.gov/Recreation/Veteran-Memorials-in-Oregon-Map/2ku2-p2h8",
+  "geographicCoverage": "state",
+  "state": "OR",
+  "dataPath": "data/vendor/or/Veteran Memorials in Oregon - Map.csv",
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["id", "Title", "Service Era(s)", "Description", "Location", "address", "Latitude", "Longitude", "City", "County", "Photo"],
+  "mappings": {
+    "id": {"to": "Vendor Entry ID"},
+    "Title": {"to": "Name"},
+    "Service Era(s)": {"to": "Subjects"},
+    "Location": {"to": "Location Description"},
+    "address": {"to": "Street Address"},
+    "Photo": {"to": "Image"}
+  },
+  "notes": [
+    "Source data scraped from web map viewer"
+  ]
+}

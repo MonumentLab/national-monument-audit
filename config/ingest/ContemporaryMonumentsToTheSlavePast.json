@@ -1,0 +1,27 @@
+{
+  "id": "slaverymonuments",
+  "name": "Contemporary Monuments to the Slave Past",
+  "verboseName": "Contemporary Monuments to the Slave Past",
+  "provider": "Contemporary Monuments to the Slave Past",
+  "url": "https://www.slaverymonuments.org/items/browse",
+  "geographicCoverage": "national",
+  "dataPath": "data/vendor/national/slaverymonuments.csv",
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["Image", "Latitude", "Longitude", "Location Description", "Title", "Subjects", "Honorees", "Object Types", "Description", "Creator", "Date", "Contributor", "Alternative Title", "Vendor Entry ID", "URL", "City", "State", "Extent", "Medium", "Has Part"],
+  "mappings": {
+    "Title": {"to": "Name"},
+    "Alternative Title": {"to": "Alternate Name"},
+    "Object Types": {"to": "Object Types", "delimeter": "\\|"},
+    "Subjects": {"to": "Subjects", "delimeter": "\\|"},
+    "Creator": {"to": "Creators", "delimeter": "\\|"},
+    "Honorees": {"to": "Honorees", "delimeter": "\\|"},
+    "Has Part": {"to": "Text"},
+    "Date": {"to": "Year Dedicated", "year": 1},
+    "Medium": {"to": "Material"},
+    "Extent": {"to": "Physical Dimensions"},
+    "Contributor": {"to": "Sponsors", "delimeter": "\\|"}
+  },
+  "notes": [
+    "Source data scraped from web html"
+  ]
+}

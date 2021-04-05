@@ -1,0 +1,30 @@
+{
+  "id": "cnmidp",
+  "name": "CNMI Data Portal",
+  "verboseName": "Commonwealth of the Northern Mariana Islands Data Portal",
+  "provider": "Naval Postgraduate School",
+  "url": "https://www.oc.nps.edu/CMSP/CNMI/index.html",
+  "geographicCoverage": "state",
+  "state": "MP",
+  "dataPath": "data/vendor/mp/CNMI_historic_places_*.csv",
+  "fileMap": {
+    "CNMI_historic_places_buildings.csv": {"Object Types": "Building"},
+    "CNMI_historic_places_sites.csv": {"Object Types": "Site"},
+    "CNMI_historic_places_structures.csv": {"Object Types": "Structure"}
+  },
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["NRIS_Refnu", "RESNAME", "X", "Y", "SRC_DATE"],
+  "mappings": {
+    "NRIS_Refnu": {"to": "Vendor Entry ID"},
+    "RESNAME": {"to": "Name"},
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "SRC_DATE": {"to": "Year Listed"}
+  },
+  "notes": [
+    "Converted data from shapefile to csv in QGIS",
+    "Unclear what dates are; assuming data nominated",
+    "Already contained in NPS"
+  ],
+  "isDisabled": true
+}

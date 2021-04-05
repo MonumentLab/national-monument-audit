@@ -1,0 +1,22 @@
+{
+  "id": "flmsf",
+  "name": "Florida Master Site File",
+  "verboseName": "Florida Master Site File",
+  "provider": "Florida Department of State, Division of Historical Resources",
+  "url": "https://dos.myflorida.com/historical/preservation/master-site-file/",
+  "geographicCoverage": "state",
+  "state": "FL",
+  "dataPath": "data/vendor/fl/FL Monument Roster.csv",
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["SiteID", "Site Name", "Address", "Additional Info", "NR Status"],
+  "mappings": {
+    "SiteID": {"to": "Vendor Entry ID"},
+    "Address": {"to": "Street Address"},
+    "Site Name": {"to": "Name"},
+    "Additional Info": {"to": "Notes"},
+    "NR Status": {"to": "Designations"}
+  },
+  "notes": [
+    "Source data converted from PDF"
+  ]
+}

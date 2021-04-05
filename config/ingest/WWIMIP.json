@@ -1,0 +1,21 @@
+{
+  "id": "ww1mproject",
+  "name": "WWIMIP",
+  "verboseName": "The World War I Memorial Inventory Project",
+  "provider": "The World War I Memorial Inventory Project",
+  "url": "https://ww1mproject.org/items/browse",
+  "geographicCoverage": "national",
+  "dataPath": "data/vendor/national/ww1mproject.csv",
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["Image", "Latitude", "Longitude", "Title", "Description", "Location Description", "Street Address", "City", "County", "State", "Vendor Entry ID", "URL", "Creator", "Contributing Institution", "Date"],
+  "mappings": {
+    "Title": {"to": "Name"},
+    "Creator": {"to": "Creators", "delimeter": "\\|"},
+    "Date": {"to": "Year Dedicated", "year": 1},
+    "Contributing Institution": {"to": "Sponsors"}
+  },
+  "notes": [
+    "Source data scraped from web html",
+    "Unclear if date is referring to dedication or construction date"
+  ]
+}

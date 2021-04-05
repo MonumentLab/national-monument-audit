@@ -1,0 +1,20 @@
+{
+  "id": "islandatlas",
+  "name": "Digital Atlas of Micronesia",
+  "verboseName": "Digital Atlas of Micronesia",
+  "provider": "Digital Atlas of Micronesia",
+  "url": "https://islandatlas.org/data-repository/",
+  "geographicCoverage": "state",
+  "state": "FM",
+  "dataPath": "data/vendor/fm/islandatlas_*.csv",
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["ID", "Name", "Type", "Latitude", "Longitude", "Notes"],
+  "mappings": {
+    "ID": {"to": "Vendor Entry ID"},
+    "Type": {"to": "Object Types"},
+    "Name": {"to": "Name"}
+  },
+  "notes": [
+    "Converted from shapefiles via QGIS"
+  ]
+}

@@ -67,6 +67,7 @@ for dSourceIndex, d in enumerate(dataSources):
     dataEncoding = d["dataEncoding"] if "dataEncoding" in d else "utf-8-sig"
     data = []
     for dataPath in dataPaths:
+        fData = None
         if dataPath.endswith(".zip"):
             dataFile = d["dataFile"] if "dataFile" in d else None
             dataPath = unzipFile(dataPath, dataFile)
@@ -77,6 +78,9 @@ for dSourceIndex, d in enumerate(dataSources):
             # print(dataPath)
             # print(fFields)
             # print('============================')
+        if fData is not None and "fileMap" in d:
+            for j, row in enumerate(fData):
+                fData[j]["_srcFilename"] = os.path.basename(dataPath)
         data += fData
     if len(dataPaths) > 1:
         print(f' {len(data)} total records found')
@@ -106,6 +110,7 @@ for dSourceIndex, d in enumerate(dataSources):
     dataSources[dSourceIndex]['recordCount'] = len(data)
 
     mappings = d["mappings"] if "mappings" in d else {}
+    fileMap = d["fileMap"] if "fileMap" in d else None
     firstWarning = True
     uids = [] # keep track of UIDs if we need to merge
     for rowIndex, rowIn in enumerate(data):
@@ -150,6 +155,11 @@ for dSourceIndex, d in enumerate(dataSources):
         # inherit object type defaults
         if "objectTypes" in d:
             rowOut["Object Types"] = d["objectTypes"]
+
+        # check for file-specific metadata
+        if fileMap is not None and rowIn["_srcFilename"] in fileMap:
+            for prop, value in fileMap[rowIn["_srcFilename"]].items():
+                rowOut[prop] = value
 
         for prop in d["properties"]:
             if prop not in rowIn:

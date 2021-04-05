@@ -1,0 +1,30 @@
+{
+  "id": "ascmsp",
+  "name": "American Samoa CMSP",
+  "verboseName": "American Samoa Coastal and Marine Spatial Planning Data Portal",
+  "provider": "Naval Postgraduate School",
+  "url": "https://www.oc.nps.edu/CMSP/AS/index.html",
+  "geographicCoverage": "state",
+  "state": "AS",
+  "dataPath": "data/vendor/as/Naval_Postgraduate_School_Cultural_Resources_*.csv",
+  "fileMap": {
+    "Naval_Postgraduate_School_Cultural_Resources_Buildings.csv": {"Object Types": "Building"},
+    "Naval_Postgraduate_School_Cultural_Resources_Sites.csv": {"Object Types": "Site"},
+    "Naval_Postgraduate_School_Cultural_Resources_Structures.csv": {"Object Types": "Structure"}
+  },
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["NRIS_Refnu", "RESNAME", "X", "Y", "SRC_DATE"],
+  "mappings": {
+    "NRIS_Refnu": {"to": "Vendor Entry ID"},
+    "RESNAME": {"to": "Name"},
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "SRC_DATE": {"to": "Year Listed"}
+  },
+  "notes": [
+    "Converted data from shapefile to csv in QGIS",
+    "Unclear what dates are; assuming data nominated",
+    "Already contained in NPS"
+  ],
+  "isDisabled": true
+}

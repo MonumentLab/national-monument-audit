@@ -1,0 +1,30 @@
+{
+  "id": "gucmsp",
+  "name": "Guam CMSP Data Portal ",
+  "verboseName": "Guam Coastal and Marine Spatial Planning Data Portal ",
+  "provider": "Naval Postgraduate School",
+  "url": "https://www.oc.nps.edu/CMSP/Guam/",
+  "geographicCoverage": "state",
+  "state": "GU",
+  "dataPath": "data/vendor/gu/National_Registry_Historic_Places_*.csv",
+  "fileMap": {
+    "National_Registry_Historic_Places_Buildings.csv": {"Object Types": "Building"},
+    "National_Registry_Historic_Places_Objects.csv": {"Object Types": "Object"},
+    "National_Registry_Historic_Places_Sites.csv": {"Object Types": "Site"}
+  },
+  "dateDataAccessed": "2021-03-30",
+  "properties": ["NRIS_Refnu", "RESNAME", "X", "Y", "SRC_DATE"],
+  "mappings": {
+    "NRIS_Refnu": {"to": "Vendor Entry ID"},
+    "RESNAME": {"to": "Name"},
+    "Y": {"to": "Latitude"},
+    "X": {"to": "Longitude"},
+    "SRC_DATE": {"to": "Year Listed"}
+  },
+  "notes": [
+    "Converted data from shapefile to csv in QGIS",
+    "Unclear what dates are; assuming data nominated",
+    "Already contained in NPS"
+  ],
+  "isDisabled": true
+}
