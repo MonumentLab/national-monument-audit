@@ -8,9 +8,8 @@
   "state": "FM",
   "dataPath": "data/vendor/fm/islandatlas_*.csv",
   "dateDataAccessed": "2021-03-30",
-  "properties": ["ID", "Name", "Type", "Latitude", "Longitude", "Notes"],
+  "properties": ["Name", "Type", "Latitude", "Longitude", "Notes"],
   "mappings": {
-    "ID": {"to": "Vendor Entry ID"},
     "Type": {"to": "Object Types"},
     "Name": {"to": "Name"}
   },

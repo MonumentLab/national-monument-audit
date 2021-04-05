@@ -8,9 +8,9 @@
   "state": "PR",
   "dataPath": "data/vendor/pr/Puerto Rico Registro Nacional de Lugares Historicos Reprojected.csv",
   "dateDataAccessed": "2021-03-30",
-  "properties": ["X", "Y", "FID", "designacio"],
+  "properties": ["X", "Y", "id", "designacio"],
   "mappings": {
-    "FID": {"to": "Vendor Entry ID"},
+    "id": {"to": "Vendor Entry ID"},
     "designacio": {"to": "Name"},
     "Y": {"to": "Latitude"},
     "X": {"to": "Longitude"}

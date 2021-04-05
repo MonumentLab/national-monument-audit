@@ -8,9 +8,9 @@
   "state": "NJ",
   "dataPath": "data/vendor/nj/lucy_historic_properties_reprojected.csv",
   "dateDataAccessed": "2021-03-30",
-  "properties": ["X", "Y", "NJEMS_STID", "NAME", "ALT_NAME", "ADDRESS", "STATUS", "NOTES"],
+  "properties": ["X", "Y", "OBJECTID", "NAME", "ALT_NAME", "ADDRESS", "STATUS", "NOTES"],
   "mappings": {
-    "NJEMS_STID": {"to": "Vendor Entry ID"},
+    "OBJECTID": {"to": "Vendor Entry ID"},
     "NAME": {"to": "Name"},
     "Y": {"to": "Latitude"},
     "X": {"to": "Longitude"},

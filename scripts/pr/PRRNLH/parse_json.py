@@ -31,6 +31,7 @@ makeDirectories(a.OUTPUT_FILE)
 
 layers = data["operationalLayers"]
 rows = []
+index = 0
 fieldnames = ["x", "y"]
 for layer in layers:
     features = layer["featureCollection"]["layers"][0]["featureSet"]["features"]
@@ -38,6 +39,8 @@ for layer in layers:
         row = {}
         row["x"] = f["geometry"]["x"]
         row["y"] = f["geometry"]["y"]
+        row["id"] = index
+        index += 1
         for key in f["attributes"]:
             row[key] = f["attributes"][key]
             if key not in fieldnames:

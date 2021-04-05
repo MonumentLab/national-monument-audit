@@ -341,6 +341,7 @@ for i, row in enumerate(rowsOut):
 print("Validating rows...")
 validRows = []
 uids = set([])
+vendorDupes = {}
 for row in rowsOut:
     isValid = True
     # validate unique Id
@@ -349,7 +350,13 @@ for row in rowsOut:
         continue
     # check for duplicates
     if row["Id"] in uids:
-        print(f' ** Warning: Duplicate ID: {row["Id"]}')
+        if row["Vendor ID"] in vendorDupes:
+            vendorDupes[row["Vendor ID"]] += 1
+        else:
+            vendorDupes[row["Vendor ID"]] = 1
+        vendorDupeCount = vendorDupes[row["Vendor ID"]]
+        if vendorDupeCount <= 25:
+            print(f' ** Warning: Duplicate ID: {row["Id"]}')
         continue
     uids.add(row["Id"])
     # check for required fields
@@ -360,6 +367,8 @@ for row in rowsOut:
                 break
     if isValid:
         validRows.append(row)
+print("Vendor duplicate stats: ")
+pprint(vendorDupes)
 rowsOut = validRows
 
 # Validate lat/lon
