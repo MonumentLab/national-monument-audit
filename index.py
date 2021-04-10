@@ -14,7 +14,7 @@ from lib.string_utils import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Input .csv data file")
-parser.add_argument('-entities', dest="ENTITIES_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Input entities .csv data file")
+# parser.add_argument('-entities', dest="ENTITIES_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Input entities .csv data file")
 parser.add_argument('-filter', dest="FILTER", default="", help="Filter string")
 parser.add_argument('-config', dest="CONFIG_FILE", default="config/data-model.json", help="Input config .json file")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
@@ -35,15 +35,15 @@ if len(a.FILTER) > 0:
     rowCount = len(rows)
     print(f'{rowCount} rows after filtering')
 
-entFields, entRows = readCsv(a.ENTITIES_FILE)
-entLookup = {}
-if len(entRows) > 0:
-    for i, entRow in enumerate(entRows):
-        entRows[i]["idString"] = str(entRow["Id"])
-    entById = groupList(entRows, "idString")
-    entLookup = createLookup(entById, "idString")
-else:
-    print("Warning: no entities file found; run `visualize_entities.py` to generate this")
+# entFields, entRows = readCsv(a.ENTITIES_FILE)
+# entLookup = {}
+# if len(entRows) > 0:
+#     for i, entRow in enumerate(entRows):
+#         entRows[i]["idString"] = str(entRow["Id"])
+#     entById = groupList(entRows, "idString")
+#     entLookup = createLookup(entById, "idString")
+# else:
+#     print("Warning: no entities file found; run `visualize_entities.py` to generate this")
 
 # write a sample record for index config purposes
 sampleDoc = {
@@ -99,25 +99,26 @@ for i, row in enumerate(rows):
         print(f'Warning: no valid ID for row {(i+1)}')
         continue
 
-    # Add entities
-    if docId in entLookup:
-        rowEnts = entLookup[docId]["items"]
-        eventEnts = []
-        peopleEnts = []
-        for ent in rowEnts:
-            value = str(ent["Value"]).strip()
-            if len(value) < 1:
-                continue
-            if ent["Type"] == "EVENT" and value not in eventEnts:
-                eventEnts.append(value)
-            elif ent["Type"] == "PERSON" and value not in peopleEnts:
-                peopleEnts.append(value)
-
-        if len(eventEnts) > 0:
-            row["Entities Events"] = a.LIST_DELIMETER.join(eventEnts)
-
-        if len(peopleEnts) > 0:
-            row["Entities People"] = a.LIST_DELIMETER.join(peopleEnts)
+    # Moved this logic to ingest.py
+    ## Add entities
+    # if docId in entLookup:
+    #     rowEnts = entLookup[docId]["items"]
+    #     eventEnts = []
+    #     peopleEnts = []
+    #     for ent in rowEnts:
+    #         value = str(ent["Value"]).strip()
+    #         if len(value) < 1:
+    #             continue
+    #         if ent["Type"] == "EVENT" and value not in eventEnts:
+    #             eventEnts.append(value)
+    #         elif ent["Type"] == "PERSON" and value not in peopleEnts:
+    #             peopleEnts.append(value)
+    #
+    #     if len(eventEnts) > 0:
+    #         row["Entities Events"] = a.LIST_DELIMETER.join(eventEnts)
+    #
+    #     if len(peopleEnts) > 0:
+    #         row["Entities People"] = a.LIST_DELIMETER.join(peopleEnts)
 
     for field in dataModel["fields"]:
         key = field["key"]

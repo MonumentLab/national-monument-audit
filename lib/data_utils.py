@@ -9,6 +9,7 @@ def applyDataTypeConditions(rows, dataType):
     remainingRows = []
     name = dataType["name"]
     value = dataType["value"]
+    score = dataType["score"] if "score" in dataType else 0
 
     if "remainder" in dataType:
         for row in rows:
@@ -19,6 +20,8 @@ def applyDataTypeConditions(rows, dataType):
     conditions = dataType["conditions"]
     for row in rows:
         isValid = False
+        reasons = []
+        rowEnts = row["_entities"] if "_entities" in row else []
         for cond in conditions:
             pluralize = ("pluralize" in cond)
             isFirstWord = ("startswith" in cond)
@@ -32,16 +35,46 @@ def applyDataTypeConditions(rows, dataType):
                         if pword != word:
                             words.append(pword)
             phrases = cond["phrases"] if "phrases" in cond else []
+            if "precededBy" in cond:
+                _phrases = []
+                for phrase in phrases:
+                    for pword in cond["precededBy"]:
+                        _phrases.append(pword + " " + phrase)
+                phrases = _phrases
+            if "followedBy" in cond:
+                _phrases = []
+                for phrase in phrases:
+                    for fword in cond["followedBy"]:
+                        _phrases.append(phrase + " " + fword)
+                phrases = _phrases
+            if "entities" in cond and len(rowEnts) > 0:
+                validEnts = [ent for ent in rowEnts if ent["Property"] in cond["fields"] and ent["Type"] in cond["entities"]]
+                for ent in validEnts:
+                    reasons.append(f'{ent["Property"]} field contains possible historic {ent["Type"]}: "{ent["Value"]}"')
+                # no valid entity, skip
+                if len(validEnts) <= 0:
+                    continue
+                # if there are no other conditions, this is valid
+                elif len(words) <= 0 and len(phrases) <= 0:
+                    isValid = True
+                    break
             for field in cond["fields"]:
                 if field not in row:
                     continue
                 rawValue = row[field]
                 for word in words:
                     if containsWord(rawValue, word, isFirstWord, isLastWord):
+                        if isFirstWord:
+                            reasons.append(f'{field} field starts with "{word}"')
+                        elif isLastWord:
+                            reasons.append(f'{field} field ends with "{word}"')
+                        else:
+                            reasons.append(f'{field} field contains "{word}"')
                         isValid = True
                         break
                 for phrase in phrases:
                     if containsPhrase(rawValue, phrase):
+                        reasons.append(f'{field} field contains "{phrase}"')
                         isValid = True
                         break
                 if isValid:
@@ -50,8 +83,12 @@ def applyDataTypeConditions(rows, dataType):
                 break
         if isValid:
             row[name] = value
+            if len(reasons) > 0:
+                row["Monument Type Reason"] = reasons
+            row["Monument Score"] = score
             conditionRows.append(row)
         else:
+            row["Monument Score"] = score
             remainingRows.append(row)
 
     return (conditionRows, remainingRows)

@@ -180,6 +180,7 @@ for typeGroup in groupsByType:
             indexRows.append({
                 "Id": id,
                 "Type": typeName,
-                "Value": item["Name"]
+                "Value": item["Name"],
+                "Property": item["Property"]
             })
-writeCsv(a.INDEX_FILE, indexRows, headings=["Id", "Type", "Value"])
+writeCsv(a.INDEX_FILE, indexRows, headings=["Id", "Type", "Value", "Property"])

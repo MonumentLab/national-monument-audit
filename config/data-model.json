@@ -43,7 +43,9 @@
         "Approximate coordinates geocoded based on city",
         "No geographic data provided",
         "No valid geographic data provided"
-    ]}
+    ]},
+    {"key": "Monument Type Reason", "type": "string_list"},
+    {"key": "Monument Score", "type": "int"}
   ],
   "types": [
     {
@@ -51,51 +53,17 @@
       "value": "Marker",
       "conditions": [
         {
-          "words": ["marker"],
+          "words": ["marker", "plaque", "sign"],
+          "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         }
       ]
     },{
       "name": "Monument Types",
-      "value": "Site",
-      "conditions": [
-        {
-          "phrases": ["national monument"],
-          "fields": ["Name", "Alternate Name"]
-        }
-      ]
-    },{
-      "name": "Monument Types",
-      "value": "Conventional monument",
-      "conditions": [
-        {
-          "words": ["monument"],
-          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
-        },{
-          "words": ["memorial"],
-          "endswith": 1,
-          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
-        },{
-          "words": ["obelisk", "statue", "sculpture"],
-          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
-        }
-      ]
-    },{
-      "name": "Monument Types",
-      "value": "Marker",
-      "conditions": [
-        {
-          "words": ["marker"],
-          "startswith": 1,
-          "fields": ["Location Description"]
-        }
-      ]
-    }, {
-      "name": "Monument Types",
       "value": "Building",
       "conditions": [
         {
-          "words": ["academy", "airport", "barrack", "bank", "barn", "building", "cabin", "cafe", "center", "chapel", "church", "club", "college", "convention", "cottage", "courthouse", "depot", "drugstore", "estate", "fort", "gallery", "garage", "hall", "headquarter", "home", "hotel", "hospital", "house", "inn", "ironwork", "jail", "library", "lighthouse", "manor", "mansion", "mart", "mill", "motel", "museum", "office", "outpost", "prison", "refinery", "residence", "restaurant", "sawmill", "school", "schoolhouse", "station", "store", "tavern", "temple", "theater", "tower", "university", "vineyard", "warehouse"],
+          "words": ["academy", "airport", "barrack", "bank", "barn", "building", "cabin", "cafe", "center", "chapel", "church", "club", "college", "convention", "cottage", "courthouse", "depot", "drugstore", "estate", "farmstead", "factory", "fort", "gallery", "garage", "hall", "headquarter", "home", "homestead", "hotel", "hospital", "house", "inn", "ironwork", "jail", "library", "lighthouse", "manor", "mansion", "mart", "mill", "motel", "museum", "office", "outpost", "post", "prison", "refinery", "residence", "restaurant", "sawmill", "school", "schoolhouse", "station", "store", "tavern", "temple", "theater", "tower", "university", "vineyard", "warehouse"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         }
@@ -105,9 +73,22 @@
       "value": "Structure",
       "conditions": [
         {
-          "words": ["avenue", "bridge", "canal", "highway", "intersection", "junction", "market", "mine", "path", "railroad", "road", "shipyard", "street", "turnpike", "trail"],
+          "words": ["avenue", "bench", "boat", "bridge", "canal", "car", "crawler", "fountain", "highway", "intersection", "junction", "market", "mine", "path", "pier", "railroad", "riverboat", "road", "schooner", "ship", "shipyard", "street", "submarine", "turnpike", "trail", "vessel", "wharf"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
+        }
+      ]
+    },{
+      "name": "Monument Types",
+      "value": "Object",
+      "conditions": [
+        {
+          "words": ["chair", "crib"],
+          "pluralize": 1,
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
+        },{
+          "words": ["abstract"],
+          "fields": ["Object Types", "Use Types", "Subjects"]
         }
       ]
     },{
@@ -115,9 +96,12 @@
       "value": "Site",
       "conditions": [
         {
-          "words": ["grounds", "mound", "ruin", "site", "tomb"],
+          "words": ["grounds", "mound", "ruin", "site", "tomb", "landmark", "archaeological", "archaeology", "cemetary", "cemetery", "park", "graveyard", "grave"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
+        },{
+          "phrases": ["national monument"],
+          "fields": ["Name", "Alternate Name"]
         }
       ]
     },{
@@ -125,7 +109,7 @@
       "value": "Place name",
       "conditions": [
         {
-          "words": ["arboretum", "bay", "borough", "boundary", "camp", "campground", "cemetary", "cemetery", "city", "community", "county", "creek", "district", "farm", "field", "garden", "graveyard", "hamlet", "harbor", "heights", "lake", "park", "plaza", "pond", "ranch", "reservoir", "river", "spring", "square", "town", "village"],
+          "words": ["arboretum", "bay", "borough", "boundary", "camp", "campground", "city", "community", "county", "creek", "district", "farm", "field", "garden", "hamlet", "harbor", "heights", "lake", "plaza", "pond", "ranch", "reservoir", "river", "spring", "square", "town", "village"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         }
@@ -135,18 +119,85 @@
       "value": "Organization",
       "conditions": [
         {
-          "words": ["association", "company", "corporation", "llc", "organization", "partner", "partnership"],
+          "words": ["association", "company", "corporation", "llc", "organization", "partner", "partnership", "co."],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         }
       ]
     },{
       "name": "Monument Types",
-      "value": "Conventional monument",
+      "value": "Monument",
+      "conditions": [
+        {
+          "words": ["memorial", "honoring", "commemorating"],
+          "phrases": ["in memorial", "in memorium"],
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
+        },{
+          "words": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "pyramid", "rock", "sculpture", "statue"],
+          "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
+        },{
+          "phrases": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "pyramid", "rock", "sculpture", "statue"],
+          "fields": ["Text", "Description"],
+          "precededBy": ["this", "this is a", "this is an"]
+        },{
+          "words": ["monument"],
+          "fields": ["Object Types", "Use Types"]
+        }
+      ],
+      "score": 10
+    },{
+      "name": "Monument Types",
+      "value": "Monument",
+      "conditions": [
+        {
+          "words": ["battle", "skirmish", "massacre", "riot", "siege", "gun", "settled", "founding", "campaign", "revolution", "infantry", "troop", "heritage"],
+          "phrases": ["civil rights"],
+          "pluralize": 1,
+          "fields": ["Subjects"]
+        },{
+          "words": ["battle", "skirmish", "massacre", "riot", "siege", "admiral", "general", "captain", "revolution", "infantry", "soldier", "troop", "cavalry", "lieutenant", "corporal", "airman", "victory", "defeat", "forefather", "forefathers", "patriot", "leader", "statesman", "statesmen", "hero", "heros", "heroes", "sacrifice", "conflict", "chief"],
+          "pluralize": 1,
+          "fields": ["Name", "Alternate Name", "Honorees"]
+        },{
+          "words": ["ethnic", "worker", "soldier", "nurse", "doctor", "teacher", "educator", "missionary", "priest", "monk", "nun", "saint", "trapper", "lineman", "teamster", "settler", "pioneer", "Asian", "Chinese", "Black", "Indian", "Negro", "Italian", "Irish", "German", "American"],
+          "pluralize": 1,
+          "phrases": ["Native American", "African American"],
+          "fields": ["Subjects"]
+        },{
+          "words": ["family", "father", "son", "daughter", "mother", "woman", "liberty", "faith", "freedom", "labor", "justice", "knowledge", "chastity", "prudence", "patience", "fortitude", "muse", "allegory"],
+          "pluralize": 1,
+          "fields": ["Name", "Alternate Name"]
+        }
+      ],
+      "score": 5
+    },{
+      "name": "Monument Types",
+      "value": "Monument",
       "conditions": [
         {
           "words": ["monument"],
-          "fields": ["Description", "Text"]
+          "fields": ["Name", "Alternate Name"]
+        }
+      ],
+      "score": 2
+    },{
+      "name": "Monument Types",
+      "value": "Monument",
+      "conditions": [
+        {
+          "entities": ["EVENT", "PERSON"],
+          "fields": ["Name", "Alternate Name", "Honorees"]
+        }
+      ],
+      "score": 1
+    },{
+      "name": "Monument Types",
+      "value": "Marker",
+      "conditions": [
+        {
+          "words": ["marker"],
+          "startswith": 1,
+          "fields": ["Location Description"]
         }
       ]
     },{

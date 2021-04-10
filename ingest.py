@@ -22,6 +22,7 @@ parser.add_argument('-model', dest="DATA_MODEL_FILE", default="config/data-model
 parser.add_argument('-app', dest="APP_DIRECTORY", default="app/", help="App directory")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
 parser.add_argument('-geo', dest="GEOCACHE_FILE", default="data/preprocessed/geocoded.csv", help="Cached csv file for storing geocoded addresses")
+parser.add_argument('-ent', dest="ENTITIES_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Input entities file")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Output csv file")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 a = parser.parse_args()
@@ -382,6 +383,40 @@ geoValueCounts = getCounts(rowsOut, "Geo Type")
 for value, count in geoValueCounts:
     print(f'  {value}: {formatNumber(count)}')
 
+print("Reading entities...")
+entitiesByItem = {}
+if os.path.isfile(a.ENTITIES_FILE):
+    entFields, entRows = readCsv(a.ENTITIES_FILE)
+    for i, entRow in enumerate(entRows):
+        entRows[i]["idString"] = str(entRow["Id"])
+    entById = groupList(entRows, "idString")
+    entLookup = createLookup(entById, "idString")
+
+    for i, row in enumerate(rowsOut):
+        docId = str(row["Id"])
+        # Add entities
+        if docId in entLookup:
+            rowEnts = entLookup[docId]["items"]
+            rowsOut[i]["_entities"] = rowEnts # keep track of this for determining monument type
+            eventEnts = []
+            peopleEnts = []
+            for ent in rowEnts:
+                value = str(ent["Value"]).strip()
+                if len(value) < 1:
+                    continue
+                if ent["Type"] == "EVENT" and value not in eventEnts:
+                    eventEnts.append(value)
+                elif ent["Type"] == "PERSON" and value not in peopleEnts:
+                    peopleEnts.append(value)
+
+            if len(eventEnts) > 0:
+                rowsOut[i]["Entities Events"] = eventEnts
+
+            if len(peopleEnts) > 0:
+                rowsOut[i]["Entities People"] = peopleEnts
+else:
+    print("Warning: no entities file found; run `visualize_entities.py` to generate this")
+
 # break down by type
 print("Determining monument types...")
 dateTypeGroups = groupList(dataTypes, "name")
@@ -430,6 +465,14 @@ for typeValue, typeRows in rowsByDataType.items():
     appendString = "_" + stringToId(typeValue)
     writeCsv(appendToFilename(a.OUTPUT_FILE, appendString), typeRows, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
+# write monument-score-specific output
+rowsByScore = groupList(rowsOut, "Monument Score")
+for scoreGroup in rowsByScore:
+    if scoreGroup["Monument Score"] < 1:
+        continue
+    outScoreFilename = appendToFilename(a.OUTPUT_FILE, f'_monuments_{scoreGroup["Monument Score"]}')
+    writeCsv(outScoreFilename, scoreGroup["items"], headings=["Id", "Vendor Id", "Name", "Alternate Name", "Monument Type Reason", "Monument Score", "Object Types", "Use Types", "Subjects", "Text", "Description"], listDelimeter=a.LIST_DELIMETER)
+
 # write source-specific output
 rowsBySource = groupList(rowsOut, "Source")
 for sourceGroup in rowsBySource:
@@ -437,7 +480,7 @@ for sourceGroup in rowsBySource:
     makeDirectories(outSourceFilename)
     writeCsv(outSourceFilename, sourceGroup["items"], headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
-monumentRows = rowsByDataType["Conventional monument"]
+monumentRows = rowsByDataType["Monument"]
 
 ################################################################
 # Generate dashboard data

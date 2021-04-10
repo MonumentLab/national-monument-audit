@@ -24,7 +24,7 @@ def cleanText(value):
 
 def containsPhrase(rawValue, phrase):
     value = str(rawValue).lower().strip()
-    phrase = str(phrase).lower().strip()
+    phrase = normalizeString(phrase)
 
     return (phrase in value)
 
@@ -40,11 +40,9 @@ def containsWord(rawValue, word, isFirstWord=False, isLastWord=False, caseSensit
         word = word.lower()
 
     for value in values:
-        value = str(value).strip()
+        value = normalizeString(value, caseSensitive)
         if len(value) < 1:
             continue
-        if not caseSensitive:
-            value = value.lower()
         words = value.split()
         words = [word for word in words if len(word) > 0]
         if len(words) < 1:
@@ -183,6 +181,19 @@ def normalizeName(value):
         words = [words[0]] + [words[2]]
         value = " ".join(words)
 
+    return value
+
+def normalizeString(value, caseSensitive=False):
+    value = str(value).strip()
+    if not caseSensitive:
+        value = value.lower()
+    value = value.replace("'s", "")
+    value = value.replace("’s", "")
+    value = value.replace('-', ' ')
+    value = re.sub('\s', ' ', value) # replace all whitespace with a single space
+    value = re.sub('[^a-z0-9\. ]+', ' ', value)
+    value = re.sub('\s', ' ', value)
+    value = value.strip()
     return value
 
 def normalizeWhitespace(value):
