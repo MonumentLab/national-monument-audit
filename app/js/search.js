@@ -506,6 +506,8 @@ var Search = (function() {
                 return '<a href="'+dupeUrl+'" target="_blank" class="button">'+v+'</a>';
               })
               value = value.join(' ');
+            } else if (isList && key == 'monument_type_reason') {
+              value = value.join('<br />');
             } else if (isList) {
               value = _.map(value, function(v){
                 var params = {
