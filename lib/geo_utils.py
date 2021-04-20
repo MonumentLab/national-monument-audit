@@ -75,6 +75,7 @@ def geocodeItems(rows, geoCacheFile, geolocator, gkey="Geo Type", waitSeconds=5)
         validRows.append(row)
 
     _, existingGeodata = readCsv(geoCacheFile)
+    existingGeodata = addIndices(existingGeodata, "_index")
     geoLookup = {}
     if len(existingGeodata) > 0:
         geoLookup = createLookup(existingGeodata, "Lookup String")
@@ -103,14 +104,33 @@ def geocodeItems(rows, geoCacheFile, geolocator, gkey="Geo Type", waitSeconds=5)
                     "Longitude": location.longitude
                 }
             geoLookup[lookupString] = newRow
+            newRow["_index"] = len(existingGeodata)
             existingGeodata.append(newRow)
             # cache the result
-            writeCsv(geoCacheFile, existingGeodata, headings=["Lookup String", "Address", "Latitude", "Longitude"])
+            writeCsv(geoCacheFile, existingGeodata, headings=["Lookup String", "Address", "Latitude", "Longitude"], verbose=False)
             matchedRow = newRow
             time.sleep(waitSeconds)
 
         else:
             matchedRow = geoLookup[lookupString]
+
+        # validate location, e.g. Broad Street, Stonington, New London County, Connecticut, 06378, United States
+        locationParts = [p.strip() for p in matchedRow["Address"].split(",")]
+        if len(locationParts) >= 3:
+            locCountry = locationParts[-1]
+            locZip = parseInt(locationParts[-2].replace("-", "").replace(":", "").replace("`", "").replace('*', '').replace('+', '').rstrip('S'), defaultValue=None)
+            locState = locationParts[-3]
+            if locZip is None:
+                locState = locationParts[-2] # no zip provided; assume this is state
+            # Check if not in U.S. or state does not match lookup state
+            if locCountry != "United States" or validateStateString(locState) != lookupDict["state"]:
+                if locCountry != "United States":
+                    print(f'  Invalid country: {matchedRow["Address"]} (Lookup: {lookupString})')
+                else:
+                    print(f'  State mismatch: {matchedRow["Address"]} (Lookup: {lookupString})')
+                matchedRow = { "Lookup String": lookupString, "Address": "", "Latitude": "", "Longitude": "", "_index": matchedRow["_index"] }
+                existingGeodata[matchedRow["_index"]] = matchedRow
+                writeCsv(geoCacheFile, existingGeodata, headings=["Lookup String", "Address", "Latitude", "Longitude"], verbose=False)
 
         index = row["_index"]
         if matchedRow["Latitude"] != "" and matchedRow["Longitude"] != "":

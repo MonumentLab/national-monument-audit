@@ -117,7 +117,8 @@ def getStates():
         "Northern Mariana Islands": "MP",
         "Palau": "PW",
         "Puerto Rico": "PR",
-        "Virgin Islands": "VI"
+        "Virgin Islands": "VI",
+        "United States Virgin Islands": "VI"
     }
 
 def itemNotEmpty(row, key):
