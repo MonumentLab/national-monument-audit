@@ -53,7 +53,7 @@
       "value": "Marker",
       "conditions": [
         {
-          "words": ["marker", "plaque", "sign"],
+          "words": ["marker", "plaque", "sign", "buoy"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         }
@@ -80,6 +80,17 @@
       ]
     },{
       "name": "Monument Types",
+      "value": "Monument",
+      "conditions": [
+        {
+          "words": ["figure", "soldier", "portrait"],
+          "pluralize": 1,
+          "fields": ["Subjects"]
+        }
+      ],
+      "score": 10
+    },{
+      "name": "Monument Types",
       "value": "Object",
       "conditions": [
         {
@@ -87,7 +98,7 @@
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         },{
-          "words": ["abstract"],
+          "words": ["abstract", "animal", "flower"],
           "fields": ["Object Types", "Use Types", "Subjects"]
         }
       ]
@@ -133,43 +144,24 @@
           "phrases": ["in memorial", "in memorium"],
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
         },{
-          "words": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "pyramid", "rock", "sculpture", "statue"],
+          "words": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "pyramid", "sculpture", "statue"],
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
         },{
-          "phrases": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "pyramid", "rock", "sculpture", "statue"],
+          "phrases": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "pyramid", "sculpture", "statue", "monument"],
           "fields": ["Text", "Description"],
           "precededBy": ["this", "this is a", "this is an"]
         },{
+          "phrases": ["bronze sculpture stands"],
+          "fields": ["Text", "Description"]
+        },{
           "words": ["monument"],
           "fields": ["Object Types", "Use Types"]
+        },{
+          "words": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "pyramid", "sculpture", "statue", "monument"],
+          "fields": ["Captions"]
         }
       ],
       "score": 10
-    },{
-      "name": "Monument Types",
-      "value": "Monument",
-      "conditions": [
-        {
-          "words": ["battle", "skirmish", "massacre", "riot", "siege", "gun", "settled", "founding", "campaign", "revolution", "infantry", "troop", "heritage"],
-          "phrases": ["civil rights"],
-          "pluralize": 1,
-          "fields": ["Subjects"]
-        },{
-          "words": ["battle", "skirmish", "massacre", "riot", "siege", "admiral", "general", "captain", "revolution", "infantry", "soldier", "troop", "cavalry", "lieutenant", "corporal", "airman", "victory", "defeat", "forefather", "forefathers", "patriot", "leader", "statesman", "statesmen", "hero", "heros", "heroes", "sacrifice", "conflict", "chief"],
-          "pluralize": 1,
-          "fields": ["Name", "Alternate Name", "Honorees"]
-        },{
-          "words": ["ethnic", "worker", "soldier", "nurse", "doctor", "teacher", "educator", "missionary", "priest", "monk", "nun", "saint", "trapper", "lineman", "teamster", "settler", "pioneer", "Asian", "Chinese", "Black", "Indian", "Negro", "Italian", "Irish", "German", "American"],
-          "pluralize": 1,
-          "phrases": ["Native American", "African American"],
-          "fields": ["Subjects"]
-        },{
-          "words": ["family", "father", "son", "daughter", "mother", "woman", "liberty", "faith", "freedom", "labor", "justice", "knowledge", "chastity", "prudence", "patience", "fortitude", "muse", "allegory"],
-          "pluralize": 1,
-          "fields": ["Name", "Alternate Name"]
-        }
-      ],
-      "score": 5
     },{
       "name": "Monument Types",
       "value": "Monument",
@@ -182,22 +174,11 @@
       "score": 2
     },{
       "name": "Monument Types",
-      "value": "Monument",
-      "conditions": [
-        {
-          "entities": ["EVENT", "PERSON"],
-          "fields": ["Name", "Alternate Name", "Honorees"]
-        }
-      ],
-      "score": 1
-    },{
-      "name": "Monument Types",
       "value": "Marker",
       "conditions": [
         {
           "words": ["marker"],
-          "startswith": 1,
-          "fields": ["Location Description"]
+          "fields": ["Captions"]
         }
       ]
     },{
