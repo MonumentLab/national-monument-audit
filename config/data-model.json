@@ -63,7 +63,7 @@
       "value": "Building",
       "conditions": [
         {
-          "words": ["academy", "airport", "barrack", "bank", "barn", "building", "cabin", "cafe", "center", "chapel", "church", "club", "college", "convention", "cottage", "courthouse", "depot", "drugstore", "estate", "farmstead", "factory", "fort", "gallery", "garage", "hall", "headquarter", "home", "homestead", "hotel", "hospital", "house", "inn", "ironwork", "jail", "library", "lighthouse", "manor", "mansion", "mart", "mill", "motel", "museum", "office", "outpost", "post", "prison", "refinery", "residence", "restaurant", "sawmill", "school", "schoolhouse", "station", "store", "tavern", "temple", "theater", "tower", "university", "vineyard", "warehouse"],
+          "words": ["academy", "airport", "auditorium", "barrack", "bank", "barn", "building", "cabin", "cafe", "center", "chapel", "church", "club", "college", "convention", "cottage", "courthouse", "depot", "drugstore", "estate", "farmstead", "factory", "fort", "gallery", "garage", "hall", "headquarter", "home", "homestead", "hotel", "hospital", "house", "inn", "ironwork", "jail", "library", "lighthouse", "manor", "mansion", "mart", "mill", "motel", "museum", "office", "outpost", "post", "prison", "rectory", "refinery", "residence", "restaurant", "sawmill", "school", "schoolhouse", "shelter", "station", "store", "tavern", "temple", "theater", "tower", "university", "vineyard", "warehouse"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         }
@@ -73,7 +73,7 @@
       "value": "Structure",
       "conditions": [
         {
-          "words": ["avenue", "bench", "boat", "bridge", "canal", "car", "crawler", "fountain", "highway", "intersection", "junction", "market", "mine", "path", "pier", "railroad", "riverboat", "road", "schooner", "ship", "shipyard", "street", "submarine", "turnpike", "trail", "vessel", "wharf"],
+          "words": ["avenue", "bench", "boat", "bridge", "canal", "car", "crawler", "dispensary", "fountain", "highway", "intersection", "junction", "market", "mine", "parklet", "path", "pier", "railroad", "riverboat", "road", "schooner", "ship", "shipyard", "street", "submarine", "turnpike", "trail", "vessel", "wharf"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         }
@@ -123,6 +123,10 @@
           "words": ["arboretum", "bay", "borough", "boundary", "camp", "campground", "city", "community", "county", "creek", "district", "farm", "field", "garden", "hamlet", "harbor", "heights", "lake", "plaza", "pond", "ranch", "reservoir", "river", "spring", "square", "town", "village"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
+        },{
+          "words": ["triangle", "common"],
+          "endswith": 1,
+          "fields": ["Name", "Alternate Name"]
         }
       ]
     },{
@@ -130,7 +134,7 @@
       "value": "Organization",
       "conditions": [
         {
-          "words": ["association", "company", "corporation", "llc", "organization", "partner", "partnership", "co."],
+          "words": ["association", "company", "corporation", "institute", "llc", "organization", "partner", "partnership", "co."],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         }

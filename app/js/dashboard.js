@@ -77,6 +77,7 @@ var Dashboard = (function() {
 
     _.each(this.facetData, function(entry, key){
       entry.title = 'Top '+entry.buckets.length+' values for "'+key.replace('_', ' ')+'"';
+      if (key=='monument_types') key = 'monument';
       entry.resourceLink = 'monumentlab_national_monuments_audit_final_'+key+'.csv';
       entry.cols = ['Values', 'Count'];
       entry.rows = _.map(entry.buckets, function(bucket){ return [bucket.value, Util.formatNumber(bucket.count)]; })
