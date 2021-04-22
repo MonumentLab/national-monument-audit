@@ -23,6 +23,7 @@ parser.add_argument('-app', dest="APP_DIRECTORY", default="app/", help="App dire
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
 parser.add_argument('-geo', dest="GEOCACHE_FILE", default="data/preprocessed/geocoded.csv", help="Cached csv file for storing geocoded addresses")
 parser.add_argument('-ent', dest="ENTITIES_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Input entities file")
+parser.add_argument('-validate', dest="VALIDATION_FILE", default="data/validation_set.csv", help="CSV file of entries for validation")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Output csv file")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 a = parser.parse_args()
@@ -456,6 +457,22 @@ for row in rowsOut:
             fieldsOut.append(field)
 makeDirectories(a.OUTPUT_FILE)
 writeCsv(a.OUTPUT_FILE, rowsOut, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
+
+print("Writing validation rows...")
+validationHeadings, validationRows = readCsv(a.VALIDATION_FILE)
+if len(validationRows) > 0:
+    validationRows = addIndices(validationRows, "_index")
+    validationLookup = createLookup(validationRows, "Id")
+    validCount = 0
+    for row in rowsOut:
+        if row["Id"] in validationLookup:
+            vrow = validationLookup[row["Id"]]
+            validationRows[vrow["_index"]]["Current Type"] = row["Monument Types"]
+            validationRows[vrow["_index"]]["Valid"] = "Yes" if row["Monument Types"] == vrow["Expected Type"] else "No"
+            if validationRows[vrow["_index"]]["Valid"] == "Yes":
+                validCount += 1
+    print(f'{round(1.0 * validCount / len(validationRows) * 100, 2)}% valid')
+    writeCsv(a.VALIDATION_FILE, validationRows, validationHeadings)
 
 # write duplicate rows
 writeCsv(appendToFilename(a.OUTPUT_FILE, "_duplicates"), duplicateRows, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
