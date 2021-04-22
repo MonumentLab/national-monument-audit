@@ -58,7 +58,8 @@ def parseHTMLFile(fn):
         "Subjects": "",
         "Text": "",
         "Image": "",
-        "Images": ""
+        "Images": "",
+        "Captions": ""
     }
 
     # Look for article
@@ -110,6 +111,16 @@ def parseHTMLFile(fn):
                 images.append(url)
     if len(images) > 0:
         item["Images"] = " | ".join(images)
+
+    # Look for image captions
+    captionTags = article.find_all("div", {"class": "imagecaption"})
+    captions = []
+    for captionTag in captionTags:
+        caption = captionTag.get_text().strip()
+        captions.append(caption)
+    if len(captions) > 0:
+        item["Captions"] = " | ".join(captions)
+
     if isEmpty:
         return None
 
@@ -125,4 +136,4 @@ for i, row in enumerate(rows):
         items.append(item)
     printProgress(i+1, rowCount)
 
-writeCsv(a.OUTPUT_FILE, items, headings=["Vendor Entry ID", "Subjects", "Text", "Image", "Images"])
+writeCsv(a.OUTPUT_FILE, items, headings=["Vendor Entry ID", "Subjects", "Text", "Image", "Images", "Captions"])
