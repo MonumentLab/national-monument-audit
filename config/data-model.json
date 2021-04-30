@@ -63,7 +63,7 @@
       "value": "Building",
       "conditions": [
         {
-          "words": ["academy", "airport", "auditorium", "barrack", "bank", "barn", "building", "cabin", "cafe", "center", "chapel", "church", "club", "college", "convention", "cottage", "courthouse", "depot", "drugstore", "estate", "farmstead", "factory", "fort", "gallery", "garage", "hall", "headquarter", "home", "homestead", "hotel", "hospital", "house", "inn", "ironwork", "jail", "library", "lighthouse", "manor", "mansion", "mart", "mill", "motel", "museum", "office", "outpost", "post", "prison", "rectory", "refinery", "residence", "restaurant", "sawmill", "school", "schoolhouse", "shelter", "station", "store", "tavern", "temple", "theater", "tower", "university", "vineyard", "warehouse"],
+          "words": ["academy", "airport", "armory", "arena", "auditorium", "ballroom", "barrack", "bank", "barn", "building", "cabin", "cafe", "catchment", "center", "chapel", "church", "club", "college", "condominium", "convention", "cottage", "courthouse", "depot", "drugstore", "estate", "exhibit", "farmstead", "factory", "fort", "gallery", "garage", "hall", "headquarter", "home", "homestead", "hotel", "hospital", "house", "inn", "ironwork", "jail", "library", "lighthouse", "manor", "mansion", "mart", "mill", "mosque", "motel", "museum", "office", "outpost", "post", "prison", "rectory", "refinery", "residence", "restaurant", "sawmill", "school", "schoolhouse", "shelter", "stadium", "station", "store", "synagogue", "tavern", "temple", "terminal", "theater", "theatre", "tower", "university", "vineyard", "warehouse"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         }
@@ -73,7 +73,7 @@
       "value": "Structure",
       "conditions": [
         {
-          "words": ["avenue", "bench", "boat", "bridge", "canal", "car", "crawler", "dispensary", "fountain", "highway", "intersection", "junction", "market", "mine", "parklet", "path", "pier", "railroad", "riverboat", "road", "schooner", "ship", "shipyard", "street", "submarine", "turnpike", "trail", "vessel", "wharf"],
+          "words": ["avenue", "bench", "boat", "bridge", "canal", "car", "crawler", "dispensary", "fountain", "highway", "intersection", "junction", "kiln", "market", "mine", "parklet", "path", "pier", "railroad", "riverboat", "road", "schooner", "ship", "shipyard", "street", "submarine", "turnpike", "trail", "vessel", "wharf"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         }
@@ -98,7 +98,7 @@
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         },{
-          "words": ["abstract", "animal", "flower"],
+          "words": ["abstract", "animal", "flower", "tree"],
           "fields": ["Object Types", "Use Types", "Subjects"]
         }
       ]
@@ -107,7 +107,7 @@
       "value": "Site",
       "conditions": [
         {
-          "words": ["grounds", "mound", "ruin", "site", "tomb", "landmark", "archaeological", "archaeology", "cemetary", "cemetery", "park", "graveyard", "grave"],
+          "words": ["field", "grounds", "mound", "ruin", "site", "tomb", "landmark", "archaeological", "archaeology", "cemetary", "cemetery", "park", "graveyard", "grave"],
           "pluralize": 1,
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
         },{
@@ -145,24 +145,28 @@
       "conditions": [
         {
           "words": ["memorial", "honoring", "commemorating"],
-          "phrases": ["in memorial", "in memorium"],
+          "phrases": ["in honor", "in memory", "in memorium"],
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
         },{
-          "words": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "pyramid", "sculpture", "statue"],
+          "words": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "plinth", "pyramid", "relief", "sculpture", "statue"],
+          "phrases": ["liberty bell"],
           "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]
         },{
-          "phrases": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "pyramid", "sculpture", "statue", "monument"],
+          "phrases": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "pyramid", "relief", "sculpture", "statue", "monument"],
           "fields": ["Text", "Description"],
           "precededBy": ["this", "this is a", "this is an"]
         },{
           "phrases": ["bronze sculpture stands"],
           "fields": ["Text", "Description"]
         },{
-          "words": ["monument"],
+          "words": ["bell", "figure", "heroic", "monument"],
           "fields": ["Object Types", "Use Types"]
         },{
-          "words": ["arch", "boulder", "bust", "cannon", "column", "obelisk", "pedestal", "pillar", "pyramid", "sculpture", "statue", "monument"],
+          "words": ["arch", "bell", "boulder", "bust", "cannon", "column", "figure", "memorial", "monument", "obelisk", "pedestal", "pillar", "pyramid", "relief", "sculpture", "statue"],
           "fields": ["Captions"]
+        },{
+          "words": ["bronze", "granite", "marble", "stone"],
+          "fields": ["Material"]
         }
       ],
       "score": 10
