@@ -18,6 +18,7 @@ parentdir = os.path.dirname(parentdir)
 sys.path.insert(0,parentdir)
 
 from lib.collection_utils import *
+from lib.geo_utils import *
 from lib.io_utils import *
 from lib.string_utils import *
 

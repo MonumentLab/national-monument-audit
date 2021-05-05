@@ -37,6 +37,88 @@ def applyGeoTypes(rows, clusterThreshold=10, multiplier=10000, gkey="Geo Type"):
 
     return rows
 
+def codeToState(abbrev, defaultValue="Unknown"):
+    stateMap = getStates()
+    value = defaultValue
+    for name, code in stateMap.items():
+        if abbrev == code:
+            value = name
+            break
+    return value
+
+def fipsToState(fipsString, defaultValue="Unknown"):
+    if isNumber(fipsString):
+        fipsString = str(fipsString).zfill(2)
+    fipsMap = {
+        "01": "AL",
+        "02": "AK",
+        "04": "AZ",
+        "05": "AR",
+        "06": "CA",
+        "08": "CO",
+        "09": "CT",
+        "10": "DE",
+        "11": "DC",
+        "12": "FL",
+        "13": "GA",
+        "15": "HI",
+        "16": "ID",
+        "17": "IL",
+        "18": "IN",
+        "19": "IA",
+        "20": "KS",
+        "21": "KY",
+        "22": "LA",
+        "23": "ME",
+        "24": "MD",
+        "25": "MA",
+        "26": "MI",
+        "27": "MN",
+        "28": "MS",
+        "29": "MO",
+        "30": "MT",
+        "31": "NE",
+        "32": "NV",
+        "33": "NH",
+        "34": "NJ",
+        "35": "NM",
+        "36": "NY",
+        "37": "NC",
+        "38": "ND",
+        "39": "OH",
+        "40": "OK",
+        "41": "OR",
+        "42": "PA",
+        "44": "RI",
+        "45": "SC",
+        "46": "SD",
+        "47": "TN",
+        "48": "TX",
+        "49": "UT",
+        "50": "VT",
+        "51": "VA",
+        "53": "WA",
+        "54": "WV",
+        "55": "WI",
+        "56": "WY",
+        "60": "AS",
+        "64": "FM",
+        "66": "GU",
+        "67": "JA",
+        "68": "MH",
+        "69": "MP",
+        "70": "PW",
+        "72": "PR",
+        "74": "UM",
+        "76": "NI",
+        "78": "VI",
+        "81": "BI",
+        "86": "JI",
+        "89": "KR"
+    }
+    stateStr = fipsMap[fipsString] if fipsString in fipsMap else defaultValue
+    return stateStr
+
 def geocodeItems(rows, geoCacheFile, geolocator, gkey="Geo Type", waitSeconds=5):
     validRows = []
     for i, row in enumerate(rows):
@@ -143,6 +225,69 @@ def geocodeItems(rows, geoCacheFile, geolocator, gkey="Geo Type", waitSeconds=5)
 
     return rows
 
+def getStates():
+    return {
+        "Alabama": "AL",
+        "Alaska": "AK",
+        "Arizona": "AZ",
+        "Arkansas": "AR",
+        "California": "CA",
+        "Colorado": "CO",
+        "Connecticut": "CT",
+        "Delaware": "DE",
+        "Florida": "FL",
+        "Georgia": "GA",
+        "Hawaii": "HI",
+        "Idaho": "ID",
+        "Illinois": "IL",
+        "Indiana": "IN",
+        "Iowa": "IA",
+        "Kansas": "KS",
+        "Kentucky": "KY",
+        "Louisiana": "LA",
+        "Maine": "ME",
+        "Maryland": "MD",
+        "Massachusetts": "MA",
+        "Michigan": "MI",
+        "Minnesota": "MN",
+        "Mississippi": "MS",
+        "Missouri": "MO",
+        "Montana": "MT",
+        "Nebraska": "NE",
+        "Nevada": "NV",
+        "New Hampshire": "NH",
+        "New Jersey": "NJ",
+        "New Mexico": "NM",
+        "New York": "NY",
+        "North Carolina": "NC",
+        "North Dakota": "ND",
+        "Ohio": "OH",
+        "Oklahoma": "OK",
+        "Oregon": "OR",
+        "Pennsylvania": "PA",
+        "Rhode Island": "RI",
+        "South Carolina": "SC",
+        "South Dakota": "SD",
+        "Tennessee": "TN",
+        "Texas": "TX",
+        "Utah": "UT",
+        "Vermont": "VT",
+        "Virginia": "VA",
+        "Washington": "WA",
+        "West Virginia": "WV",
+        "Wisconsin": "WI",
+        "Wyoming": "WY",
+        "American Samoa": "AS",
+        "District of Columbia": "DC",
+        "Federated States of Micronesia": "FM",
+        "Guam": "GU",
+        "Marshall Islands": "MH",
+        "Northern Mariana Islands": "MP",
+        "Palau": "PW",
+        "Puerto Rico": "PR",
+        "Virgin Islands": "VI",
+        "United States Virgin Islands": "VI"
+    }
 
 def readShapefile(fn):
     data = []
