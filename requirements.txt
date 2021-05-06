@@ -9,3 +9,5 @@ pyshp
 spacy
 # For geocoding addresses
 geopy
+# For checking for lat/lon in bounds of polygons
+shapely

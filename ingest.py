@@ -9,11 +9,11 @@ import re
 import sys
 
 from lib.collection_utils import *
-from lib.data_utils import *
 from lib.geo_utils import *
 from lib.io_utils import *
 from lib.math_utils import *
 from lib.string_utils import *
+from lib.data_utils import *
 
 # input
 parser = argparse.ArgumentParser()
@@ -23,6 +23,8 @@ parser.add_argument('-app', dest="APP_DIRECTORY", default="app/", help="App dire
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
 parser.add_argument('-geo', dest="GEOCACHE_FILE", default="data/preprocessed/geocoded.csv", help="Cached csv file for storing geocoded addresses")
 parser.add_argument('-ent', dest="ENTITIES_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Input entities file")
+parser.add_argument('-county', dest="COUNTIES_GEO_FILE", default="app/data/counties.json", help="County geojson file (generated from make_boundaries.py)")
+parser.add_argument('-countycache', dest="COUNTIES_CACHE_FILE", default="data/preprocessed/counties_matched.csv", help="Cached csv file for storing lat/lon matched against county data")
 parser.add_argument('-validate', dest="VALIDATION_FILE", default="data/validation_set.csv", help="CSV file of entries for validation")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Output csv file")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
@@ -383,6 +385,41 @@ rowsOut = geocodeItems(rowsOut, a.GEOCACHE_FILE, geolocator)
 geoValueCounts = getCounts(rowsOut, "Geo Type")
 for value, count in geoValueCounts:
     print(f'  {value}: {formatNumber(count)}')
+
+print("Matching lat/lon data against county data...")
+_, latlonCountyMatches = readCsv(a.COUNTIES_CACHE_FILE, doParseNumbers=False)
+latlonCountyLookup = createLookup(latlonCountyMatches, "latlon")
+countyGeoJSON = readJSON(a.COUNTIES_GEO_FILE)
+countyLookupChanged = False
+noCountMatches = 0
+rowCount = len(rowsOut)
+def saveCountyDataCache(fn, lookup):
+    latlonCountyMatches = []
+    for latlon, item in lookup.items():
+        latlonCountyMatches.append({
+            "latlon": latlon,
+            "countyGeoId": item["countyGeoId"]
+        })
+    writeCsv(fn, latlonCountyMatches, headings=["latlon", "countyGeoId"], verbose=False)
+
+for i, row in enumerate(rowsOut):
+    countyGeoId = "Unknown"
+    if row["Geo Type"] in ("Exact coordinates provided", "Geocoded based on street address provided"):
+        latlon = f'{row["Latitude"]},{row["Longitude"]}'
+        if latlon in latlonCountyLookup:
+            countyGeoId = latlonCountyLookup[latlon]["countyGeoId"]
+        else:
+            matchedFeature = searchPointInGeoJSON(row["Latitude"], row["Longitude"], countyGeoJSON)
+            if matchedFeature is not None:
+                countyGeoId = str(matchedFeature["properties"]["GEOID"])
+                countyLookupChanged = True
+            latlonCountyLookup[latlon] = {"countyGeoId": countyGeoId}
+            saveCountyDataCache(a.COUNTIES_CACHE_FILE, latlonCountyLookup)
+        if countyGeoId == "Unknown":
+            noCountMatches += 1
+    rowsOut[i]["County GeoId"] = countyGeoId
+    printProgress(i+1, rowCount)
+print(f' County not matched for {noCountMatches} rows')
 
 print("Reading entities...")
 entitiesByItem = {}

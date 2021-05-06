@@ -45,7 +45,8 @@
         "No valid geographic data provided"
     ]},
     {"key": "Monument Type Reason", "type": "string_list"},
-    {"key": "Monument Score", "type": "int"}
+    {"key": "Monument Score", "type": "int"},
+    {"key": "County GeoId", "type": "string"}
   ],
   "types": [
     {
