@@ -31,7 +31,7 @@ var Search = (function() {
     return returnValue;
   }
 
-  Search.prototype.init = function(msg){
+  Search.prototype.init = function(){
     var isValid = Auth.authenticate();
     if (isValid) this.load();
   };

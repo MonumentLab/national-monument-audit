@@ -1,8 +1,12 @@
 h1 {
-  margin: 0.5rem;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem 2rem;
   font-size: 1.5rem;
   vertical-align: middle;
   position: relative;
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 66%, rgba(255,255,255,0) 100%);
 }
 .logo-image {
   max-width: 130px;
@@ -123,4 +127,8 @@ h1 {
   .panel.active {
     right: 0;
   }
+}
+
+.leaflet-top .leaflet-control {
+  margin-top: 70px;
 }

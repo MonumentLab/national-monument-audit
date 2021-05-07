@@ -41,10 +41,44 @@
           <p>Loading data...</p>
         </div>
       </div>
-      <form class="form-facets"></form>
+      <div class="search-container">
+        <div id="facets" class="facets"></div>
+        <form id="search-form" class="search-form">
+          <label for="input-query">Search keyword:</label>
+          <input id="input-query" type="text" name="query" class="search-input" />
+          <fieldset style="display: none">
+            <legend>Search within:</legend>
+            <div id="input-field-list" class="field-list">
+              <label for="field-name"><input id="field-name" class="field-checkbox" name="name" value="name" checked type="checkbox" data-boost="5" /> name</label>
+              <label for="field-alternate_name"><input id="field-alternate_name" class="field-checkbox" name="alternate_name" value="alternate_name" checked type="checkbox" data-boost="4" /> alternate name</label>
+              <label for="field-creators"><input id="field-creators" class="field-checkbox" name="creators" value="creators_search" checked type="checkbox" data-boost="2" /> creators</label>
+              <label for="field-honorees"><input id="field-honorees" class="field-checkbox" name="honorees" value="honorees_search" checked type="checkbox" data-boost="4" /> honorees</label>
+              <label for="field-sponsors"><input id="field-sponsors" class="field-checkbox" name="sponsors" value="sponsors_search" checked type="checkbox" data-boost="2" /> sponsors</label>
+              <label for="field-street_address"><input id="field-street_address" class="field-checkbox" name="street_adress" value="street_address" checked type="checkbox" /> street address</label>
+              <label for="field-subjects"><input id="field-subjects" class="field-checkbox" name="subjects" value="subjects_search" checked type="checkbox" data-boost="3" /> subjects</label>
+              <label for="field-object_types"><input id="field-object_types" class="field-checkbox" name="object_types" value="object_types_search" checked type="checkbox" data-boost="3" /> object types</label>
+              <label for="field-text"><input id="field-text" class="field-checkbox" name="text" value="text" checked type="checkbox" data-boost="2" /> marker text</label>
+            </div>
+          </fieldset>
+          <button type="submit" class="search-button">Submit</button>
+        </form>
+      </div>
     </div>
     <div id="results" class="results panel active">
       <button class="toggle-parent" data-active="Hide results" data-inactive="Show results">Hide results</button>
+      <div id="search-results-message" class="search-results-message"></div>
+      <div id="search-sort" class="search-sort">
+        <label for="search-sort-select">Sort by:</label>
+        <select id="search-sort-select" class="search-sort-select">
+          <option value="">Score</option>
+          <option value="name asc">Name (A → Z)</option>
+          <option value="name desc">Name (Z → A)</option>
+          <option value="year_dedicated_or_constructed desc">Year (present → past)</option>
+          <option value="year_dedicated_or_constructed asc">Year (past → present)</option>
+        </select>
+      </div>
+      <div id="search-results" class="search-results"></div>
+      <div id="search-results-pagination" class="search-results-pagination"></div>
     </div>
   </div>
 
@@ -58,7 +92,6 @@
 
   <script src="js/lib/auth.js"></script>
   <script src="js/lib/timeline.js"></script>
-  <script src="js/lib/mapSearch.js"></script>
   <script src="js/lib/util.js"></script>
 
   <script src="js/map.js"></script>
