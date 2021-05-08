@@ -116,7 +116,7 @@ for i, group in enumerate(groups):
 
     first = group["items"][0]
     groupType = first["Type"]
-    formattedText = str(first["Formatted Text"]).strip()
+    formattedText = str(first["Formatted Text"]).strip().strip("'")
 
     rowOut = {}
     rowOut["Count"] = group["count"]

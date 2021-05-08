@@ -21,7 +21,7 @@ var Map = (function() {
       'facets': '', // e.g. facetName1~value1!!value2!!value3__facetName2~value1
 
       // map values
-      'mapEl': 'map',
+      'mapEl': 'search-map',
       'tileUrlTemplate': 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       'minZoom': 4,
       'maxZoom': 18,
@@ -143,7 +143,7 @@ var Map = (function() {
 
   Map.prototype.load = function(){
     var _this = this;
-    
+
     this.isLoading = true;
     this.$form = $('#search-form');
     this.$facets = $('#facets');
@@ -158,12 +158,13 @@ var Map = (function() {
     this.sort = this.opt.sort;
     this.mapData = false;
 
-    this.loadFromOptions();
+    this.loadOptions();
     var mapLoaded = this.loadMap();
     var countiesLoaded = this.loadCounties();
 
     $.when(mapLoaded, countiesLoaded).done(function(){
       console.log('Ready.');
+      _this.loadListeners();
       _this.query();
     });
   };
@@ -181,7 +182,33 @@ var Map = (function() {
     return promise;
   };
 
-  Map.prototype.loadFromOptions = function(){
+  Map.prototype.loadListeners = function(){};
+
+  Map.prototype.loadMap = function(){
+    var _this = this;
+    var promise = $.Deferred();
+    var opt = this.opt;
+    var tiles = L.tileLayer(opt.tileUrlTemplate, {
+      minZoom: opt.minZoom,
+      maxZoom: opt.maxZoom,
+      attribution: opt.attribution
+    });
+    var latlng = L.latLng(opt.centerLatLon[0], opt.centerLatLon[1]);
+    var map = L.map(opt.mapEl, {center: latlng, zoom: opt.startZoom, layers: [tiles]});
+
+    this.featureLayer = new L.FeatureGroup();
+    map.addLayer(this.featureLayer);
+    this.map = map;
+    map.on('popupopen', function(e) {
+      _this.onPopup(e.popup);
+    });
+
+    console.log('Loaded map');
+    promise.resolve();
+    return promise;
+  };
+
+  Map.prototype.loadOptions = function(){
     var q = this.opt.q.trim();
     this.$query.val(q);
     this.$sort.val(this.sort);
@@ -220,30 +247,6 @@ var Map = (function() {
 
   };
 
-  Map.prototype.loadMap = function(){
-    var _this = this;
-    var promise = $.Deferred();
-    var opt = this.opt;
-    var tiles = L.tileLayer(opt.tileUrlTemplate, {
-      minZoom: opt.minZoom,
-      maxZoom: opt.maxZoom,
-      attribution: opt.attribution
-    });
-    var latlng = L.latLng(opt.centerLatLon[0], opt.centerLatLon[1]);
-    var map = L.map(opt.mapEl, {center: latlng, zoom: opt.startZoom, layers: [tiles]});
-
-    this.featureLayer = new L.FeatureGroup();
-    map.addLayer(this.featureLayer);
-    this.map = map;
-    map.on('popupopen', function(e) {
-      _this.onPopup(e.popup);
-    });
-
-    console.log('Loaded map');
-    promise.resolve();
-    return promise;
-  };
-
   Map.prototype.loading = function(isLoading){
     this.isLoading = isLoading;
 
@@ -263,6 +266,8 @@ var Map = (function() {
   Map.prototype.onQueryResponse = function(resp){
     console.log(resp);
     this.loading(false);
+
+    this.renderMap();
 
     // if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
     //   this.renderResultMessage(resp.hits.found);
@@ -291,6 +296,22 @@ var Map = (function() {
     $.getJSON(url, function(resp) {
       _this.onQueryResponse(resp);
     });
+  };
+
+  Map.prototype.renderMap = function(){
+    this.featureLayer.clearLayers();
+    var dataLayer = L.geoJson(this.countyData, {
+      style: function(feature){
+        return {
+          weight: 1,
+          opacity: 1,
+          color: 'white',
+          fillOpacity: 0.667,
+          fillColor: 'red'
+        };
+      }
+    });
+    this.featureLayer.addLayer(dataLayer);
   };
 
   Map.prototype.updateURL = function(){
