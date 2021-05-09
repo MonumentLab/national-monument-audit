@@ -456,24 +456,29 @@ else:
     print("Warning: no entities file found; run `visualize_entities.py` to generate this")
 
 # break down by type
-print("Determining monument types...")
-dateTypeGroups = groupList(dataTypes, "name")
+print("Determining types...")
 rowsByDataType = {}
-for dataTypeGroup in dateTypeGroups:
-    name = dataTypeGroup["name"]
+for dataTypeGroup in dataTypes:
+    name = dataTypeGroup["key"]
+    rowsByDataType[name] = {}
+    allowMany = "allowMany" in dataTypeGroup and dataTypeGroup["allowMany"] > 0
+    reasonKey = dataTypeGroup["reasonKey"] if "reasonKey" in dataTypeGroup else None
+    scoreKey = dataTypeGroup["scoreKey"] if "scoreKey" in dataTypeGroup else None
     print(f'  {name}...')
     remainingRows = rowsOut[:]
     updatedRows = []
-    itemCount = len(dataTypeGroup["items"])
-    for j, dataType in enumerate(dataTypeGroup["items"]):
-        conditionRows, remainingRows = applyDataTypeConditions(remainingRows, dataType)
+    ruleCount = len(dataTypeGroup["rules"])
+    for j, _rule in enumerate(dataTypeGroup["rules"]):
+        rule = _rule.copy()
+        rule["name"] = name
+        conditionRows, remainingRows = applyDataTypeConditions(remainingRows, rule, allowMany, reasonKey, scoreKey)
         updatedRows += conditionRows
         if len(conditionRows) > 0:
-            if dataType["value"] in rowsByDataType:
-                rowsByDataType[dataType["value"]] += conditionRows
+            if rule["value"] in rowsByDataType[name]:
+                rowsByDataType[name][rule["value"]] += conditionRows
             else:
-                rowsByDataType[dataType["value"]] = conditionRows
-        printProgress(j+1, itemCount, prepend="  ")
+                rowsByDataType[name][rule["value"]] = conditionRows
+        printProgress(j+1, ruleCount, prepend="  ")
     if len(remainingRows) > 0:
         updatedRows += remainingRows
     rowsOut = updatedRows[:]
@@ -504,8 +509,8 @@ if len(validationRows) > 0:
     for row in rowsOut:
         if row["Id"] in validationLookup:
             vrow = validationLookup[row["Id"]]
-            validationRows[vrow["_index"]]["Current Type"] = row["Monument Types"]
-            validationRows[vrow["_index"]]["Valid"] = "Yes" if row["Monument Types"] == vrow["Expected Type"] else "No"
+            validationRows[vrow["_index"]]["Current Type"] = row["Object Groups"]
+            validationRows[vrow["_index"]]["Valid"] = "Yes" if row["Object Groups"] == vrow["Expected Type"] else "No"
             if validationRows[vrow["_index"]]["Valid"] == "Yes":
                 validCount += 1
     print(f'{round(1.0 * validCount / len(validationRows) * 100, 2)}% valid')
@@ -515,9 +520,10 @@ if len(validationRows) > 0:
 writeCsv(appendToFilename(a.OUTPUT_FILE, "_duplicates"), duplicateRows, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
 # write type-specific output
-for typeValue, typeRows in rowsByDataType.items():
-    appendString = "_" + stringToId(typeValue)
-    writeCsv(appendToFilename(a.OUTPUT_FILE, appendString), typeRows, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
+for fieldValue, fieldTypes in rowsByDataType.items():
+    for typeValue, typeRows in fieldTypes.items():
+        appendString = "_" + stringToId(fieldValue) + "_" + stringToId(typeValue)
+        writeCsv(appendToFilename(a.OUTPUT_FILE, appendString), typeRows, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
 # write monument-score-specific output
 rowsByScore = groupList(rowsOut, "Monument Score")
@@ -525,7 +531,7 @@ for scoreGroup in rowsByScore:
     if scoreGroup["Monument Score"] < 1:
         continue
     outScoreFilename = appendToFilename(a.OUTPUT_FILE, f'_monuments_{scoreGroup["Monument Score"]}')
-    writeCsv(outScoreFilename, scoreGroup["items"], headings=["Id", "Vendor Id", "Name", "Alternate Name", "Monument Type Reason", "Monument Score", "Object Types", "Use Types", "Subjects", "Text", "Description"], listDelimeter=a.LIST_DELIMETER)
+    writeCsv(outScoreFilename, scoreGroup["items"], headings=["Id", "Vendor Id", "Name", "Alternate Name", "Object Group Reason", "Monument Score", "Object Types", "Use Types", "Subjects", "Text", "Description"], listDelimeter=a.LIST_DELIMETER)
 
 # write source-specific output
 rowsBySource = groupList(rowsOut, "Source")
@@ -534,7 +540,7 @@ for sourceGroup in rowsBySource:
     makeDirectories(outSourceFilename)
     writeCsv(outSourceFilename, sourceGroup["items"], headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
-monumentRows = rowsByDataType["Monument"]
+monumentRows = rowsByDataType["Object Groups"]["Monument"]
 
 ################################################################
 # Generate dashboard data

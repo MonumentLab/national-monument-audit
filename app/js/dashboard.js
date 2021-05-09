@@ -77,7 +77,7 @@ var Dashboard = (function() {
 
     _.each(this.facetData, function(entry, key){
       entry.title = 'Top '+entry.buckets.length+' values for "'+key.replace('_', ' ')+'"';
-      if (key=='monument_types') key = 'monument';
+      if (key=='object_groups') key = 'monument';
       entry.resourceLink = 'monumentlab_national_monuments_audit_final_'+key+'.csv';
       entry.cols = ['Values', 'Count'];
       entry.rows = _.map(entry.buckets, function(bucket){ return [bucket.value, Util.formatNumber(bucket.count)]; })
@@ -103,7 +103,7 @@ var Dashboard = (function() {
     var query = {
       "facet.creators": "{sort:'count', size:10}",
       "facet.honorees": "{sort:'count', size:10}",
-      "facet.monument_types": "{sort:'count', size:10}",
+      "facet.object_groups": "{sort:'count', size:10}",
       "facet.object_types": "{sort:'count', size:10}",
       "facet.geo_type": "{sort:'count', size:10}",
       "facet.sponsors": "{sort:'count', size:10}",
@@ -117,8 +117,8 @@ var Dashboard = (function() {
     var url = this.opt.searchUrl + '?' + $.param(query);
 
     return $.getJSON(url, function(resp) {
-      _this.facetData =  _.omit(resp.facets, 'monument_types');
-      _this.monumentTypes = resp.facets.monument_types;
+      _this.facetData =  _.omit(resp.facets, 'object_groups');
+      _this.objectGroups = resp.facets.object_groups;
       _this.facetData =  _.omit(resp.facets, 'geo_type');
       _this.geoTypes = resp.facets.geo_type;
     });
@@ -136,7 +136,7 @@ var Dashboard = (function() {
   Dashboard.prototype.loadBarCharts = function(){
     var _this = this;
     var fields = [
-      {key: 'monumentTypes', facet_key: 'monument_types', el: '#data-types'},
+      {key: 'objectGroups', facet_key: 'object_groups', el: '#data-types'},
       {key: 'geoTypes', facet_key: 'geo_type', el: '#geo-types'}
     ];
 

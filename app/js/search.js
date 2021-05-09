@@ -5,7 +5,7 @@ var Search = (function() {
   function Search(config) {
     var defaults = {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
-      'returnFacets': ['monument_types', 'is_duplicate', 'has_duplicates', 'entities_people', 'entities_events', 'source', 'geo_type', 'subjects', 'object_types', 'creators', 'city', 'county', 'sponsors', 'state', 'status', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
+      'returnFacets': ['object_groups', 'monument_types', 'entities_people', 'entities_events', 'source', 'geo_type', 'subjects', 'object_types', 'is_duplicate', 'has_duplicates', 'creators', 'city', 'county', 'sponsors', 'state', 'status', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
       'facetSize': 30,
       'customFacetSizes': {
         'state': 100,
@@ -506,7 +506,7 @@ var Search = (function() {
                 return '<a href="'+dupeUrl+'" target="_blank" class="button">'+v+'</a>';
               })
               value = value.join(' ');
-            } else if (isList && key == 'monument_type_reason') {
+            } else if (isList && key == 'object_group_reason') {
               value = value.join('<br />');
             } else if (isList) {
               value = _.map(value, function(v){

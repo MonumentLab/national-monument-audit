@@ -4,7 +4,7 @@ from lib.collection_utils import *
 from lib.math_utils import *
 from lib.string_utils import *
 
-def applyDataTypeConditions(rows, dataType):
+def applyDataTypeConditions(rows, dataType, allowMany=False, reasonKey=None, scoreKey=None):
     conditionRows = []
     remainingRows = []
     name = dataType["name"]
@@ -18,7 +18,8 @@ def applyDataTypeConditions(rows, dataType):
         return (conditionRows, remainingRows)
 
     conditions = dataType["conditions"]
-    for row in rows:
+    for _row in rows:
+        row = _row.copy()
         isValid = False
         reasons = []
         rowEnts = row["_entities"] if "_entities" in row else []
@@ -83,12 +84,14 @@ def applyDataTypeConditions(rows, dataType):
                 break
         if isValid:
             row[name] = value
-            if len(reasons) > 0:
-                row["Monument Type Reason"] = reasons
-            row["Monument Score"] = score
+            if len(reasons) > 0 and reasonKey is not None:
+                row[reasonKey] = reasons
+            if scoreKey is not None:
+                row[scoreKey] = score
             conditionRows.append(row)
         else:
-            row["Monument Score"] = score
+            if scoreKey is not None:
+                row[scoreKey] = score
             remainingRows.append(row)
 
     return (conditionRows, remainingRows)
