@@ -8,7 +8,7 @@ var Map = (function() {
     var defaults = {
       // search values
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
-      'returnFacets': ['source', 'entities_people', 'entities_events', 'theme', 'state', 'year_dedicated_or_constructed', 'county_geoid'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
+      'returnFacets': ['object_groups', 'source', 'entities_people', 'entities_events', 'theme', 'state', 'year_dedicated_or_constructed', 'county_geoid'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
       'facetSize': 100,
       'customFacetSizes': {
         'county_geoid': 4000
@@ -18,7 +18,7 @@ var Map = (function() {
       'sort': '',
       'fields': '', // e.g. name,street_address
       'q': '',
-      'facets': '', // e.g. facetName1~value1!!value2!!value3__facetName2~value1
+      'facets': 'object_groups~Monument', // e.g. facetName1~value1!!value2!!value3__facetName2~value1
 
       // map values
       'mapEl': 'search-map',
@@ -156,6 +156,7 @@ var Map = (function() {
     this.size = parseInt(this.opt.size);
     this.start = parseInt(this.opt.start);
     this.sort = this.opt.sort;
+    this.dataLayer = false;
     this.mapData = false;
 
     this.loadOptions();
@@ -182,7 +183,13 @@ var Map = (function() {
     return promise;
   };
 
-  Map.prototype.loadListeners = function(){};
+  Map.prototype.loadListeners = function(){
+    var _this = this;
+
+    $('.panel .toggle-parent').on('click', function(){
+      _this.onResize();
+    });
+  };
 
   Map.prototype.loadMap = function(){
     var _this = this;
@@ -267,7 +274,7 @@ var Map = (function() {
     console.log(resp);
     this.loading(false);
 
-    this.renderMap();
+    this.renderMap(resp.facets.county_geoid.buckets);
 
     // if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
     //   this.renderResultMessage(resp.hits.found);
@@ -281,6 +288,11 @@ var Map = (function() {
     //   this.renderFacets({});
     //   this.renderPagination(0);
     // }
+  };
+
+  Map.prototype.onResize = function(){
+    var _this = this;
+    setTimeout(function(){ _this.map.invalidateSize()}, 600);
   };
 
   Map.prototype.query = function(){
@@ -298,20 +310,56 @@ var Map = (function() {
     });
   };
 
-  Map.prototype.renderMap = function(){
-    this.featureLayer.clearLayers();
-    var dataLayer = L.geoJson(this.countyData, {
-      style: function(feature){
-        return {
-          weight: 1,
-          opacity: 1,
-          color: 'white',
-          fillOpacity: 0.667,
-          fillColor: 'red'
-        };
+  Map.prototype.renderMap = function(countyFacetData){
+
+    var countyFacetLookup = {};
+    var total = 0;
+    var unknownTotal = 0;
+    var values = [];
+    _.each(countyFacetData, function(f){
+      if (f.value == "Unknown") unknownTotal = f.count;
+      else {
+        var countyId = f.value;
+        if (countyId.length < 5) countyId = countyId.padStart(5, '0');
+        countyFacetLookup[countyId] = f.count;
+        values.push(f.count);
       }
     });
-    this.featureLayer.addLayer(dataLayer);
+    console.log(unknownTotal + ' records with no county data');
+
+    var stats = MathUtil.stats(values);
+    var stds = 1.5; // this many standard deviations of mean
+    var minValue = stats.mean - stats.std * stds;
+    var maxValue = stats.mean + stats.std * stds;
+
+    var style = function(feature){
+      var density = 0;
+      var countyId = feature.properties.GEOID;
+      if (_.has(countyFacetLookup, countyId) && maxValue > 0) {
+        var t = MathUtil.norm(countyFacetLookup[countyId], minValue, maxValue);
+        density = MathUtil.ease(t);
+        // density = t;
+      }
+      return {
+        weight: 1,
+        opacity: 0.4,
+        color: 'white',
+        fillOpacity: 0.667,
+        fillColor: Util.getGradientColor(density)
+      };
+    };
+
+    if (this.dataLayer === false) {
+      var dataLayer = L.geoJson(this.countyData, {
+        style: style
+      });
+      this.featureLayer.addLayer(dataLayer);
+      this.dataLayer = dataLayer;
+
+    } else {
+      this.dataLayer.setStyle(style);
+    }
+
   };
 
   Map.prototype.updateURL = function(){

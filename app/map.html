@@ -66,19 +66,21 @@
     </div>
     <div id="results" class="results panel active">
       <button class="toggle-parent" data-active="Hide results" data-inactive="Show results">Hide results</button>
-      <div id="search-results-message" class="search-results-message"></div>
-      <div id="search-sort" class="search-sort">
-        <label for="search-sort-select">Sort by:</label>
-        <select id="search-sort-select" class="search-sort-select">
-          <option value="">Score</option>
-          <option value="name asc">Name (A → Z)</option>
-          <option value="name desc">Name (Z → A)</option>
-          <option value="year_dedicated_or_constructed desc">Year (present → past)</option>
-          <option value="year_dedicated_or_constructed asc">Year (past → present)</option>
-        </select>
+      <div class="panel-content">
+        <div id="search-results-message" class="search-results-message"></div>
+        <div id="search-sort" class="search-sort">
+          <label for="search-sort-select">Sort by:</label>
+          <select id="search-sort-select" class="search-sort-select">
+            <option value="">Score</option>
+            <option value="name asc">Name (A → Z)</option>
+            <option value="name desc">Name (Z → A)</option>
+            <option value="year_dedicated_or_constructed desc">Year (present → past)</option>
+            <option value="year_dedicated_or_constructed asc">Year (past → present)</option>
+          </select>
+        </div>
+        <div id="search-results" class="search-results"></div>
+        <div id="search-results-pagination" class="search-results-pagination"></div>
       </div>
-      <div id="search-results" class="search-results"></div>
-      <div id="search-results-pagination" class="search-results-pagination"></div>
     </div>
   </div>
 

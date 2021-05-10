@@ -66,13 +66,23 @@ h1 {
 }
 
 .panel {
-  width: 100%;
+  width: 0;
   height: 100vh;
-  max-width: 400px;
   border-left: 2px solid black;
   position: relative;
   box-sizing: border-box;
   background: white;
+  transition: width 0.5s;
+}
+.panel.active {
+  width: 400px;
+}
+.panel-content {
+  position: absolute;
+  width: 400px;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 .panel button.toggle-parent {
   padding: 0;
@@ -85,7 +95,7 @@ h1 {
   top: -30px;
   transform-origin: bottom right;
   transform: rotate(-90deg);
-  display: none;
+  display: block;
 }
 
 @media screen and (max-width: 960px) {
@@ -108,23 +118,15 @@ h1 {
     width: 100%;
   }
   .panel {
-    width: 400px;
-    right: -400px;
-    transition: right 0.5s;
-  }
-  .panel.active {
     right: 0;
-  }
-  .panel button.toggle-parent {
-    display: block;
   }
 }
 @media screen and (max-width: 430px) {
-  .panel {
-    width: calc(100% - 30px);
-    right: calc(-100% + 30px);
+  .panel-content {
+    width: 100%;
   }
   .panel.active {
+    width: calc(100% - 30px);
     right: 0;
   }
 }
