@@ -44,8 +44,8 @@
       <div class="search-container">
         <div id="facets" class="facets"></div>
         <form id="search-form" class="search-form">
-          <label for="input-query">Search keyword:</label>
-          <input id="input-query" type="text" name="query" class="search-input" />
+          <label for="input-query" class="visually-hidden">Search keyword:</label>
+          <input id="input-query" type="text" name="query" class="search-input" placeholder="Search keyword" />
           <fieldset style="display: none">
             <legend>Search within:</legend>
             <div id="input-field-list" class="field-list">
@@ -68,7 +68,7 @@
       <button class="toggle-parent" data-active="Hide results" data-inactive="Show results">Hide results</button>
       <div class="panel-content">
         <div id="search-results-message" class="search-results-message"></div>
-        <div id="search-sort" class="search-sort">
+        <div id="search-sort" class="search-sort" style="display: none">
           <label for="search-sort-select">Sort by:</label>
           <select id="search-sort-select" class="search-sort-select">
             <option value="">Score</option>

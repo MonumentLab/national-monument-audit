@@ -9,12 +9,13 @@ var Map = (function() {
       // search values
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
       'returnFacets': ['object_groups', 'source', 'entities_people', 'entities_events', 'theme', 'state', 'year_dedicated_or_constructed', 'county_geoid'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
+      'returnValues': 'name,latlon,city,state,source,url,image',
       'facetSize': 100,
       'customFacetSizes': {
         'county_geoid': 4000
       },
       'start': 0,
-      'size': 100,
+      'size': 500,
       'sort': '',
       'fields': '', // e.g. name,street_address
       'q': '',
@@ -27,7 +28,7 @@ var Map = (function() {
       'maxZoom': 18,
       'startZoom': 5, // see the whole country
       'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      'centerLatLon': [38.5767, -92.1736], // Jefferson City, MO as center
+      'centerLatLon': "38.5767,-92.1736", // Jefferson City, MO as center
       'nominatimUrl': 'https://nominatim.openstreetmap.org/search?q={q}&format=json',
       'countyData': 'data/counties.json'
     };
@@ -55,12 +56,12 @@ var Map = (function() {
       weight: 2,
       opacity: 1
     });
-    this.infoLayer.update(layer.feature.properties);
+    this.countyInfoLayer.update(layer.feature.properties);
   };
 
   Map.prototype.countyInfoOff = function(e){
-    this.dataLayer && this.dataLayer.resetStyle(e.target);
-    this.infoLayer && this.infoLayer.update();
+    this.countyDataLayer && this.countyDataLayer.resetStyle(e.target);
+    this.countyInfoLayer && this.countyInfoLayer.update();
   };
 
   Map.prototype.getQueryObject = function(){
@@ -144,6 +145,8 @@ var Map = (function() {
       q['facet.'+facet] = '{sort:\'count\', size:'+_size+'}';
     });
 
+    q['return'] = this.opt.returnValues;
+
     console.log('Query object: ', q);
 
     return q;
@@ -170,8 +173,11 @@ var Map = (function() {
     this.size = parseInt(this.opt.size);
     this.start = parseInt(this.opt.start);
     this.sort = this.opt.sort;
-    this.dataLayer = false;
-    this.infoLayer = false;
+    this.centerLatLon = _.map(this.opt.centerLatLon.split(","), function(v){ return parseFloat(v); } );
+    this.zoomLevel = this.opt.startZoom;
+    this.countyDataLayer = false;
+    this.countyInfoLayer = false;
+    this.markerLayer = false;
     this.mapData = false;
     this.countyCounts = {};
 
@@ -205,6 +211,35 @@ var Map = (function() {
     $('.panel .toggle-parent').on('click', function(){
       _this.onResize();
     });
+
+    this.$form.on('submit', function(e){
+      e.preventDefault();
+      _this.onSearchSubmit();
+    });
+
+    this.map.on('moveend', function(e){
+      var latlon = _this.map.getCenter();
+      _this.centerLatLon = [latlon.lat, latlon.lng];
+      _this.updateURL();
+    });
+
+    this.map.on('zoomend', function(e){
+      var latlon = _this.map.getCenter();
+      _this.zoomLevel = _this.map.getZoom();
+      _this.centerLatLon = [latlon.lat, latlon.lng];
+      _this.updateURL();
+    });
+
+    $('body').on('click', '.remove-facet', function(e){
+      var $el = $(this);
+      var key = $el.attr('data-key');
+      var value = $el.attr('data-value');
+      _this.removeFacet(key, value);
+    });
+
+    $('body').on('click', '.reset-query', function(e){
+      _this.resetQuery();
+    });
   };
 
   Map.prototype.loadMap = function(){
@@ -216,8 +251,8 @@ var Map = (function() {
       maxZoom: opt.maxZoom,
       attribution: opt.attribution
     });
-    var latlng = L.latLng(opt.centerLatLon[0], opt.centerLatLon[1]);
-    var map = L.map(opt.mapEl, {center: latlng, zoom: opt.startZoom, layers: [tiles]});
+    var latlng = L.latLng(this.centerLatLon[0], this.centerLatLon[1]);
+    var map = L.map(opt.mapEl, {center: latlng, zoom: this.zoomLevel, layers: [tiles]});
 
     this.featureLayer = new L.FeatureGroup();
     map.addLayer(this.featureLayer);
@@ -235,21 +270,23 @@ var Map = (function() {
     };
     info.update = function (props) {
       if (!props) {
-        this._div.innerHTML = '<p>Hover over a county</p>';
+        // this._div.innerHTML = '<h4>Hover over a county</h4>';
+        this._div.style.display = 'none';
         return;
       }
+      this._div.style.display = '';
       var countyName = props.NAME + ' County';
       var state = _.has(STATE_CODES, props.STATEFP) ? STATE_CODES[props.STATEFP] : '??';
       var countyId = props.GEOID;
       var count = 0;
       if (_.has(_this.countyCounts, countyId)) count = _this.countyCounts[countyId];
 
-      var html = '<h4>' + countyName + ', ' + state + '</h4>';
+      var html = '<h4>' + countyName + ', ' + state + ': </h4>';
       html += '<p>' + Util.formatNumber(count) + ' entries</p>'
       this._div.innerHTML = html;
     };
     info.addTo(map);
-    this.infoLayer = info;
+    this.countyInfoLayer = info;
 
     console.log('Loaded map');
     promise.resolve();
@@ -317,23 +354,30 @@ var Map = (function() {
 
     this.renderMap(resp.facets.county_geoid.buckets);
 
-    // if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
-    //   this.renderResultMessage(resp.hits.found);
-    //   this.renderResults(resp.hits.hit);
-    //   this.renderFacets(resp.facets);
-    //   this.renderPagination(resp.hits.found);
-    //
-    // } else {
-    //   this.renderResultMessage(0);
-    //   this.renderResults([]);
-    //   this.renderFacets({});
-    //   this.renderPagination(0);
-    // }
+    var hitCount = 0
+    var hits = [];
+    var facets = {};
+
+    if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
+      hitCount = resp.hits.found;
+      hits = resp.hits.hit;
+      facets = resp.facets;
+    }
+
+    this.renderResultMessage(hitCount);
+    this.renderResults(hits);
+    this.renderFacets(facets);
   };
 
   Map.prototype.onResize = function(){
     var _this = this;
     setTimeout(function(){ _this.map.invalidateSize()}, 600);
+  };
+
+  Map.prototype.onSearchSubmit = function(){
+    if (this.isLoading) return;
+    this.start = 0;
+    this.query();
   };
 
   Map.prototype.query = function(){
@@ -349,6 +393,87 @@ var Map = (function() {
     $.getJSON(url, function(resp) {
       _this.onQueryResponse(resp);
     });
+  };
+
+  Map.prototype.removeFacet = function(key, value){
+    if (!_.has(this.facets, key) || this.isLoading) return;
+
+    console.log('Removing ', key, value);
+
+    // if (key === 'latlon'){
+    //   this.map.reset();
+    //   this.mapData = false;
+    // }
+    //
+    // if (key === 'year_dedicated_or_constructed'){
+    //   this.yearRangeValue = false;
+    //   this.timeline.reset();
+    // }
+
+    this.facets[key] = _.without(this.facets[key], value);
+    if (this.facets[key].length < 1) {
+      this.facets = _.omit(this.facets, key);
+    }
+    this.start = 0;
+    this.query();
+  };
+
+  Map.prototype.renderFacets = function(facets){
+    // facets = facets || {};
+    //
+    // var selectedFacets = this.facets;
+    // facets = _.pick(facets, function(obj, key) {
+    //   return obj && obj.buckets && obj.buckets.length > 0;
+    // });
+    //
+    // this.$facets.empty();
+    // if (_.isEmpty(facets)) {
+    //   this.$facetsContainer.removeClass('active');
+    //   return;
+    // }
+    //
+    // this.$facetsContainer.addClass('active');
+    // var html = '';
+    // var facetSize = this.opt.facetSize;
+    // _.each(this.opt.returnFacets, function(key){
+    //   if (!_.has(facets, key)) return;
+    //   var obj = facets[key];
+    //   var title = key.replace('_', ' ');
+    //   var buckets = obj.buckets;
+    //   html += '<fieldset class="facet active">';
+    //     if (buckets.length > facetSize) {
+    //       buckets = buckets.slice(0, facetSize);
+    //     }
+    //     var sectionTitle = title+' ('+buckets.length+')';
+    //     html += '<legend class="toggle-parent" data-active="'+sectionTitle+' ▼" data-inactive="'+sectionTitle+' ◀">'+sectionTitle+' ▼</legend>';
+    //     html += '<div class="facet-input-group">';
+    //     _.each(buckets, function(bucket, j){
+    //       var id = 'facet-'+key+'-'+j;
+    //       var checked = '';
+    //       if (_.has(selectedFacets, key) && _.indexOf(selectedFacets[key], bucket.value) >= 0) checked = 'checked ';
+    //       var label = ''+bucket.value;
+    //       if (title.startsWith("is ") || title.startsWith("has ")) {
+    //         if (label=="1") label = "yes";
+    //         else if (label=="0") label = "no";
+    //       }
+    //       html += '<label for="'+id+'"><input type="checkbox" name="'+key+'" id="'+id+'" value="'+bucket.value+'" class="facet-checkbox" '+checked+'/>'+label+' ('+Util.formatNumber(bucket.count)+')</label>'
+    //     });
+    //     html += '<button type="button" class="apply-facet-changes-button">Apply all changes</button>';
+    //     html += '</div>';
+    //   html += '</fieldset>';
+    // });
+    //
+    // if (_.has(facets, 'state')) {
+    //   this.map.renderResults(facets.state.buckets);
+    // } else {
+    //   this.map.renderResults([]);
+    // }
+    //
+    // var years = [];
+    // if (_.has(facets, 'year_dedicated_or_constructed')) years = facets.year_dedicated_or_constructed.buckets;
+    // this.timeline.renderResults(years);
+    //
+    // this.$facets.html(html);
   };
 
   Map.prototype.renderMap = function(countyFacetData){
@@ -391,8 +516,8 @@ var Map = (function() {
       };
     };
 
-    if (this.dataLayer === false) {
-      var dataLayer = L.geoJson(this.countyData, {
+    if (this.countyDataLayer === false) {
+      var countyDataLayer = L.geoJson(this.countyData, {
         style: style,
         onEachFeature: function(feature, layer){
           layer.on({
@@ -402,13 +527,90 @@ var Map = (function() {
           });
         }
       });
-      this.featureLayer.addLayer(dataLayer);
-      this.dataLayer = dataLayer;
+      this.featureLayer.addLayer(countyDataLayer);
+      this.countyDataLayer = countyDataLayer;
 
     } else {
-      this.dataLayer.setStyle(style);
+      this.countyDataLayer.setStyle(style);
     }
 
+  };
+
+  Map.prototype.renderResultMessage = function(totalCount){
+    var $container = this.$resultMessage;
+    var offsetStart = this.start;
+    var queryText = this.$query.val().trim();
+    var size = this.size;
+    var startNumber = Math.max(1, offsetStart);
+    var endNumber = Math.min(totalCount, startNumber + size - 1);
+    var facets = _.omit(this.facets, 'object_groups');
+
+    var html = '<p>';
+      html += 'Found <strong>' + Util.formatNumber(totalCount) + '</strong> records';
+      if (queryText.length > 0) html +=' with query <button type="button" class="reset-query">"' + queryText + '" <strong>×</strong></button>';
+      if (!_.isEmpty(facets)){
+        html += ' with facets: ';
+        _.each(facets, function(values, key){
+          var title = key.replace('_', ' ');
+          _.each(values, function(value){
+            html += '<button type="button" class="remove-facet" data-key="'+key+'" data-value="'+value+'"><strong>'+title+'</strong>: "'+value+'" <strong>×</strong></button>';
+          });
+        });
+      }
+      if (totalCount > endNumber) html += '. Showing first ' + Util.formatNumber(endNumber) + ' results.';
+      else html += '. Showing all ' + Util.formatNumber(endNumber) + ' results.';
+    html += '</p>';
+    $container.html(html);
+  };
+
+  Map.prototype.renderResults = function(results){
+    this.$results.empty();
+    if (!results || !results.length) return;
+    var html = '';
+    var start = this.start;
+
+    html += '<ul class="result-list">';
+    _.each(results, function(result, i){
+      var id = result.id;
+      var fields = result.fields;
+
+      html += '<li class="result-item">';
+
+        // display city, state
+        var cityState = false;
+        if (_.has(fields, 'city') && _.has(fields, 'state') && fields.city && fields.state) cityState = fields.city + ', ' + fields.state;
+        else if (_.has(fields, 'state') && fields.state) cityState = fields.state;
+
+        // display name
+        var name = _.has(fields, 'name') ? fields.name : '<em>[Untitled]</em>';
+        if (cityState) name += ' (' + cityState + ')';
+        html += '<h3>'+(i+1+start)+'. <a href="#'+id+'" data-id="'+id+'" class="item-link">'+name+'</a></h3>';
+
+        // display source
+        if (_.has(fields, 'source')) {
+          if (_.has(fields, 'url')) html += '<p>Source: <a href="'+fields.url+'" target="_blank">'+fields.source+'</a></p>';
+          else html += '<p>Source: '+fields.source+'</p>';
+        }
+
+        // display latlon
+        if (_.has(fields, 'latlon')) {
+          html += '<p>Location: <a href="https://www.google.com/maps/search/?api=1&query='+fields.latlon.replace(' ','')+'" target="_blank">'+fields.latlon+'</a></p>';
+        }
+
+        // display image
+        if (_.has(fields, 'image')) {
+          html += '<p><a href="'+fields.image+'" target="_blank">Image link</a></p>';
+        }
+
+      html += '</li>';
+    });
+    html += '</ul>';
+    this.$results.html(html);
+  };
+
+  Map.prototype.resetQuery = function(){
+    this.$query.val('');
+    this.onSearchSubmit();
   };
 
   Map.prototype.updateURL = function(){
@@ -447,9 +649,8 @@ var Map = (function() {
       params.facets = facetsString;
     }
 
-    if (this.mapData !== false) {
-      params = _.extend({}, params, this.mapData.urlProps);
-    }
+    params.centerLatLon = this.centerLatLon.join(",");
+    params.startZoom = this.zoomLevel;
 
     this.currentQueryParams = params;
 
