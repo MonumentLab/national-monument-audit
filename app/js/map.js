@@ -8,7 +8,11 @@ var Map = (function() {
     var defaults = {
       // search values
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
-      'returnFacets': ['object_groups', 'source', 'entities_people', 'entities_events', 'theme', 'state', 'year_dedicated_or_constructed', 'county_geoid'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
+      'returnFacets': ['object_groups', 'source', 'subjects', 'state', 'year_dedicated_or_constructed', 'county_geoid'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
+      'facetLabels': {
+        'entities_people': 'People',
+        'entities_events': 'Events'
+      },
       'returnValues': 'name,latlon,city,state,source,url,image',
       'facetSize': 100,
       'customFacetSizes': {
@@ -33,8 +37,22 @@ var Map = (function() {
       'countyData': 'data/counties.json'
     };
     var q = Util.queryParams();
+    this.defaults = _.extend({}, defaults);
     this.opt = _.extend({}, defaults, config, q);
     this.init();
+  }
+
+  // e.g. facets=facetName1~value1!!value2!!value3__facetName2~value1
+  function facetStringToObject(string){
+    if (!string || !string.length) return {};
+
+    var pairs = _.map(string.split('__'), function(str){
+      var pair = str.split('~');
+      var facetName = pair[0];
+      var facetValues = pair[1].split('!!');
+      return [facetName, facetValues];
+    });
+    return _.object(pairs);
   }
 
   function isArrayString(value) {
@@ -60,7 +78,10 @@ var Map = (function() {
   };
 
   Map.prototype.countyInfoOff = function(e){
-    this.countyDataLayer && this.countyDataLayer.resetStyle(e.target);
+    e.target.setStyle({
+      weight: 1,
+      opacity: 0.4
+    });
     this.countyInfoLayer && this.countyInfoLayer.update();
   };
 
@@ -240,6 +261,11 @@ var Map = (function() {
     $('body').on('click', '.reset-query', function(e){
       _this.resetQuery();
     });
+
+    $('body').on('change', '.facet-select', function(e){
+      // _this.onFacetCheckboxChange($(this));
+      _this.updateFacets();
+    });
   };
 
   Map.prototype.loadMap = function(){
@@ -312,16 +338,8 @@ var Map = (function() {
       });
     }
 
-    // e.g. facets=facetName1~value1!!value2!!value3__facetName2~value1
-    if (this.opt.facets && this.opt.facets.length) {
-      var pairs = _.map(this.opt.facets.split('__'), function(str){
-        var pair = str.split('~');
-        var facetName = pair[0];
-        var facetValues = pair[1].split('!!');
-        return [facetName, facetValues];
-      });
-      this.facets = _.object(pairs);
-    }
+    this.facets = facetStringToObject(this.opt.facets);
+    this.defaultFacets = facetStringToObject(this.defaults.facets);
 
     // TODO: map options, timeline
     // if (_.has(this.facets, 'year_dedicated_or_constructed') && isArrayString(this.facets.year_dedicated_or_constructed[0])) {
@@ -419,50 +437,39 @@ var Map = (function() {
   };
 
   Map.prototype.renderFacets = function(facets){
-    // facets = facets || {};
-    //
-    // var selectedFacets = this.facets;
-    // facets = _.pick(facets, function(obj, key) {
-    //   return obj && obj.buckets && obj.buckets.length > 0;
-    // });
-    //
-    // this.$facets.empty();
-    // if (_.isEmpty(facets)) {
-    //   this.$facetsContainer.removeClass('active');
-    //   return;
-    // }
-    //
-    // this.$facetsContainer.addClass('active');
-    // var html = '';
-    // var facetSize = this.opt.facetSize;
-    // _.each(this.opt.returnFacets, function(key){
-    //   if (!_.has(facets, key)) return;
-    //   var obj = facets[key];
-    //   var title = key.replace('_', ' ');
-    //   var buckets = obj.buckets;
-    //   html += '<fieldset class="facet active">';
-    //     if (buckets.length > facetSize) {
-    //       buckets = buckets.slice(0, facetSize);
-    //     }
-    //     var sectionTitle = title+' ('+buckets.length+')';
-    //     html += '<legend class="toggle-parent" data-active="'+sectionTitle+' ▼" data-inactive="'+sectionTitle+' ◀">'+sectionTitle+' ▼</legend>';
-    //     html += '<div class="facet-input-group">';
-    //     _.each(buckets, function(bucket, j){
-    //       var id = 'facet-'+key+'-'+j;
-    //       var checked = '';
-    //       if (_.has(selectedFacets, key) && _.indexOf(selectedFacets[key], bucket.value) >= 0) checked = 'checked ';
-    //       var label = ''+bucket.value;
-    //       if (title.startsWith("is ") || title.startsWith("has ")) {
-    //         if (label=="1") label = "yes";
-    //         else if (label=="0") label = "no";
-    //       }
-    //       html += '<label for="'+id+'"><input type="checkbox" name="'+key+'" id="'+id+'" value="'+bucket.value+'" class="facet-checkbox" '+checked+'/>'+label+' ('+Util.formatNumber(bucket.count)+')</label>'
-    //     });
-    //     html += '<button type="button" class="apply-facet-changes-button">Apply all changes</button>';
-    //     html += '</div>';
-    //   html += '</fieldset>';
-    // });
-    //
+    facets = facets || {};
+
+    var facetLabels = this.opt.facetLabels;
+    var selectedFacets = this.facets;
+    var excludeFields = ['county_geoid', 'object_groups', 'year_dedicated_or_constructed'];
+
+    facets = _.pick(facets, function(obj, key) {
+      return obj && obj.buckets && obj.buckets.length > 0 && _.indexOf(excludeFields, key) < 0;
+    });
+
+    this.$facets.empty();
+    var html = '';
+    _.each(this.opt.returnFacets, function(key){
+      if (!_.has(facets, key)) return;
+      var obj = facets[key];
+      var title = Util.capitalize(key.replace('_', ' '));
+      if (_.has(facetLabels, key)) title = facetLabels[key];
+      var buckets = obj.buckets;
+      html += '<fieldset class="facet active">';
+        html += '<label for="facet-select-'+key+'">'+title+'</label>';
+        html += '<select id="facet-select-'+key+'" class="facet-select" data-field="'+key+'">';
+          html += '<option value="">Any</option>';
+          _.each(buckets, function(bucket, j){
+            var id = 'facet-'+key+'-'+j;
+            var selected = '';
+            if (_.has(selectedFacets, key) && _.indexOf(selectedFacets[key], bucket.value) >= 0) selected = 'selected ';
+            var label = ''+bucket.value;
+            html += '<option value="'+bucket.value+'" '+selected+'/>'+label+' ('+Util.formatNumber(bucket.count)+')</option>'
+          });
+        html += '</select>';
+      html += '</fieldset>';
+    });
+
     // if (_.has(facets, 'state')) {
     //   this.map.renderResults(facets.state.buckets);
     // } else {
@@ -472,8 +479,8 @@ var Map = (function() {
     // var years = [];
     // if (_.has(facets, 'year_dedicated_or_constructed')) years = facets.year_dedicated_or_constructed.buckets;
     // this.timeline.renderResults(years);
-    //
-    // this.$facets.html(html);
+
+    this.$facets.html(html);
   };
 
   Map.prototype.renderMap = function(countyFacetData){
@@ -547,13 +554,13 @@ var Map = (function() {
 
     var html = '<p>';
       html += 'Found <strong>' + Util.formatNumber(totalCount) + '</strong> records';
-      if (queryText.length > 0) html +=' with query <button type="button" class="reset-query">"' + queryText + '" <strong>×</strong></button>';
+      if (queryText.length > 0) html +=' with query <button type="button" class="reset-query small">"' + queryText + '" <strong>×</strong></button>';
       if (!_.isEmpty(facets)){
         html += ' with facets: ';
         _.each(facets, function(values, key){
           var title = key.replace('_', ' ');
           _.each(values, function(value){
-            html += '<button type="button" class="remove-facet" data-key="'+key+'" data-value="'+value+'"><strong>'+title+'</strong>: "'+value+'" <strong>×</strong></button>';
+            html += '<button type="button" class="remove-facet small" data-key="'+key+'" data-value="'+value+'"><strong>'+title+'</strong>: "'+value+'" <strong>×</strong></button>';
           });
         });
       }
@@ -611,6 +618,33 @@ var Map = (function() {
   Map.prototype.resetQuery = function(){
     this.$query.val('');
     this.onSearchSubmit();
+  };
+
+  Map.prototype.updateFacets = function(){
+    if (this.isLoading) return;
+
+    var facets = _.extend({}, this.defaultFacets);
+    // retain latlon, year if present
+    // var latlon = _.has(this.facets, 'latlon') ? this.facets.latlon : false;
+    $('.facet-select').each(function(){
+      var $select = $(this);
+      var facetName = $select.attr('data-field');
+      var facetValue = $select.val().trim();
+      if (facetValue.length > 0) facets[facetName] = [facetValue];
+    });
+    // if (latlon !== false) facets.latlon = latlon;
+    // // add year range if year not present
+    // var yearRangeValue = this.yearRangeValue;
+    // if (!_.has(facets, 'year_dedicated_or_constructed') && yearRangeValue !== false) {
+    //   facets.year_dedicated_or_constructed = [yearRangeValue];
+    // // year facet has been selected; ignore year range
+    // } else if (_.has(facets, 'year_dedicated_or_constructed')) {
+    //   this.yearRangeValue = false;
+    //   this.timeline.reset();
+    // }
+    this.facets = facets;
+    this.start = 0;
+    this.query();
   };
 
   Map.prototype.updateURL = function(){
