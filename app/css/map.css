@@ -134,3 +134,11 @@ h1 {
 .leaflet-top .leaflet-control {
   margin-top: 70px;
 }
+
+.leaflet-control.info {
+  background: white;
+  padding: 0 1rem;
+  border: 2px solid black;
+  margin-right: 40px;
+  width: 200px;
+}

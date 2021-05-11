@@ -49,6 +49,20 @@ var Map = (function() {
     if (isValid) this.load();
   };
 
+  Map.prototype.countyInfoOn = function(e){
+    var layer = e.target;
+    layer.setStyle({
+      weight: 2,
+      opacity: 1
+    });
+    this.infoLayer.update(layer.feature.properties);
+  };
+
+  Map.prototype.countyInfoOff = function(e){
+    this.dataLayer && this.dataLayer.resetStyle(e.target);
+    this.infoLayer && this.infoLayer.update();
+  };
+
   Map.prototype.getQueryObject = function(){
     var queryText = this.$query.val().trim();
     var facetSize = this.opt.facetSize;
@@ -157,7 +171,9 @@ var Map = (function() {
     this.start = parseInt(this.opt.start);
     this.sort = this.opt.sort;
     this.dataLayer = false;
+    this.infoLayer = false;
     this.mapData = false;
+    this.countyCounts = {};
 
     this.loadOptions();
     var mapLoaded = this.loadMap();
@@ -209,6 +225,31 @@ var Map = (function() {
     map.on('popupopen', function(e) {
       _this.onPopup(e.popup);
     });
+
+    // control that shows county info on hover
+    var info = L.control();
+    info.onAdd = function (map) {
+      this._div = L.DomUtil.create('div', 'info');
+      this.update();
+      return this._div;
+    };
+    info.update = function (props) {
+      if (!props) {
+        this._div.innerHTML = '<p>Hover over a county</p>';
+        return;
+      }
+      var countyName = props.NAME + ' County';
+      var state = _.has(STATE_CODES, props.STATEFP) ? STATE_CODES[props.STATEFP] : '??';
+      var countyId = props.GEOID;
+      var count = 0;
+      if (_.has(_this.countyCounts, countyId)) count = _this.countyCounts[countyId];
+
+      var html = '<h4>' + countyName + ', ' + state + '</h4>';
+      html += '<p>' + Util.formatNumber(count) + ' entries</p>'
+      this._div.innerHTML = html;
+    };
+    info.addTo(map);
+    this.infoLayer = info;
 
     console.log('Loaded map');
     promise.resolve();
@@ -311,8 +352,8 @@ var Map = (function() {
   };
 
   Map.prototype.renderMap = function(countyFacetData){
-
-    var countyFacetLookup = {};
+    var _this = this;
+    var countyCounts = {};
     var total = 0;
     var unknownTotal = 0;
     var values = [];
@@ -321,10 +362,11 @@ var Map = (function() {
       else {
         var countyId = f.value;
         if (countyId.length < 5) countyId = countyId.padStart(5, '0');
-        countyFacetLookup[countyId] = f.count;
+        countyCounts[countyId] = f.count;
         values.push(f.count);
       }
     });
+    this.countyCounts = countyCounts;
     console.log(unknownTotal + ' records with no county data');
 
     var stats = MathUtil.stats(values);
@@ -335,8 +377,8 @@ var Map = (function() {
     var style = function(feature){
       var density = 0;
       var countyId = feature.properties.GEOID;
-      if (_.has(countyFacetLookup, countyId) && maxValue > 0) {
-        var t = MathUtil.norm(countyFacetLookup[countyId], minValue, maxValue);
+      if (_.has(countyCounts, countyId) && maxValue > 0) {
+        var t = MathUtil.norm(countyCounts[countyId], minValue, maxValue);
         density = MathUtil.ease(t);
         // density = t;
       }
@@ -351,7 +393,14 @@ var Map = (function() {
 
     if (this.dataLayer === false) {
       var dataLayer = L.geoJson(this.countyData, {
-        style: style
+        style: style,
+        onEachFeature: function(feature, layer){
+          layer.on({
+            mouseover: function(e){ _this.countyInfoOn(e) },
+            mouseout: function(e){ _this.countyInfoOff(e) },
+            click: function(e){ _this.zoomToCounty(e) },
+          });
+        }
       });
       this.featureLayer.addLayer(dataLayer);
       this.dataLayer = dataLayer;
@@ -421,6 +470,10 @@ var Map = (function() {
       window.history.replaceState(params, '', newUrl);
       // window.history.pushState(data, '', newUrl);
     }
+
+  };
+
+  Map.prototype.zoomToCounty = function(e){
 
   };
 
