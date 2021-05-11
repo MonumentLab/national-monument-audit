@@ -542,6 +542,31 @@ for sourceGroup in rowsBySource:
 
 monumentRows = rowsByDataType["Object Groups"]["Monument"]
 
+# output just monument subjects
+monumentSubjects = []
+for record in monumentRows:
+    if "Subjects" in record:
+        subject = record["Subjects"]
+        if isinstance(subject, list):
+            monumentSubjects += subject
+        else:
+            monumentSubjects.append(subject)
+monumentSubjectCounts = getCounts(monumentSubjects)
+writeCsv(OUTPUT_DIR + "monumentlab_national_monuments_audit_final_monument_subjects.csv", [{"value": value, "count": count} for value, count in monumentSubjectCounts], ["value", "count"])
+
+# output uncategorized monument types
+uncategorizedMonuments = rowsByDataType["Monument Types"]["Uncategorized"]
+uncategorizedObjectTypes = []
+for record in uncategorizedMonuments:
+    if "Object Types" in record:
+        objectTypes = record["Object Types"]
+        if isinstance(objectTypes, list):
+            uncategorizedObjectTypes += objectTypes
+        else:
+            uncategorizedObjectTypes.append(objectTypes)
+uncategorizedValueCounts = getCounts(uncategorizedObjectTypes)
+writeCsv(OUTPUT_DIR + "monumentlab_national_monuments_audit_final_monument_object_types_uncategorized.csv", [{"value": value, "count": count} for value, count in uncategorizedValueCounts], ["value", "count"])
+
 ################################################################
 # Generate dashboard data
 ################################################################
