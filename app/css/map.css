@@ -139,7 +139,6 @@ h1 {
   position: absolute;
   box-sizing: border-box;
   padding: 1rem;
-  width: 100%;
   height: auto;
   bottom: 0;
 }
@@ -187,6 +186,16 @@ h1 {
 }
 .facet-select {
   max-width: 240px;
+}
+.facet button {
+  background: white;
+  color: black;
+  border: 1px solid black;
+  margin: 0;
+  padding: 0 10px;
+  box-sizing: border-box;
+  height: 24px;
+  line-height: 24px;
 }
 
 .result-list {

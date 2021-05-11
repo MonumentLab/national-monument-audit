@@ -455,18 +455,24 @@ var Map = (function() {
       var title = Util.capitalize(key.replace('_', ' '));
       if (_.has(facetLabels, key)) title = facetLabels[key];
       var buckets = obj.buckets;
+      var isSelected = _.has(selectedFacets, key);
       html += '<fieldset class="facet active">';
         html += '<label for="facet-select-'+key+'">'+title+'</label>';
-        html += '<select id="facet-select-'+key+'" class="facet-select" data-field="'+key+'">';
-          html += '<option value="">Any</option>';
-          _.each(buckets, function(bucket, j){
-            var id = 'facet-'+key+'-'+j;
-            var selected = '';
-            if (_.has(selectedFacets, key) && _.indexOf(selectedFacets[key], bucket.value) >= 0) selected = 'selected ';
-            var label = ''+bucket.value;
-            html += '<option value="'+bucket.value+'" '+selected+'/>'+label+' ('+Util.formatNumber(bucket.count)+')</option>'
-          });
-        html += '</select>';
+        if (isSelected) {
+          var value = selectedFacets[key];
+          html += '<button type="button" class="remove-facet" data-key="'+key+'" data-value="'+value+'">"'+value+'" <strong>×</strong></button>';
+        } else {
+          html += '<select id="facet-select-'+key+'" class="facet-select" data-field="'+key+'">';
+            html += '<option value="">Any</option>';
+            _.each(buckets, function(bucket, j){
+              var id = 'facet-'+key+'-'+j;
+              var selected = '';
+              if (_.has(selectedFacets, key) && _.indexOf(selectedFacets[key], bucket.value) >= 0) selected = 'selected ';
+              var label = ''+bucket.value;
+              html += '<option value="'+bucket.value+'" '+selected+'/>'+label+' ('+Util.formatNumber(bucket.count)+')</option>'
+            });
+          html += '</select>';
+        }
       html += '</fieldset>';
     });
 
