@@ -37,7 +37,10 @@ var Map = (function() {
       'nominatimUrl': 'https://nominatim.openstreetmap.org/search?q={q}&format=json',
       'countyData': 'data/counties.json',
       'markerZoomThreshold': 10, // start showing markers at this zoom level
-      'maxMarkerCount': 500
+      'itemZoomLevel': 17,
+      'maxMarkerCount': 500,
+      'flyDuration': 0.25,
+      'highlightMarker': false
     };
     var q = Util.queryParams();
     this.defaults = _.extend({}, defaults);
@@ -80,8 +83,8 @@ var Map = (function() {
     var name = _.has(fields, 'name') ? fields.name : '<em>[Untitled]</em>';
     var indexString = (start !== undefined && index !== undefined) ? (index+1+start) + '. ' : '';
     if (cityState) name += ' (' + cityState + ')';
-    if (linkToMap) {
-      html += '<h3>'+indexString+'<a href="#'+id+'" data-id="'+id+'" class="item-link">'+name+'</a></h3>';
+    if (linkToMap && _.has(fields, 'latlon')) {
+      html += '<h3>'+indexString+'<a href="#'+id+'" data-id="'+id+'" data-latlon="'+fields.latlon+'" class="item-link">'+name+'</a></h3>';
     } else {
       var itemParams = {'id': id}
       var itemUrl = 'item.html?' + $.param(itemParams);
@@ -97,6 +100,8 @@ var Map = (function() {
     // display latlon
     if (_.has(fields, 'latlon')) {
       html += '<p>Location: <a href="https://www.google.com/maps/search/?api=1&query='+fields.latlon.replace(' ','')+'" target="_blank">'+fields.latlon+'</a></p>';
+    } else {
+      html += '<p><em>No geographic coordinate data</em></p>';
     }
 
     // display image
@@ -262,6 +267,7 @@ var Map = (function() {
     this.sort = this.opt.sort;
     this.centerLatLon = _.map(this.opt.centerLatLon.split(","), function(v){ return parseFloat(v); } );
     this.zoomLevel = this.opt.startZoom;
+    this.highlightMarker = this.opt.highlightMarker;
     this.countyDataLayer = false;
     this.countyInfoLayer = false;
     this.markerLayer = false;
@@ -330,6 +336,11 @@ var Map = (function() {
       // _this.onFacetCheckboxChange($(this));
       _this.updateFacets();
     });
+
+    $('body').on('click', '.item-link', function(e){
+      e.preventDefault();
+      _this.zoomToItem($(this).attr('data-id'), $(this).attr('data-latlon'));
+    });
   };
 
   Map.prototype.loadMap = function(){
@@ -351,7 +362,9 @@ var Map = (function() {
       _this.onPopup(e.popup);
     });
 
-    this.markerLayer = L.markerClusterGroup();
+    this.markerLayer = L.markerClusterGroup({
+      disableClusteringAtZoom: this.opt.itemZoomLevel
+    });
 
     this.loadMapInfo();
 
@@ -435,7 +448,13 @@ var Map = (function() {
   };
 
   Map.prototype.onPopup = function(p){
+    var itemId = p.options.itemId;
 
+    if (itemId) {
+      this.highlightMarker = itemId;
+      this.updateURL();
+      this.highlightMarker = false;
+    }
   };
 
   Map.prototype.onQueryResponse = function(resp){
@@ -453,6 +472,8 @@ var Map = (function() {
       hits = resp.hits.hit;
       facets = resp.facets;
     }
+
+    this.lastSearchResults = hits;
 
     this.renderResultMessage(hitCount);
     this.renderResults(hits);
@@ -776,6 +797,7 @@ var Map = (function() {
       if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
         hits = resp.hits.hit;
       }
+      var highlightedMarker = false;
 
       _.each(hits, function(result){
         var fields = result.fields;
@@ -785,10 +807,21 @@ var Map = (function() {
         latlon = _.map(latlon.split(","), function(v){ return parseFloat(v); });
         var marker = L.marker(new L.LatLng(latlon[0], latlon[1]));
         var html = resultToHtml(result);
-        marker.bindPopup(html);
+        marker.bindPopup(html, {itemId: result.id});
+        if (_this.highlightMarker && _this.highlightMarker === result.id) {
+          highlightedMarker = marker;
+        }
         _this.markerLayer.addLayer(marker);
         // _this.markerLayer.refreshClusters();
       });
+
+      if (highlightedMarker) {
+        highlightedMarker.openPopup();
+      }
+
+      if (_this.highlightMarker) {
+        _this.highlightMarker = false;
+      }
     });
 
 
@@ -838,6 +871,10 @@ var Map = (function() {
     params.centerLatLon = this.centerLatLon.join(",");
     params.startZoom = this.zoomLevel;
 
+    if (this.highlightMarker) {
+      params.highlightMarker = this.highlightMarker;
+    }
+
     this.currentQueryParams = params;
 
     if (window.history.pushState) {
@@ -864,7 +901,25 @@ var Map = (function() {
     var latLon = e.target.getCenter();
     var zoom = this.opt.markerZoomThreshold;
     this.map.flyTo(latLon, zoom, {
-      duration: 0.25
+      duration: this.opt.flyDuration
+    });
+  };
+
+  Map.prototype.zoomToItem = function(itemId, latlon){
+    console.log('Item: ', itemId, latlon);
+    latlon = _.map(latlon.split(","), function(v){ return parseFloat(v); });
+
+    this.highlightMarker = false;
+    if (this.lastSearchResults) {
+      var foundItem = _.find(this.lastSearchResults, function(result){ return result.id === itemId; });
+      if (foundItem) {
+        this.highlightMarker = foundItem.id;
+      }
+    }
+
+    var zoom = _.max([this.opt.itemZoomLevel, this.zoomLevel]);
+    this.map.flyTo(new L.LatLng(latlon[0], latlon[1]), zoom, {
+      duration: this.opt.flyDuration
     });
   };
 
