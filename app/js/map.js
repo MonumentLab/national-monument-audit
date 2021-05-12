@@ -24,6 +24,7 @@ var Map = (function() {
       'fields': '', // e.g. name,street_address
       'q': '',
       'facets': 'object_groups~Monument', // e.g. facetName1~value1!!value2!!value3__facetName2~value1
+      'searchCacheSize': 5, // store this many responses in memory
 
       // map values
       'mapEl': 'search-map',
@@ -34,7 +35,9 @@ var Map = (function() {
       'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       'centerLatLon': "38.5767,-92.1736", // Jefferson City, MO as center
       'nominatimUrl': 'https://nominatim.openstreetmap.org/search?q={q}&format=json',
-      'countyData': 'data/counties.json'
+      'countyData': 'data/counties.json',
+      'markerZoomThreshold': 10, // start showing markers at this zoom level
+      'maxMarkerCount': 500
     };
     var q = Util.queryParams();
     this.defaults = _.extend({}, defaults);
@@ -63,9 +66,67 @@ var Map = (function() {
     return returnValue;
   }
 
+  function resultToHtml(result, start, index, linkToMap){
+    var id = result.id;
+    var fields = result.fields;
+    var html = '';
+
+    // display city, state
+    var cityState = false;
+    if (_.has(fields, 'city') && _.has(fields, 'state') && fields.city && fields.state) cityState = fields.city + ', ' + fields.state;
+    else if (_.has(fields, 'state') && fields.state) cityState = fields.state;
+
+    // display name
+    var name = _.has(fields, 'name') ? fields.name : '<em>[Untitled]</em>';
+    var indexString = (start !== undefined && index !== undefined) ? (index+1+start) + '. ' : '';
+    if (cityState) name += ' (' + cityState + ')';
+    if (linkToMap) {
+      html += '<h3>'+indexString+'<a href="#'+id+'" data-id="'+id+'" class="item-link">'+name+'</a></h3>';
+    } else {
+      var itemParams = {'id': id}
+      var itemUrl = 'item.html?' + $.param(itemParams);
+      html += '<h3>'+indexString+'<a href="'+itemUrl+'"  target="_blank">'+name+'</a></h3>';
+    }
+
+    // display source
+    if (_.has(fields, 'source')) {
+      if (_.has(fields, 'url')) html += '<p>Source: <a href="'+fields.url+'" target="_blank">'+fields.source+'</a></p>';
+      else html += '<p>Source: '+fields.source+'</p>';
+    }
+
+    // display latlon
+    if (_.has(fields, 'latlon')) {
+      html += '<p>Location: <a href="https://www.google.com/maps/search/?api=1&query='+fields.latlon.replace(' ','')+'" target="_blank">'+fields.latlon+'</a></p>';
+    }
+
+    // display image
+    if (_.has(fields, 'image')) {
+      html += '<p><a href="'+fields.image+'" target="_blank">Image link</a></p>';
+    }
+
+    return html;
+  }
+
   Map.prototype.init = function(){
     var isValid = Auth.authenticate();
     if (isValid) this.load();
+  };
+
+  Map.prototype.cacheAdd = function(queryString, resp){
+    if (this.searchCache.length >= this.opt.searchCacheSize) {
+      var removed = this.searchCache.shift();
+    }
+
+    this.searchCache.push({
+      queryString: queryString,
+      resp: resp
+    });
+  };
+
+  Map.prototype.cacheGet = function(queryString){
+    var found = _.find(this.searchCache, function(entry){ return entry.queryString === queryString; });
+    if (found) return found.resp;
+    else return false;
   };
 
   Map.prototype.countyInfoOn = function(e){
@@ -85,7 +146,7 @@ var Map = (function() {
     this.countyInfoLayer && this.countyInfoLayer.update();
   };
 
-  Map.prototype.getQueryObject = function(){
+  Map.prototype.getQueryObject = function(customFacets){
     var queryText = this.$query.val().trim();
     var facetSize = this.opt.facetSize;
     var customFacetSizes = this.opt.customFacetSizes;
@@ -95,7 +156,7 @@ var Map = (function() {
     };
     if (this.start > 0) q.start = this.start;
     if (this.sort && this.sort.length) q.sort = this.sort;
-    var facets = _.clone(this.facets);
+    var facets = customFacets ? _.clone(customFacets) : _.clone(this.facets);
     facets = _.omit(facets, function(values, key) {
       return values.length < 1;
     });
@@ -173,10 +234,14 @@ var Map = (function() {
     return q;
   };
 
-  Map.prototype.getQueryString = function(){
-    var q = this.getQueryObject();
+  Map.prototype.getQueryString = function(customFacets){
+    var q = this.getQueryObject(customFacets);
     var qstring = $.param(q);
     return qstring;
+  };
+
+  Map.prototype.isMarkerView = function(){
+    return (this.zoomLevel >= this.opt.markerZoomThreshold);
   };
 
   Map.prototype.load = function(){
@@ -190,6 +255,7 @@ var Map = (function() {
     this.$resultMessage = $('#search-results-message');
     this.$pagination = $('#search-results-pagination');
     this.$query = $('input[name="query"]').first();
+    this.$infoPane = $('.info');
     this.facets = {};
     this.size = parseInt(this.opt.size);
     this.start = parseInt(this.opt.start);
@@ -199,8 +265,10 @@ var Map = (function() {
     this.countyDataLayer = false;
     this.countyInfoLayer = false;
     this.markerLayer = false;
+    this.visibleLayer = '';
     this.mapData = false;
     this.countyCounts = {};
+    this.searchCache = [];
 
     this.loadOptions();
     var mapLoaded = this.loadMap();
@@ -240,15 +308,11 @@ var Map = (function() {
 
     this.map.on('moveend', function(e){
       var latlon = _this.map.getCenter();
-      _this.centerLatLon = [latlon.lat, latlon.lng];
-      _this.updateURL();
-    });
-
-    this.map.on('zoomend', function(e){
-      var latlon = _this.map.getCenter();
       _this.zoomLevel = _this.map.getZoom();
       _this.centerLatLon = [latlon.lat, latlon.lng];
+      _this.updateMarkers();
       _this.updateURL();
+      _this.renderMap();
     });
 
     $('body').on('click', '.remove-facet', function(e){
@@ -287,6 +351,18 @@ var Map = (function() {
       _this.onPopup(e.popup);
     });
 
+    this.markerLayer = L.markerClusterGroup();
+
+    this.loadMapInfo();
+
+    console.log('Loaded map');
+    promise.resolve();
+    return promise;
+  };
+
+  Map.prototype.loadMapInfo = function(){
+    var _this = this;
+
     // control that shows county info on hover
     var info = L.control();
     info.onAdd = function (map) {
@@ -295,7 +371,7 @@ var Map = (function() {
       return this._div;
     };
     info.update = function (props) {
-      if (!props) {
+      if (!props || _this.isMarkerView()) {
         // this._div.innerHTML = '<h4>Hover over a county</h4>';
         this._div.style.display = 'none';
         return;
@@ -311,12 +387,8 @@ var Map = (function() {
       html += '<p>' + Util.formatNumber(count) + ' entries</p>'
       this._div.innerHTML = html;
     };
-    info.addTo(map);
+    info.addTo(this.map);
     this.countyInfoLayer = info;
-
-    console.log('Loaded map');
-    promise.resolve();
-    return promise;
   };
 
   Map.prototype.loadOptions = function(){
@@ -367,10 +439,10 @@ var Map = (function() {
   };
 
   Map.prototype.onQueryResponse = function(resp){
-    console.log(resp);
+    console.log('Query response: ', resp);
     this.loading(false);
 
-    this.renderMap(resp.facets.county_geoid.buckets);
+    this.updateMap(resp);
 
     var hitCount = 0
     var hits = [];
@@ -385,6 +457,7 @@ var Map = (function() {
     this.renderResultMessage(hitCount);
     this.renderResults(hits);
     this.renderFacets(facets);
+    this.renderMap();
   };
 
   Map.prototype.onResize = function(){
@@ -405,12 +478,48 @@ var Map = (function() {
     var queryString = this.getQueryString();
     var url = this.opt.endpoint + '?' + queryString;
 
-    console.log('Search URL: ', url);
     this.updateURL();
+    console.log('Search URL: ', url);
+
+    // check for response in cache
+    var cachedResp = this.cacheGet(queryString);
+    if (cachedResp !== false) {
+      console.log('Found cached response.');
+      this.onQueryResponse(cachedResp);
+      return;
+    }
 
     $.getJSON(url, function(resp) {
+      _this.cacheAdd(queryString, resp);
       _this.onQueryResponse(resp);
     });
+  };
+
+  Map.prototype.queryBounds = function(bounds){
+    var _this = this;
+    this.loading(true);
+
+    var facetsWithBounds =  _.extend({}, this.facets, {latlon: [JSON.stringify(bounds).replaceAll('"', "'")]});
+    var queryString = this.getQueryString(facetsWithBounds);
+    var url = this.opt.endpoint + '?' + queryString;
+    var promise = $.Deferred();
+
+    console.log('Marker Search URL: ', url);
+
+    // check for response in cache
+    var cachedResp = this.cacheGet(queryString);
+    if (cachedResp !== false) {
+      console.log('Found cached response.');
+      promise.resolve(cachedResp);
+      return;
+    }
+
+    $.getJSON(url, function(resp) {
+      _this.cacheAdd(queryString, resp);
+      promise.resolve(resp);
+    });
+
+    return promise;
   };
 
   Map.prototype.removeFacet = function(key, value){
@@ -489,7 +598,77 @@ var Map = (function() {
     this.$facets.html(html);
   };
 
-  Map.prototype.renderMap = function(countyFacetData){
+  Map.prototype.renderMap = function(){
+    var _this = this;
+    var visibleLayer = this.isMarkerView() ? 'marker' : 'county';
+
+    // check to see if we should switch layers
+    if (visibleLayer !== this.visibleLayer) {
+      console.log('Switching to layer: ' + visibleLayer);
+      this.visibleLayer = visibleLayer;
+      this.featureLayer.clearLayers();
+      if (visibleLayer === 'county') {
+        this.featureLayer.addLayer(this.countyDataLayer);
+        this.$infoPane.css('display', '');
+      } else {
+        this.featureLayer.addLayer(this.markerLayer);
+        this.$infoPane.css('display', 'none');
+      }
+    }
+  };
+
+  Map.prototype.renderResultMessage = function(totalCount){
+    var $container = this.$resultMessage;
+    var offsetStart = this.start;
+    var queryText = this.$query.val().trim();
+    var size = this.size;
+    var startNumber = Math.max(1, offsetStart);
+    var endNumber = Math.min(totalCount, startNumber + size - 1);
+    var facets = _.omit(this.facets, 'object_groups');
+
+    var html = '<p>';
+      html += 'Found <strong>' + Util.formatNumber(totalCount) + '</strong> records';
+      if (queryText.length > 0) html +=' with query <button type="button" class="reset-query small">"' + queryText + '" <strong>×</strong></button>';
+      if (!_.isEmpty(facets)){
+        html += ' with facets: ';
+        _.each(facets, function(values, key){
+          var title = key.replace('_', ' ');
+          _.each(values, function(value){
+            html += '<button type="button" class="remove-facet small" data-key="'+key+'" data-value="'+value+'"><strong>'+title+'</strong>: "'+value+'" <strong>×</strong></button>';
+          });
+        });
+      }
+      if (totalCount > endNumber) html += '. Showing first ' + Util.formatNumber(endNumber) + ' results.';
+      else html += '. Showing all ' + Util.formatNumber(endNumber) + ' results.';
+    html += '</p>';
+    $container.html(html);
+  };
+
+  Map.prototype.renderResults = function(results){
+    this.$results.empty();
+    if (!results || !results.length) return;
+    var html = '';
+    var start = this.start;
+
+    html += '<ul class="result-list">';
+    _.each(results, function(result, i){
+
+      html += '<li class="result-item">';
+
+        html += resultToHtml(result, start, i, true);
+
+      html += '</li>';
+    });
+    html += '</ul>';
+    this.$results.html(html);
+  };
+
+  Map.prototype.resetQuery = function(){
+    this.$query.val('');
+    this.onSearchSubmit();
+  };
+
+  Map.prototype.updateCountyData = function(countyFacetData){
     var _this = this;
     var countyCounts = {};
     var total = 0;
@@ -540,90 +719,13 @@ var Map = (function() {
           });
         }
       });
-      this.featureLayer.addLayer(countyDataLayer);
       this.countyDataLayer = countyDataLayer;
+      return true;
 
     } else {
       this.countyDataLayer.setStyle(style);
+      return false;
     }
-
-  };
-
-  Map.prototype.renderResultMessage = function(totalCount){
-    var $container = this.$resultMessage;
-    var offsetStart = this.start;
-    var queryText = this.$query.val().trim();
-    var size = this.size;
-    var startNumber = Math.max(1, offsetStart);
-    var endNumber = Math.min(totalCount, startNumber + size - 1);
-    var facets = _.omit(this.facets, 'object_groups');
-
-    var html = '<p>';
-      html += 'Found <strong>' + Util.formatNumber(totalCount) + '</strong> records';
-      if (queryText.length > 0) html +=' with query <button type="button" class="reset-query small">"' + queryText + '" <strong>×</strong></button>';
-      if (!_.isEmpty(facets)){
-        html += ' with facets: ';
-        _.each(facets, function(values, key){
-          var title = key.replace('_', ' ');
-          _.each(values, function(value){
-            html += '<button type="button" class="remove-facet small" data-key="'+key+'" data-value="'+value+'"><strong>'+title+'</strong>: "'+value+'" <strong>×</strong></button>';
-          });
-        });
-      }
-      if (totalCount > endNumber) html += '. Showing first ' + Util.formatNumber(endNumber) + ' results.';
-      else html += '. Showing all ' + Util.formatNumber(endNumber) + ' results.';
-    html += '</p>';
-    $container.html(html);
-  };
-
-  Map.prototype.renderResults = function(results){
-    this.$results.empty();
-    if (!results || !results.length) return;
-    var html = '';
-    var start = this.start;
-
-    html += '<ul class="result-list">';
-    _.each(results, function(result, i){
-      var id = result.id;
-      var fields = result.fields;
-
-      html += '<li class="result-item">';
-
-        // display city, state
-        var cityState = false;
-        if (_.has(fields, 'city') && _.has(fields, 'state') && fields.city && fields.state) cityState = fields.city + ', ' + fields.state;
-        else if (_.has(fields, 'state') && fields.state) cityState = fields.state;
-
-        // display name
-        var name = _.has(fields, 'name') ? fields.name : '<em>[Untitled]</em>';
-        if (cityState) name += ' (' + cityState + ')';
-        html += '<h3>'+(i+1+start)+'. <a href="#'+id+'" data-id="'+id+'" class="item-link">'+name+'</a></h3>';
-
-        // display source
-        if (_.has(fields, 'source')) {
-          if (_.has(fields, 'url')) html += '<p>Source: <a href="'+fields.url+'" target="_blank">'+fields.source+'</a></p>';
-          else html += '<p>Source: '+fields.source+'</p>';
-        }
-
-        // display latlon
-        if (_.has(fields, 'latlon')) {
-          html += '<p>Location: <a href="https://www.google.com/maps/search/?api=1&query='+fields.latlon.replace(' ','')+'" target="_blank">'+fields.latlon+'</a></p>';
-        }
-
-        // display image
-        if (_.has(fields, 'image')) {
-          html += '<p><a href="'+fields.image+'" target="_blank">Image link</a></p>';
-        }
-
-      html += '</li>';
-    });
-    html += '</ul>';
-    this.$results.html(html);
-  };
-
-  Map.prototype.resetQuery = function(){
-    this.$query.val('');
-    this.onSearchSubmit();
   };
 
   Map.prototype.updateFacets = function(){
@@ -651,6 +753,50 @@ var Map = (function() {
     this.facets = facets;
     this.start = 0;
     this.query();
+  };
+
+  Map.prototype.updateMarkers = function(){
+    var _this = this;
+
+    this.markerLayer.clearLayers();
+
+    // only update markers if we're zoomed in enough
+    if (!this.isMarkerView()) return;
+
+    var bounds = this.map.getBounds();
+    var boundsValue = [bounds.getNorthWest().lat + ',' + bounds.getNorthWest().lng, bounds.getSouthEast().lat + ',' + bounds.getSouthEast().lng];
+
+    var queryFinished = this.queryBounds(boundsValue);
+
+    $.when(queryFinished).done(function(resp){
+      console.log('Marker response: ', resp);
+      _this.loading(false);
+
+      var hits = [];
+      if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
+        hits = resp.hits.hit;
+      }
+
+      _.each(hits, function(result){
+        var fields = result.fields;
+        var latlon = _.has(fields, 'latlon') && fields.latlon ? fields.latlon : false;
+        if (latlon === false) return;
+
+        latlon = _.map(latlon.split(","), function(v){ return parseFloat(v); });
+        var marker = L.marker(new L.LatLng(latlon[0], latlon[1]));
+        var html = resultToHtml(result);
+        marker.bindPopup(html);
+        _this.markerLayer.addLayer(marker);
+        // _this.markerLayer.refreshClusters();
+      });
+    });
+
+
+  };
+
+  Map.prototype.updateMap = function(resp) {
+    this.updateCountyData(resp.facets.county_geoid.buckets);
+    this.updateMarkers();
   };
 
   Map.prototype.updateURL = function(){
@@ -715,7 +861,11 @@ var Map = (function() {
   };
 
   Map.prototype.zoomToCounty = function(e){
-
+    var latLon = e.target.getCenter();
+    var zoom = this.opt.markerZoomThreshold;
+    this.map.flyTo(latLon, zoom, {
+      duration: 0.25
+    });
   };
 
   return Map;

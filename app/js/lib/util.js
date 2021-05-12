@@ -202,6 +202,9 @@ var COLOR_GRADIENT_LEN = COLOR_GRADIENT.length;
 
   MathUtil.stats = function(array) {
     const n = array.length;
+    if (n <= 0) {
+      return {mean: 0, std: 0};
+    }
     const mean = array.reduce((a, b) => a + b) / n;
     return {
       mean: mean,
