@@ -16,7 +16,8 @@ var Map = (function() {
       'returnValues': 'name,latlon,city,state,source,url,image',
       'facetSize': 100,
       'customFacetSizes': {
-        'county_geoid': 4000
+        'county_geoid': 4000,
+        'year_dedicated_or_constructed': 1000
       },
       'start': 0,
       'size': 500,
@@ -140,7 +141,8 @@ var Map = (function() {
       weight: 2,
       opacity: 1
     });
-    this.countyInfoLayer.update(layer.feature.properties);
+    this.activeCountyFeature = layer.feature.properties;
+    this.renderInfo();
   };
 
   Map.prototype.countyInfoOff = function(e){
@@ -148,7 +150,14 @@ var Map = (function() {
       weight: 1,
       opacity: 0.4
     });
-    this.countyInfoLayer && this.countyInfoLayer.update();
+    this.activeCountyFeature = false;
+    this.renderInfo();
+  };
+
+  Map.prototype.getMapBoundsValue = function(){
+    var bounds = this.map.getBounds();
+    var boundsValue = [bounds.getNorthWest().lat + ',' + bounds.getNorthWest().lng, bounds.getSouthEast().lat + ',' + bounds.getSouthEast().lng];
+    return JSON.stringify(boundsValue).replaceAll('"', "'");
   };
 
   Map.prototype.getQueryObject = function(customFacets){
@@ -260,7 +269,8 @@ var Map = (function() {
     this.$resultMessage = $('#search-results-message');
     this.$pagination = $('#search-results-pagination');
     this.$query = $('input[name="query"]').first();
-    this.$infoPane = $('.info');
+    this.$info = $('#info-panel');
+    this.$searchMapButton = $('.search-in-map');
     this.facets = {};
     this.size = parseInt(this.opt.size);
     this.start = parseInt(this.opt.start);
@@ -269,7 +279,7 @@ var Map = (function() {
     this.zoomLevel = this.opt.startZoom;
     this.highlightMarker = this.opt.highlightMarker;
     this.countyDataLayer = false;
-    this.countyInfoLayer = false;
+    this.activeCountyFeature = false;
     this.markerLayer = false;
     this.visibleLayer = '';
     this.mapData = false;
@@ -316,9 +326,16 @@ var Map = (function() {
       var latlon = _this.map.getCenter();
       _this.zoomLevel = _this.map.getZoom();
       _this.centerLatLon = [latlon.lat, latlon.lng];
+      _this.$searchMapButton.addClass('active');
       _this.updateMarkers();
       _this.updateURL();
       _this.renderMap();
+      _this.renderInfo();
+    });
+
+    this.$searchMapButton.on('click', function(e){
+      e.preventDefault();
+      _this.onSearchMapSubmit();
     });
 
     $('body').on('click', '.remove-facet', function(e){
@@ -366,42 +383,9 @@ var Map = (function() {
       disableClusteringAtZoom: this.opt.itemZoomLevel
     });
 
-    this.loadMapInfo();
-
     console.log('Loaded map');
     promise.resolve();
     return promise;
-  };
-
-  Map.prototype.loadMapInfo = function(){
-    var _this = this;
-
-    // control that shows county info on hover
-    var info = L.control();
-    info.onAdd = function (map) {
-      this._div = L.DomUtil.create('div', 'info');
-      this.update();
-      return this._div;
-    };
-    info.update = function (props) {
-      if (!props || _this.isMarkerView()) {
-        // this._div.innerHTML = '<h4>Hover over a county</h4>';
-        this._div.style.display = 'none';
-        return;
-      }
-      this._div.style.display = '';
-      var countyName = props.NAME + ' County';
-      var state = _.has(STATE_CODES, props.STATEFP) ? STATE_CODES[props.STATEFP] : '??';
-      var countyId = props.GEOID;
-      var count = 0;
-      if (_.has(_this.countyCounts, countyId)) count = _this.countyCounts[countyId];
-
-      var html = '<h4>' + countyName + ', ' + state + ': </h4>';
-      html += '<p>' + Util.formatNumber(count) + ' entries</p>'
-      this._div.innerHTML = html;
-    };
-    info.addTo(this.map);
-    this.countyInfoLayer = info;
   };
 
   Map.prototype.loadOptions = function(){
@@ -479,6 +463,7 @@ var Map = (function() {
     this.renderResults(hits);
     this.renderFacets(facets);
     this.renderMap();
+    this.renderInfo();
   };
 
   Map.prototype.onResize = function(){
@@ -488,6 +473,16 @@ var Map = (function() {
 
   Map.prototype.onSearchSubmit = function(){
     if (this.isLoading) return;
+    this.start = 0;
+    this.query();
+  };
+
+  Map.prototype.onSearchMapSubmit = function(){
+    if (this.isLoading) return;
+    this.$searchMapButton.removeClass('active');
+
+    var bounds = this.getMapBoundsValue();
+    this.facets.latlon = [bounds];
     this.start = 0;
     this.query();
   };
@@ -520,7 +515,7 @@ var Map = (function() {
     var _this = this;
     this.loading(true);
 
-    var facetsWithBounds =  _.extend({}, this.facets, {latlon: [JSON.stringify(bounds).replaceAll('"', "'")]});
+    var facetsWithBounds =  _.extend({}, this.facets, {latlon: [bounds]});
     var queryString = this.getQueryString(facetsWithBounds);
     var url = this.opt.endpoint + '?' + queryString;
     var promise = $.Deferred();
@@ -529,10 +524,10 @@ var Map = (function() {
 
     // check for response in cache
     var cachedResp = this.cacheGet(queryString);
-    if (cachedResp !== false) {
-      console.log('Found cached response.');
+    if (cachedResp) {
+      console.log('Found cached bounds response.');
       promise.resolve(cachedResp);
-      return;
+      return promise;
     }
 
     $.getJSON(url, function(resp) {
@@ -564,6 +559,48 @@ var Map = (function() {
     }
     this.start = 0;
     this.query();
+  };
+
+  Map.prototype.renderInfo = function(){
+    var _this = this;
+
+    var columns = [];
+    var markerView = this.isMarkerView();
+    var html = '';
+
+    if (!isNaN(this.recordsWithNoCounty)) {
+      html += '<div class="info-column">';
+        html += '<h3>No geographic data:</h3>';
+        html += '<div class="value">';
+          html += '<p><em>' + Util.formatNumber(this.recordsWithNoCounty) + ' ('+this.recordsWithNoCountyPercent+'%) entries</em></p>';
+        html += '</div>';
+      html += '</div>';
+    }
+
+    if (!markerView) {
+      html += '<div id="info-county" class="info-column">';
+        html += '<h3>Active county:</h3>';
+        html += '<div class="value">';
+        if (!this.activeCountyFeature) {
+          html += '<p>Hover over a county for more details</p>';
+        } else {
+          var props = this.activeCountyFeature;
+          var countyName = props.NAME + ' County';
+          var state = _.has(STATE_CODES, props.STATEFP) ? STATE_CODES[props.STATEFP] : '??';
+          var countyId = props.GEOID;
+          var count = 0;
+          if (_.has(_this.countyCounts, countyId)) count = _this.countyCounts[countyId];
+          html += '<p><strong>' + countyName + ', ' + state + '</strong></p>';
+          html += '<p><em>' + Util.formatNumber(count) + ' entries</em></p>';
+        }
+        html += '</div>';
+      html += '</div>';
+    }
+
+    this.$info.html(html);
+
+    if (html.length > 0) this.$info.addClass('active');
+    else this.$info.removeClass('active');
   };
 
   Map.prototype.renderFacets = function(facets){
@@ -630,10 +667,8 @@ var Map = (function() {
       this.featureLayer.clearLayers();
       if (visibleLayer === 'county') {
         this.featureLayer.addLayer(this.countyDataLayer);
-        this.$infoPane.css('display', '');
       } else {
         this.featureLayer.addLayer(this.markerLayer);
-        this.$infoPane.css('display', 'none');
       }
     }
   };
@@ -653,6 +688,10 @@ var Map = (function() {
       if (!_.isEmpty(facets)){
         html += ' with facets: ';
         _.each(facets, function(values, key){
+          if (key == 'latlon') {
+            html += '<button type="button" class="remove-facet small" data-key="'+key+'" data-value="'+values[0]+'"><strong>Custom map bounds</strong> <strong>×</strong></button>';
+            return;
+          }
           var title = key.replace('_', ' ');
           _.each(values, function(value){
             html += '<button type="button" class="remove-facet small" data-key="'+key+'" data-value="'+value+'"><strong>'+title+'</strong>: "'+value+'" <strong>×</strong></button>';
@@ -696,16 +735,21 @@ var Map = (function() {
     var unknownTotal = 0;
     var values = [];
     _.each(countyFacetData, function(f){
-      if (f.value == "Unknown") unknownTotal = f.count;
-      else {
+      if (f.value == "Unknown") {
+        unknownTotal = f.count;
+
+      } else {
         var countyId = f.value;
         if (countyId.length < 5) countyId = countyId.padStart(5, '0');
         countyCounts[countyId] = f.count;
         values.push(f.count);
       }
+      total += f.count;
     });
     this.countyCounts = countyCounts;
-    console.log(unknownTotal + ' records with no county data');
+
+    this.recordsWithNoCounty = unknownTotal;
+    this.recordsWithNoCountyPercent = total > 0 ? Math.round((unknownTotal / total) * 100) : 0;
 
     var stats = MathUtil.stats(values);
     var stds = 1.5; // this many standard deviations of mean
@@ -784,9 +828,7 @@ var Map = (function() {
     // only update markers if we're zoomed in enough
     if (!this.isMarkerView()) return;
 
-    var bounds = this.map.getBounds();
-    var boundsValue = [bounds.getNorthWest().lat + ',' + bounds.getNorthWest().lng, bounds.getSouthEast().lat + ',' + bounds.getSouthEast().lng];
-
+    var boundsValue = this.getMapBoundsValue();
     var queryFinished = this.queryBounds(boundsValue);
 
     $.when(queryFinished).done(function(resp){
