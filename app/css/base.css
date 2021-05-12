@@ -22,6 +22,7 @@ button {
   outline-color: #b53128;
   border-radius: 0;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 a {
   color: #333;

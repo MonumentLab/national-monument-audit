@@ -45,6 +45,10 @@
       </div>
       <div id="info-panel" class="info-panel"></div>
       <div class="search-container">
+        <div class="search-buttons">
+          <button class="search-in-map">Redo search in map</button>
+          <a href="?q=" class="button active">Reset search</a>
+        </div>
         <form id="search-form" class="search-form">
           <label for="input-query" class="visually-hidden">Search keyword:</label>
           <input id="input-query" type="text" name="query" class="search-input" placeholder="Search keyword" />
@@ -65,9 +69,6 @@
           <button type="submit" class="search-button">Submit</button>
         </form>
         <div id="facets" class="facets"></div>
-        <div class="search-buttons">
-          <button class="search-in-map">Redo search in map</button>
-        </div>
       </div>
     </div>
     <div id="results" class="results panel active">

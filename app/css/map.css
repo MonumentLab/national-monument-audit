@@ -145,11 +145,12 @@ h1 {
 .search-form {
   display: inline-block;
   vertical-align: bottom;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
 }
 .search-input,
 .search-button,
-.search-buttons button {
+.search-buttons button,
+.search-buttons .button {
   height: 48px;
   line-height: 48px;
   font-size: 1.5rem;
@@ -162,18 +163,21 @@ h1 {
   width: 300px;
 }
 .search-button,
-.search-buttons button {
+.search-buttons button,
+.search-buttons .button {
   padding-top: 0;
   padding-bottom: 0;
 }
 .search-buttons {
-  display: inline-block;
+  display: block;
 }
-.search-buttons button {
+.search-buttons button,
+.search-buttons .button {
   display: none;
   margin-top: 0.5rem;
 }
-.search-buttons button.active {
+.search-buttons button.active,
+.search-buttons .button.active {
   display: inline-block;
 }
 
@@ -185,7 +189,7 @@ h1 {
 }
 .facet {
   border: 0;
-  padding: 0 1rem 0 0;
+  padding: 0 0.5rem 0 0;
   margin: 0;
   display: inline-block;
 }
