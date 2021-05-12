@@ -558,12 +558,18 @@ writeCsv(OUTPUT_DIR + "monumentlab_national_monuments_audit_final_monument_subje
 uncategorizedMonuments = rowsByDataType["Monument Types"]["Uncategorized"]
 uncategorizedObjectTypes = []
 for record in uncategorizedMonuments:
-    if "Object Types" in record:
-        objectTypes = record["Object Types"]
-        if isinstance(objectTypes, list):
-            uncategorizedObjectTypes += objectTypes
-        else:
-            uncategorizedObjectTypes.append(objectTypes)
+    if "Object Groups" not in record or "Object Types" not in record:
+        continue
+    objectGroup = record["Object Groups"]
+    if isinstance(objectGroup, list):
+        objectGroup = objectGroup[0]
+    if objectGroup != "Monument":
+        continue
+    objectTypes = record["Object Types"]
+    if isinstance(objectTypes, list):
+        uncategorizedObjectTypes += objectTypes
+    else:
+        uncategorizedObjectTypes.append(objectTypes)
 uncategorizedValueCounts = getCounts(uncategorizedObjectTypes)
 writeCsv(OUTPUT_DIR + "monumentlab_national_monuments_audit_final_monument_object_types_uncategorized.csv", [{"value": value, "count": count} for value, count in uncategorizedValueCounts], ["value", "count"])
 
