@@ -41,7 +41,10 @@ var Map = (function() {
       'itemZoomLevel': 17,
       'maxMarkerCount': 500,
       'flyDuration': 0.25,
-      'highlightMarker': false
+      'highlightMarker': false,
+
+      // timeline values
+      'yearRange': [1700, 2020]
     };
     var q = Util.queryParams();
     this.defaults = _.extend({}, defaults);
@@ -271,6 +274,8 @@ var Map = (function() {
     this.$query = $('input[name="query"]').first();
     this.$info = $('#info-panel');
     this.$searchMapButton = $('.search-in-map');
+    this.$timeline = $('#timeline');
+    this.$timelineSlider = $('#timeline-slider');
     this.facets = {};
     this.size = parseInt(this.opt.size);
     this.start = parseInt(this.opt.start);
@@ -285,6 +290,8 @@ var Map = (function() {
     this.mapData = false;
     this.countyCounts = {};
     this.searchCache = [];
+    this.opt.yearRange[1] = parseInt(new Date().getFullYear());
+    this.yearRangeValue = false;
 
     this.loadOptions();
     var mapLoaded = this.loadMap();
@@ -314,6 +321,14 @@ var Map = (function() {
     var _this = this;
 
     $('.panel .toggle-parent').on('click', function(){
+      setTimeout(function(){
+        _this.map.invalidateSize();
+        _this.onResize();
+      }, 600);
+
+    });
+
+    $(window).on('resize', function(){
       _this.onResize();
     });
 
@@ -321,6 +336,8 @@ var Map = (function() {
       e.preventDefault();
       _this.onSearchSubmit();
     });
+
+    this.loadTimelineSlider();
 
     this.map.on('moveend', function(e){
       var latlon = _this.map.getCenter();
@@ -359,6 +376,32 @@ var Map = (function() {
       _this.zoomToItem($(this).attr('data-id'), $(this).attr('data-latlon'));
     });
   };
+
+  Map.prototype.loadTimelineSlider = function(){
+    var _this = this;
+    var yearRange = this.opt.yearRange;
+    var selectedRange = this.yearRangeValue !== false ? this.yearRangeValue : yearRange;
+
+    this.$timelineSlider.slider({
+      range: true,
+      min: yearRange[0],
+      max: yearRange[1],
+      values: selectedRange,
+      create: function(event, ui) {
+        $(this).children('.ui-slider-handle').each(function(index){
+          $(this).html('<span class="label">'+selectedRange[index]+'</span>');
+        });
+      },
+      slide: function(e, ui){
+        $(this).children('.ui-slider-handle').each(function(index){
+          $(this).html('<span class="label">'+ui.values[index]+'</span>');
+        });
+      },
+      change: function(e, ui) {
+        _this.onChangeYearRange(ui.values[0], ui.values[1]);
+      }
+    });
+};
 
   Map.prototype.loadMap = function(){
     var _this = this;
@@ -410,13 +453,10 @@ var Map = (function() {
     this.facets = facetStringToObject(this.opt.facets);
     this.defaultFacets = facetStringToObject(this.defaults.facets);
 
-    // TODO: map options, timeline
-    // if (_.has(this.facets, 'year_dedicated_or_constructed') && isArrayString(this.facets.year_dedicated_or_constructed[0])) {
-    //   this.yearRangeValue = this.facets.year_dedicated_or_constructed[0];
-    //   var yearRange = JSON.parse(this.yearRangeValue);
-    //   this.timeline.setRange(yearRange);
-    // }
-
+    if (_.has(this.facets, 'year_dedicated_or_constructed') && isArrayString(this.facets.year_dedicated_or_constructed[0])) {
+      var yearRangeValue = this.facets.year_dedicated_or_constructed[0];
+      this.yearRangeValue = JSON.parse(yearRangeValue);
+    }
   };
 
   Map.prototype.loading = function(isLoading){
@@ -431,6 +471,23 @@ var Map = (function() {
     }
   };
 
+  Map.prototype.onChangeYearRange = function(minYear, maxYear){
+    console.log('UI range change heard', minYear, maxYear);
+
+    var yearRange = _.map([minYear, maxYear], function(y){ return parseInt(y); });
+    this.yearRangeValue = JSON.stringify(yearRange).replaceAll('"', "'");
+
+    var fullRange = this.opt.yearRange;
+    // if selected range is full range, ignore facet
+    if (yearRange[0] <= fullRange[0] && yearRange[1] >= fullRange[1]) {
+      this.yearRangeValue = false;
+      this.facets = _.omit(this.facets, 'year_dedicated_or_constructed');
+    } else {
+      this.facets.year_dedicated_or_constructed = [this.yearRangeValue];
+    }
+    this.query()
+  };
+
   Map.prototype.onPopup = function(p){
     var itemId = p.options.itemId;
 
@@ -442,6 +499,8 @@ var Map = (function() {
   };
 
   Map.prototype.onQueryResponse = function(resp){
+    var _this = this;
+
     console.log('Query response: ', resp);
     this.loading(false);
 
@@ -464,12 +523,17 @@ var Map = (function() {
     this.renderResults(hits);
     this.renderFacets(facets);
     this.renderMap();
+
     this.renderInfo();
+
+    setTimeout(function(){
+      _this.renderTimeline();
+    }, 600);
+
   };
 
   Map.prototype.onResize = function(){
-    var _this = this;
-    setTimeout(function(){ _this.map.invalidateSize()}, 600);
+    this.renderTimeline();
   };
 
   Map.prototype.onSearchSubmit = function(){
@@ -544,15 +608,10 @@ var Map = (function() {
 
     console.log('Removing ', key, value);
 
-    // if (key === 'latlon'){
-    //   this.map.reset();
-    //   this.mapData = false;
-    // }
-    //
-    // if (key === 'year_dedicated_or_constructed'){
-    //   this.yearRangeValue = false;
-    //   this.timeline.reset();
-    // }
+    if (key === 'year_dedicated_or_constructed'){
+      this.resetTimeline(); // this will automatically trigger change
+      return;
+    }
 
     this.facets[key] = _.without(this.facets[key], value);
     if (this.facets[key].length < 1) {
@@ -733,9 +792,39 @@ var Map = (function() {
     this.$results.html(html);
   };
 
+  Map.prototype.renderTimeline = function(){
+    var $bars = this.$timeline.find('.timeline-bars').first();
+    $bars.empty();
+    var buckets = this.timelineData;
+
+    if (buckets.length < 1) {
+      this.$timeline.removeClass('active');
+      return;
+    }
+    this.$timeline.addClass('active');
+    var width = $bars.width();
+    var height = $bars.height();
+    var yearRange = this.opt.yearRange;
+    var yearWidth = MathUtil.round(width / (this.opt.yearRange[1] - this.opt.yearRange[0] + 1), 4);
+    var maxCount = _.max(buckets, function(b) { return b.count; }).count;
+    var html = '';
+
+    _.each(buckets, function(year){
+      var x = MathUtil.norm(year.value, yearRange[0], yearRange[1]+1) * width;
+      var sy = maxCount > 0 ? year.count / maxCount * height : 0;
+      var css = 'transform: translateX('+x+'px) scaleX('+yearWidth+') scaleY('+sy+');';
+      html += '<div class="bar" title="'+year.count+' entries constructed or dedicated in '+year.value+'" style="'+css+'"></div>';
+    });
+    $bars.html(html);
+  };
+
   Map.prototype.resetQuery = function(){
     this.$query.val('');
     this.onSearchSubmit();
+  };
+
+  Map.prototype.resetTimeline = function(){
+    this.$timelineSlider.slider("values", this.opt.yearRange);
   };
 
   Map.prototype.updateCountyData = function(countyFacetData){
@@ -888,15 +977,23 @@ var Map = (function() {
   Map.prototype.updateTimeline = function(resp) {
     var buckets = _.has(resp.facets, 'year_dedicated_or_constructed') ? resp.facets.year_dedicated_or_constructed.buckets : [];
     var total = resp.hits && resp.hits.found ? resp.hits.found : 0;
+
     buckets = _.map(buckets, function(b){
       return {
         value: parseInt(b.value),
         count: b.count
       }
     });
+    buckets = _.sortBy(buckets, 'value');
+    console.log('Year range: ' + buckets[0].value + ' - ' + _.last(buckets).value);
+
+    var yearRange = this.opt.yearRange;
+    buckets = _.filter(buckets, function(b){ return b.value >= yearRange[0] && b.value <= yearRange[1]; });
     var validTotal = _.reduce(buckets, function(memo, b){ return memo + b.count; }, 0);
     this.recordsWithYear = validTotal;
     this.recordsWithYearPercent = total > 0 ? Math.round(validTotal / total * 100) : 0;
+
+    this.timelineData = buckets;
   };
 
   Map.prototype.updateURL = function(){

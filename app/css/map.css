@@ -209,6 +209,81 @@ h1 {
   line-height: 24px;
 }
 
+.timeline {
+  display: none;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 24px;
+  position: relative;
+}
+.timeline.active {
+  display: block;
+}
+.timeline h3 {
+  display: inline-block;
+  margin: 0;
+  padding: 0.2rem 0.4rem;
+  color: white;
+  background: black;
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+.timeline-bars {
+  display: block;
+  width: 100%;
+  max-width: 1030px;
+  height: 48px;
+  border: 1px solid black;
+  background: white;
+  box-sizing: border-box;
+}
+.timeline-bars .bar {
+  width: 1px;
+  height: 1px;
+  background: black;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform-origin: bottom left;
+}
+.timeline-slider {
+  position: absolute;
+  height: 48px;
+  width: 100%;
+  max-width: 1030px;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+.timeline-slider .ui-slider-range {
+  background: rgba(255, 235, 0, 0.2);
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+.timeline-slider .ui-slider-handle {
+  background: black;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  margin-left: -2px;
+  outline: black;
+}
+.timeline-slider .ui-slider-handle .label {
+  display: block;
+  position: absolute;
+  font-size: 0.9rem;
+  background: black;
+  color: white;
+  height: 20px;
+  line-height: 20px;
+  width: 40px;
+  bottom: -20px;
+  left: 50%;
+  margin-left: -20px;
+  text-align: center;
+  border-radius: 2px;
+}
+
 .result-list {
   margin: 0;
   padding: 0;
