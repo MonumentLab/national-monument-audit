@@ -145,12 +145,10 @@ h1 {
 .search-form {
   display: inline-block;
   vertical-align: bottom;
-  margin-right: 0.5rem;
+  margin: 0.5rem 0.5rem 0 0;
 }
 .search-input,
-.search-button,
-.search-buttons button,
-.search-buttons .button {
+.search-button {
   height: 48px;
   line-height: 48px;
   font-size: 1.5rem;
@@ -160,11 +158,9 @@ h1 {
 .search-input {
   border: 1px solid black;
   box-sizing: border-box;
-  width: 300px;
+  width: 305px;
 }
-.search-button,
-.search-buttons button,
-.search-buttons .button {
+.search-button {
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -174,7 +170,6 @@ h1 {
 .search-buttons button,
 .search-buttons .button {
   display: none;
-  margin-top: 0.5rem;
 }
 .search-buttons button.active,
 .search-buttons .button.active {
