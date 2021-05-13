@@ -276,6 +276,7 @@ var Map = (function() {
     this.$searchMapButton = $('.search-in-map');
     this.$timeline = $('#timeline');
     this.$timelineSlider = $('#timeline-slider');
+    this.$timelineSliderLabel = $('#timeline-slider-label');
     this.facets = {};
     this.size = parseInt(this.opt.size);
     this.start = parseInt(this.opt.start);
@@ -338,6 +339,10 @@ var Map = (function() {
     });
 
     this.loadTimelineSlider();
+
+    this.$timelineSlider.on('mousemove', function(e){
+      _this.updateTimelineLabel(e);
+    });
 
     this.map.on('moveend', function(e){
       var latlon = _this.map.getCenter();
@@ -994,6 +999,24 @@ var Map = (function() {
     this.recordsWithYearPercent = total > 0 ? Math.round(validTotal / total * 100) : 0;
 
     this.timelineData = buckets;
+  };
+
+  Map.prototype.updateTimelineLabel = function(e){
+    var p = Util.getRelativePoint(this.$timelineSlider, e.pageX, e.pageY);
+    var nx = p.x;
+    if (nx < 0 || nx > 1) {
+      this.$timelineSliderLabel.removeClass('active');
+      return;
+    }
+
+    var percentLeft = (nx * 100) + '%';
+    this.$timelineSliderLabel.css('left', percentLeft);
+
+    var yearRange = this.opt.yearRange;
+    var year = Math.round(MathUtil.lerp(yearRange[0], yearRange[1], nx));
+
+    this.$timelineSliderLabel.html('<div class="label">'+year+'</div>');
+    this.$timelineSliderLabel.addClass('active');
   };
 
   Map.prototype.updateURL = function(){

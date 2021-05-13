@@ -44,6 +44,17 @@ var COLOR_GRADIENT_LEN = COLOR_GRADIENT.length;
     return COLOR_GRADIENT[index];
   };
 
+  Util.getRelativePoint = function($parent, pageX, pageY) {
+    var x = pageX - $parent.offset().left;
+    var nx = x / $parent.width();
+    var y = pageY - $parent.offset().top;
+    var ny = y / $parent.height();
+    return {
+      x: nx,
+      y: ny
+    }
+  };
+
   Util.isValidFacetValue = function(d, facets){
     var isValid = true;
     _.each(facets, function(value, key){

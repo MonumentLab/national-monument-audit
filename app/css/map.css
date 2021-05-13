@@ -215,6 +215,7 @@ h1 {
   margin-top: 0.5rem;
   margin-bottom: 24px;
   position: relative;
+  box-sizing: border-box;
 }
 .timeline.active {
   display: block;
@@ -254,13 +255,15 @@ h1 {
   bottom: 0;
   left: 0;
   box-sizing: border-box;
+  z-index: 2;
 }
 .timeline-slider .ui-slider-range {
   background: rgba(255, 235, 0, 0.2);
   border: 1px solid black;
   box-sizing: border-box;
 }
-.timeline-slider .ui-slider-handle {
+.timeline-slider .ui-slider-handle,
+.timeline-slider-hover {
   background: black;
   top: 0;
   width: 4px;
@@ -268,7 +271,8 @@ h1 {
   margin-left: -2px;
   outline: black;
 }
-.timeline-slider .ui-slider-handle .label {
+.timeline-slider .ui-slider-handle .label,
+.timeline-slider-hover .label {
   display: block;
   position: absolute;
   font-size: 0.9rem;
@@ -282,6 +286,26 @@ h1 {
   margin-left: -20px;
   text-align: center;
   border-radius: 2px;
+}
+.timeline-slider-hover-wrapper {
+  position: absolute;
+  height: 0;
+  width: 100%;
+  max-width: 1030px;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  z-index: 1;
+}
+.timeline-slider-hover {
+  position: absolute;
+  display: none;
+  height: 48px;
+  top: auto;
+  bottom: 0;
+}
+.timeline:hover .timeline-slider-hover.active {
+  display: block;
 }
 
 .result-list {
