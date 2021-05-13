@@ -990,7 +990,7 @@ var Map = (function() {
       }
     });
     buckets = _.sortBy(buckets, 'value');
-    console.log('Year range: ' + buckets[0].value + ' - ' + _.last(buckets).value);
+    if (buckets.length > 0) console.log('Year range: ' + buckets[0].value + ' - ' + _.last(buckets).value);
 
     var yearRange = this.opt.yearRange;
     buckets = _.filter(buckets, function(b){ return b.value >= yearRange[0] && b.value <= yearRange[1]; });
