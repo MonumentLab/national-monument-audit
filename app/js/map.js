@@ -446,6 +446,7 @@ var Map = (function() {
     this.loading(false);
 
     this.updateMap(resp);
+    this.updateTimeline(resp);
 
     var hitCount = 0
     var hits = [];
@@ -568,18 +569,27 @@ var Map = (function() {
     var markerView = this.isMarkerView();
     var html = '';
 
-    if (!isNaN(this.recordsWithNoCounty)) {
+    if (!isNaN(this.recordsWithCounty)) {
       html += '<div class="info-column">';
-        html += '<h3>No geographic data:</h3>';
+        html += '<h3>Geographic coverage</h3>';
         html += '<div class="value">';
-          html += '<p><em>' + Util.formatNumber(this.recordsWithNoCounty) + ' ('+this.recordsWithNoCountyPercent+'%) entries</em></p>';
+          html += '<p><strong>' + Util.formatNumber(this.recordsWithCounty) + ' ('+this.recordsWithCountyPercent+'%) entries</strong> have a lat/lon coordinate</p>';
+        html += '</div>';
+      html += '</div>';
+    }
+
+    if (!isNaN(this.recordsWithYear)) {
+      html += '<div class="info-column">';
+        html += '<h3>Temporal coverage</h3>';
+        html += '<div class="value">';
+          html += '<p><strong>' + Util.formatNumber(this.recordsWithYear) + ' ('+this.recordsWithYearPercent+'%) entries</strong> have a date dedicated or constructed</p>';
         html += '</div>';
       html += '</div>';
     }
 
     if (!markerView) {
       html += '<div id="info-county" class="info-column">';
-        html += '<h3>Active county:</h3>';
+        html += '<h3>Active county</h3>';
         html += '<div class="value">';
         if (!this.activeCountyFeature) {
           html += '<p>Hover over a county for more details</p>';
@@ -748,8 +758,8 @@ var Map = (function() {
     });
     this.countyCounts = countyCounts;
 
-    this.recordsWithNoCounty = unknownTotal;
-    this.recordsWithNoCountyPercent = total > 0 ? Math.round((unknownTotal / total) * 100) : 0;
+    this.recordsWithCounty = total - unknownTotal;
+    this.recordsWithCountyPercent = total > 0 ? Math.round((this.recordsWithCounty / total) * 100) : 0;
 
     var stats = MathUtil.stats(values);
     var stds = 1.5; // this many standard deviations of mean
@@ -870,8 +880,23 @@ var Map = (function() {
   };
 
   Map.prototype.updateMap = function(resp) {
-    this.updateCountyData(resp.facets.county_geoid.buckets);
+    var buckets = _.has(resp.facets, 'county_geoid') ? resp.facets.county_geoid.buckets : [];
+    this.updateCountyData(buckets);
     this.updateMarkers();
+  };
+
+  Map.prototype.updateTimeline = function(resp) {
+    var buckets = _.has(resp.facets, 'year_dedicated_or_constructed') ? resp.facets.year_dedicated_or_constructed.buckets : [];
+    var total = resp.hits && resp.hits.found ? resp.hits.found : 0;
+    buckets = _.map(buckets, function(b){
+      return {
+        value: parseInt(b.value),
+        count: b.count
+      }
+    });
+    var validTotal = _.reduce(buckets, function(memo, b){ return memo + b.count; }, 0);
+    this.recordsWithYear = validTotal;
+    this.recordsWithYearPercent = total > 0 ? Math.round(validTotal / total * 100) : 0;
   };
 
   Map.prototype.updateURL = function(){

@@ -254,6 +254,7 @@ h1 {
   border-left: 1px solid black;
   display: flex;
   flex-direction: column;
+  width: 200px;
 }
 .info-column h3 {
   font-size: 0.9rem;
@@ -272,9 +273,6 @@ h1 {
   font-size: 0.8rem;
   margin: 0;
   padding: 0 0.5rem;
-}
-.info-column#info-county {
-  width: 200px;
 }
 
 .leaflet-top .leaflet-control {
