@@ -45,10 +45,6 @@
       </div>
       <div id="info-panel" class="info-panel"></div>
       <div class="search-container">
-        <div class="search-buttons">
-          <a href="?q=" class="button active">Reset search</a>
-          <button class="search-in-map">Redo search in map</button>
-        </div>
         <form id="search-form" class="search-form">
           <label for="input-query" class="visually-hidden">Search keyword:</label>
           <input id="input-query" type="text" name="query" class="search-input" placeholder="Search keyword" />
@@ -68,13 +64,20 @@
           </fieldset>
           <button type="submit" class="search-button">Submit</button>
         </form>
-        <div id="facets" class="facets"></div>
-        <div id="timeline" class="timeline">
-          <h3>Year dedicated or constructed</h3>
-          <div class="timeline-bars"></div>
-          <div id="timeline-slider" class="timeline-slider"></div>
-          <div class="timeline-slider-hover-wrapper">
-            <div id="timeline-slider-label" class="timeline-slider-hover"></div>
+        <div class="search-buttons">
+          <a href="?q=" class="button active">Reset search</a>
+          <button class="search-in-map">Redo search in map</button>
+        </div>
+        <div class="filter-panel">
+          <button class="toggle-parent" data-active="Hide filters" data-inactive="Show filters">Show filters</button>
+          <div id="facets" class="facets"></div>
+          <div id="timeline" class="timeline">
+            <h3>Year dedicated or constructed</h3>
+            <div class="timeline-bars"></div>
+            <div id="timeline-slider" class="timeline-slider"></div>
+            <div class="timeline-slider-hover-wrapper">
+              <div id="timeline-slider-label" class="timeline-slider-hover"></div>
+            </div>
           </div>
         </div>
       </div>

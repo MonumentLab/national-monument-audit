@@ -181,6 +181,8 @@ for typeGroup in groupsByType:
                 "Id": id,
                 "Type": typeName,
                 "Value": item["Name"],
-                "Property": item["Property"]
+                "Property": item["Property"],
+                "Gender": item["Gender"],
+                "Ethnic Group": item["Ethnic Group"]
             })
-writeCsv(a.INDEX_FILE, indexRows, headings=["Id", "Type", "Value", "Property"])
+writeCsv(a.INDEX_FILE, indexRows, headings=["Id", "Type", "Value", "Property", "Gender", "Ethnic Group"])

@@ -47,7 +47,10 @@
     ]},
     {"key": "Object Group Reason", "type": "string_list"},
     {"key": "Monument Score", "type": "int"},
-    {"key": "County GeoId", "type": "string"}
+    {"key": "County GeoId", "type": "string"},
+    {"key": "Themes", "type": "string_list"},
+    {"key": "Gender Represented", "type": "string_list"},
+    {"key": "Ethnicity Represented", "type": "string_list"}
   ],
   "types": [
     {
@@ -195,46 +198,112 @@
       "rules": [
         {
           "value": "Arch",
-          "conditions": [ {"words": ["arch"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["arch"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Bell",
-          "conditions": [ {"words": ["bell"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["bell"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Boulder",
-          "conditions": [ {"words": ["boulder"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["boulder"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Bust",
-          "conditions": [ {"words": ["bust", "portrait"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["bust", "portrait"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Cannon",
-          "conditions": [ {"words": ["cannon"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["cannon"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Column",
-          "conditions": [ {"words": ["column"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["column"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+        },{
+          "value": "Flagstaff",
+          "conditions": [ {"words": ["flagstaff"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+        },{
+          "value": "Grotto",
+          "conditions": [ {"words": ["grotto"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+        },{
+          "value": "Mural",
+          "conditions": [ {"words": ["mural"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Obelisk",
-          "conditions": [ {"words": ["obelisk"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["obelisk"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Pedestal",
-          "conditions": [ {"words": ["pedestal"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["pedestal"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Pillar",
-          "conditions": [ {"words": ["pillar"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["pillar"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Plinth",
-          "conditions": [ {"words": ["plinth"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["plinth"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Pyramid",
-          "conditions": [ {"words": ["pyramid"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["pyramid"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Relief",
-          "conditions": [ {"words": ["relief"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["relief"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+        },{
+          "value": "Stele",
+          "conditions": [ {"words": ["stele"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+        },{
+          "value": "Totem Pole",
+          "conditions": [ {"words": ["totem"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Statue",
-          "conditions": [ {"words": ["statue", "figure"], "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+          "conditions": [ {"words": ["statue", "figure"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+        },{
+          "value": "Sculpture",
+          "conditions": [ {"words": ["sculpture"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Uncategorized",
           "remainder": 1
+        }
+      ]
+    },{
+      "key": "Themes",
+      "rules": [
+        {
+          "value": "War and Weaponry",
+          "conditions": [
+            {
+              "words": ["airforce", "army", "battle", "cannon", "confederacy", "confederate", "doughboy", "general", "grenade", "gun", "infantry", "marine", "military", "navy", "rifle", "sailor", "soldier", "tank", "union", "veteran", "war", "wwi", "wwii"],
+              "pluralize": 1,
+              "phrases": ["honor roll", "air force"],
+              "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]}
+            ]
+        },{
+          "value": "Religion and Religious Figures",
+          "conditions": [
+            {
+              "words": ["altar", "altarpiece", "cross", "crucifix", "god", "jesus", "religion", "rosary", "saint", "santo", "st.", "testament"],
+              "pluralize": 1,
+              "phrases": ["altar piece"],
+              "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]}
+            ]
+        },{
+          "value": "Settlements and Settlers",
+          "conditions": [
+            {
+              "words": ["expansion", "frontier", "founder", "founding", "pioneer", "settlement", "settler"],
+              "pluralize": 1,
+              "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]}
+            ]
+        },{
+          "value": "Industry and Commerce",
+          "conditions": [
+            {
+              "words": ["business", "commerce", "industry", "railroad", "science", "shipping", "technology"],
+              "pluralize": 1,
+              "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]}
+            ]
+        },{
+          "value": "Abolition and Civil Rights",
+          "conditions": [
+            {
+              "words": ["abolition", "slavery", "tubman"],
+              "pluralize": 1,
+              "phrases": ["civil rights", "martin luther king"],
+              "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects"]}
+            ]
         }
       ]
     }

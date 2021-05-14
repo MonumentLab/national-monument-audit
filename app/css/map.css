@@ -138,14 +138,14 @@ h1 {
 .search-container {
   position: absolute;
   box-sizing: border-box;
-  padding: 1rem;
+  padding: 1rem 0 0;
   height: auto;
   bottom: 0;
 }
 .search-form {
   display: inline-block;
   vertical-align: bottom;
-  margin: 0.5rem 0.5rem 0 0;
+  margin: 0.5rem 0.5rem 0 0.5rem;
 }
 .search-input,
 .search-button {
@@ -165,7 +165,8 @@ h1 {
   padding-bottom: 0;
 }
 .search-buttons {
-  display: block;
+  display: inline-block;
+  margin: 0.5rem 0 0 0.5rem;
 }
 .search-buttons button,
 .search-buttons .button {
@@ -176,11 +177,28 @@ h1 {
   display: inline-block;
 }
 
+.filter-panel {
+  max-height: 0;
+  margin-top: 1rem;
+  position: relative;
+  background: white;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  border-top: 2px solid black;
+  transition: max-height 0.5s;
+}
+.filter-panel.active {
+  max-height: 50vh;
+}
+.filter-panel .toggle-parent {
+  position: absolute;
+  top: -34px;
+  right: 1rem;
+}
+
 .facets {
   display: inline-block;
   vertical-align: bottom;
-  margin: 0 0 -5px;
-  padding: 0;
 }
 .facet {
   border: 0;
@@ -218,7 +236,7 @@ h1 {
   box-sizing: border-box;
 }
 .timeline.active {
-  display: block;
+  display: inline-block;
 }
 .timeline h3 {
   display: inline-block;
@@ -232,7 +250,7 @@ h1 {
 .timeline-bars {
   display: block;
   width: 100%;
-  max-width: 1030px;
+  max-width: 830px;
   height: 48px;
   border: 1px solid black;
   background: white;
@@ -251,7 +269,7 @@ h1 {
   position: absolute;
   height: 48px;
   width: 100%;
-  max-width: 1030px;
+  max-width: 830px;
   bottom: 0;
   left: 0;
   box-sizing: border-box;
@@ -291,7 +309,7 @@ h1 {
   position: absolute;
   height: 0;
   width: 100%;
-  max-width: 1030px;
+  max-width: 830px;
   bottom: 0;
   left: 0;
   box-sizing: border-box;

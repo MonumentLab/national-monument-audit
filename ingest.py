@@ -438,6 +438,8 @@ if os.path.isfile(a.ENTITIES_FILE):
             rowsOut[i]["_entities"] = rowEnts # keep track of this for determining monument type
             eventEnts = []
             peopleEnts = []
+            genders = []
+            ethnicities = []
             for ent in rowEnts:
                 value = str(ent["Value"]).strip()
                 if len(value) < 1:
@@ -446,12 +448,22 @@ if os.path.isfile(a.ENTITIES_FILE):
                     eventEnts.append(value)
                 elif ent["Type"] == "PERSON" and value not in peopleEnts:
                     peopleEnts.append(value)
+                    if ent["Gender"] != "" and ent["Gender"] != "NA" and ent["Gender"] not in genders:
+                        genders.append(ent["Gender"])
+                    if ent["Ethnic Group"] != "" and ent["Ethnic Group"] != "NA" and ent["Ethnic Group"] not in ethnicities:
+                        ethnicities.append(ent["Ethnic Group"])
 
             if len(eventEnts) > 0:
                 rowsOut[i]["Entities Events"] = eventEnts
 
             if len(peopleEnts) > 0:
                 rowsOut[i]["Entities People"] = peopleEnts
+
+            if len(genders) > 0:
+                rowsOut[i]["Gender Represented"] = genders
+
+            if len(ethnicities) > 0:
+                rowsOut[i]["Ethnicity Represented"] = ethnicities
 else:
     print("Warning: no entities file found; run `visualize_entities.py` to generate this")
 
