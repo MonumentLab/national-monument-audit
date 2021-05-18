@@ -35,6 +35,7 @@ var Item = (function() {
   Item.prototype.load = function(){
     this.$results = $('#search-results');
     this.$dupes = $('#dupe-results');
+    this.$reportLink = $('#report-link');
     this.query();
   };
 
@@ -93,6 +94,7 @@ var Item = (function() {
 
   Item.prototype.renderResults = function(results, $el){
     $el = $el || this.$results;
+    var $reportLink = this.$reportLink;
     $el.empty();
     if (!results || !results.length) return;
     var html = '';
@@ -107,6 +109,10 @@ var Item = (function() {
         fields = _.omit(fields, 'name');
       }
       if (name.length < 1) name = '<em>[Untitled]</em>';
+      if (i <= 0) {
+        var reportUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSchwiivhPxl6DGxdrO0Bk56zaa73AwzAH-GWt44Pmmnr2HDhQ/viewform?usp=sf_link&entry.846962896='+name+'&entry.632814286='+window.location.href;
+        $reportLink.attr('href', reportUrl);
+      }
       html += '<li class="result-item">';
         var itemParams = {'id': id}
         var itemUrl = 'item.html?' + $.param(itemParams);

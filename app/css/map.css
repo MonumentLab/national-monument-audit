@@ -416,3 +416,12 @@ h1 {
 .leaflet-popup-content p {
   margin: 0;
 }
+.leaflet-container a.button {
+  color: white;
+  text-decoration: none;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+.leaflet-container a.button:hover {
+  color: black;
+}

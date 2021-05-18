@@ -2,6 +2,8 @@
 
 var STATE_CODES = {"01": "AL", "02": "AK", "04": "AZ", "05": "AR", "06": "CA", "08": "CO", "09": "CT", "10": "DE", "11": "DC", "12": "FL", "13": "GA", "15": "HI", "16": "ID", "17": "IL", "18": "IN", "19": "IA", "20": "KS", "21": "KY", "22": "LA", "23": "ME", "24": "MD", "25": "MA", "26": "MI", "27": "MN", "28": "MS", "29": "MO", "30": "MT", "31": "NE", "32": "NV", "33": "NH", "34": "NJ", "35": "NM", "36": "NY", "37": "NC", "38": "ND", "39": "OH", "40": "OK", "41": "OR", "42": "PA", "44": "RI", "45": "SC", "46": "SD", "47": "TN", "48": "TX", "49": "UT", "50": "VT", "51": "VA", "53": "WA", "54": "WV", "55": "WI", "56": "WY", "60": "AS", "64": "FM", "66": "GU", "67": "JA", "68": "MH", "69": "MP", "70": "PW", "72": "PR", "74": "UM", "76": "NI", "78": "VI", "81": "BI", "86": "JI", "89": "KR"};
 
+var BASE_URL = 'https://monumentlab.github.io/national-monument-audit/app/';
+
 var Map = (function() {
 
   function Map(config) {
@@ -24,7 +26,7 @@ var Map = (function() {
       'sort': '',
       'fields': '', // e.g. name,street_address
       'q': '',
-      'facets': 'object_groups~Monument', // e.g. facetName1~value1!!value2!!value3__facetName2~value1
+      'facets': 'object_groups~Monument__is_duplicate~0', // e.g. facetName1~value1!!value2!!value3__facetName2~value1
       'searchCacheSize': 5, // store this many responses in memory
 
       // map values
@@ -32,7 +34,7 @@ var Map = (function() {
       'tileUrlTemplate': 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       'minZoom': 4,
       'maxZoom': 18,
-      'startZoom': 5, // see the whole country
+      'startZoom': 4, // see the whole country
       'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       'centerLatLon': "38.5767,-92.1736", // Jefferson City, MO as center
       'nominatimUrl': 'https://nominatim.openstreetmap.org/search?q={q}&format=json',
@@ -84,6 +86,7 @@ var Map = (function() {
     else if (_.has(fields, 'state') && fields.state) cityState = fields.state;
 
     // display name
+    var itemUrl = '';
     var name = _.has(fields, 'name') ? fields.name : '<em>[Untitled]</em>';
     var indexString = (start !== undefined && index !== undefined) ? (index+1+start) + '. ' : '';
     if (cityState) name += ' (' + cityState + ')';
@@ -91,7 +94,7 @@ var Map = (function() {
       html += '<h3>'+indexString+'<a href="#'+id+'" data-id="'+id+'" data-latlon="'+fields.latlon+'" class="item-link">'+name+'</a></h3>';
     } else {
       var itemParams = {'id': id}
-      var itemUrl = 'item.html?' + $.param(itemParams);
+      itemUrl = 'item.html?' + $.param(itemParams);
       html += '<h3>'+indexString+'<a href="'+itemUrl+'"  target="_blank">'+name+'</a></h3>';
     }
 
@@ -111,6 +114,11 @@ var Map = (function() {
     // display image
     if (_.has(fields, 'image')) {
       html += '<p><a href="'+fields.image+'" target="_blank">Image link</a></p>';
+    }
+
+    // display report a problem
+    if (!linkToMap) {
+      html += '<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSchwiivhPxl6DGxdrO0Bk56zaa73AwzAH-GWt44Pmmnr2HDhQ/viewform?usp=sf_link&entry.846962896='+name+'&entry.632814286='+BASE_URL+itemUrl+'" class="small button" target="_blank">Report a problem</a></p>'
     }
 
     return html;
@@ -754,7 +762,7 @@ var Map = (function() {
     var size = this.size;
     var startNumber = Math.max(1, offsetStart);
     var endNumber = Math.min(totalCount, startNumber + size - 1);
-    var facets = _.omit(this.facets, 'object_groups');
+    var facets = _.omit(this.facets, 'object_groups', 'is_duplicate');
 
     var html = '<p>';
       html += 'Found <strong>' + Util.formatNumber(totalCount) + '</strong> records';
