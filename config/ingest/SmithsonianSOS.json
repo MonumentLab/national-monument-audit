@@ -8,7 +8,7 @@
   "dataPath": "data/vendor/national/si/sos_data.csv",
   "dateDataAccessed": "2021-02-01",
   "priority": 2,
-  "properties": ["Name", "Id", "Url", "State", "Latitude", "Longitude", "Sculptor", "Founder", "Medium", "Type", "Owner/Location", "Date", "Topic"],
+  "properties": ["Name", "Id", "Url", "State", "Latitude", "Longitude", "Sculptor", "Founder", "Medium", "Type", "Owner/Location", "Date", "Topic", "Notes", "Summary"],
   "mappings": {
     "Id": {"to": "Vendor Entry ID"},
     "Url": {"to": "URL"},
@@ -18,7 +18,8 @@
     "Type": {"to": "Object Types", "delimeter": "\\|"},
     "Owner/Location": {"to": "Description"},
     "Date": {"to": "Year Constructed", "year": 1},
-    "Topic": {"to": "Subjects", "delimeter": "\\|"}
+    "Topic": {"to": "Subjects", "delimeter": "\\|"},
+    "Summary": {"to": "Description"}
   },
   "notes": [
     "Retrieved data from <a href=\"https://collections.si.edu/search/results.htm?date.slider=&q=&dsort=&fq=object_type%3A%22Outdoor+sculpture%22&fq=data_source%3A%22Art+Inventories+Catalog%2C+Smithsonian+American+Art+Museum%22\" target=\"_blank\">online portal</a>.",
