@@ -96,6 +96,15 @@
           ],
           "score": 10
         },{
+          "value": "Monument",
+          "conditions": [
+            {
+              "words": ["bell", "figure", "heroic", "monument"],
+              "fields": ["Object Types", "Use Types"]
+            }
+          ],
+          "score": 10
+        },{
           "value": "Object",
           "conditions": [
             {
@@ -103,7 +112,7 @@
               "pluralize": 1,
               "fields": ["Name", "Alternate Name", "Object Types", "Use Types"]
             },{
-              "words": ["abstract", "animal", "flower", "tree"],
+              "words": ["animal", "flower", "tree"],
               "fields": ["Object Types", "Use Types", "Subjects"]
             }
           ]
