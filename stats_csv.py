@@ -21,6 +21,7 @@ parser.add_argument('-enc', dest="ENCODING", default="utf8", help="Encoding of s
 parser.add_argument('-filter', dest="FILTER", default="", help="Filter string")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default="", help="If a list, provide delimeter(s)")
 parser.add_argument('-lim', dest="LIMIT", default=-1, type=int, help="Limit list length")
+parser.add_argument('-ee', dest="EXCLUDE_EMPTY", action="store_true", help="Exclude empty value?")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="", help="Optional file to output the results to")
 a = parser.parse_args()
 
@@ -76,10 +77,15 @@ for prop in PROPS:
     if len(a.LIST_DELIMETER) > 0:
         expandedValues = []
         for value in values:
-            expanded = [v.strip() for v in re.split(a.LIST_DELIMETER, str(value))]
+            value = str(value).strip()
+            expanded = [v.strip() for v in re.split(a.LIST_DELIMETER, value)]
             expanded = [v for v in expanded if len(v) > 0] # remove blanks
             expandedValues += expanded
         values = expandedValues
+
+    if a.EXCLUDE_EMPTY:
+        values = [v for v in values if str(v).strip() != ""]
+    vcount = len(values)
     uvalues = unique(values)
 
     counter = collections.Counter(values)
@@ -93,7 +99,7 @@ for prop in PROPS:
     print("---------------------------")
     rowsOut = []
     for value, count in counts:
-        percent = round(1.0 * count / rowCount * 100.0, 1)
+        percent = round(1.0 * count / vcount * 100.0, 1)
         if value == "":
             value = "<empty>"
         # print(f'{formatNumber(count)} ({percent}%)\t{value}')

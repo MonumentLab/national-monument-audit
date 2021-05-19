@@ -55,6 +55,7 @@ if idField is None:
     sys.exit()
 ID_NAME = idField["key"]
 dataTypes = dataModel["types"]
+fieldsForEntities = set(dataModel["fieldsForEntities"])
 dataModel = createLookup(dataModel["fields"], "key")
 
 ################################################################
@@ -429,7 +430,6 @@ if os.path.isfile(a.ENTITIES_FILE):
         entRows[i]["idString"] = str(entRow["Id"])
     entById = groupList(entRows, "idString")
     entLookup = createLookup(entById, "idString")
-
     for i, row in enumerate(rowsOut):
         docId = str(row["Id"])
         # Add entities
@@ -443,6 +443,9 @@ if os.path.isfile(a.ENTITIES_FILE):
             for ent in rowEnts:
                 value = str(ent["Value"]).strip()
                 if len(value) < 1:
+                    continue
+                originalProperty = ent["Property"]
+                if originalProperty not in fieldsForEntities:
                     continue
                 if ent["Type"] == "EVENT" and value not in eventEnts:
                     eventEnts.append(value)
@@ -465,7 +468,7 @@ if os.path.isfile(a.ENTITIES_FILE):
             if len(ethnicities) > 0:
                 rowsOut[i]["Ethnicity Represented"] = ethnicities
 else:
-    print("Warning: no entities file found; run `visualize_entities.py` to generate this")
+    print("Warning: no entities file found; run `python extract_entities.py && python normalize_entities.py && python resolve_entities.py && python visualize_entities.py` to generate this")
 
 # break down by type
 print("Determining types...")

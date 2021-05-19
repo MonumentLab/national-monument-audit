@@ -52,6 +52,7 @@
     {"key": "Gender Represented", "type": "string_list"},
     {"key": "Ethnicity Represented", "type": "string_list"}
   ],
+  "fieldsForEntities": ["Name", "Alternate Name", "Honorees", "Description"],
   "types": [
     {
       "key": "Object Groups",
