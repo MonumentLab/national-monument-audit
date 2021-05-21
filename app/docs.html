@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Monument Lab: National Monument Audit</title>
+  <meta name="description" content="The National Monument Audit, led by Monument Lab, will assess the current monument landscape across the United States. ">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="stylesheet" href="css/vendor/normalize.css">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/docs.css">
+
+</head>
+
+<body>
+
+  <main id="content" class="content">
+
+    <h2>Introduction</h2>
+
+    <p>
+    This document provides in-depth documentation of the data process of the 2021 National Monument Audit by Monument Lab. It is originally authored by the Audit’s Data Artist who architected the data workflow. This is made available for the Audit team, stakeholders, and members of the public who are interested in understanding how the Audits monument study dataset was created from a technical point of view.
+    </p>
+
+    <h3>Definitions</h3>
+
+    <ol>
+      <li><strong>Data record</strong> - metadata about a specific cultural or historical object from a specific data source</li>
+      <li><strong>Data source</strong> - a verified organization, institution, or website that made available a set of digital data records representing cultural and historical objects</li>
+      <li><strong>Study set</strong> - the Audit’s final and official dataset generated from the Audit's data sources with an attempt to include only records about monuments. This is not complete and has known gaps. It also inherits the various issues of its data sources. It attempts to exclude non-monument objects like buildings, bridges, streets, and place names.</li>
+      <li><strong>Pre-study set</strong> - the complete set of data from data sources before excluding non-monument data records.</li>
+      <li><strong>Data model</strong> - how a specific data record is structured.</li>
+      <li><strong>Data ingest</strong> - the process of retrieving, filtering, and transforming raw data from data sources into the study set</li>
+    </ol>
+
+    <h3>Scope</h3>
+
+    <ol>
+      <li>This document does <em>NOT</em> include the process for how the data sources were discovered, selected, or vetted. This will be articulated in the Audit itself, but is not in the scope of this document which focuses on how the data was processed after it was selected.</li>
+      <li>This document outlines what data sources were used and which data fields were used for the study set</li>
+      <li>This document describes the data ingest process, i.e. how raw data from data sources were retrieved, filtered, and transformed into the study set</li>
+      <li>This document describes how a specific data record was determined to be a monument and thus part of the study set</li>
+      <li>This document describes the data model of an individual record in the study set</li>
+      <li>This document describes how geographical and temporal data was handled</li>
+      <li>This document describes how People and Events were identified as honorees of their respective monuments</li>
+      <li>This document describes how duplicate records across different data sources were identified and handled</li>
+      <li>This document gives an overview of the codebase and instructions for how to reproduce the data process with the existing or new data</li>
+    </ol>
+
+    <h2>Data sources</h2>
+
+    <h3>By the numbers</h3>
+
+    <p>For this audit, {{dataRecordTotal}} data records were retrieved and analyzed from {{dataSourceTotal}} data sources to generate a study set of {{totalMonuments}} data records that are believed to represent monuments.</p>
+
+    <p>Share of records, pre-study set (before excluding non-monument data records)</p>
+
+    <p>Share of records, study set, monument data records only</p>
+
+    <p>Breakdown of data sources by spatial coverage</p>
+
+    <p>Breakdown of data sources by source type</p>
+
+    <h2>Metadata</h2>
+
+    <p>Different data sources had different metadata available. The quality and consistency of the metadata also varied across the different data sources. This section will describe the inconsistencies and quirks of the source data and how data quality was addressed for the purposes of creating the study set.</p>
+
+    <h3>Geospatial metadata</h3>
+
+    <p>The
+
+    Lat/lon available?
+    92.88%
+
+    Percentage of lat/lon coordinates that are likely erroneous (for more details see)
+
+    <h3>Dates</h3>
+
+    Year Dedicated Or Constructed available?
+    35.59%
+
+    <h3>Honorees</h3>
+
+    Honorees available?
+    X data sources had this field, representing 4.01% of total records
+
+    Top honorees:
+
+
+    Entities
+
+    <h3>Plaque or marker text</h3>
+    32.17%
+
+    Creators available?
+    9.39%
+    Sponsors available?
+    21.4%
+    Status available?
+    0.64%
+
+    <h2>What is a monument?</h2>
+
+    <p>One of the central challenges of this Audit was idenfying which data records represented "monuments" in the "conventional" sense of the word. The Audit itself goes into great detail about how this was defined, so this document will avoid an attempt to define "monument" from a conceptual point of view. Instead, this section will walk through the practical process and application of the Audit's definition of "monument" as it relates to generating the final study set. To start, some high-level points:</p>
+
+    <ol>
+      <li>Most data sources provided data records that were a mix of different types of objects such as markers, buildings, monuments, and structures. In other words, most sources did not simply provide a set of "monuments".</li>
+
+      <li>Data records that represented monuments were often not marked as such, i.e. there was not a field that called it a "Monument" and may have instead been called "Object" or the form may not have been described at all.</li>
+
+      <li>For those sources that called an object a "monument" either had its own definition of "monument or did not provide a definition of "monument." (See Appendix) The definitions of monuments across data sources differed.</li>
+
+
+    </ol>
+
+    <h2>The study set</h2>
+
+    <h3>Data model</h3>
+
+    <h3>Accessing the data</h3>
+
+    <h3>Using the data</h3>
+
+    <h2>The technical process</h2>
+
+    <p>This section will go step-by-step for how the source data was retrieved, filtered, transformed, enriched, and published from a developer's persective using the audit codebase.</p>
+
+    <h3>Data retrieval</h3>
+
+    <h3>Data ingestion</h3>
+
+    <h3>Data enrichment</h3>
+
+    <h3>Data indexing</h3>
+
+    <h3>Data publishing and interface</h3>
+
+  </main>
+
+  <script src="js/vendor/jquery-3.5.1.min.js"></script>
+  <script src="js/vendor/underscore-min.js"></script>
+  <script src="js/vendor/md5.js"></script>
+
+  <script src="js/lib/dataTable.js"></script>
+  <script src="js/lib/util.js"></script>
+
+  <script src="js/docs.js"></script>
+
+</body>
+
+</html>
