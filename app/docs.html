@@ -23,17 +23,18 @@
     <h2>Introduction</h2>
 
     <p>
-    This document provides in-depth documentation of the data process of the 2021 National Monument Audit by Monument Lab. It is originally authored by the Audit’s Data Artist who architected the data workflow. This is made available for the Audit team, stakeholders, and members of the public who are interested in understanding how the Audits monument study dataset was created from a technical point of view.
+    This document provides in-depth documentation of the data process of the 2021 National Monument Audit by Monument Lab. It is originally authored by the Audit’s Data Artist who architected the data workflow. This is made available for the Audit team, stakeholders, and members of the public who are interested in understanding how the Audit's "study set" was created from a technical point of view.
     </p>
 
     <h3>Definitions</h3>
 
     <ol>
       <li><strong>Data record</strong> - metadata about a specific cultural or historical object from a specific data source</li>
+      <li><strong>Data field</strong> - a single piece of information in a data record, e.g. the name of the object or the date an object was created.</li>
       <li><strong>Data source</strong> - a verified organization, institution, or website that made available a set of digital data records representing cultural and historical objects</li>
       <li><strong>Study set</strong> - the Audit’s final and official dataset generated from the Audit's data sources with an attempt to include only records about monuments. This is not complete and has known gaps. It also inherits the various issues of its data sources. It attempts to exclude non-monument objects like buildings, bridges, streets, and place names.</li>
       <li><strong>Pre-study set</strong> - the complete set of data from data sources before excluding non-monument data records.</li>
-      <li><strong>Data model</strong> - how a specific data record is structured.</li>
+      <li><strong>Data model</strong> - how a specific data record is structured. This is made up of multiple data fields such as date constructed, name, object type, subjects, location, etc.</li>
       <li><strong>Data ingest</strong> - the process of retrieving, filtering, and transforming raw data from data sources into the study set</li>
     </ol>
 
@@ -59,11 +60,19 @@
 
     <p>Share of records, pre-study set (before excluding non-monument data records)</p>
 
-    <p>Share of records, study set, monument data records only</p>
+    <p><em>chart here</em></p>
+
+    <p>Share of records, study set (monument data records only)</p>
+
+    <p><em>chart here</em></p>
 
     <p>Breakdown of data sources by spatial coverage</p>
 
+    <p><em>chart here</em></p>
+
     <p>Breakdown of data sources by source type</p>
+
+    <p><em>chart here</em></p>
 
     <h2>Metadata</h2>
 
@@ -71,17 +80,51 @@
 
     <h3>Geospatial metadata</h3>
 
-    <p>The
+    <p>Most data records have latitude and longitude available. In many cases the data source itself was in a geospatial format (e.g. <a href="https://en.wikipedia.org/wiki/GeoJSON" target="_blank">geojson</a>, <a href="https://en.wikipedia.org/wiki/Shapefile" target="_blank">shapefile</a>) but needed to be re-projected into a <a href="https://en.wikipedia.org/wiki/World_Geodetic_System" target="_blank">WGS 84 projection</a> using <a href="https://www.qgis.org/en/site/" target="_blank">QGIS</a>.</p>
 
-    Lat/lon available?
-    92.88%
+    <p><em>chart here</em></p>
 
-    Percentage of lat/lon coordinates that are likely erroneous (for more details see)
+    <p>However, there are many records that seem to have automatically generated their lat/lon coordinates. In some cases, this results in incorrect or inaccurate coordinates (e.g. placing it in the center of a state or city.) We attempt to filter these out by identifying clusters of data records that have the same lat/lon coordinate.</p>
+
+    <p><em>chart here</em></p>
+
+    <p>In the case where there is not lat/lon coordinate, but there is a full street address, city, and state, we attempt to geocode these using <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>'s <a href="https://wiki.openstreetmap.org/wiki/Nominatim" target="_blank">Nominatim</a> geocoding service. Note we use this <em>only</em> when all three street address, city, and state are present. And we only accept the result if the coordinates are within the expected state.</p>
+
+    <p><em>chart here</em></p>
+
+    <p>How the geospatial information was obtained is reflected in a new data field that is generated called "Geo Type." This field has one of five values:</p>
+
+    <ol>
+      <li><strong>Exact coordinates provided</strong> - lat/lon coordinates are provided by data source and they are likely valid</li>
+      <li><strong>Approximate coordinates provided</strong> - lat/lon coordinates are provided by data source but they are likely inaccurate; these are not used in the map visualizations of the data</li>
+      <li><strong>Geocoded based on street address provided</strong> - lat/lon coordinates obtained by geocoding street address with <a href="https://wiki.openstreetmap.org/wiki/Nominatim" target="_blank">Nominatim</a> geocoding service</li>
+      <li><strong>No valid geographic data provided</strong> - street address was provided, but no valid lat/lon coordinate could be found</li>
+      <li><strong>No geographic data provided</strong> - neither lat/lon nor street address were provided by data source</li>
+    </ol>
 
     <h3>Dates</h3>
 
-    Year Dedicated Or Constructed available?
-    35.59%
+    <p>Dates are present in about a third of all the data records. Dates can be grouped into the following categories:</p>
+
+    <ol>
+      <li>Date constructed</li>
+      <li>Date dedicated</li>
+      <li>Date designated a landmark (local, state, national)</li>
+      <li>Date removed <em>(rare)</em></li>
+      <li>Date commissioned <em>(rare)</em></li>
+    </ol>
+
+    <p><em>chart here</em></p>
+
+    <p>Some things to note about dates:</p>
+
+    <ol>
+      <li>A data source may have none, one, or many of these dates present in their records. And sometimes dates may only be present in a subset of records within one data source.</li>
+
+      <li>Dates come in all formats (e.g. 01-01-1900, Jan 1, 1900, 1900, 1901-1900). For the purposes of the Audit, all dates are normalized to a single year (e.g. "1900".) In the case of multiple dates (e.g. 1900-1901), the first one is taken.</li>
+
+      <li>For the purposes of the Audit, we are only using date constructed and date dedicated for visualization purposes. And for the purpose of showing timelines, we combine date constructed and date dedicated into a single field called "Year Dedicated Or Constructed", however the individual fields ("Year Dedicated", "Year Constructed") are still available. In the case where date constructed and date dedicated are both available, "Year Dedicated Or Constructed" will be the "Year Dedicated."</li>
+    </ol>
 
     <h3>Honorees</h3>
 
@@ -96,6 +139,10 @@
     <h3>Plaque or marker text</h3>
     32.17%
 
+    <h3>Other fields of interest</h3>
+
+    Subjects
+
     Creators available?
     9.39%
     Sponsors available?
@@ -105,17 +152,36 @@
 
     <h2>What is a monument?</h2>
 
-    <p>One of the central challenges of this Audit was idenfying which data records represented "monuments" in the "conventional" sense of the word. The Audit itself goes into great detail about how this was defined, so this document will avoid an attempt to define "monument" from a conceptual point of view. Instead, this section will walk through the practical process and application of the Audit's definition of "monument" as it relates to generating the final study set. To start, some high-level points:</p>
+    <p>One of the central challenges of this Audit was idenfying which data records represented "monuments" in the conventional sense of the word. The Audit itself goes into great detail about how this was defined, so this document will avoid an attempt to define "monument" from a conceptual point of view. Instead, this section will walk through the practical process and application of the Audit's definition of "monument" as it relates to generating the final study set. This generally means describing the "rules" of what is a monument based on its metadata so that a computer script can categorize a data record as a monument or something else.  To start, some high-level points:</p>
 
     <ol>
       <li>Most data sources provided data records that were a mix of different types of objects such as markers, buildings, monuments, and structures. In other words, most sources did not simply provide a set of "monuments".</li>
 
       <li>Data records that represented monuments were often not marked as such, i.e. there was not a field that called it a "Monument" and may have instead been called "Object" or the form may not have been described at all.</li>
 
-      <li>For those sources that called an object a "monument" either had its own definition of "monument or did not provide a definition of "monument." (See Appendix) The definitions of monuments across data sources differed.</li>
-
-
+      <li>For those sources that called an object a "monument" either had its own definition of "monument" or did not provide a definition of "monument." The definitions of monuments across data sources differed. (See Appendix for a list of sources' definitions)</li>
     </ol>
+
+    <p>Given that, here is the high-level process for determining if something is or is not a monument:</p>
+
+    <ol>
+      <li>If a data source <em>explicitly</em> categorized something as a monument, we assume that it is a monument.
+        <ul>
+          <li>This is because a try to defer to the sources' data when possible rather than apply our own logic.</li>
+          <li>Only a few of our data sources had fields that categorized their records in this way (E.g.
+            <a href="https://wiki.openstreetmap.org/wiki/Tag%3Ahistoric%3Dmonument" target="_blank">OpenStreetMap</a>,
+            <a href="https://www.slaverymonuments.org/items/browse" target="_blank">Contemporary Monuments to the Slave Past</a>,
+            <a href="https://www.splcenter.org/20190201/whose-heritage-public-symbols-confederacy" target="_blank">Whose Heritage?</a>,
+            <a href="https://pioneermonuments.net/explore/" target="_blank">Pioneer Monuments</a>,
+            <a href="https://public-nps.opendata.arcgis.com/datasets/nps-points-of-interest-pois-web-mercator/data" target="_blank">National Park Service: Points of Interest</a>).</li>
+          <li>This is done with the full awareness that the underlying objects may mis-categorized as "monuments" or may not exactly match our interpretation of "monuments."</li>
+          <li>Known issue: OpenStreetMap data seems to contain "monuments" that we may not consider to be monuments based on our own definition; this may be because its definition differs from ours and it is crowd-sourced.</li>
+        </ul>
+
+      <li>If a data source does not explicitly tell us if something is a monument, we attempt to determine if something is a monument by looking for keywords in certain data fields. This process is described in the next section.</li>
+    </ol>
+
+
 
     <h2>The study set</h2>
 
