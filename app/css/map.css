@@ -326,6 +326,10 @@ h1 {
   display: block;
 }
 
+.search-results-message button.remove-facet {
+  margin-right: 0.5rem;
+}
+
 .result-list {
   margin: 0;
   padding: 0;

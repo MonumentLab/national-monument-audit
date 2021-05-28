@@ -909,24 +909,31 @@ var Map = (function() {
     if (this.isLoading) return;
 
     var facets = _.extend({}, this.defaultFacets);
+
     // retain latlon, year if present
-    // var latlon = _.has(this.facets, 'latlon') ? this.facets.latlon : false;
+    var latlon = _.has(this.facets, 'latlon') ? this.facets.latlon : false;
+    var year_dedicated_or_constructed = _.has(this.facets, 'year_dedicated_or_constructed') ? this.facets.year_dedicated_or_constructed : false;
+
+    // check selects
     $('.facet-select').each(function(){
       var $select = $(this);
       var facetName = $select.attr('data-field');
       var facetValue = $select.val().trim();
       if (facetValue.length > 0) facets[facetName] = [facetValue];
     });
-    // if (latlon !== false) facets.latlon = latlon;
-    // // add year range if year not present
-    // var yearRangeValue = this.yearRangeValue;
-    // if (!_.has(facets, 'year_dedicated_or_constructed') && yearRangeValue !== false) {
-    //   facets.year_dedicated_or_constructed = [yearRangeValue];
-    // // year facet has been selected; ignore year range
-    // } else if (_.has(facets, 'year_dedicated_or_constructed')) {
-    //   this.yearRangeValue = false;
-    //   this.timeline.reset();
-    // }
+
+    // check buttons
+    $('.facet .remove-facet').each(function(){
+      var $button = $(this);
+      var facetName = $button.attr('data-key');
+      var facetValue = $button.attr('data-value').trim();
+      if (facetValue.length > 0) facets[facetName] = [facetValue];
+    });
+
+    if (latlon !== false) facets.latlon = latlon;
+    if (year_dedicated_or_constructed !== false) facets.year_dedicated_or_constructed = year_dedicated_or_constructed;
+
+    // console.log('Facets', facets)
     this.facets = facets;
     this.start = 0;
     this.query();
