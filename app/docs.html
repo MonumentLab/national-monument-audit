@@ -121,23 +121,73 @@
     <ol>
       <li>A data source may have none, one, or many of these dates present in their records. And sometimes dates may only be present in a subset of records within one data source.</li>
 
-      <li>Dates come in all formats (e.g. 01-01-1900, Jan 1, 1900, 1900, 1901-1900). For the purposes of the Audit, all dates are normalized to a single year (e.g. "1900".) In the case of multiple dates (e.g. 1900-1901), the first one is taken.</li>
+      <li>Dates come in all formats (e.g. 01-01-1900, Jan 1, 1900, 1900, 1901-1900). For the purposes of the Audit, all dates are <strong>normalized to a single year</strong> (e.g. "1900".) In the case of multiple dates (e.g. 1900-1901), the first one is taken.</li>
 
-      <li>For the purposes of the Audit, we are only using date constructed and date dedicated for visualization purposes. And for the purpose of showing timelines, we combine date constructed and date dedicated into a single field called "Year Dedicated Or Constructed", however the individual fields ("Year Dedicated", "Year Constructed") are still available. In the case where date constructed and date dedicated are both available, "Year Dedicated Or Constructed" will be the "Year Dedicated."</li>
+      <li>For the purposes of the Audit, we are only using <strong>date constructed and date dedicated</strong> for visualization purposes. And for the purpose of showing timelines, we combine date constructed and date dedicated into a single field called "Year Dedicated Or Constructed", however the individual fields ("Year Dedicated", "Year Constructed") are still available. In the case where date constructed and date dedicated are both available, "Year Dedicated Or Constructed" will be the "Year Dedicated."</li>
     </ol>
 
     <h3>Honorees</h3>
 
-    Honorees available?
-    X data sources had this field, representing 4.01% of total records
+    <p>Very few data sources specify who or what is being honored:</p>
 
-    Top honorees:
+    <p><em>chart here</em></p>
 
+    <p>For records that do not have honoree information (most records), in order to understand who or what is being honored, we try to automatically determine this through a process of <a href="https://en.wikipedia.org/wiki/Named-entity_recognition" target="_blank">entity extraction</a> and <a href="https://en.wikipedia.org/wiki/Entity_linking" target="_blank">entity linking</a>. This process is roughly as follows:</p>
 
-    Entities
+    <ol>
+      <li>
+        The text of the following fields are analyzed using a tool called <a href="https://spacy.io/" target="_blank">Spacy</a>: "Name", "Alternate Name", "Honorees", "Description"*
+      </li>
+
+      <li>
+        <a href="https://spacy.io/" target="_blank">Spacy</a> does many things like <a href="https://en.wikipedia.org/wiki/Lexical_analysis#Tokenization" target="_blank"> tokenization</a> and part-of-speech tagging, but most importantly and relevantly, it does <a href="https://en.wikipedia.org/wiki/Named-entity_recognition" target="_blank">named-entitiy recognition</a>. This essentially tells if people, events, and organizations are included in the data fields we provide.
+
+        <ul>
+          <li>For example, in the following text:
+            <code>
+              Andrew Dickson White, 1832-1918, friend and counselor of Ezra Cornell, and with him associated in the founding of the Cornell University
+            </code>
+            The following named entities are expected:
+            <ol>
+              <li>Andrew Dickson White (PERSON)</li>
+              <li>AEzra Cornell (PERSON)</li>
+              <li>Cornell University (ORGANIZATION)</li>
+            </ol>
+          </li>
+          <li>Spacy has a number of entity types available (see page 21 in <a href="" target="_blank">this document</a>), but we only use these:
+            <ol>
+              <li><strong>PERSON</strong> - People, including fictional</li>
+              <li><strong>NORP</strong> - Nationalities or religious or political groups</li>
+              <li><strong>ORGANIZATION</strong> - Companies, agencies, institutions, etc.</li>
+              <li><strong>EVENT</strong> - Named hurricanes, battles, wars, sports events, etc.</li>
+            </ol>
+            And we currently only use "PERSON" and "EVENT" in the search interface
+          </li>
+          <li>In order to do this, Spacy uses a large annotated corpus called <a href="https://catalog.ldc.upenn.edu/LDC2013T19" target="_blank">OntoNotes</a> that leverages a variety of sources such as news, conversational telephone speech, weblogs, usenet newsgroups, broadcast, and talk shows. It is important to note that <strong>any bias present in this corpus will be inherited</strong> by the entities that are recognized using Spacy.</li>
+        </ul>
+      </li>
+
+      <li>
+        After we receive named entities, we then attempt to <em>link</em> these entities to the specific "real-world" person, event, or organization. We do this by matching named entities against <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" target="_blank">Wikidata</a> for those entities' corresponding entry. The advantages of this is that we can map multiple named entites ("Martin Luther King", "Martin Luther King, Jr.", "MLK") to a <a href="https://www.wikidata.org/wiki/Q8027" target="_blank">single specific person</a> and we can retrieve additional structured information about this person (e.g. date of birth, occupation, gender)
+
+        <ul>
+          <li>An important note: Just like Spacy, data about specific <strong>people and events on Wikidata inherit whatever biases the Wikidata contributors have</strong>.</li>
+          <li>We are considering using the "ethnic group" (e.g. "African American") field when present in a Wikidata entry as a proxy for estimating the diversity or lack thereof of monumental representation. However, this is a very complex and fraught topic, so it requires explicit contextualization if used. Furthermore, if the person being represented is white, "ethnic group" is usually not present, i.e. white is the default-- another topic of discussion.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <p><em>chart here</em></p>
+
+    <p>Note: We originally also analyzed plaque and marker text, but even though it helped identify more people and events, it resulting in too many false positives. For example, a civil war monument may quote Abraham Lincoln in the plaque, but may not be a monument about Lincoln himself. Therefore, in the case of Lincoln, we will only consider a monument honoring him if his name appears in the name of the monument, listed explicitly as an honoree, or contained within the monument description.</p>
+
+    <p><em>chart here</em></p>
 
     <h3>Plaque or marker text</h3>
-    32.17%
+
+    <p>About a third of the records contained the inscribed text that accompanies the object, such as the text on an embedded plaque or on an adjacent marker. This text is often very rich with a variety of formats (e.g. quotations, lists of names, narratives)</p>
+
+    <p><em>chart here</em></p>
 
     <h3>Other fields of interest</h3>
 
@@ -180,8 +230,6 @@
 
       <li>If a data source does not explicitly tell us if something is a monument, we attempt to determine if something is a monument by looking for keywords in certain data fields. This process is described in the next section.</li>
     </ol>
-
-
 
     <h2>The study set</h2>
 
