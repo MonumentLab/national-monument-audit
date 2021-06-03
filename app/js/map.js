@@ -32,7 +32,7 @@ var Map = (function() {
       // map values
       'mapEl': 'search-map',
       'tileUrlTemplate': 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      'minZoom': 4,
+      'minZoom': 3,
       'maxZoom': 18,
       'startZoom': 4, // see the whole country
       'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
