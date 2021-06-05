@@ -879,9 +879,9 @@ var Map = (function() {
       return {
         weight: 1,
         opacity: 0.4,
-        color: 'white',
+        color: '#444',
         fillOpacity: 0.667,
-        fillColor: Util.getGradientColor(density)
+        fillColor: Util.getGradientColor(1-density)
       };
     };
 
