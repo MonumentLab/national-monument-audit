@@ -265,6 +265,12 @@ var Map = (function() {
     return qstring;
   };
 
+  Map.prototype.goToPageOffset = function(start){
+    this.start = start;
+    this.query();
+    $('.panel-content').scrollTop(0);
+  };
+
   Map.prototype.isMarkerView = function(){
     return (this.zoomLevel >= this.opt.markerZoomThreshold);
   };
@@ -387,6 +393,14 @@ var Map = (function() {
     $('body').on('click', '.item-link', function(e){
       e.preventDefault();
       _this.zoomToItem($(this).attr('data-id'), $(this).attr('data-latlon'));
+    });
+
+    $('body').on('click', '.go-to-offset', function(e){
+      _this.goToPageOffset(parseInt($(this).attr('data-start')));
+    });
+
+    $('body').on('change', '.select-offset', function(e){
+      _this.goToPageOffset(parseInt($(this).val()));
     });
   };
 
@@ -535,6 +549,7 @@ var Map = (function() {
     this.renderResultMessage(hitCount);
     this.renderResults(hits);
     this.renderFacets(facets);
+    this.renderPagination(hitCount);
     this.renderMap();
 
     this.renderInfo();
@@ -755,6 +770,52 @@ var Map = (function() {
     }
   };
 
+  Map.prototype.renderPagination = function(totalCount){
+    var $pagination = $('.search-results-pagination');
+    $pagination.empty();
+    if (totalCount <= 0) return;
+
+    var offsetStart = this.start;
+    var size = this.size;
+    var pages = Math.ceil(totalCount / size);
+    var currentPage = Math.floor(offsetStart / size);
+
+    var queryObj = _.clone(this.currentQueryParams);
+    queryObj = _.omit(queryObj, 'start');
+
+    $pagination.each(function(i){
+      var html = '';
+      if (offsetStart > 0) {
+        var prevOffset = offsetStart-size;
+        if (prevOffset <= 1) prevOffset = 0;
+        html += '<button type="button" class="go-to-offset small" data-start="'+prevOffset+'">❮ Previous</button>';
+      }
+      html += '<div class="select-container">'
+        html += '<label for="select-offset-'+(i+1)+'">Go to page</label>'
+        html += '<select id="select-offset-'+(i+1)+'" class="select-offset">'
+        _.times(pages, function(page){
+          var start = page * size + 1;
+          if (page < 1) start = 0;
+          if (page === currentPage) {
+            html += '<option value="'+start+'" selected>'+(page+1)+'</option>';
+          } else {
+            html += '<option value="'+start+'">'+(page+1)+'</option>';
+          }
+        });
+        html += '</select>';
+      html += '</div>';
+
+      if (currentPage < pages) {
+        var nextOffset = offsetStart+size;
+        if (offsetStart < 1) nextOffset += 1;
+        html += '<button type="button" class="go-to-offset small" data-start="'+nextOffset+'">Next ❯</button>';
+      }
+
+      $(this).html(html);
+    });
+
+  };
+
   Map.prototype.renderResultMessage = function(totalCount){
     var $container = this.$resultMessage;
     var offsetStart = this.start;
@@ -780,7 +841,7 @@ var Map = (function() {
           });
         });
       }
-      if (totalCount > endNumber) html += '. Showing first ' + Util.formatNumber(endNumber) + ' results.';
+      if (totalCount > endNumber) html += '. Showing results ' + Util.formatNumber(startNumber) + ' to ' + Util.formatNumber(endNumber) + '.';
       else html += '. Showing all ' + Util.formatNumber(endNumber) + ' results.';
     html += '</p>';
     $container.html(html);

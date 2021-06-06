@@ -329,6 +329,38 @@ h1 {
 .search-results-message button.remove-facet {
   margin-right: 0.5rem;
 }
+.search-results-message p {
+  margin: 0;
+}
+
+.search-results-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  margin: 0.5rem 0;
+}
+.search-results-pagination > * {
+  margin-left: 0.5rem;
+}
+.search-results-pagination select {
+  height: 24px;
+  box-sizing: border-box;
+  border-radius: none;
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+.search-results-pagination label {
+  font-size: 0.9rem;
+  padding: 0 5px;
+  height: 24px;
+  line-height: 24px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-right: none;
+  display: inline-block;
+  background: #ddd;
+  color: black;
+}
 
 .result-list {
   margin: 0;
