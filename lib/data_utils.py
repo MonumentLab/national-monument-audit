@@ -96,7 +96,7 @@ def applyDataTypeConditions(rows, dataType, allowMany=False, reasonKey=None, sco
 
     return (conditionRows, remainingRows)
 
-def applyDuplicationFields(rows, latlonPrecision=2):
+def applyDuplicationFields(rows, latlonPrecision=1):
 
     # Lat lon precision is in nth of a degree (e.g. precision of 2 is a hundredth of a degree)
         # In Charlottesville, VA:
@@ -124,9 +124,32 @@ def applyDuplicationFields(rows, latlonPrecision=2):
     duplicateRows = []
     duplicateCount = 0
     for i, latlonGroup in enumerate(itemsByLatLon):
-        # group items by name
-        itemsByName = groupList(latlonGroup["items"], "_nameGroup")
-        for nameGroup in itemsByName:
+        nameValues = set([])
+        nameGroups = {}
+
+        ## group items by name
+        # nameGroups = groupList(latlonGroup["items"], "_nameGroup")
+
+        for item in latlonGroup["items"]:
+            nname = item["_nameGroup"]
+            if nname in nameGroups:
+                nameGroups[nname]["items"].append(item)
+                continue
+            foundSimilar = False
+            for value in nameValues:
+                # if this contains or is contained by existing value, e.g. "Lincoln Memorial" and "The Lincoln Memorial"
+                if value in nname or nname in value:
+                    nameGroups[value]["items"].append(item)
+                    foundSimilar = True
+                    break
+            if not foundSimilar:
+                nameValues.add(nname)
+                nameGroups[nname] = {
+                    "items": [item],
+                    "_nameGroup": nname
+                }
+
+        for nameKey, nameGroup in nameGroups.items():
             if len(nameGroup["items"]) <= 1:
                 continue
 

@@ -137,6 +137,8 @@ def md5string(value):
 
 def normalizeName(value):
     value = str(value).strip()
+
+    value = re.sub("[\(\[].*?[\)\]]", "", value).strip() # remove anything parenthsized e.g. "Harriet Tubman (Salisbury, MD)" -> "Harriet Tubman"
     value = value.replace("'s", "")
     value = value.replace("’s", "")
     value = value.replace('-', ' ')
