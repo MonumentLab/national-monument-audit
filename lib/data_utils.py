@@ -113,8 +113,17 @@ def applyDuplicationFields(rows, latlonPrecision=1):
         # exclude entries with only approximated
         if lat == "" or lon == "" or row["Geo Type"] not in ("Exact coordinates provided", "Geocoded based on street address provided"):
             continue
+        nname = normalizeName(row["Name"])
+        # In this case: (World War I Memorial), (sculpture)
+        # We want: World War I Memorial
+        if nname == "" and "(" in row["Name"] and ")" in row["Name"]:
+            matches = getValuesInParentheses(row["Name"])
+            if matches and len(matches) > 0:
+                nname = normalizeName(matches[0])
+        if nname == "":
+            nname = row["Name"]
         row["_latlonGroup"] = (lat, lon)
-        row["_nameGroup"] = normalizeName(row["Name"])
+        row["_nameGroup"] = nname
         row["_index"] = i
         validRows.append(row)
 
@@ -153,6 +162,10 @@ def applyDuplicationFields(rows, latlonPrecision=1):
             if len(nameGroup["items"]) <= 1:
                 continue
 
+            # ignore items with no name or "untitled"
+            if nameGroup["_nameGroup"] in ("untitled", "unknown") or nameGroup["_nameGroup"] == "":
+                continue
+
             itemsSortedByPriority = sorted(nameGroup["items"], key=lambda item: item["Source Priority"])
             primaryRecord = itemsSortedByPriority[0]
 
@@ -183,3 +196,94 @@ def applyDuplicationFields(rows, latlonPrecision=1):
     print(f'{duplicateCount} duplicate records found.')
 
     return (duplicateCount, duplicateRows, rows)
+
+def mergeDuplicates(rows, dataFields):
+    rows = addIndices(rows, keyName="_index")
+    drows = [row for row in rows if "Has Duplicates" in row and row["Has Duplicates"] == 1 or "Is Duplicate" in row and row["Is Duplicate"] == 1]
+
+    for i, row in enumerate(drows):
+        group = row["Id"]
+        if "Is Duplicate" in row and row["Is Duplicate"] == 1 and "Duplicate Of" in row:
+            group = row["Duplicate Of"]
+        drows[i]["_duplicateGroup"] = group
+        # Give lower priority to items that had geocoded addresses
+        if row["Geo Type"] != "Exact coordinates provided":
+            drows[i]["Source LatLon Priority"] = 1000
+
+    fieldListsToMerge = [f["key"] for f in dataFields if "type" in f and f["type"] == "string_list"] # merge these field names as lists
+
+    itemsByDuplicationGroup = groupList(drows, "_duplicateGroup")
+    for group in itemsByDuplicationGroup:
+        if len(group["items"]) <= 1:
+            continue
+
+        itemsSortedByPriority = sorted(group["items"], key=lambda item: item["Source Priority"])
+        itemsSortedByLatLonPriority = sorted(group["items"], key=lambda item: item["Source LatLon Priority"])
+
+        mergedItem = itemsSortedByPriority[0].copy() # source with the highest priority should be the default
+
+        # create a new Id
+
+        mergedItem["Id"] = str(mergedItem["Id"]) + "_merged"
+        mergedItem["Vendor Entry ID"] = mergedItem["Id"]
+
+        # update source/sources
+        mergedItem["Source"] = "Multiple"
+        mergedItem["Sources"] = [item["Source"] for item in itemsSortedByPriority]
+
+        # update lat/lon in the first availabile lat/lon sorted by source lat/lon priority
+        for item in itemsSortedByLatLonPriority:
+            lat = item["Latitude"] if "Latitude" in item and isNumber(item["Latitude"]) else ""
+            lon = item["Longitude"] if "Longitude" in item and isNumber(item["Longitude"]) else ""
+            # exclude entries with only approximated
+            if lat == "" or lon == "" or item["Geo Type"] not in ("Exact coordinates provided", "Geocoded based on street address provided"):
+                continue
+            # update lat/lon, geo type, county geoid
+            mergedItem["Latitude"] = lat
+            mergedItem["Longitude"] = lon
+            mergedItem["Geo Type"] = item["Geo Type"]
+            countyGeoId = mergedItem["County GeoId"] if "County GeoId" in mergedItem else ""
+            countyGeoId = item["County GeoId"] if "County GeoId" in item and item["County GeoId"] != "" else countyGeoId
+            mergedItem["County GeoId"] = countyGeoId
+            break
+
+        # merge list fields
+        for field in fieldListsToMerge:
+            values = []
+            for item in itemsSortedByPriority:
+                if field not in item:
+                    continue
+                values.append(item[field])
+            if len(values) > 0:
+                mergedItem[field] = values
+
+        # update duplication fields
+        mergedItem["Is Duplicate"] = 0
+        mergedItem["Has Duplicates"] = 1
+        mergedItem["Duplicates"] = [item["Id"] for item in itemsSortedByPriority]
+        mergedItem["Duplicate Of"] = ""
+
+        # update child items
+        for item in itemsSortedByPriority:
+            rows[item["_index"]]["Is Duplicate"] = 1
+            rows[item["_index"]]["Has Duplicates"] = 0
+            rows[item["_index"]]["Duplicates"] = []
+            rows[item["_index"]]["Duplicate Of"] = mergedItem["Id"]
+
+        # add alternate name if applicable
+        if "Alternate Name" not in mergedItem or mergedItem["Alternate Name"] == "":
+            for item in itemsSortedByPriority:
+                if item["Name"] != mergedItem["Name"]:
+                    mergedItem["Alternate Name"] = item["Name"]
+                    break
+
+        # add remaining fields that don't exist
+        for item in itemsSortedByPriority:
+            for field in item:
+                if field not in mergedItem:
+                    mergedItem[field] = item[field]
+
+        # add the new, merged item
+        rows.append(mergedItem)
+
+    return rows

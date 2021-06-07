@@ -121,6 +121,9 @@ def getStates():
         "United States Virgin Islands": "VI"
     }
 
+def getValuesInParentheses(string):
+    return re.findall('\((.*?)\)', string)
+
 def itemNotEmpty(row, key):
     return (key in row and len(str(row[key]).strip()) > 0)
 
