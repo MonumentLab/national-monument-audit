@@ -141,6 +141,7 @@ h1 {
   padding: 1rem 0 0;
   height: auto;
   bottom: 0;
+  width: 100%;
 }
 .search-form {
   display: inline-block;
