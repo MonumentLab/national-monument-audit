@@ -106,10 +106,11 @@ def applyDuplicationFields(rows, latlonPrecision=1):
 
     # First, add normalized lat/lon and name for grouping
     multiplier = 10 ** latlonPrecision
+    decimal = 0.1 ** latlonPrecision
     validRows = []
     for i, row in enumerate(rows):
-        lat = roundInt(row["Latitude"] * multiplier) if "Latitude" in row and isNumber(row["Latitude"]) else ""
-        lon = roundInt(row["Longitude"] * multiplier) if "Longitude" in row and isNumber(row["Longitude"]) else ""
+        lat = roundInt(roundToNearest(row["Latitude"] * multiplier, decimal)) if "Latitude" in row and isNumber(row["Latitude"]) else ""
+        lon = roundInt(roundToNearest(row["Longitude"] * multiplier, decimal)) if "Longitude" in row and isNumber(row["Longitude"]) else ""
         # exclude entries with only approximated
         if lat == "" or lon == "" or row["Geo Type"] not in ("Exact coordinates provided", "Geocoded based on street address provided"):
             continue
@@ -133,26 +134,27 @@ def applyDuplicationFields(rows, latlonPrecision=1):
     duplicateRows = []
     duplicateCount = 0
     for i, latlonGroup in enumerate(itemsByLatLon):
-        nameValues = set([])
         nameGroups = {}
 
         ## group items by name
         # nameGroups = groupList(latlonGroup["items"], "_nameGroup")
 
-        for item in latlonGroup["items"]:
+        # sort by string length (desc) so that e.g. "Caddo Parish Confederate Monument" comes before "Confederate Monument"
+        items = sorted(latlonGroup["items"], key=lambda item: -len(item["_nameGroup"]))
+
+        for item in items:
             nname = item["_nameGroup"]
             if nname in nameGroups:
                 nameGroups[nname]["items"].append(item)
                 continue
             foundSimilar = False
-            for value in nameValues:
+            for value in nameGroups:
                 # if this contains or is contained by existing value, e.g. "Lincoln Memorial" and "The Lincoln Memorial"
                 if value in nname or nname in value:
                     nameGroups[value]["items"].append(item)
                     foundSimilar = True
                     break
             if not foundSimilar:
-                nameValues.add(nname)
                 nameGroups[nname] = {
                     "items": [item],
                     "_nameGroup": nname

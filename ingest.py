@@ -530,6 +530,9 @@ for row in rowsOut:
 makeDirectories(a.OUTPUT_FILE)
 writeCsv(a.OUTPUT_FILE, rowsOut, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
+# write duplicate rows
+writeCsv(appendToFilename(a.OUTPUT_FILE, "_duplicates"), duplicateRows, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
+
 print("Writing validation rows...")
 validationHeadings, validationRows = readCsv(a.VALIDATION_FILE)
 if len(validationRows) > 0:
@@ -545,9 +548,6 @@ if len(validationRows) > 0:
                 validCount += 1
     print(f'{round(1.0 * validCount / len(validationRows) * 100, 2)}% valid')
     writeCsv(a.VALIDATION_FILE, validationRows, validationHeadings)
-
-# write duplicate rows
-writeCsv(appendToFilename(a.OUTPUT_FILE, "_duplicates"), duplicateRows, headings=fieldsOut, listDelimeter=a.LIST_DELIMETER)
 
 # write type-specific output
 for fieldValue, fieldTypes in rowsByDataType.items():

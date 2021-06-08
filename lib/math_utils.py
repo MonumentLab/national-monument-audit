@@ -99,3 +99,6 @@ def printProgress(step, total, prepend=""):
 
 def roundInt(n):
     return int(round(n))
+
+def roundToNearest(n, nearest):
+    return 1.0 * round(1.0*n/nearest) * nearest
