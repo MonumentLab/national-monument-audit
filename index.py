@@ -152,7 +152,7 @@ for i, row in enumerate(rows):
 
         elif type == "string_list":
             value = str(value)
-            value = [v.strip() for v in value.split(a.LIST_DELIMETER)]
+            value = [v.strip().strip(a.LIST_DELIMETER).strip() for v in value.split(a.LIST_DELIMETER)]
             value = [v for v in value if len(v) > 0]
             if len(value) < 1 and not required:
                 continue
