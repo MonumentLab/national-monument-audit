@@ -5,7 +5,7 @@ var Search = (function() {
   function Search(config) {
     var defaults = {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
-      'returnFacets': ['object_groups', 'monument_types', 'entities_people', 'entities_events', 'source', 'geo_type', 'subjects', 'object_types', 'is_duplicate', 'has_duplicates', 'creators', 'city', 'county', 'sponsors', 'state', 'status', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
+      'returnFacets': ['object_groups', 'monument_types', 'entities_people', 'entities_events', 'sources', 'geo_type', 'subjects', 'object_types', 'is_duplicate', 'has_duplicates', 'creators', 'city', 'county', 'sponsors', 'state', 'status', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
       'facetSize': 30,
       'customFacetSizes': {
         'state': 100,
@@ -15,8 +15,8 @@ var Search = (function() {
       'size': 100,
       'sort': '',
       'fields': '', // e.g. name,street_address
-      'q': 'monument',
-      'facets': '' // e.g. facetName1~value1!!value2!!value3__facetName2~value1
+      'q': '',
+      'facets': 'is_duplicate~0' // e.g. facetName1~value1!!value2!!value3__facetName2~value1
     };
     var q = Util.queryParams();
     this.opt = _.extend({}, defaults, config, q);

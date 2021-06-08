@@ -10,6 +10,7 @@
   "dataPath": "data/vendor/ny/NYC_Parks_Monuments_WGS84.csv",
   "dateDataAccessed": "2020-11-13",
   "properties": ["X", "Y", "name", "number", "parkname", "Location", "dedicated", "cast", "descrip", "dimen", "sponsor", "materials", "foundry", "fabricator", "sculptor", "architect", "donor", "Name2", "Categories"],
+  "latlonPriority": 5,
   "mappings": {
     "Y": {"to": "Latitude"},
     "X": {"to": "Longitude"},

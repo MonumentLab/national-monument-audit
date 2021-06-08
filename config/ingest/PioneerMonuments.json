@@ -8,6 +8,7 @@
   "dataPath": "data/vendor/national/Pioneer Monuments.csv",
   "dateDataAccessed": "2021-02-13",
   "properties": ["Artist", "Sculpture Title", "Material", "Location", "Lat", "Lon", "City", "Date", "Description", "Image 1"],
+  "latlonPriority": 5,
   "mappings": {
     "Sculpture Title": {"to": "Name"},
     "Artist": {"to": "Creators", "delimeter": ";"},

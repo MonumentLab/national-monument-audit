@@ -8,6 +8,7 @@
   "dataPath": "data/vendor/national/si/sos_data.csv",
   "dateDataAccessed": "2021-02-01",
   "priority": 2,
+  "latlonPriority": 9999,
   "properties": ["Name", "Id", "Url", "State", "Latitude", "Longitude", "Sculptor", "Founder", "Medium", "Type", "Owner/Location", "Date", "Topic", "Notes", "Summary"],
   "mappings": {
     "Id": {"to": "Vendor Entry ID"},

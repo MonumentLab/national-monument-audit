@@ -56,6 +56,7 @@ if idField is None:
 ID_NAME = idField["key"]
 dataTypes = dataModel["types"]
 fieldsForEntities = set(dataModel["fieldsForEntities"])
+dataFields = dataModel["fields"]
 dataModel = createLookup(dataModel["fields"], "key")
 
 ################################################################
@@ -150,6 +151,12 @@ for dSourceIndex, d in enumerate(dataSources):
             rowOut["Source Priority"] = d["priority"]
         else:
             rowOut["Source Priority"] = 999
+
+        # set source priority
+        if "latlonPriority" in d:
+            rowOut["Source LatLon Priority"] = d["latlonPriority"]
+        else:
+            rowOut["Source LatLon Priority"] = 999
 
         # set source type
         if "sourceType" in d:
@@ -500,6 +507,14 @@ for dataTypeGroup in dataTypes:
 
 print("Looking for duplicates...")
 duplicateCount, duplicateRows, rowsOut = applyDuplicationFields(rowsOut)
+
+print("Merging duplicates...")
+rowsOut = mergeDuplicates(rowsOut, dataFields)
+
+# Set "Sources" if not set
+for i, row in enumerate(rowsOut):
+    if "Sources" not in row:
+        rowsOut[i]["Sources"] = [row["Source"]]
 
 if a.PROBE:
     sys.exit()

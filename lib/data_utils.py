@@ -253,8 +253,13 @@ def mergeDuplicates(rows, dataFields):
             for item in itemsSortedByPriority:
                 if field not in item:
                     continue
-                values.append(item[field])
+                value = item[field]
+                if isinstance(value, list):
+                    values += value
+                else:
+                    values.append(value)
             if len(values) > 0:
+                values = unique(values)
                 mergedItem[field] = values
 
         # update duplication fields

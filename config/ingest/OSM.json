@@ -9,6 +9,7 @@
   "sourceType": "Crowdsourced",
   "dateDataAccessed": "2020-12-13",
   "needsMerge": true,
+  "latlonPriority": 1,
   "properties": ["osm_id", "X", "Y", "memorial", "monument", "historic", "name", "inscription", "material", "start_date", "wikidata", "description", "wikipedia", "website", "owner", "artist_name", "artwork_type", "addr_city", "addr_state", "addr_street", "image"],
   "mappings": {
     "osm_id": {"to": "Vendor Entry ID"},
@@ -36,6 +37,7 @@
   "notes": [
     "Combines two OSM tags: <a href=\"https://wiki.openstreetmap.org/wiki/Tag%3Ahistoric%3Dmonument\" target=\"_blank\">historic:monument</a> and <a href=\"https://wiki.openstreetmap.org/wiki/Key:memorial\" target=\"_blank\">historic:memorial</a>",
     "There is a very <a href=\"https://github.com/MonumentLab/national-monument-audit/tree/main/data/vendor/national/osm/quickOSM/fields.txt\" target=\"_blank\">long tail of metadata</a>, most of which don't have a lot of coverage.",
-    "Processed using QuickOSM plug-in on QGIS. <a href=\"https://github.com/MonumentLab/national-monument-audit/tree/main/data/vendor/national/osm/quickOSM/Key- File Descriptions.docx\" target=\"_blank\">Documentation here.</a>"
+    "Processed using QuickOSM plug-in on QGIS. <a href=\"https://github.com/MonumentLab/national-monument-audit/tree/main/data/vendor/national/osm/quickOSM/Key- File Descriptions.docx\" target=\"_blank\">Documentation here.</a>",
+    "Needed to manually fix osm ids; for some reason there were thousands of entries with the same osm_id"
   ]
 }

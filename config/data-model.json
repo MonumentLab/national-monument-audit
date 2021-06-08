@@ -1,6 +1,7 @@
 {
   "fields": [
     {"key": "Source", "type": "string", "required": true},
+    {"key": "Sources", "type": "string_list"},
     {"key": "Vendor Entry ID", "type": "string", "required": true, "identifier": true},
     {"key": "Name", "type": "string", "required": true},
     {"key": "Alternate Name", "type": "string"},
