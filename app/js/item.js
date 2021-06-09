@@ -130,13 +130,15 @@ var Item = (function() {
               value = value.join(' ');
             } else if (isList && key == 'object_group_reason') {
               value = value.join('<br />');
+            } else if (isList && key == 'sources' && value.length <= 1) {
+              // hide this if only one source
             } else if (isList) {
               value = _.map(value, function(v){
                 var params = {
                   q: '',
                   facets: key + '~' + v
                 };
-                var facetUrl = '?' + $.param(params);
+                var facetUrl = 'map.html?' + $.param(params);
                 return '<a href="'+facetUrl+'" class="button">'+v+'</a>';
               })
               value = value.join(' ');

@@ -15,7 +15,7 @@ var Map = (function() {
         'entities_people': 'People',
         'entities_events': 'Events'
       },
-      'returnValues': 'name,latlon,city,state,source,url,image',
+      'returnValues': 'name,latlon,city,state,source,sources,url,image,duplicates',
       'facetSize': 100,
       'customFacetSizes': {
         'county_geoid': 4000,
@@ -28,6 +28,7 @@ var Map = (function() {
       'q': '',
       'facets': 'object_groups~Monument__is_duplicate~0', // e.g. facetName1~value1!!value2!!value3__facetName2~value1
       'searchCacheSize': 5, // store this many responses in memory
+      'maxDupeRequest': 100, // request this many items that are duplicates
 
       // map values
       'mapEl': 'search-map',
@@ -100,7 +101,12 @@ var Map = (function() {
 
     // display source
     if (_.has(fields, 'source')) {
-      if (_.has(fields, 'url')) html += '<p>Source: <a href="'+fields.url+'" target="_blank">'+fields.source+'</a></p>';
+      if (fields.source == "Multiple" && _.has(fields, 'duplicates') && fields.duplicates.length > 0) {
+        html += '<p>Multiple sources: ';
+          var sourceStrings = _.map(fields.duplicates, function(dupeId){ return '<span class="duplicate-source" data-id="'+dupeId+'"></span>'; });
+          html += sourceStrings.join(', ');
+        html += '</p>';
+      } else if (_.has(fields, 'url')) html += '<p>Source: <a href="'+fields.url+'" target="_blank">'+fields.source+'</a></p>';
       else html += '<p>Source: '+fields.source+'</p>';
     }
 
@@ -305,6 +311,7 @@ var Map = (function() {
     this.mapData = false;
     this.countyCounts = {};
     this.searchCache = [];
+    this.itemCache = {};
     this.opt.yearRange[1] = parseInt(new Date().getFullYear());
     this.yearRangeValue = false;
 
@@ -523,6 +530,18 @@ var Map = (function() {
       this.updateURL();
       this.highlightMarker = false;
     }
+
+    // check for duplicates
+    // console.log('Popup', p);
+    var content = p.getContent();
+    var $content = $(content);
+    var $dupes = $content.find('.duplicate-source');
+    if ($dupes.length > 0) {
+      var dupeIds = $dupes.map(function(){
+        return $(this).attr('data-id');
+      }).get();
+      this.renderDuplicates(dupeIds);
+    }
   };
 
   Map.prototype.onQueryResponse = function(resp){
@@ -629,6 +648,67 @@ var Map = (function() {
     });
 
     return promise;
+  };
+
+  Map.prototype.renderDuplicates = function(duplicateIds){
+    var _this = this;
+    duplicateIds = _.uniq(duplicateIds);
+    console.log('Found duplicates: ', duplicateIds);
+    var itemCache = this.itemCache;
+    var idsToUpdate = _.filter(duplicateIds, function(id){ return _.has(itemCache, id); });
+    var idsToRequest = _.filter(duplicateIds, function(id){ return !_.has(itemCache, id); });
+    if (idsToRequest.length > 0) {
+      if (idsToRequest.length > this.opt.maxDupeRequest) {
+        idsToRequest = idsToRequest.slice(0, this.opt.maxDupeRequest);
+      }
+      console.log('Requesting duplicates: ', idsToRequest);
+      var qstring = _.map(idsToRequest, function(id){ return "_id:'"+id+"'" });
+      qstring = qstring.join(" ");
+      qstring = '(or '+qstring+')';
+      var q = {
+        q: qstring,
+        size: idsToRequest.length,
+        return: this.opt.returnValues
+      };
+      q['q.parser'] = 'structured';
+      var queryString = $.param(q);
+
+      var url = this.opt.endpoint + '?' + queryString;
+      console.log('Duplicates URL: ', url);
+
+      $.getJSON(url, function(resp) {
+        if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
+          _.each(resp.hits.hit, function(result){
+            _this.itemCache[result.id] = result.fields;
+          });
+          _this.renderDuplicateItems(idsToRequest);
+        }
+      });
+    }
+
+    if (idsToUpdate.length > 0) {
+      this.renderDuplicateItems(idsToUpdate);
+    }
+  };
+
+  Map.prototype.renderDuplicateItems = function(duplicateIds){
+    var itemCache = this.itemCache;
+    _.each(duplicateIds, function(id){
+      if (_.has(itemCache, id)){
+        var fields = itemCache[id];
+        if (_.has(fields, 'source')) {
+          var $el = $('.duplicate-source[data-id="'+id+'"]');
+          var html = '';
+          if (_.has(fields, 'url')) {
+            html += '<a href="'+fields.url+'" target="_blank">'+fields.source+'</a>';
+          } else {
+            html += fields.source;
+          }
+          $el.html(html);
+        }
+
+      }
+    });
   };
 
   Map.prototype.removeFacet = function(key, value){
@@ -852,6 +932,7 @@ var Map = (function() {
     if (!results || !results.length) return;
     var html = '';
     var start = this.start;
+    var duplicateIds = [];
 
     html += '<ul class="result-list">';
     _.each(results, function(result, i){
@@ -860,10 +941,18 @@ var Map = (function() {
 
         html += resultToHtml(result, start, i, true);
 
+        if (_.has(result.fields, 'duplicates') && result.fields.duplicates.length > 0) {
+          duplicateIds = duplicateIds.concat(result.fields.duplicates);
+        }
+
       html += '</li>';
     });
     html += '</ul>';
     this.$results.html(html);
+
+    if (duplicateIds.length > 0) {
+      this.renderDuplicates(duplicateIds);
+    }
   };
 
   Map.prototype.renderTimeline = function(){
@@ -1020,6 +1109,7 @@ var Map = (function() {
         hits = resp.hits.hit;
       }
       var highlightedMarker = false;
+      var duplicateIds = [];
 
       _.each(hits, function(result){
         var fields = result.fields;
@@ -1035,6 +1125,9 @@ var Map = (function() {
         }
         _this.markerLayer.addLayer(marker);
         // _this.markerLayer.refreshClusters();
+        if (_.has(result.fields, 'duplicates') && result.fields.duplicates.length > 0) {
+          duplicateIds.concat(result.fields.duplicates);
+        }
       });
 
       if (highlightedMarker) {
@@ -1043,6 +1136,10 @@ var Map = (function() {
 
       if (_this.highlightMarker) {
         _this.highlightMarker = false;
+      }
+
+      if (duplicateIds.length > 0) {
+        this.renderDuplicates(duplicateIds);
       }
     });
 
