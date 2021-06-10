@@ -208,6 +208,18 @@
       "key": "Monument Types",
       "rules": [
         {
+          "value": "Statue",
+          "conditions": [ {"words": ["statue", "figure"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+        },{
+          "value": "Obelisk",
+          "conditions": [ {"words": ["obelisk"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+        },{
+          "value": "Bust",
+          "conditions": [ {"words": ["bust", "portrait"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+        },{
+          "value": "Pillar",
+          "conditions": [ {"words": ["pillar"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
+        },{
           "value": "Arch",
           "conditions": [ {"words": ["arch"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
@@ -216,9 +228,6 @@
         },{
           "value": "Boulder",
           "conditions": [ {"words": ["boulder"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
-        },{
-          "value": "Bust",
-          "conditions": [ {"words": ["bust", "portrait"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Cannon",
           "conditions": [ {"words": ["cannon"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
@@ -235,14 +244,8 @@
           "value": "Mural",
           "conditions": [ {"words": ["mural"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
-          "value": "Obelisk",
-          "conditions": [ {"words": ["obelisk"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
-        },{
           "value": "Pedestal",
           "conditions": [ {"words": ["pedestal"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
-        },{
-          "value": "Pillar",
-          "conditions": [ {"words": ["pillar"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Plinth",
           "conditions": [ {"words": ["plinth"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
@@ -258,9 +261,6 @@
         },{
           "value": "Totem Pole",
           "conditions": [ {"words": ["totem"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
-        },{
-          "value": "Statue",
-          "conditions": [ {"words": ["statue", "figure"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
         },{
           "value": "Sculpture",
           "conditions": [ {"words": ["sculpture"], "pluralize": 1, "fields": ["Name", "Alternate Name", "Object Types", "Use Types", "Subjects", "Captions"]} ]
