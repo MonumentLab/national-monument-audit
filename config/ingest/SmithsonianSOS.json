@@ -5,7 +5,7 @@
   "provider": "Smithsonian Institution",
   "url": "https://americanart.si.edu/research/inventories/outdoor-sculpture",
   "geographicCoverage": "national",
-  "dataPath": "data/vendor/national/si/sos_data.csv",
+  "dataPath": "data/vendor/national/si/sos_data_location_fixed.csv",
   "dateDataAccessed": "2021-02-01",
   "priority": 2,
   "latlonPriority": 9999,

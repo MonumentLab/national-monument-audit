@@ -398,6 +398,12 @@ print("Matching lat/lon data against county data...")
 _, latlonCountyMatches = readCsv(a.COUNTIES_CACHE_FILE, doParseNumbers=False)
 latlonCountyLookup = createLookup(latlonCountyMatches, "latlon")
 countyGeoJSON = readJSON(a.COUNTIES_GEO_FILE)
+# create a state lookup for county data
+countyStateLookup = {}
+for feature in countyGeoJSON["features"]:
+    geoId = str(feature["properties"]["GEOID"])
+    state = fipsToState(str(feature["properties"]["STATEFP"]), defaultValue="")
+    countyStateLookup[geoId] = state
 countyLookupChanged = False
 noCountMatches = 0
 rowCount = len(rowsOut)
@@ -426,6 +432,14 @@ for i, row in enumerate(rowsOut):
         if countyGeoId == "Unknown":
             noCountMatches += 1
     rowsOut[i]["County GeoId"] = countyGeoId
+    # validate state
+    geoState = countyStateLookup[countyGeoId] if countyGeoId in countyStateLookup else ""
+    originalState = row["State"] if "State" in row else ""
+    # set state if not already set
+    if geoState != "" and originalState == "":
+        url = row["URL"] if "URL" in row else ""
+        print(f' Setting state for {row["Id"]} / {url}: {geoState}')
+        rowsOut[i]["State"] = geoState
     printProgress(i+1, rowCount)
 print(f' County not matched for {noCountMatches} rows')
 
