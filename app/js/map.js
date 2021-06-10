@@ -179,6 +179,7 @@ var Map = (function() {
 
   Map.prototype.getQueryObject = function(customFacets){
     var queryText = this.$query.val().trim();
+    queryText = queryText.replace(/\//g, " "); // slashes break search
     var facetSize = this.opt.facetSize;
     var customFacetSizes = this.opt.customFacetSizes;
     var q = {

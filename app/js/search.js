@@ -38,6 +38,7 @@ var Search = (function() {
 
   Search.prototype.getQueryObject = function(){
     var queryText = this.$query.val().trim();
+    queryText = queryText.replace(/\//g, " "); // slashes break search
     var isStructured = queryText.startsWith('(');
     var isDocumentSearch = this.isDocumentSearch;
     var facetSize = this.opt.facetSize;
