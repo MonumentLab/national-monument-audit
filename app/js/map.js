@@ -19,7 +19,8 @@ var Map = (function() {
       'facetSize': 100,
       'customFacetSizes': {
         'county_geoid': 4000,
-        'year_dedicated_or_constructed': 1000
+        'year_dedicated_or_constructed': 1000,
+        'entities_people': 1000
       },
       'start': 0,
       'size': 500,

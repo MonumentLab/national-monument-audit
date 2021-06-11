@@ -20,7 +20,7 @@ parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab
 parser.add_argument('-out', dest="OUTPUT_FILE", default="app/data/entities.json", help="Output file")
 parser.add_argument('-index', dest="INDEX_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Output file .csv for indexing")
 parser.add_argument('-summary', dest="SUMMARY_FILE", default="app/data/entities-summary.json", help="Output summary file")
-parser.add_argument('-count', dest="MAX_COUNT",  default=1000, type=int, help="How many entities per group?")
+parser.add_argument('-count', dest="MAX_COUNT",  default=5000, type=int, help="How many entities per group?")
 parser.add_argument('-probe', dest="PROBE",  default=0, type=int, help="Just output details and don't write data?")
 a = parser.parse_args()
 # Parse arguments
@@ -185,4 +185,5 @@ for typeGroup in groupsByType:
                 "Gender": item["Gender"],
                 "Ethnic Group": item["Ethnic Group"]
             })
+
 writeCsv(a.INDEX_FILE, indexRows, headings=["Id", "Type", "Value", "Property", "Gender", "Ethnic Group"])
