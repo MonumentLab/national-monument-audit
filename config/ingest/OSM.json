@@ -9,6 +9,7 @@
   "sourceType": "Crowdsourced",
   "dateDataAccessed": "2020-12-13",
   "needsMerge": true,
+  "priority": 3,
   "latlonPriority": 1,
   "properties": ["osm_id", "X", "Y", "memorial", "monument", "historic", "name", "inscription", "material", "start_date", "wikidata", "description", "wikipedia", "website", "owner", "artist_name", "artwork_type", "addr_city", "addr_state", "addr_street", "image"],
   "mappings": {

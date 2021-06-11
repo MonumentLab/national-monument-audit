@@ -8,6 +8,7 @@
   "dataPath": "data/vendor/national/nps/NPS_-_Points_of_Interest__POIs__-_Web_WGS84.csv",
   "dateDataAccessed": "2021-01-20",
   "properties": ["X", "Y", "OBJECTID", "POINAME", "MAPLABEL", "POITYPE"],
+  "priority": 4,
   "mappings": {
     "OBJECTID": {"to": "Vendor Entry ID"},
     "POINAME": {"to": "Name"},
