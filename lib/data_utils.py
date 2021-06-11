@@ -126,6 +126,7 @@ def applyDuplicationFields(rows, latlonPrecision=1):
         row["_latlonGroup"] = (lat, lon)
         row["_nameGroup"] = nname
         row["_index"] = i
+        row["_isMonument"] = 1 if "Object Groups" in row and row["Object Groups"] == "Monument" or isinstance(row["Object Groups"], list) and "Monument" in row["Object Groups"] else 0
         validRows.append(row)
 
     # group items by lat/lon
@@ -140,7 +141,8 @@ def applyDuplicationFields(rows, latlonPrecision=1):
         # nameGroups = groupList(latlonGroup["items"], "_nameGroup")
 
         # sort by string length (desc) so that e.g. "Caddo Parish Confederate Monument" comes before "Confederate Monument"
-        items = sorted(latlonGroup["items"], key=lambda item: -len(item["_nameGroup"]))
+        # give priority to monuments
+        items = sorted(latlonGroup["items"], key=lambda item: (-item["_isMonument"], -len(item["_nameGroup"])))
 
         for item in items:
             nname = item["_nameGroup"]
