@@ -416,6 +416,7 @@ def saveCountyDataCache(fn, lookup):
         })
     writeCsv(fn, latlonCountyMatches, headings=["latlon", "countyGeoId"], verbose=False)
 
+setNoStateCount = 0
 for i, row in enumerate(rowsOut):
     countyGeoId = "Unknown"
     if row["Geo Type"] in ("Exact coordinates provided", "Geocoded based on street address provided"):
@@ -438,10 +439,12 @@ for i, row in enumerate(rowsOut):
     # set state if not already set
     if geoState != "" and originalState == "":
         url = row["URL"] if "URL" in row else ""
-        print(f' Setting state for {row["Id"]} / {url}: {geoState}')
+        # print(f' Setting state for {row["Id"]} / {url}: {geoState}')
         rowsOut[i]["State"] = geoState
+        setNoStateCount += 1
     printProgress(i+1, rowCount)
 print(f' County not matched for {noCountMatches} rows')
+print(f' Set state for {setNoStateCount} rows based on lat/lon county')
 
 print("Reading entities...")
 entitiesByItem = {}
