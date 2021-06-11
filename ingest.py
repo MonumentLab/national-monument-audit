@@ -624,14 +624,18 @@ writeCsv(OUTPUT_DIR + "monumentlab_national_monuments_audit_final_monument_objec
 # Generate dashboard data
 ################################################################
 
+rowsWithoutMergedRecords = [row for row in rowsOut if "Has Duplicates" not in row or row["Has Duplicates"] < 1]
+rowsWithoutDupes = [row for row in rowsOut if "Is Duplicate" not in row or row["Is Duplicate"] < 1]
+duplicateRows = [row for row in rowsOut if "Is Duplicate" in row and row["Is Duplicate"] == 1]
+
 # dashboard summary numbers
 dataSourceTotal = len(dataSources)
-dataRecordTotal = len(rowsOut)
+dataRecordTotal = len(rowsWithoutMergedRecords)
 summaryData = {}
 summaryData["dataSourceTotal"] = formatNumber(dataSourceTotal)
 summaryData["dataRecordTotal"] = formatNumber(dataRecordTotal)
 summaryData["dataRecordAverage"] = formatNumber(round(1.0 * dataRecordTotal / dataSourceTotal))
-summaryData["dataRecordDuplicates"] = formatNumber(duplicateCount)
+summaryData["dataRecordDuplicates"] = formatNumber(len(duplicateRows))
 
 ################################################################
 # Generate data source data
