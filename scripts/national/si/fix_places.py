@@ -23,6 +23,8 @@ from lib.string_utils import *
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/vendor/national/si/sos_data.csv", help="Input file")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
+parser.add_argument('-county', dest="COUNTIES_GEO_FILE", default="app/data/counties.json", help="County geojson file (generated from make_boundaries.py)")
+parser.add_argument('-countycache', dest="COUNTIES_CACHE_FILE", default="data/preprocessed/counties_matched.csv", help="Cached csv file for storing lat/lon matched against county data")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/vendor/national/si/sos_data_location_fixed.csv", help="Output file")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 parser.add_argument('-verbose', dest="VERBOSE", action="store_true", help="Output all details?")
@@ -101,6 +103,45 @@ for i, row in enumerate(rows):
         print(f'  Could not find state for {locations[0]} / {row["Url"]}')
 
     printProgress(i+1, rowCount)
+
+print("Matching lat/lon data against county data...")
+_, latlonCountyMatches = readCsv(a.COUNTIES_CACHE_FILE, doParseNumbers=False)
+latlonCountyLookup = createLookup(latlonCountyMatches, "latlon")
+countyGeoJSON = readJSON(a.COUNTIES_GEO_FILE)
+# create a state lookup for county data
+countyStateLookup = {}
+for feature in countyGeoJSON["features"]:
+    geoId = str(feature["properties"]["GEOID"])
+    state = fipsToState(str(feature["properties"]["STATEFP"]), defaultValue="")
+    countyStateLookup[geoId] = state
+for i, row in enumerate(rows):
+    countyGeoId = "Unknown"
+
+    if not isNumber(row["Latitude"]) or not isNumber(row["Longitude"]) or row["Latitude"] <= 0:
+        continue
+
+    latlon = f'{row["Latitude"]},{row["Longitude"]}'
+    if latlon in latlonCountyLookup:
+        countyGeoId = latlonCountyLookup[latlon]["countyGeoId"]
+    else:
+        matchedFeature = searchPointInGeoJSON(row["Latitude"], row["Longitude"], countyGeoJSON)
+        if matchedFeature is not None:
+            countyGeoId = str(matchedFeature["properties"]["GEOID"])
+            countyLookupChanged = True
+        latlonCountyLookup[latlon] = {"countyGeoId": countyGeoId}
+        # saveCountyDataCache(a.COUNTIES_CACHE_FILE, latlonCountyLookup)
+    if countyGeoId == "Unknown":
+        continue
+    # validate state
+    geoState = countyStateLookup[countyGeoId] if countyGeoId in countyStateLookup else ""
+    originalState = row["State"] if "State" in row else ""
+    if geoState == "":
+        continue
+
+    # set state if not already set
+    if originalState != geoState:
+        print(f' Changing state for {row["Id"]} / {row["Url"]}: {geoState} (was {originalState})')
+        rows[i]["State"] = geoState
 
 if a.PROBE:
     sys.exit()
