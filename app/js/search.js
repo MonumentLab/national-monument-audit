@@ -5,11 +5,12 @@ var Search = (function() {
   function Search(config) {
     var defaults = {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
-      'returnFacets': ['object_groups', 'monument_types', 'entities_people', 'entities_events', 'sources', 'geo_type', 'subjects', 'object_types', 'is_duplicate', 'has_duplicates', 'creators', 'city', 'county', 'sponsors', 'state', 'status', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
+      'returnFacets': ['object_groups', 'monument_types', 'is_duplicate', 'has_duplicates', 'entities_people', 'entities_events', 'sources', 'geo_type', 'subjects', 'object_types', 'creators', 'city', 'county', 'sponsors', 'state', 'status', 'use_types', 'year_dedicated_or_constructed'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
       'facetSize': 30,
       'customFacetSizes': {
         'state': 100,
-        'year_dedicated_or_constructed': 100
+        'year_dedicated_or_constructed': 100,
+        'sources': 100
       },
       'start': 0,
       'size': 100,
@@ -19,6 +20,7 @@ var Search = (function() {
       'facets': 'is_duplicate~0' // e.g. facetName1~value1!!value2!!value3__facetName2~value1
     };
     var q = Util.queryParams();
+    this.defaults = _.extend({}, defaults);
     this.opt = _.extend({}, defaults, config, q);
     this.init();
   }
@@ -179,6 +181,7 @@ var Search = (function() {
     var q = this.opt.q.trim();
     this.$query.val(q);
     this.$sort.val(this.sort);
+    this.defaultFacets = facetStringToObject(this.defaults.facets);
 
     // select specific fields to search in
     if (this.opt.fields && this.opt.fields.length) {
@@ -388,9 +391,9 @@ var Search = (function() {
       var title = key.replace('_', ' ');
       var buckets = obj.buckets;
       html += '<fieldset class="facet active">';
-        if (buckets.length > facetSize) {
-          buckets = buckets.slice(0, facetSize);
-        }
+        // if (buckets.length > facetSize) {
+        //   buckets = buckets.slice(0, facetSize);
+        // }
         var sectionTitle = title+' ('+buckets.length+')';
         html += '<legend class="toggle-parent" data-active="'+sectionTitle+' ▼" data-inactive="'+sectionTitle+' ◀">'+sectionTitle+' ▼</legend>';
         html += '<div class="facet-input-group">';
@@ -540,7 +543,9 @@ var Search = (function() {
   };
 
   Search.prototype.updateFacets = function(){
+    // var facets = _.extend({}, this.defaultFacets);
     var facets = {};
+
     // retain latlon, year if present
     var latlon = _.has(this.facets, 'latlon') ? this.facets.latlon : false;
     $('.facet-checkbox:checked').each(function(){
