@@ -36,6 +36,7 @@ var COLOR_GRADIENT_LEN = COLOR_GRADIENT.length;
   };
 
   Util.formatNumber = function(number){
+    if (number === undefined) return '';
     return number.toLocaleString();
   };
 

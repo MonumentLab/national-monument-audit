@@ -136,6 +136,25 @@ var Map = (function() {
     if (isValid) this.load();
   };
 
+  Map.prototype.applyFacet = function(field, value){
+    var _this = this;
+    var $select = $('select.facet-select[data-field="'+field+'"]').first();
+
+    // add value to drop down if it does not exist
+    var facetDropdowns = this.facetDropdowns;
+    if (_.has(facetDropdowns, field)) {
+      var dropdownValues = facetDropdowns[field];
+      if (! _.find(dropdownValues, function(r){ return ""+r.value === ""+value; }) ) {
+        $select.append('<option value="'+value+'">'+value+'</option>');
+        _this.facetDropdowns[field].push({value: value})
+      }
+    }
+
+    $select.val(value);
+    this.$facetModal.removeClass('active');
+    this.updateFacets();
+  };
+
   Map.prototype.cacheAdd = function(queryString, resp){
     if (this.searchCache.length >= this.opt.searchCacheSize) {
       var removed = this.searchCache.shift();
@@ -152,6 +171,10 @@ var Map = (function() {
     if (found) return found.resp;
     else return false;
   };
+
+  Map.prototype.closeModal = function($button) {
+    $button.closest('.modal').removeClass('active');
+  }
 
   Map.prototype.countyInfoOn = function(e){
     var layer = e.target;
@@ -299,6 +322,8 @@ var Map = (function() {
     this.$timeline = $('#timeline');
     this.$timelineSlider = $('#timeline-slider');
     this.$timelineSliderLabel = $('#timeline-slider-label');
+    this.$facetModal = $('#facet-modal');
+    this.$facetSearchResults = $('#facet-search-results');
     this.facets = {};
     this.size = parseInt(this.opt.size);
     this.start = parseInt(this.opt.start);
@@ -312,6 +337,8 @@ var Map = (function() {
     this.visibleLayer = '';
     this.mapData = false;
     this.countyCounts = {};
+    this.facetResults = {};
+    this.facetDropdowns = {};
     this.searchCache = [];
     this.itemCache = {};
     this.opt.yearRange[1] = parseInt(new Date().getFullYear());
@@ -410,6 +437,19 @@ var Map = (function() {
 
     $('body').on('change', '.select-offset', function(e){
       _this.goToPageOffset(parseInt($(this).val()));
+    });
+
+    $('body').on('click', '.apply-facet', function(e){
+      var $el = $(this);
+      _this.applyFacet($el.attr('data-field'), $el.attr('data-value'));
+    });
+
+    $('.close-modal').on('click', function(e){
+      _this.closeModal($(this));
+    });
+
+    $('#search-facet-input').on('input', function(e){
+      _this.onFacetSearch($(this).val());
     });
   };
 
@@ -522,6 +562,15 @@ var Map = (function() {
       this.facets.year_dedicated_or_constructed = [this.yearRangeValue];
     }
     this.query()
+  };
+
+  Map.prototype.onFacetSearch = function(value){
+    var activeFacetSearchField = this.activeFacetSearchField;
+    var facetResults = this.facetResults;
+
+    if (!activeFacetSearchField || !_.has(facetResults, activeFacetSearchField)) return;
+
+    var results = facetResults[activeFacetSearchField];
   };
 
   Map.prototype.onPopup = function(p){
@@ -652,6 +701,51 @@ var Map = (function() {
     return promise;
   };
 
+  Map.prototype.queryFacets = function(facetName, onFinished){
+    var _this = this;
+    var query = this.getQueryObject();
+    query.return = "_no_fields";
+    query = _.omit(query, function(value, key, object){ return key.startsWith('facet.'); });
+    query['facet.'+facetName] = "{sort:'bucket', size:4000}";
+    var url = this.opt.endpoint + '?' + $.param(query);
+    console.log('Facet Search URL: ', url);
+
+    $.getJSON(url, function(resp) {
+      var results = [];
+      if (resp.facets && resp.facets[facetName] && resp.facets[facetName].buckets) results = resp.facets[facetName].buckets;
+      onFinished && onFinished(results);
+    });
+  };
+
+  Map.prototype.removeFacet = function(key, value){
+    if (!_.has(this.facets, key) || this.isLoading) return;
+
+    console.log('Removing ', key, value);
+
+    if (key === 'year_dedicated_or_constructed'){
+      this.resetTimeline(); // this will automatically trigger change
+      return;
+    }
+
+    this.facets[key] = _.without(this.facets[key], value);
+    if (this.facets[key].length < 1) {
+      this.facets = _.omit(this.facets, key);
+    }
+    this.start = 0;
+    this.query();
+  };
+
+  Map.prototype.renderAllFacets = function(facetName){
+    var results = _.has(this.facetResults, facetName) ? this.facetResults[facetName] : [];
+    var html = '<ul class="facet-list">';
+    _.each(results, function(r){
+      html += '<li><button class="apply-facet small" data-field="'+facetName+'" data-value="'+r.value+'">'+r.value+' ('+r.count+')</button>'
+    });
+    html += '</ul>';
+    this.$facetSearchResults.html(html);
+    this.$facetSearchResults.find('.apply-facet').first().focus();
+  };
+
   Map.prototype.renderDuplicates = function(duplicateIds){
     var _this = this;
     duplicateIds = _.uniq(duplicateIds);
@@ -713,22 +807,62 @@ var Map = (function() {
     });
   };
 
-  Map.prototype.removeFacet = function(key, value){
-    if (!_.has(this.facets, key) || this.isLoading) return;
+  Map.prototype.renderFacets = function(facets){
+    facets = facets || {};
 
-    console.log('Removing ', key, value);
+    var _this = this;
+    var facetLabels = this.opt.facetLabels;
+    var selectedFacets = this.facets;
+    var excludeFields = ['county_geoid', 'object_groups', 'year_dedicated_or_constructed'];
 
-    if (key === 'year_dedicated_or_constructed'){
-      this.resetTimeline(); // this will automatically trigger change
-      return;
-    }
+    facets = _.pick(facets, function(obj, key) {
+      return obj && obj.buckets && obj.buckets.length > 0 && _.indexOf(excludeFields, key) < 0;
+    });
 
-    this.facets[key] = _.without(this.facets[key], value);
-    if (this.facets[key].length < 1) {
-      this.facets = _.omit(this.facets, key);
-    }
-    this.start = 0;
-    this.query();
+    this.facetDropdowns = {};
+
+    this.$facets.empty();
+    var html = '';
+    _.each(this.opt.returnFacets, function(key){
+      if (!_.has(facets, key)) return;
+      var obj = facets[key];
+      var title = Util.capitalize(key.replace('_', ' '));
+      if (_.has(facetLabels, key)) title = facetLabels[key];
+      var buckets = obj.buckets;
+      _this.facetDropdowns[key] = buckets;
+      var isSelected = _.has(selectedFacets, key);
+      html += '<fieldset class="facet active">';
+        html += '<label for="facet-select-'+key+'">'+title+'</label>';
+        if (isSelected) {
+          var value = selectedFacets[key];
+          html += '<button type="button" class="remove-facet" data-key="'+key+'" data-value="'+value+'">"'+value+'" <strong>×</strong></button>';
+        } else {
+          html += '<select id="facet-select-'+key+'" class="facet-select" data-field="'+key+'">';
+            html += '<option value="">- Any -</option>';
+            if (buckets.length > 10) html += '<option value="_all">- View all -</option>';
+            _.each(buckets, function(bucket, j){
+              var id = 'facet-'+key+'-'+j;
+              var selected = '';
+              if (_.has(selectedFacets, key) && _.indexOf(selectedFacets[key], bucket.value) >= 0) selected = 'selected ';
+              var label = ''+bucket.value;
+              html += '<option value="'+bucket.value+'" '+selected+'/>'+label+' ('+Util.formatNumber(bucket.count)+')</option>'
+            });
+          html += '</select>';
+        }
+      html += '</fieldset>';
+    });
+
+    // if (_.has(facets, 'state')) {
+    //   this.map.renderResults(facets.state.buckets);
+    // } else {
+    //   this.map.renderResults([]);
+    // }
+    //
+    // var years = [];
+    // if (_.has(facets, 'year_dedicated_or_constructed')) years = facets.year_dedicated_or_constructed.buckets;
+    // this.timeline.renderResults(years);
+
+    this.$facets.html(html);
   };
 
   Map.prototype.renderInfo = function(){
@@ -780,59 +914,6 @@ var Map = (function() {
 
     if (html.length > 0) this.$info.addClass('active');
     else this.$info.removeClass('active');
-  };
-
-  Map.prototype.renderFacets = function(facets){
-    facets = facets || {};
-
-    var facetLabels = this.opt.facetLabels;
-    var selectedFacets = this.facets;
-    var excludeFields = ['county_geoid', 'object_groups', 'year_dedicated_or_constructed'];
-
-    facets = _.pick(facets, function(obj, key) {
-      return obj && obj.buckets && obj.buckets.length > 0 && _.indexOf(excludeFields, key) < 0;
-    });
-
-    this.$facets.empty();
-    var html = '';
-    _.each(this.opt.returnFacets, function(key){
-      if (!_.has(facets, key)) return;
-      var obj = facets[key];
-      var title = Util.capitalize(key.replace('_', ' '));
-      if (_.has(facetLabels, key)) title = facetLabels[key];
-      var buckets = obj.buckets;
-      var isSelected = _.has(selectedFacets, key);
-      html += '<fieldset class="facet active">';
-        html += '<label for="facet-select-'+key+'">'+title+'</label>';
-        if (isSelected) {
-          var value = selectedFacets[key];
-          html += '<button type="button" class="remove-facet" data-key="'+key+'" data-value="'+value+'">"'+value+'" <strong>×</strong></button>';
-        } else {
-          html += '<select id="facet-select-'+key+'" class="facet-select" data-field="'+key+'">';
-            html += '<option value="">Any</option>';
-            _.each(buckets, function(bucket, j){
-              var id = 'facet-'+key+'-'+j;
-              var selected = '';
-              if (_.has(selectedFacets, key) && _.indexOf(selectedFacets[key], bucket.value) >= 0) selected = 'selected ';
-              var label = ''+bucket.value;
-              html += '<option value="'+bucket.value+'" '+selected+'/>'+label+' ('+Util.formatNumber(bucket.count)+')</option>'
-            });
-          html += '</select>';
-        }
-      html += '</fieldset>';
-    });
-
-    // if (_.has(facets, 'state')) {
-    //   this.map.renderResults(facets.state.buckets);
-    // } else {
-    //   this.map.renderResults([]);
-    // }
-    //
-    // var years = [];
-    // if (_.has(facets, 'year_dedicated_or_constructed')) years = facets.year_dedicated_or_constructed.buckets;
-    // this.timeline.renderResults(years);
-
-    this.$facets.html(html);
   };
 
   Map.prototype.renderMap = function(){
@@ -992,6 +1073,36 @@ var Map = (function() {
     this.$timelineSlider.slider("values", this.opt.yearRange);
   };
 
+  Map.prototype.showAllFacets = function(facetName) {
+    var _this = this;
+    var $modal = this.$facetModal;
+
+    var facetLabels = this.opt.facetLabels;
+    var title = Util.capitalize(facetName.replace('_', ' '));
+    if (_.has(facetLabels, facetName)) title = facetLabels[facetName];
+    $modal.find('h2').first().text('All values for "'+title+'"');
+
+    $modal.addClass('active loading');
+    this.$facetSearchResults.html('<p>Loading data...</p>');
+
+    this.activeFacetSearchField = facetName;
+
+    var facetResults = this.facetResults;
+    if (_.has(facetResults, facetName)) {
+      this.renderAllFacets(facetName);
+      return;
+    }
+
+    var onFinished = function(results){
+      $modal.removeClass('loading');
+      console.log(results);
+      _this.facetResults[facetName] = results;
+      _this.renderAllFacets(facetName);
+    };
+
+    this.queryFacets(facetName, onFinished);
+  };
+
   Map.prototype.updateCountyData = function(countyFacetData){
     var _this = this;
     var countyCounts = {};
@@ -1060,7 +1171,9 @@ var Map = (function() {
   Map.prototype.updateFacets = function(){
     if (this.isLoading) return;
 
+    var _this = this;
     var facets = _.extend({}, this.defaultFacets);
+    var invokedShowAllFacets = false;
 
     // retain latlon, year if present
     var latlon = _.has(this.facets, 'latlon') ? this.facets.latlon : false;
@@ -1071,15 +1184,22 @@ var Map = (function() {
       var $select = $(this);
       var facetName = $select.attr('data-field');
       var facetValue = $select.val().trim();
-      if (facetValue.length > 0) facets[facetName] = [facetValue];
+      if (facetValue.length > 0 && !facetValue.startsWith("_")) facets[facetName] = [facetValue];
+      if (facetValue === "_all") {
+        $select.val("");
+        invokedShowAllFacets = true;
+        _this.showAllFacets(facetName);
+      }
     });
+
+    if (invokedShowAllFacets) return;
 
     // check buttons
     $('.facet .remove-facet').each(function(){
       var $button = $(this);
       var facetName = $button.attr('data-key');
       var facetValue = $button.attr('data-value').trim();
-      if (facetValue.length > 0) facets[facetName] = [facetValue];
+      if (facetValue.length > 0 && !facetValue.startsWith("_")) facets[facetName] = [facetValue];
     });
 
     if (latlon !== false) facets.latlon = latlon;

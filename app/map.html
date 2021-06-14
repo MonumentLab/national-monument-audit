@@ -101,8 +101,18 @@
         <div class="search-results-pagination"></div>
       </div>
     </div>
+    <div id="facet-modal" class="facet-modal modal">
+      <div class="modal-content">
+        <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
+        <h2>All values</h2>
+        <label for="search-facet-input">Search list:</label>
+        <input id="search-facet-input" class="search-facet-input" type="text" />
+        <div id="facet-search-results" class="facet-search-results"></div>
+      </div>
+    </div>
   </div>
 
+  <script src="js/vendor/elasticlunr.min.js"></script>
   <script src="js/vendor/jquery-3.5.1.min.js"></script>
   <script src="js/vendor/jquery-ui-slider.min.js"></script>
   <script src="js/vendor/leaflet.js"></script>
