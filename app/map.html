@@ -105,14 +105,23 @@
       <div class="modal-content">
         <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
         <h2>All values</h2>
-        <label for="search-facet-input">Search list:</label>
-        <input id="search-facet-input" class="search-facet-input" type="text" />
+        <div class="search-facet-menu">
+          <div>
+            <label for="search-facet-input">Search list:</label>
+            <input id="search-facet-input" class="search-facet-input" type="text" />
+          </div>
+          <fieldset>
+            <h4>Sort by:</h4>
+            <label for="search-facet-sort-value"><input id="search-facet-sort-value" class="search-facet-sort" name="search-facet-sort" type="radio" value="value" checked /> name</label>
+            <label for="search-facet-sort-count"><input id="search-facet-sort-count" class="search-facet-sort" name="search-facet-sort" type="radio" value="count" /> count</label>
+          </fieldset>
+        </div>
         <div id="facet-search-results" class="facet-search-results"></div>
       </div>
     </div>
   </div>
 
-  <script src="js/vendor/elasticlunr.min.js"></script>
+  <script src="js/vendor/fuzzysort.js"></script>
   <script src="js/vendor/jquery-3.5.1.min.js"></script>
   <script src="js/vendor/jquery-ui-slider.min.js"></script>
   <script src="js/vendor/leaflet.js"></script>

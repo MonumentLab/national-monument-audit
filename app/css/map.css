@@ -463,9 +463,25 @@ h1 {
   color: black;
 }
 
-.facet-modal.loading input,
-.facet-modal.loading label {
+.facet-modal.loading .search-facet-menu {
   display: none;
+}
+.search-facet-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.search-facet-menu fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+.search-facet-menu fieldset h4 {
+  margin: 0;
+}
+.search-facet-menu fieldset label {
+  margin-left: 0.5rem;
 }
 .facet-search-results {
   margin-top: 2rem;

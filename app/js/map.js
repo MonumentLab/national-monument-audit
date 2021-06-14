@@ -324,6 +324,7 @@ var Map = (function() {
     this.$timelineSliderLabel = $('#timeline-slider-label');
     this.$facetModal = $('#facet-modal');
     this.$facetSearchResults = $('#facet-search-results');
+    this.$facetSearchInput = $('#search-facet-input');
     this.facets = {};
     this.size = parseInt(this.opt.size);
     this.start = parseInt(this.opt.start);
@@ -448,8 +449,12 @@ var Map = (function() {
       _this.closeModal($(this));
     });
 
-    $('#search-facet-input').on('input', function(e){
-      _this.onFacetSearch($(this).val());
+    this.$facetSearchInput.on('input', function(e){
+      _this.renderAllFacets();
+    });
+
+    $('.search-facet-sort').on('change', function(e){
+      _this.renderAllFacets();
     });
   };
 
@@ -735,15 +740,39 @@ var Map = (function() {
     this.query();
   };
 
-  Map.prototype.renderAllFacets = function(facetName){
+  Map.prototype.renderAllFacets = function(facetName, sortBy){
+    facetName = facetName || this.activeFacetSearchField;
+    sortBy = sortBy || $('input[name="search-facet-sort"]:checked').val();
+
     var results = _.has(this.facetResults, facetName) ? this.facetResults[facetName] : [];
+    var query = this.$facetSearchInput.val().trim() + '';
+
+    if (results.length > 0 && query.length > 0) {
+      var searchResults = fuzzysort.go(query, results, {
+        keys: ['value']
+      });
+      // console.log(searchResults)
+      results = _.map(searchResults, function(r){
+        var obj = r.obj;
+        obj.fvalue = fuzzysort.highlight(r[0]);
+        return obj;
+      })
+    }
+
+    if (sortBy) {
+      results = _.sortBy(results, function(r){
+        if (sortBy === 'count') return -r.count;
+        else return r[sortBy];
+      });
+    }
     var html = '<ul class="facet-list">';
     _.each(results, function(r){
-      html += '<li><button class="apply-facet small" data-field="'+facetName+'" data-value="'+r.value+'">'+r.value+' ('+r.count+')</button>'
+      var displayValue = _.has(r, 'fvalue') && query.length > 0 ? r.fvalue : r.value;
+      html += '<li><button class="apply-facet small" data-field="'+facetName+'" data-value="'+r.value+'">'+displayValue+' ('+r.count+')</button>'
     });
     html += '</ul>';
     this.$facetSearchResults.html(html);
-    this.$facetSearchResults.find('.apply-facet').first().focus();
+    // this.$facetSearchResults.find('.apply-facet').first().focus();
   };
 
   Map.prototype.renderDuplicates = function(duplicateIds){
@@ -1084,6 +1113,7 @@ var Map = (function() {
 
     $modal.addClass('active loading');
     this.$facetSearchResults.html('<p>Loading data...</p>');
+    this.$facetSearchInput.val('');
 
     this.activeFacetSearchField = facetName;
 
@@ -1095,7 +1125,7 @@ var Map = (function() {
 
     var onFinished = function(results){
       $modal.removeClass('loading');
-      console.log(results);
+      // console.log(results);
       _this.facetResults[facetName] = results;
       _this.renderAllFacets(facetName);
     };
