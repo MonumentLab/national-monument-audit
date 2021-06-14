@@ -181,7 +181,7 @@ var Search = (function() {
     var q = this.opt.q.trim();
     this.$query.val(q);
     this.$sort.val(this.sort);
-    this.defaultFacets = facetStringToObject(this.defaults.facets);
+    // this.defaultFacets = facetStringToObject(this.defaults.facets);
 
     // select specific fields to search in
     if (this.opt.fields && this.opt.fields.length) {
