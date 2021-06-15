@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from fuzzywuzzy import fuzz
+
 from lib.collection_utils import *
 from lib.math_utils import *
 from lib.string_utils import *
@@ -96,7 +98,7 @@ def applyDataTypeConditions(rows, dataType, allowMany=False, reasonKey=None, sco
 
     return (conditionRows, remainingRows)
 
-def applyDuplicationFields(rows, latlonPrecision=1):
+def applyDuplicationFields(rows, latlonPrecision=1, fuzzyMatchThreshold=80):
 
     # Lat lon precision is in nth of a degree (e.g. precision of 2 is a hundredth of a degree)
         # In Charlottesville, VA:
@@ -114,13 +116,13 @@ def applyDuplicationFields(rows, latlonPrecision=1):
         # exclude entries with only approximated
         if lat == "" or lon == "" or row["Geo Type"] not in ("Exact coordinates provided", "Geocoded based on street address provided"):
             continue
-        nname = normalizeName(row["Name"])
+        nname = normalizeName(row["Name"], reverseComma=False)
         # In this case: (World War I Memorial), (sculpture)
         # We want: World War I Memorial
         if nname == "" and "(" in row["Name"] and ")" in row["Name"]:
             matches = getValuesInParentheses(row["Name"])
             if matches and len(matches) > 0:
-                nname = normalizeName(matches[0])
+                nname = normalizeName(matches[0], reverseComma=False)
         if nname == "":
             nname = row["Name"]
         row["_latlonGroup"] = (lat, lon)
@@ -151,8 +153,11 @@ def applyDuplicationFields(rows, latlonPrecision=1):
                 continue
             foundSimilar = False
             for value in nameGroups:
-                # if this contains or is contained by existing value, e.g. "Lincoln Memorial" and "The Lincoln Memorial"
-                if value in nname or nname in value:
+                # Fuzzy match strings
+                pratio = fuzz.partial_ratio(value, nname)
+                print(f' {value} + {nname} = {pratio}')
+                # if value in nname or nname in value:
+                if pratio > fuzzyMatchThreshold:
                     nameGroups[value]["items"].append(item)
                     foundSimilar = True
                     break
@@ -264,6 +269,9 @@ def mergeDuplicates(rows, dataFields):
                     values.append(value)
             if len(values) > 0:
                 values = unique(values)
+                # Remove uncategorized values if more than one value
+                if len(values) > 1 and "Uncategorized" in values:
+                    values.remove("Uncategorized")
                 mergedItem[field] = values
 
         # update duplication fields

@@ -138,7 +138,7 @@ def itemToId(row):
 def md5string(value):
     return hashlib.md5(str(value).encode('utf-8')).hexdigest()
 
-def normalizeName(value):
+def normalizeName(value, reverseComma=True):
     value = str(value).strip()
 
     value = re.sub("[\(\[].*?[\)\]]", "", value).strip() # remove anything parenthsized e.g. "Harriet Tubman (Salisbury, MD)" -> "Harriet Tubman"
@@ -148,7 +148,7 @@ def normalizeName(value):
     value = re.sub('\s', ' ', value) # replace all whitespace with a single space
 
     # e.g. Smith, John -> John Smith
-    if "," in value:
+    if reverseComma and "," in value:
         parts = [p.strip() for p in value.split(",")]
         if len(parts) == 2:
             parts.reverse()
@@ -178,7 +178,7 @@ def normalizeName(value):
         value = value.replace(word, "")
 
     value = re.sub('[^a-z0-9 ]+', '', value)
-    value = re.sub('\s', ' ', value)
+    value = re.sub('\s+', ' ', value)
     value = value.strip()
 
     # remove middle initial
@@ -196,9 +196,9 @@ def normalizeString(value, caseSensitive=False):
     value = value.replace("'s", "")
     value = value.replace("’s", "")
     value = value.replace('-', ' ')
-    value = re.sub('\s', ' ', value) # replace all whitespace with a single space
+    value = re.sub('\s+', ' ', value) # replace all whitespace with a single space
     value = re.sub('[^a-z0-9\. ]+', ' ', value)
-    value = re.sub('\s', ' ', value)
+    value = re.sub('\s+', ' ', value)
     value = value.strip()
     return value
 

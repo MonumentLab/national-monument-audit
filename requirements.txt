@@ -11,3 +11,5 @@ spacy
 geopy
 # For checking for lat/lon in bounds of polygons
 shapely
+# For string matching
+fuzzywuzzy[speedup]
