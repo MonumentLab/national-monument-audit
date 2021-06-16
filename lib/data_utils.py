@@ -155,7 +155,7 @@ def applyDuplicationFields(rows, latlonPrecision=1, fuzzyMatchThreshold=80):
             for value in nameGroups:
                 # Fuzzy match strings
                 pratio = fuzz.partial_ratio(value, nname)
-                print(f' {value} + {nname} = {pratio}')
+                # print(f' {value} + {nname} = {pratio}')
                 # if value in nname or nname in value:
                 if pratio > fuzzyMatchThreshold:
                     nameGroups[value]["items"].append(item)
