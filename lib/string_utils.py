@@ -57,6 +57,16 @@ def containsWord(rawValue, word, isFirstWord=False, isLastWord=False, caseSensit
 
     return response
 
+def containsWordBoundary(rawValue, word, caseSensitive=False):
+    if not caseSensitive:
+        rawValue = rawValue.lower()
+        word = word.lower()
+
+    if re.search(r"\b" + re.escape(word) + r"\b", rawValue):
+      return True
+
+    return False
+
 def getStates():
     return {
         "Alabama": "AL",
@@ -150,6 +160,7 @@ def normalizeName(value, reverseComma=True):
     # e.g. Smith, John -> John Smith
     if reverseComma and "," in value:
         parts = [p.strip() for p in value.split(",")]
+        parts = [p for p in parts if re.search('[a-zA-Z]', p)] # remove non-alpha, e.g. "Tubman, Harriet, 1822-1913" -> "Harriet Tubman"
         if len(parts) == 2:
             parts.reverse()
             value = ' '.join(parts)
@@ -173,7 +184,7 @@ def normalizeName(value, reverseComma=True):
             value = value[:-len(testStr)]
 
     # strip words
-    stripWords = ["historic", "building", "landmark", "memorial", "monument", "trail", "site", "marker", "library", "center", "space", "lake"]
+    stripWords = ["historic", "building", "landmark", "memorial", "monument", "trail", "site", "marker", "lake", "library", "center", "space", "statue"]
     for word in stripWords:
         value = value.replace(word, "")
 
@@ -200,6 +211,29 @@ def normalizeString(value, caseSensitive=False):
     value = re.sub('[^a-z0-9\. ]+', ' ', value)
     value = re.sub('\s+', ' ', value)
     value = value.strip()
+    return value
+
+def normalizeText(value):
+    value = str(value).strip()
+
+    value = re.sub("[\(\[].*?[\)\]]", "", value).strip() # remove anything parenthsized e.g. "Harriet Tubman (Salisbury, MD)" -> "Harriet Tubman"
+    value = value.replace("'s", "")
+    value = value.replace("’s", "")
+    value = value.replace('-', ' ')
+    value = re.sub('\s', ' ', value) # replace all whitespace with a single space
+    value = value.lower()
+
+    # remove "the" from the beginning
+    trimBeginningWords = ["the"]
+    for w in trimBeginningWords:
+        testStr = w + " "
+        if value.startswith(testStr):
+            value = value[len(testStr):]
+
+    value = re.sub('[^a-z0-9 ]+', '', value)
+    value = re.sub('\s+', ' ', value)
+    value = value.strip()
+
     return value
 
 def normalizeWhitespace(value):

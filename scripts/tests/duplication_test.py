@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # python3 scripts/tests/duplication_test.py -filter "Name CONTAINS Martin Luther King AND Source != Multiple AND State = DC"
-# python3 scripts/tests/duplication_test.py -filter "Name CONTAINS Cuban AND Source != Multiple AND State = DC"
+# python3 scripts/tests/duplication_test.py -filter "Name CONTAINS Friendship AND Source != Multiple AND State = DC"
 
 import argparse
 import inspect

@@ -30,13 +30,33 @@ rowCount = len(rows)
 
 _, aliases = readCsv(a.ALIAS_FILE)
 aliasLookup = {}
+containsLookup = {}
+endswithLookup = {}
 for i, row in enumerate(aliases):
+    contains = row["match"].startswith("*")
+    endswith = row["match"].endswith("*")
     nmatch = normalizeName(row["match"])
     ntarget = normalizeName(row["target"])
-    aliasLookup[nmatch] = {
-        "ntext": ntarget,
-        "text": row["target"]
-    }
+    if contains and nmatch == "contains":
+        containsLookup[ntarget] = {
+            "ntext": ntarget,
+            "text": row["target"]
+        }
+    elif contains:
+        containsLookup[nmatch] = {
+            "ntext": ntarget,
+            "text": row["target"]
+        }
+    elif endswith:
+        endswithLookup[nmatch] = {
+            "ntext": ntarget,
+            "text": row["target"]
+        }
+    else:
+        aliasLookup[nmatch] = {
+            "ntext": ntarget,
+            "text": row["target"]
+        }
 
 if len(a.FILTER) > 0:
     print("  Filtering data...")
@@ -57,6 +77,25 @@ for i, row in enumerate(rows):
         text = aliasLookup[ntext]["text"]
         ntext = aliasLookup[ntext]["ntext"]
 
+    else:
+        # check to see if text is contained within a string
+        foundMatch = False
+        for nmatch, item in containsLookup.items():
+            if containsWordBoundary(ntext, nmatch):
+                text = item["text"]
+                ntext = item["ntext"]
+                foundMatch = True
+                break
+
+        # check to see if endswith string
+        if not foundMatch:
+            for nmatch, item in endswithLookup.items():
+                if ntext.endswith(nmatch):
+                    text = item["text"]
+                    ntext = item["ntext"]
+                    break
+
+
     nwords = ntext.split(" ")
     wordcount = len(nwords)
     # only take names with two ore more words
@@ -68,8 +107,9 @@ for i, row in enumerate(rows):
 
     # keep track of original text after normalization
     titleText = stringToTitle(text)
-    if ntext not in ntextLookup:
-        ntextLookup[ntext] = {
+    nkey = ntext + row["Type"]
+    if nkey not in ntextLookup:
+        ntextLookup[nkey] = {
             "originalText": titleText,
             "ntext": ntext,
             "type": row["Type"],
@@ -77,10 +117,10 @@ for i, row in enumerate(rows):
             "count": 1
         }
     else:
-        ntextLookup[ntext]["count"] += 1
-        if ntextLookup[ntext]["originalText"] != text and text not in ntextLookup[ntext]["alternateTexts"]:
-            ntextLookup[ntext]["alternateTexts"].append(text)
-            titleText = ntextLookup[ntext]["originalText"]
+        ntextLookup[nkey]["count"] += 1
+        if ntextLookup[nkey]["originalText"] != text and text not in ntextLookup[nkey]["alternateTexts"]:
+            ntextLookup[nkey]["alternateTexts"].append(text)
+            titleText = ntextLookup[nkey]["originalText"]
 
     rowOut = row.copy()
     rowOut["Normalized Text"] = ntext
@@ -89,7 +129,7 @@ for i, row in enumerate(rows):
     printProgress(i+1, rowCount, "  ")
 
 print("  Sorting data...")
-frequencies = sorted([ntextLookup[ntext] for ntext in ntextLookup], key=lambda t: -t["count"])
+frequencies = sorted([ntextLookup[nkey] for nkey in ntextLookup], key=lambda t: -t["count"])
 
 if a.PROBE > 0:
     lim = a.PROBE

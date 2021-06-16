@@ -41,6 +41,7 @@ if a.DEBUG:
         {"Text": "First White House of the Confederacy. .  .  . Designated Executive Residence by the Provisional Confederate Congress February 21, 1861. President Jefferson Davis  and his family lived here until the Confederate Capital moved to Richmond summer 1861. Built by William Sayre 1832-35 at Bibb and  Lee Streets. Moved to present location by the First White House Association and dedicated June 3, 1921."}
     ]
     for i, row in enumerate(rows):
+        rows[i]["Id"] = ""
         rows[i]["Source"] = ""
         rows[i]["Vendor Entry ID"] = ""
 else:
@@ -66,11 +67,12 @@ for i, row in enumerate(rows):
             continue
 
         # put names into a sentence format
-        if a.LIST_DELIMETER in value and type == "name":
-            value = value.replace(a.LIST_DELIMETER, ", ")
+        if " | " in value and type == "name":
+            values = [normalizeName(v.strip()).title() for v in value.split(a.LIST_DELIMETER)]
+            value = ", ".join(values)
             value = f'The {p.lower()} are ' + value + '.'
         elif type == "name":
-            value = 'The name is ' + value + '.'
+            value = 'The name is ' + normalizeName(value).title() + '.'
 
         doc = nlp(value)
 
