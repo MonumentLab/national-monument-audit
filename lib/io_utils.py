@@ -59,8 +59,8 @@ def downloadFileFromUrl(url, filename, overwrite=False, verbose=True):
 
     return contents
 
-def downloadJSONFromURL(url, filename, overwrite=False):
-    if os.path.isfile(filename) and not overwrite:
+def downloadJSONFromURL(url, filename, overwrite=False, save=True):
+    if save and os.path.isfile(filename) and not overwrite:
         return readJSON(filename)
 
     print("Downloading %s" % url)
@@ -68,7 +68,8 @@ def downloadJSONFromURL(url, filename, overwrite=False):
     try:
         r = requests.get(url)
         data = r.json()
-        writeJSON(filename, data)
+        if save:
+            writeJSON(filename, data)
     except json.decoder.JSONDecodeError:
         print("Decode error for %s" % url)
         data = {}

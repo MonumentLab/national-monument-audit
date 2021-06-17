@@ -57,6 +57,7 @@ if idField is None:
 ID_NAME = idField["key"]
 dataTypes = dataModel["types"]
 fieldsForEntities = set(dataModel["fieldsForEntities"])
+conditionalFieldsForEntities = set(dataModel["conditionalFieldsForEntities"])
 dataFields = dataModel["fields"]
 dataModel = createLookup(dataModel["fields"], "key")
 
@@ -474,8 +475,12 @@ if os.path.isfile(a.ENTITIES_FILE):
                 if len(value) < 1:
                     continue
                 originalProperty = ent["Property"]
-                if originalProperty not in fieldsForEntities:
+                if originalProperty not in fieldsForEntities and originalProperty not in conditionalFieldsForEntities:
                     continue
+                # only include conditional fields if a word overlaps with the name, e.g. "Tubman Statue"
+                if originalProperty in conditionalFieldsForEntities:
+                    if not wordsOverlap(value, row["Name"]):
+                        continue
                 if ent["Type"] == "EVENT" and value not in eventEnts:
                     eventEnts.append(value)
                 elif ent["Type"] == "PERSON" and value not in peopleEnts:

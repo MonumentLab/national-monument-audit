@@ -353,3 +353,13 @@ def validateTitleString(value):
     formatted = formatted.replace('_', ' ')
     formatted = " ".join(word[0].upper() + word[1:] for word in formatted.split())
     return formatted
+
+def wordsOverlap(value1, value2):
+    v1 = str(value1).lower().strip()
+    v2 = str(value2).lower().strip()
+    v1 = re.sub('[^a-z ]+', ' ', v1)
+    v2 = re.sub('[^a-z ]+', ' ', v2)
+    values1 = v1.split()
+    values2 = v2.split()
+    overlap = list(set(values1).intersection(set(values2)))
+    return (len(overlap) > 0)

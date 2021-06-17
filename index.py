@@ -24,6 +24,8 @@ parser.add_argument('-prev', dest="PREV_DIR", default="", help="Optional previou
 parser.add_argument('-batchsize', dest="DOCS_PER_BATCH", default=1800, type=int, help="Documents per batch")
 parser.add_argument('-maxsize', dest="MAX_FILE_SIZE_MB", default=5, type=float, help="Max file size in megabytes")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
+parser.add_argument('-clean', dest="CLEANUP_INDEX", action="store_true", help="Just look for records that should be deleted (do not exist in current dataset)")
+parser.add_argument('-endpoint', dest="ENDPOINT", default="https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search?q=matchall&q.parser=structured&return=_no_fields", help="End point")
 a = parser.parse_args()
 # Parse arguments
 
@@ -83,6 +85,58 @@ writeJSON("tmp/sampleSearchDocument.json", [sampleDoc], pretty=True)
 if not a.PROBE:
     makeDirectories(a.OUTPUT_DIR)
     removeFiles(a.OUTPUT_DIR + "*.json")
+
+if a.CLEANUP_INDEX:
+    validIds = set([str(row["Id"]) for row in rows])
+    endpoint = a.ENDPOINT
+    start = 1
+    size = 1000
+    endpoint += f'&size={size}'
+    deleteIds = []
+    totalAmount = None
+    cursor = "initial"
+    processed = 0
+    while True:
+        url = endpoint
+        url += f'&cursor={cursor}'
+        resp = downloadJSONFromURL(url, filename="", save=False)
+
+        if not resp or "hits" not in resp or "hit" not in resp["hits"] or len(resp["hits"]["hit"]) < 1:
+            break
+
+        for hit in resp["hits"]["hit"]:
+            id = str(hit["id"])
+            if id not in validIds and id not in deleteIds:
+                deleteIds.append(id)
+
+        found = int(resp["hits"]["found"]) if "found" in resp["hits"] else 0
+        if totalAmount is None:
+            print(f'Found {found} total records.')
+            totalAmount = found
+
+        processed += len(resp["hits"]["hit"])
+        cursor = resp["hits"]["cursor"] if "cursor" in resp["hits"] else ""
+        if not cursor or len(cursor) < 1:
+            break
+
+        if processed >= totalAmount:
+            break
+
+    print(f'Found {len(deleteIds)} records to delete')
+
+    if len(deleteIds) > 0:
+        deleteBatch = []
+        for id in deleteIds:
+            deleteBatch.append({
+                "type": "delete",
+                "id": id
+            })
+        if len(deleteBatch) >= 0 and not a.PROBE:
+            batchname = f'{a.OUTPUT_DIR}_batch_deletions.json'
+            writeJSON(batchname, deleteBatch)
+
+    print("Done.")
+    sys.exit()
 
 batchCount = ceilInt(1.0 * len(rows) / a.DOCS_PER_BATCH)
 invalidCount = 0

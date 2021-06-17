@@ -54,6 +54,7 @@
     {"key": "Ethnicity Represented", "type": "string_list"}
   ],
   "fieldsForEntities": ["Name", "Alternate Name", "Honorees", "Description"],
+  "conditionalFieldsForEntities": ["Text"],
   "types": [
     {
       "key": "Object Groups",
