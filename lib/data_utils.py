@@ -116,13 +116,13 @@ def applyDuplicationFields(rows, latlonPrecision=2, fuzzyMatchThreshold=80):
         # exclude entries with only approximated
         if lat == "" or lon == "" or row["Geo Type"] not in ("Exact coordinates provided", "Geocoded based on street address provided"):
             continue
-        nname = normalizeText(row["Name"])
+        nname = normalizeName(row["Name"], reverseComma=False)
         # In this case: (World War I Memorial), (sculpture)
         # We want: World War I Memorial
         if nname == "" and "(" in row["Name"] and ")" in row["Name"]:
             matches = getValuesInParentheses(row["Name"])
             if matches and len(matches) > 0:
-                nname = normalizeText(matches[0], reverseComma=False)
+                nname = normalizeName(matches[0], reverseComma=False)
         if nname == "":
             nname = row["Name"]
         row["_latlonGroup"] = (lat, lon)

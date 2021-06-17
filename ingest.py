@@ -26,6 +26,7 @@ parser.add_argument('-ent', dest="ENTITIES_FILE", default="data/compiled/monumen
 parser.add_argument('-county', dest="COUNTIES_GEO_FILE", default="app/data/counties.json", help="County geojson file (generated from make_boundaries.py)")
 parser.add_argument('-countycache', dest="COUNTIES_CACHE_FILE", default="data/preprocessed/counties_matched.csv", help="Cached csv file for storing lat/lon matched against county data")
 parser.add_argument('-validate', dest="VALIDATION_FILE", default="data/validation_set.csv", help="CSV file of entries for validation")
+parser.add_argument('-corrections', dest="CORRECTIONS_FILE", default="data/corrections.csv", help="CSV file of corrections")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Output csv file")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Just output details and don't write data?")
 a = parser.parse_args()
@@ -456,6 +457,10 @@ if os.path.isfile(a.ENTITIES_FILE):
     entLookup = createLookup(entById, "idString")
     for i, row in enumerate(rowsOut):
         docId = str(row["Id"])
+        rowsOut[i]["Entities Events"] = ""
+        rowsOut[i]["Entities People"] = ""
+        rowsOut[i]["Gender Represented"] = ""
+        rowsOut[i]["Ethnicity Represented"] = ""
         # Add entities
         if docId in entLookup:
             rowEnts = entLookup[docId]["items"]
@@ -532,6 +537,22 @@ rowsOut = mergeDuplicates(rowsOut, dataFields)
 for i, row in enumerate(rowsOut):
     if "Sources" not in row:
         rowsOut[i]["Sources"] = [row["Source"]]
+
+# Add corrections
+if os.path.isfile(a.CORRECTIONS_FILE):
+    _, corrections = readCsv(a.CORRECTIONS_FILE)
+    idLookup = {}
+    for i, row in enumerate(rowsOut):
+        idLookup[row["Id"]] = i
+    for correction in corrections:
+        if correction["Id"] not in idLookup:
+            print(f'Could not find Id {correction["Id"]} in corrections')
+            continue
+        index = idLookup[correction["Id"]]
+        value = str(correction["Correct Value"])
+        if a.LIST_DELIMETER in value:
+            value = [v.strip() for v in value.split(a.LIST_DELIMETER)]
+        rowsOut[index][correction["Field"]] = value
 
 if a.PROBE:
     sys.exit()
