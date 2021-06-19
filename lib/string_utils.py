@@ -259,6 +259,9 @@ def pluralizeString(value):
     else:
         return value + 's'
 
+def stringContainsNumbers(string):
+    return any(char.isdigit() for char in string)
+
 def stringToId(value, lowercase=True):
     value = str(value)
     if lowercase:

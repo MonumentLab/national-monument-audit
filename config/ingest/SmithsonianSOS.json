@@ -9,7 +9,7 @@
   "dateDataAccessed": "2021-02-01",
   "priority": 2,
   "latlonPriority": 9999,
-  "properties": ["Name", "Id", "Url", "State", "Latitude", "Longitude", "Sculptor", "Founder", "Medium", "Type", "Location Description", "Date", "Topic", "Notes", "Summary"],
+  "properties": ["Name", "Id", "Url", "State", "Latitude", "Longitude", "Sculptor", "Founder", "Medium", "Type", "Location Description", "Date", "Topic", "Notes", "Summary", "Subject", "City", "County", "Street Address", "Image"],
   "mappings": {
     "Id": {"to": "Vendor Entry ID"},
     "Url": {"to": "URL"},
@@ -19,6 +19,7 @@
     "Type": {"to": "Object Types", "delimeter": "\\|"},
     "Date": {"to": "Year Constructed", "year": 1},
     "Topic": {"to": "Subjects", "delimeter": "\\|"},
+    "Subject": {"to": "Honorees", "delimeter": "\\|"},
     "Summary": {"to": "Description"}
   },
   "notes": [

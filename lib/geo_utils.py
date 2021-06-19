@@ -123,8 +123,9 @@ def fipsToState(fipsString, defaultValue="Unknown"):
 def geocodeItems(rows, geoCacheFile, geolocator, gkey="Geo Type", waitSeconds=5):
     validRows = []
     for i, row in enumerate(rows):
-        if row[gkey] != "No coordinates provided":
+        if row[gkey] != "No coordinates provided" and row[gkey] != "Approximate coordinates provided":
             continue
+        originalGeoType =  row[gkey]
 
         lookupString = None
         lookupDict = None
@@ -139,17 +140,8 @@ def geocodeItems(rows, geoCacheFile, geolocator, gkey="Geo Type", waitSeconds=5)
             lookupString = f'{row["Street Address"]}, {row["City"]}, {row["State"]}'
             rows[i][gkey] = "Geocoded based on street address provided"
 
-        elif itemNotEmpty(row, "Street Address") and itemNotEmpty(row, "City") and itemNotEmpty(row, "State"):
-            lookupDict = {
-                "city": row["City"],
-                "state": row["State"],
-                "country": "United States"
-            }
-            lookupString = f'{row["City"]}, {row["State"]}'
-            rows[i][gkey] = "Approximate coordinates geocoded based on city"
-
         else:
-            rows[i][gkey] = "No geographic data provided"
+            rows[i][gkey] = originalGeoType
             continue
 
         row["_index"] = i
@@ -220,7 +212,9 @@ def geocodeItems(rows, geoCacheFile, geolocator, gkey="Geo Type", waitSeconds=5)
             rows[index]["Latitude"] = matchedRow["Latitude"]
             rows[index]["Longitude"] = matchedRow["Longitude"]
         else:
-            rows[index][gkey] = "No valid geographic data provided"
+            rows[index][gkey] = originalGeoType
+            # rows[index]["Latitude"] = ""
+            # rows[index]["Longitude"] = ""
 
         printProgress(i+1, geocodeCount)
 
