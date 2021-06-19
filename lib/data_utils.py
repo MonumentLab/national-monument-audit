@@ -38,6 +38,7 @@ def applyDataTypeConditions(rows, dataType, allowMany=False, reasonKey=None, sco
                         if pword != word:
                             words.append(pword)
             phrases = cond["phrases"] if "phrases" in cond else []
+            literals = cond["literals"] if "literals" in cond else []
             if "precededBy" in cond:
                 _phrases = []
                 for phrase in phrases:
@@ -50,7 +51,9 @@ def applyDataTypeConditions(rows, dataType, allowMany=False, reasonKey=None, sco
                     for fword in cond["followedBy"]:
                         _phrases.append(phrase + " " + fword)
                 phrases = _phrases
-            if "entities" in cond and len(rowEnts) > 0:
+            if "entities" in cond:
+                if len(rowEnts) <= 0:
+                    continue
                 validEnts = [ent for ent in rowEnts if ent["Property"] in cond["fields"] and ent["Type"] in cond["entities"]]
                 for ent in validEnts:
                     reasons.append(f'{ent["Property"]} field contains possible historic {ent["Type"]}: "{ent["Value"]}"')
@@ -58,7 +61,7 @@ def applyDataTypeConditions(rows, dataType, allowMany=False, reasonKey=None, sco
                 if len(validEnts) <= 0:
                     continue
                 # if there are no other conditions, this is valid
-                elif len(words) <= 0 and len(phrases) <= 0:
+            elif len(words) <= 0 and len(phrases) <= 0 and len(literals) <= 0:
                     isValid = True
                     break
             for field in cond["fields"]:
@@ -78,6 +81,11 @@ def applyDataTypeConditions(rows, dataType, allowMany=False, reasonKey=None, sco
                 for phrase in phrases:
                     if containsPhrase(rawValue, phrase):
                         reasons.append(f'{field} field contains "{phrase}"')
+                        isValid = True
+                        break
+                for literal in literals:
+                    if literal in rawValue:
+                        reasons.append(f'{field} field contains "{literal}"')
                         isValid = True
                         break
                 if isValid:

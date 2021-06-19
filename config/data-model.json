@@ -104,6 +104,13 @@
             {
               "words": ["bell", "figure", "heroic", "monument"],
               "fields": ["Object Types", "Use Types"]
+            },{
+              "fields": ["Name", "Alternate Name"],
+              "words": ["memorial"]
+            },{
+              "literals": ["Abstract--Geometric"],
+              "fields": ["Subjects", "Honorees"],
+              "entities": ["PERSON"]
             }
           ],
           "score": 10
@@ -117,6 +124,9 @@
             },{
               "words": ["animal", "flower", "tree"],
               "fields": ["Object Types", "Use Types", "Subjects"]
+            },{
+              "literals": ["Abstract--Geometric"],
+              "fields": ["Subjects"]
             }
           ]
         },{
