@@ -17,6 +17,7 @@ from lib.string_utils import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities.csv", help="Input .csv data file")
+parser.add_argument('-add', dest="ADD_ENTITIES", default="data/entities_add.csv", help="Input .csv data file that contains entities to add")
 parser.add_argument('-alias', dest="ALIAS_FILE", default="data/entities_aliases.csv", help="Input .csv data file with synonyms")
 parser.add_argument('-filter', dest="FILTER", default="", help="Filter query")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_normalized.csv", help="Output file")
@@ -27,6 +28,12 @@ a = parser.parse_args()
 
 fieldnames, rows = readCsv(a.INPUT_FILE)
 rowCount = len(rows)
+
+addEntities = []
+if len(a.ADD_ENTITIES) > 0 and os.path.isfile(a.ADD_ENTITIES):
+    _, addEntitiesRows = readCsv(a.ADD_ENTITIES)
+    for i, row in enumerate(addEntitiesRows):
+        addEntities.append(normalizeName(row["name"]))
 
 _, aliases = readCsv(a.ALIAS_FILE)
 aliasLookup = {}
@@ -98,12 +105,13 @@ for i, row in enumerate(rows):
 
     nwords = ntext.split(" ")
     wordcount = len(nwords)
-    # only take names with two ore more words
-    if wordcount < 2:
-        continue
-    # skip names with only an initial as the last word, e.g. John F.
-    elif wordcount == 2 and len(nwords[1]) == 1:
-        continue
+    if ntext not in addEntities:
+        # only take names with two ore more words
+        if wordcount < 2:
+            continue
+        # skip names with only an initial as the last word, e.g. John F.
+        elif wordcount == 2 and len(nwords[1]) == 1:
+            continue
 
     # keep track of original text after normalization
     titleText = stringToTitle(text)
