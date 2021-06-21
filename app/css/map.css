@@ -429,6 +429,27 @@ h1 {
   padding: 0 0.5rem;
 }
 
+.color-key {
+  position: absolute;
+  right: 40px;
+  top: 106px;
+  background: url(../img/color_key.png) no-repeat;
+  background-size: 100% 100%;
+  width: 601px;
+  height: 25px;
+  line-height: 25px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+  color: white;
+  font-size: 0.9rem;
+  border: 1px solid black;
+}
+.color-key div:first-child {
+  color: black;
+}
+
 .leaflet-top .leaflet-control {
   margin-top: 70px;
 }
