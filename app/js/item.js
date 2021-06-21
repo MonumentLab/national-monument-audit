@@ -28,6 +28,7 @@ var Item = (function() {
         value = value.join('<br />');
       } else if (isList && key == 'sources' && value.length <= 1) {
         // hide this if only one source
+        return '';
       } else if (isList) {
         value = _.map(value, function(v){
           var params = {
@@ -129,7 +130,7 @@ var Item = (function() {
     $.getJSON(url, function(resp) {
       if (resp && resp.hits && resp.hits.hit && resp.hits.hit.length > 0) {
         _this.renderResults(resp.hits.hit, _this.$dupes, true);
-        _this.$dupes.prepend($('<h2>Duplicate entries</h2>'));
+        _this.$dupes.prepend($('<h2>Duplicate entries</h2><p>The following records are believed to be duplicates of each other and were merged to create the single record above.</p>'));
       }
     });
   };

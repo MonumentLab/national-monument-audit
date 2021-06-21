@@ -1,0 +1,40 @@
+
+#dupe-results {
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 1px solid #aaa;
+}
+.item-page {
+  box-sizing: border-box;
+  max-width: 960px;
+  width: 100%;
+}
+.result-item:first-child h4 {
+  font-size: 2.4rem;
+}
+.result-item > p {
+  margin-bottom: 0.5rem;
+  background: #fff5c6;
+  padding: 0.1rem 0.3rem;
+}
+#dupe-results .result-item:first-child h4 {
+  font-size: 1.2rem;
+}
+.data-table {
+  border: none;
+}
+.data-table tr:nth-child(even) td {
+  background: white;
+}
+.data-table td:first-child {
+  font-weight: bold;
+}
+.data-table td {
+  border-color: #aaa;
+}
+h2 + p {
+  margin-top: 0.2rem;
+}
+h2 {
+  margin-bottom: 0.2rem;
+}
