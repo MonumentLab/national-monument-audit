@@ -157,7 +157,8 @@ var Item = (function() {
       if (isDupe) name = (i+1) + '. ' + name;
       var subtitle = 'The following metadata was provided by data source:';
       if (_.has(fields, 'source') && fields.source === 'Multiple') {
-        subtitle = 'The following metadata was merged from multiple sources. Scroll to the bottom to see the individual source.';
+        var duplicateCount = _.has(fields, 'duplicates') ? ' '+fields.duplicates.length : '';
+        subtitle = 'The following metadata was merged from'+duplicateCount+' different sources. Scroll to the bottom to see the individual sources.';
       } else if (_.has(fields, 'source')) {
         subtitle = 'The following metadata was provided by data source '+fields.source+':';
       }
