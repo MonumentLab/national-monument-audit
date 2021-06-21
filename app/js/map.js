@@ -115,7 +115,7 @@ var Map = (function() {
     if (_.has(fields, 'latlon')) {
       html += '<p>Location: <a href="https://www.google.com/maps/search/?api=1&query='+fields.latlon.replace(' ','')+'" target="_blank">'+fields.latlon+'</a></p>';
       if (_.has(fields, 'geo_type') && fields.geo_type == 'Approximate coordinates provided'){
-        html += '<p class="alert">⚠ Coordinates provided by source is likely inaccurate</p>';
+        html += '<p class="alert">⚠ Coordinates provided by source are likely inaccurate</p>';
       }
     } else {
       html += '<p><em>No geographic coordinate data</em></p>';
