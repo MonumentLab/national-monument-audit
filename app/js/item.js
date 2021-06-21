@@ -147,7 +147,7 @@ var Item = (function() {
             } else if (key === 'latlon') {
               value = '<a href="https://www.google.com/maps/search/?api=1&query='+value.replace(' ','')+'" target="_blank">'+value+'</a>';
             } else if (key === 'image') {
-              value = '<a href="'+value+'" target="_blank">Image link</a>';
+              value = '<a href="'+value+'" target="_blank"><img src="'+value+'" alt="Photograph of object" /></a>';
             } else if (key === 'duplicate_of') {
               var parentItemUrl = 'item.html?' + $.param({'id': value});
               value = '<a href="'+parentItemUrl+'" target="_blank" class="button">'+value+'</a>';
