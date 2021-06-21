@@ -328,6 +328,7 @@ var Map = (function() {
     this.$facetModal = $('#facet-modal');
     this.$facetSearchResults = $('#facet-search-results');
     this.$facetSearchInput = $('#search-facet-input');
+    this.$colorKey = $('#color-key');
     this.facets = {};
     this.size = parseInt(this.opt.size);
     this.start = parseInt(this.opt.start);
@@ -940,7 +941,11 @@ var Map = (function() {
         }
         html += '</div>';
       html += '</div>';
+      this.$colorKey.addClass('active');
+    } else {
+      this.$colorKey.removeClass('active');
     }
+
 
     this.$info.html(html);
 

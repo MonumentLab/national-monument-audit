@@ -438,7 +438,7 @@ h1 {
   width: 601px;
   height: 25px;
   line-height: 25px;
-  display: flex;
+  display: none;
   justify-content: space-between;
   padding: 0 0.5rem;
   box-sizing: border-box;
@@ -448,6 +448,9 @@ h1 {
 }
 .color-key div:first-child {
   color: black;
+}
+.color-key.active {
+  display: flex;
 }
 
 .leaflet-top .leaflet-control {
