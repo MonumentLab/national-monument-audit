@@ -14,7 +14,7 @@ var Item = (function() {
     this.init();
   }
 
-  function fieldToHTML(value, key){
+  function fieldToHTML(value, key, fields){
     var isList = Array.isArray(value);
     var html = '<tr>';
       html += '<td>'+key.replace('_search', '').replaceAll('_', ' ')+'</td>';
@@ -43,6 +43,9 @@ var Item = (function() {
         value = '<a href="'+value+'" target="_blank">'+value+'</a>';
       } else if (key === 'latlon') {
         value = '<a href="https://www.google.com/maps/search/?api=1&query='+value.replace(' ','')+'" target="_blank">'+value+'</a>';
+        if (_.has(fields, 'geo_type') && fields.geo_type == 'Approximate coordinates provided'){
+          value += '<p class="alert">⚠ Coordinates provided by source are likely inaccurate</p>';
+        }
       } else if (key === 'image') {
         value = '<a href="'+value+'" target="_blank"><img src="'+value+'" alt="Photograph of object" /></a>';
       } else if (key === 'duplicate_of') {
@@ -175,7 +178,7 @@ var Item = (function() {
         html += '<table class="data-table">';
         _.each(displayFields, function(key){
           if (_.has(fields, key)) {
-            html += fieldToHTML(fields[key], key);
+            html += fieldToHTML(fields[key], key, fields);
           }
         });
         html += '</table>';
@@ -183,7 +186,7 @@ var Item = (function() {
         html += '<table class="data-table">';
         _.each(generatedFields, function(key){
           if (_.has(fields, key)) {
-            html += fieldToHTML(fields[key], key);
+            html += fieldToHTML(fields[key], key, fields);
           }
         });
         html += '</table>';
