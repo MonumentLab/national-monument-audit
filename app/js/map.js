@@ -15,7 +15,7 @@ var Map = (function() {
         'entities_people': 'People',
         'entities_events': 'Events'
       },
-      'returnValues': 'name,latlon,city,state,source,sources,url,image,duplicates',
+      'returnValues': 'name,latlon,city,state,source,sources,url,image,duplicates,geo_type',
       'facetSize': 100,
       'customFacetSizes': {
         'county_geoid': 4000,
@@ -114,6 +114,9 @@ var Map = (function() {
     // display latlon
     if (_.has(fields, 'latlon')) {
       html += '<p>Location: <a href="https://www.google.com/maps/search/?api=1&query='+fields.latlon.replace(' ','')+'" target="_blank">'+fields.latlon+'</a></p>';
+      if (_.has(fields, 'geo_type') && fields.geo_type == 'Approximate coordinates provided'){
+        html += '<p class="alert">⚠ Coordinates provided by source is likely inaccurate</p>';
+      }
     } else {
       html += '<p><em>No geographic coordinate data</em></p>';
     }

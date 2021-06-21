@@ -205,3 +205,8 @@ code {
 .modal h2 {
   margin-bottom: 0.5rem;
 }
+
+.alert {
+  font-weight: bold;
+  color: #99251d;
+}
