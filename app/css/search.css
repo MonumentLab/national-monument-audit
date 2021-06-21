@@ -167,6 +167,7 @@ body.loading .search-sort {
   display: inline-block;
   margin-right: 0.2rem;
   vertical-align: middle;
+  margin-bottom: 0.2rem;
 }
 
 .search-results-pagination {
