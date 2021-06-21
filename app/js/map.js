@@ -23,7 +23,7 @@ var Map = (function() {
         'entities_people': 1000
       },
       'start': 0,
-      'size': 100,
+      'size': 500,
       'sort': '',
       'fields': '', // e.g. name,street_address
       'q': '',
