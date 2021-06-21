@@ -339,6 +339,7 @@ var Map = (function() {
     this.countyDataLayer = false;
     this.activeCountyFeature = false;
     this.markerLayer = false;
+    this.heatLayer = false;
     this.visibleLayer = '';
     this.mapData = false;
     this.countyCounts = {};
@@ -509,6 +510,10 @@ var Map = (function() {
 
     this.markerLayer = L.markerClusterGroup({
       disableClusteringAtZoom: this.opt.itemZoomLevel
+    });
+
+    this.heatLayer = L.heatLayer([], {
+      minOpacity: 0.3
     });
 
     console.log('Loaded map');
@@ -965,7 +970,9 @@ var Map = (function() {
       if (visibleLayer === 'county') {
         this.featureLayer.addLayer(this.countyDataLayer);
       } else {
+        this.featureLayer.addLayer(this.heatLayer);
         this.featureLayer.addLayer(this.markerLayer);
+
       }
     }
   };
@@ -1249,6 +1256,10 @@ var Map = (function() {
     this.query();
   };
 
+  Map.prototype.updateHeat = function(points){
+    this.heatLayer.setLatLngs(points);
+  };
+
   Map.prototype.updateMarkers = function(){
     var _this = this;
 
@@ -1270,14 +1281,18 @@ var Map = (function() {
       }
       var highlightedMarker = false;
       var duplicateIds = [];
+      var points = [];
 
       _.each(hits, function(result){
         var fields = result.fields;
         var latlon = _.has(fields, 'latlon') && fields.latlon ? fields.latlon : false;
         if (latlon === false) return;
 
+
         latlon = _.map(latlon.split(","), function(v){ return parseFloat(v); });
-        var marker = L.marker(new L.LatLng(latlon[0], latlon[1]));
+        var point = new L.LatLng(latlon[0], latlon[1]);
+        points.push(point);
+        var marker = L.marker(point);
         var html = resultToHtml(result);
         marker.bindPopup(html, {itemId: result.id});
         if (_this.highlightMarker && _this.highlightMarker === result.id) {
@@ -1289,6 +1304,8 @@ var Map = (function() {
           duplicateIds.concat(result.fields.duplicates);
         }
       });
+
+      _this.updateHeat(points);
 
       if (highlightedMarker) {
         highlightedMarker.openPopup();
