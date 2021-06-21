@@ -513,7 +513,8 @@ var Map = (function() {
     });
 
     this.heatLayer = L.heatLayer([], {
-      minOpacity: 0.3
+      minOpacity: 0.3,
+      maxZoom: 20
     });
 
     console.log('Loaded map');
