@@ -554,9 +554,10 @@ if os.path.isfile(a.CORRECTIONS_FILE):
             print(f'Could not find Id {correction["Id"]} in corrections')
             continue
         index = idLookup[correction["Id"]]
-        value = str(correction["Correct Value"])
-        if a.LIST_DELIMETER in value:
-            value = [v.strip() for v in value.split(a.LIST_DELIMETER)]
+        value = correction["Correct Value"]
+        svalue = str(value)
+        if a.LIST_DELIMETER in svalue:
+            value = [v.strip() for v in svalue.split(a.LIST_DELIMETER)]
         rowsOut[index][correction["Field"]] = value
 
 if a.PROBE:

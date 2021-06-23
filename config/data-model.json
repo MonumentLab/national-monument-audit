@@ -44,7 +44,8 @@
         "Geocoded based on street address provided",
         "Approximate coordinates geocoded based on city",
         "No geographic data provided",
-        "No valid geographic data provided"
+        "No valid geographic data provided",
+        "Coordinates manually corrected from original"
     ]},
     {"key": "Object Group Reason", "type": "string_list"},
     {"key": "Monument Score", "type": "int"},

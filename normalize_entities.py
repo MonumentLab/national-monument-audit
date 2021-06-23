@@ -105,7 +105,7 @@ for i, row in enumerate(rows):
 
     nwords = ntext.split(" ")
     wordcount = len(nwords)
-    if ntext not in addEntities:
+    if ntext not in addEntities and row["Property"] not in ("Honorees"): # make an exception for manually set names or explicit honorees
         # only take names with two ore more words
         if wordcount < 2:
             continue
