@@ -48,7 +48,7 @@ var COLOR_GRADIENT_LEN = COLOR_GRADIENT.length;
       if (reverse) index = COLOR_GRADIENT_LEN-1-index;
       gradient[t] = COLOR_GRADIENT[index];
     });
-    if (reverse) gradient[0] = COLOR_GRADIENT[COLOR_GRADIENT_LEN-1];
+    if (reverse) gradient[1.0] = COLOR_GRADIENT[0];
     else gradient[1.0] = COLOR_GRADIENT[COLOR_GRADIENT_LEN-1];
     return gradient;
   };
