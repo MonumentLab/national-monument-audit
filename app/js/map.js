@@ -514,7 +514,8 @@ var Map = (function() {
 
     this.heatLayer = L.heatLayer([], {
       minOpacity: 0.3,
-      maxZoom: 20
+      maxZoom: 20,
+      gradient: Util.getColorGradient(20, true)
     });
 
     console.log('Loaded map');
@@ -947,9 +948,9 @@ var Map = (function() {
         }
         html += '</div>';
       html += '</div>';
-      this.$colorKey.addClass('active');
+      // this.$colorKey.addClass('active');
     } else {
-      this.$colorKey.removeClass('active');
+      // this.$colorKey.removeClass('active');
     }
 
 

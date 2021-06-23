@@ -40,6 +40,19 @@ var COLOR_GRADIENT_LEN = COLOR_GRADIENT.length;
     return number.toLocaleString();
   };
 
+  Util.getColorGradient = function(steps, reverse){
+    var gradient = {};
+    _.times(steps, function(n){
+      var t = n / steps;
+      var index = Math.round(t * (COLOR_GRADIENT_LEN-1));
+      if (reverse) index = COLOR_GRADIENT_LEN-1-index;
+      gradient[t] = COLOR_GRADIENT[index];
+    });
+    if (reverse) gradient[0] = COLOR_GRADIENT[COLOR_GRADIENT_LEN-1];
+    else gradient[1.0] = COLOR_GRADIENT[COLOR_GRADIENT_LEN-1];
+    return gradient;
+  };
+
   Util.getGradientColor = function(t){
     var index = Math.round(t * (COLOR_GRADIENT_LEN-1));
     return COLOR_GRADIENT[index];
