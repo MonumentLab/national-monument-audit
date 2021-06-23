@@ -509,7 +509,7 @@ var Map = (function() {
     });
 
     this.markerLayer = L.markerClusterGroup({
-      disableClusteringAtZoom: this.opt.itemZoomLevel
+      // disableClusteringAtZoom: this.opt.itemZoomLevel
     });
 
     this.heatLayer = L.heatLayer([], {
