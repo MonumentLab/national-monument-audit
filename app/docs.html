@@ -10,6 +10,7 @@
   <link rel="icon" type="image/png" href="favicon.png">
 
   <link rel="stylesheet" href="css/vendor/normalize.css">
+  <link rel="stylesheet" href="css/vendor/tocbot.css">
 
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/docs.css">
@@ -18,246 +19,289 @@
 
 <body>
 
-  <main id="content" class="content">
+  <div class="page">
 
-    <h2>Introduction</h2>
+    <nav id="toc" class="toc"></div>
 
-    <p>
-    This document provides in-depth documentation of the data process of the 2021 National Monument Audit by Monument Lab. It is originally authored by the Audit’s Data Artist who architected the data workflow. This is made available for the Audit team, stakeholders, and members of the public who are interested in understanding how the Audit's "study set" was created from a technical point of view.
-    </p>
+    <main id="content" class="content">
 
-    <h3>Definitions</h3>
+      <h2 id="introduction">Introduction</h2>
 
-    <ol>
-      <li><strong>Data record</strong> - metadata about a specific cultural or historical object from a specific data source</li>
-      <li><strong>Data field</strong> - a single piece of information in a data record, e.g. the name of the object or the date an object was created.</li>
-      <li><strong>Data source</strong> - a verified organization, institution, or website that made available a set of digital data records representing cultural and historical objects</li>
-      <li><strong>Study set</strong> - the Audit’s final and official dataset generated from the Audit's data sources with an attempt to include only records about monuments. This is not complete and has known gaps. It also inherits the various issues of its data sources. It attempts to exclude non-monument objects like buildings, bridges, streets, and place names.</li>
-      <li><strong>Pre-study set</strong> - the complete set of data from data sources before excluding non-monument data records.</li>
-      <li><strong>Data model</strong> - how a specific data record is structured. This is made up of multiple data fields such as date constructed, name, object type, subjects, location, etc.</li>
-      <li><strong>Data ingest</strong> - the process of retrieving, filtering, and transforming raw data from data sources into the study set</li>
-    </ol>
+      <p>
+      This document provides in-depth documentation of the data process of the 2021 National Monument Audit by Monument Lab. It is originally authored by the Audit’s Data Artist who architected the data workflow. This is made available for the Audit team, stakeholders, and members of the public who are interested in understanding how the Audit's "study set" was created from a technical point of view.
+      </p>
 
-    <h3>Scope</h3>
+      <h3 id="definitions">Definitions</h3>
 
-    <ol>
-      <li>This document does <em>NOT</em> include the process for how the data sources were discovered, selected, or vetted. This will be articulated in the Audit itself, but is not in the scope of this document which focuses on how the data was processed after it was selected.</li>
-      <li>This document outlines what data sources were used and which data fields were used for the study set</li>
-      <li>This document describes the data ingest process, i.e. how raw data from data sources were retrieved, filtered, and transformed into the study set</li>
-      <li>This document describes how a specific data record was determined to be a monument and thus part of the study set</li>
-      <li>This document describes the data model of an individual record in the study set</li>
-      <li>This document describes how geographical and temporal data was handled</li>
-      <li>This document describes how People and Events were identified as honorees of their respective monuments</li>
-      <li>This document describes how duplicate records across different data sources were identified and handled</li>
-      <li>This document gives an overview of the codebase and instructions for how to reproduce the data process with the existing or new data</li>
-    </ol>
+      <ol>
+        <li><strong>Data record</strong> - metadata about a specific cultural or historical object from a specific data source</li>
+        <li><strong>Data field</strong> - a single piece of information in a data record, e.g. the name of the object or the date an object was created.</li>
+        <li><strong>Data source</strong> - a verified organization, institution, or website that made available a set of digital data records representing cultural and historical objects</li>
+        <li><strong>Study set</strong> - the Audit’s final and official dataset generated from the Audit's data sources with an attempt to include only records about monuments. This is not complete and has known gaps. It also inherits the various issues of its data sources. It attempts to exclude non-monument objects like buildings, bridges, streets, and place names.</li>
+        <li><strong>Pre-study set</strong> - the complete set of data from data sources before excluding non-monument data records.</li>
+        <li><strong>Data model</strong> - how a specific data record is structured. This is made up of multiple data fields such as date constructed, name, object type, subjects, location, etc.</li>
+        <li><strong>Data ingest</strong> - the process of retrieving, filtering, and transforming raw data from data sources into the study set</li>
+      </ol>
 
-    <h2>Data sources</h2>
+      <h3 id="scope">Scope</h3>
 
-    <h3>By the numbers</h3>
+      <ol>
+        <li>This document does <em>NOT</em> include the process for how the data sources were discovered, selected, or vetted. This will be articulated in the Audit itself, but is not in the scope of this document which focuses on how the data was processed after it was selected.</li>
+        <li>This document outlines what data sources were used and which data fields were used for the study set</li>
+        <li>This document describes the data ingest process, i.e. how raw data from data sources were retrieved, filtered, and transformed into the study set</li>
+        <li>This document describes how a specific data record was determined to be a monument and thus part of the study set</li>
+        <li>This document describes the data model of an individual record in the study set</li>
+        <li>This document describes how geographical and temporal data was handled</li>
+        <li>This document describes how People and Events were identified as honorees of their respective monuments</li>
+        <li>This document describes how duplicate records across different data sources were identified and handled</li>
+        <li>This document gives an overview of the codebase and instructions for how to reproduce the data process with the existing or new data</li>
+      </ol>
 
-    <p>For this audit, {{dataRecordTotal}} data records were retrieved and analyzed from {{dataSourceTotal}} data sources to generate a study set of {{totalMonuments}} data records that are believed to represent monuments.</p>
+      <h2 id="data-sources">Data sources</h2>
 
-    <p>Share of records, pre-study set (before excluding non-monument data records)</p>
+      <h3 id="by-the-numbers">By the numbers</h3>
 
-    <p><em>chart here</em></p>
+      <p>For this audit, {{dataRecordTotal}} data records were retrieved and analyzed from {{dataSourceTotal}} data sources to generate a study set of {{totalMonuments}} data records that are believed to represent monuments.</p>
 
-    <p>Share of records, study set (monument data records only)</p>
+      <p>Share of records, pre-study set (before excluding non-monument data records)</p>
 
-    <p><em>chart here</em></p>
+      <p><em>chart here</em></p>
 
-    <p>Breakdown of data sources by spatial coverage</p>
+      <p>Share of records, study set (monument data records only)</p>
 
-    <p><em>chart here</em></p>
+      <p><em>chart here</em></p>
 
-    <p>Breakdown of data sources by source type</p>
+      <p>Breakdown of data sources by spatial coverage</p>
 
-    <p><em>chart here</em></p>
+      <p><em>chart here</em></p>
 
-    <h2>Metadata</h2>
+      <p>Breakdown of data sources by source type</p>
 
-    <p>Different data sources had different metadata available. The quality and consistency of the metadata also varied across the different data sources. This section will describe the inconsistencies and quirks of the source data and how data quality was addressed for the purposes of creating the study set.</p>
+      <p><em>chart here</em></p>
 
-    <h3>Geospatial metadata</h3>
+      <h3 id="quirks">Data source quirks</h3>
 
-    <p>Most data records have latitude and longitude available. In many cases the data source itself was in a geospatial format (e.g. <a href="https://en.wikipedia.org/wiki/GeoJSON" target="_blank">geojson</a>, <a href="https://en.wikipedia.org/wiki/Shapefile" target="_blank">shapefile</a>) but needed to be re-projected into a <a href="https://en.wikipedia.org/wiki/World_Geodetic_System" target="_blank">WGS 84 projection</a> using <a href="https://www.qgis.org/en/site/" target="_blank">QGIS</a>.</p>
+      <h2 id="metadata">Metadata</h2>
 
-    <p><em>chart here</em></p>
+      <p>Different data sources had different metadata available. The quality and consistency of the metadata also varied across the different data sources. This section will describe the inconsistencies and quirks of the source data and how data quality was addressed for the purposes of creating the study set.</p>
 
-    <p>However, there are many records that seem to have automatically generated their lat/lon coordinates. In some cases, this results in incorrect or inaccurate coordinates (e.g. placing it in the center of a state or city.) We attempt to filter these out by identifying clusters of data records that have the same lat/lon coordinate.</p>
+      <h3 id="geospatial-metadata">Geospatial metadata</h3>
 
-    <p><em>chart here</em></p>
+      <p>Most data records have latitude and longitude available. In many cases the data source itself was in a geospatial format (e.g. <a href="https://en.wikipedia.org/wiki/GeoJSON" target="_blank">geojson</a>, <a href="https://en.wikipedia.org/wiki/Shapefile" target="_blank">shapefile</a>) but needed to be re-projected into a <a href="https://en.wikipedia.org/wiki/World_Geodetic_System" target="_blank">WGS 84 projection</a> using <a href="https://www.qgis.org/en/site/" target="_blank">QGIS</a>.</p>
 
-    <p>In the case where there is not lat/lon coordinate, but there is a full street address, city, and state, we attempt to geocode these using <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>'s <a href="https://wiki.openstreetmap.org/wiki/Nominatim" target="_blank">Nominatim</a> geocoding service. Note we use this <em>only</em> when all three street address, city, and state are present. And we only accept the result if the coordinates are within the expected state.</p>
+      <p><em>chart here</em></p>
 
-    <p><em>chart here</em></p>
+      <p>However, there are many records that seem to have automatically generated their lat/lon coordinates. In some cases, this results in incorrect or inaccurate coordinates (e.g. placing it in the center of a state or city.) We attempt to filter these out by identifying clusters of data records that have the same lat/lon coordinate.</p>
 
-    <p>How the geospatial information was obtained is reflected in a new data field that is generated called "Geo Type." This field has one of five values:</p>
+      <p><em>chart here</em></p>
 
-    <ol>
-      <li><strong>Exact coordinates provided</strong> - lat/lon coordinates are provided by data source and they are likely valid</li>
-      <li><strong>Approximate coordinates provided</strong> - lat/lon coordinates are provided by data source but they are likely inaccurate; these are not used in the map visualizations of the data</li>
-      <li><strong>Geocoded based on street address provided</strong> - lat/lon coordinates obtained by geocoding street address with <a href="https://wiki.openstreetmap.org/wiki/Nominatim" target="_blank">Nominatim</a> geocoding service</li>
-      <li><strong>No valid geographic data provided</strong> - street address was provided, but no valid lat/lon coordinate could be found</li>
-      <li><strong>No geographic data provided</strong> - neither lat/lon nor street address were provided by data source</li>
-    </ol>
+      <p>In the case where there is not lat/lon coordinate, but there is a full street address, city, and state, we attempt to geocode these using <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>'s <a href="https://wiki.openstreetmap.org/wiki/Nominatim" target="_blank">Nominatim</a> geocoding service. Note we use this <em>only</em> when all three street address, city, and state are present. And we only accept the result if the coordinates are within the expected state.</p>
 
-    <h3>Dates</h3>
+      <p><em>chart here</em></p>
 
-    <p>Dates are present in about a third of all the data records. Dates can be grouped into the following categories:</p>
+      <p>How the geospatial information was obtained is reflected in a new data field that is generated called "Geo Type." This field has one of five values:</p>
 
-    <ol>
-      <li>Date constructed</li>
-      <li>Date dedicated</li>
-      <li>Date designated a landmark (local, state, national)</li>
-      <li>Date removed <em>(rare)</em></li>
-      <li>Date commissioned <em>(rare)</em></li>
-    </ol>
+      <ol>
+        <li><strong>Exact coordinates provided</strong> - lat/lon coordinates are provided by data source and they are likely valid</li>
+        <li><strong>Approximate coordinates provided</strong> - lat/lon coordinates are provided by data source but they are likely inaccurate; these are not used in the map visualizations of the data</li>
+        <li><strong>Geocoded based on street address provided</strong> - lat/lon coordinates obtained by geocoding street address with <a href="https://wiki.openstreetmap.org/wiki/Nominatim" target="_blank">Nominatim</a> geocoding service</li>
+        <li><strong>No valid geographic data provided</strong> - street address was provided, but no valid lat/lon coordinate could be found</li>
+        <li><strong>No geographic data provided</strong> - neither lat/lon nor street address were provided by data source</li>
+      </ol>
 
-    <p><em>chart here</em></p>
+      <h3 id="dates">Dates</h3>
 
-    <p>Some things to note about dates:</p>
+      <p>Dates are present in about a third of all the data records. Dates can be grouped into the following categories:</p>
 
-    <ol>
-      <li>A data source may have none, one, or many of these dates present in their records. And sometimes dates may only be present in a subset of records within one data source.</li>
+      <ol>
+        <li>Date constructed</li>
+        <li>Date dedicated</li>
+        <li>Date designated a landmark (local, state, national)</li>
+        <li>Date removed <em>(rare)</em></li>
+        <li>Date commissioned <em>(rare)</em></li>
+      </ol>
 
-      <li>Dates come in all formats (e.g. 01-01-1900, Jan 1, 1900, 1900, 1901-1900). For the purposes of the Audit, all dates are <strong>normalized to a single year</strong> (e.g. "1900".) In the case of multiple dates (e.g. 1900-1901), the first one is taken.</li>
+      <p><em>chart here</em></p>
 
-      <li>For the purposes of the Audit, we are only using <strong>date constructed and date dedicated</strong> for visualization purposes. And for the purpose of showing timelines, we combine date constructed and date dedicated into a single field called "Year Dedicated Or Constructed", however the individual fields ("Year Dedicated", "Year Constructed") are still available. In the case where date constructed and date dedicated are both available, "Year Dedicated Or Constructed" will be the "Year Dedicated."</li>
-    </ol>
+      <p>Some things to note about dates:</p>
 
-    <h3>Honorees</h3>
-
-    <p>Very few data sources specify who or what is being honored:</p>
+      <ol>
+        <li>A data source may have none, one, or many of these dates present in their records. And sometimes dates may only be present in a subset of records within one data source.</li>
 
-    <p><em>chart here</em></p>
+        <li>Dates come in all formats (e.g. 01-01-1900, Jan 1, 1900, 1900, 1901-1900). For the purposes of the Audit, all dates are <strong>normalized to a single year</strong> (e.g. "1900".) In the case of multiple dates (e.g. 1900-1901), the first one is taken.</li>
 
-    <p>For records that do not have honoree information (most records), in order to understand who or what is being honored, we try to automatically determine this through a process of <a href="https://en.wikipedia.org/wiki/Named-entity_recognition" target="_blank">entity extraction</a> and <a href="https://en.wikipedia.org/wiki/Entity_linking" target="_blank">entity linking</a>. This process is roughly as follows:</p>
+        <li>For the purposes of the Audit, we are only using <strong>date constructed and date dedicated</strong> for visualization purposes. And for the purpose of showing timelines, we combine date constructed and date dedicated into a single field called "Year Dedicated Or Constructed", however the individual fields ("Year Dedicated", "Year Constructed") are still available. In the case where date constructed and date dedicated are both available, "Year Dedicated Or Constructed" will be the "Year Dedicated."</li>
+      </ol>
 
-    <ol>
-      <li>
-        The text of the following fields are analyzed using a tool called <a href="https://spacy.io/" target="_blank">Spacy</a>: "Name", "Alternate Name", "Honorees", "Description"*
-      </li>
+      <h3 id="object-types">Object Types</h3>
 
-      <li>
-        <a href="https://spacy.io/" target="_blank">Spacy</a> does many things like <a href="https://en.wikipedia.org/wiki/Lexical_analysis#Tokenization" target="_blank"> tokenization</a> and part-of-speech tagging, but most importantly and relevantly, it does <a href="https://en.wikipedia.org/wiki/Named-entity_recognition" target="_blank">named-entitiy recognition</a>. This essentially tells if people, events, and organizations are included in the data fields we provide.
+      <p>Some data sources provide information about the physical form of the object. This can be very broad groups such as "Monument", "Building", or "Marker" or it can be very specific such as "Bench", "Fountain", "Relief." These values are not consistent across different data sources and the different data sources track these with different levels of strictness and specificity. When available, we heavily rely on this field when determining if an object is a monument (see section <a href="#what-is-a-monument">What is a monument?</a>).</p>
 
-        <ul>
-          <li>For example, in the following text:
-            <code>
-              Andrew Dickson White, 1832-1918, friend and counselor of Ezra Cornell, and with him associated in the founding of the Cornell University
-            </code>
-            The following named entities are expected:
-            <ol>
-              <li>Andrew Dickson White (PERSON)</li>
-              <li>AEzra Cornell (PERSON)</li>
-              <li>Cornell University (ORGANIZATION)</li>
-            </ol>
-          </li>
-          <li>Spacy has a number of entity types available (see page 21 in <a href="" target="_blank">this document</a>), but we only use these:
-            <ol>
-              <li><strong>PERSON</strong> - People, including fictional</li>
-              <li><strong>NORP</strong> - Nationalities or religious or political groups</li>
-              <li><strong>ORGANIZATION</strong> - Companies, agencies, institutions, etc.</li>
-              <li><strong>EVENT</strong> - Named hurricanes, battles, wars, sports events, etc.</li>
-            </ol>
-            And we currently only use "PERSON" and "EVENT" in the search interface
-          </li>
-          <li>In order to do this, Spacy uses a large annotated corpus called <a href="https://catalog.ldc.upenn.edu/LDC2013T19" target="_blank">OntoNotes</a> that leverages a variety of sources such as news, conversational telephone speech, weblogs, usenet newsgroups, broadcast, and talk shows. It is important to note that <strong>any bias present in this corpus will be inherited</strong> by the entities that are recognized using Spacy.</li>
-        </ul>
-      </li>
+      <p><em>chart here</em></p>
 
-      <li>
-        After we receive named entities, we then attempt to <em>link</em> these entities to the specific "real-world" person, event, or organization. We do this by matching named entities against <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" target="_blank">Wikidata</a> for those entities' corresponding entry. The advantages of this is that we can map multiple named entites ("Martin Luther King", "Martin Luther King, Jr.", "MLK") to a <a href="https://www.wikidata.org/wiki/Q8027" target="_blank">single specific person</a> and we can retrieve additional structured information about this person (e.g. date of birth, occupation, gender)
+      <h3 id="honorees">Honorees</h3>
 
-        <ul>
-          <li>An important note: Just like Spacy, data about specific <strong>people and events on Wikidata inherit whatever biases the Wikidata contributors have</strong>.</li>
-          <li>We are considering using the "ethnic group" (e.g. "African American") field when present in a Wikidata entry as a proxy for estimating the diversity or lack thereof of monumental representation. However, this is a very complex and fraught topic, so it requires explicit contextualization if used. Furthermore, if the person being represented is white, "ethnic group" is usually not present, i.e. white is the default-- another topic of discussion.</li>
-        </ul>
-      </li>
-    </ol>
+      <p>Very few data sources specify who or what is being honored:</p>
 
-    <p><em>chart here</em></p>
+      <p><em>chart here</em></p>
 
-    <p>Note: We originally also analyzed plaque and marker text, but even though it helped identify more people and events, it resulting in too many false positives. For example, a civil war monument may quote Abraham Lincoln in the plaque, but may not be a monument about Lincoln himself. Therefore, in the case of Lincoln, we will only consider a monument honoring him if his name appears in the name of the monument, listed explicitly as an honoree, or contained within the monument description.</p>
+      <p>For records that do not have honoree information (most records), in order to understand who or what is being honored, we try to automatically determine this through a process of <a href="https://en.wikipedia.org/wiki/Named-entity_recognition" target="_blank">entity extraction</a> and <a href="https://en.wikipedia.org/wiki/Entity_linking" target="_blank">entity linking</a>. This process is roughly as follows:</p>
 
-    <p><em>chart here</em></p>
+      <ol>
+        <li>
+          The text of the following fields are analyzed using a tool called <a href="https://spacy.io/" target="_blank">Spacy</a>: "Name", "Alternate Name", "Honorees", "Description"*
+        </li>
 
-    <h3>Plaque or marker text</h3>
+        <li>
+          <a href="https://spacy.io/" target="_blank">Spacy</a> does many things like <a href="https://en.wikipedia.org/wiki/Lexical_analysis#Tokenization" target="_blank"> tokenization</a> and part-of-speech tagging, but most importantly and relevantly, it does <a href="https://en.wikipedia.org/wiki/Named-entity_recognition" target="_blank">named-entitiy recognition</a>. This essentially tells if people, events, and organizations are included in the data fields we provide.
 
-    <p>About a third of the records contained the inscribed text that accompanies the object, such as the text on an embedded plaque or on an adjacent marker. This text is often very rich with a variety of formats (e.g. quotations, lists of names, narratives)</p>
+          <ul>
+            <li>For example, in the following text:
+              <code>
+                Andrew Dickson White, 1832-1918, friend and counselor of Ezra Cornell, and with him associated in the founding of the Cornell University
+              </code>
+              The following named entities are expected:
+              <ol>
+                <li>Andrew Dickson White (PERSON)</li>
+                <li>AEzra Cornell (PERSON)</li>
+                <li>Cornell University (ORGANIZATION)</li>
+              </ol>
+            </li>
+            <li>Spacy has a number of entity types available (see page 21 in <a href="" target="_blank">this document</a>), but we only use these:
+              <ol>
+                <li><strong>PERSON</strong> - People, including fictional</li>
+                <li><strong>NORP</strong> - Nationalities or religious or political groups</li>
+                <li><strong>ORGANIZATION</strong> - Companies, agencies, institutions, etc.</li>
+                <li><strong>EVENT</strong> - Named hurricanes, battles, wars, sports events, etc.</li>
+              </ol>
+              And we currently only use "PERSON" and "EVENT" in the search interface
+            </li>
+            <li>In order to do this, Spacy uses a large annotated corpus called <a href="https://catalog.ldc.upenn.edu/LDC2013T19" target="_blank">OntoNotes</a> that leverages a variety of sources such as news, conversational telephone speech, weblogs, usenet newsgroups, broadcast, and talk shows. It is important to note that <strong>any bias present in this corpus will be inherited</strong> by the entities that are recognized using Spacy.</li>
+          </ul>
+        </li>
 
-    <p><em>chart here</em></p>
+        <li>
+          After we receive named entities, we then attempt to <em>link</em> these entities to the specific "real-world" person, event, or organization. We do this by matching named entities against <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" target="_blank">Wikidata</a> for those entities' corresponding entry. The advantages of this is that we can map multiple named entites ("Martin Luther King", "Martin Luther King, Jr.", "MLK") to a <a href="https://www.wikidata.org/wiki/Q8027" target="_blank">single specific person</a> and we can retrieve additional structured information about this person (e.g. date of birth, occupation, gender)
 
-    <h3>Other fields of interest</h3>
+          <ul>
+            <li>An important note: Just like Spacy, data about specific <strong>people and events on Wikidata inherit whatever biases the Wikidata contributors have</strong>.</li>
+            <li>We are considering using the "ethnic group" (e.g. "African American") field when present in a Wikidata entry as a proxy for estimating the diversity or lack thereof of monumental representation. However, this is a very complex and fraught topic, so it requires explicit contextualization if used. Furthermore, if the person being represented is white, "ethnic group" is usually not present, i.e. white is the default-- another topic of discussion.</li>
+          </ul>
+        </li>
+      </ol>
 
-    Subjects
+      <p><em>chart here</em></p>
 
-    Creators available?
-    9.39%
-    Sponsors available?
-    21.4%
-    Status available?
-    0.64%
+      <p>Note: We originally also analyzed plaque and marker text, but even though it helped identify more people and events, it resulting in too many false positives. For example, a civil war monument may quote Abraham Lincoln in the plaque, but may not be a monument about Lincoln himself. Therefore, in the case of Lincoln, we will only consider a monument honoring him if his name appears in the name of the monument, listed explicitly as an honoree, or contained within the monument description.</p>
 
-    <h2>What is a monument?</h2>
+      <p><em>chart here</em></p>
 
-    <p>One of the central challenges of this Audit was idenfying which data records represented "monuments" in the conventional sense of the word. The Audit itself goes into great detail about how this was defined, so this document will avoid an attempt to define "monument" from a conceptual point of view. Instead, this section will walk through the practical process and application of the Audit's definition of "monument" as it relates to generating the final study set. This generally means describing the "rules" of what is a monument based on its metadata so that a computer script can categorize a data record as a monument or something else.  To start, some high-level points:</p>
+      <h3 id="text">Plaque or marker text</h3>
 
-    <ol>
-      <li>Most data sources provided data records that were a mix of different types of objects such as markers, buildings, monuments, and structures. In other words, most sources did not simply provide a set of "monuments".</li>
+      <p>About a third of the records contained the inscribed text that accompanies the object, such as the text on an embedded plaque or on an adjacent marker. This text is often very rich with a variety of formats (e.g. quotations, lists of names, narratives)</p>
 
-      <li>Data records that represented monuments were often not marked as such, i.e. there was not a field that called it a "Monument" and may have instead been called "Object" or the form may not have been described at all.</li>
+      <p><em>chart here</em></p>
 
-      <li>For those sources that called an object a "monument" either had its own definition of "monument" or did not provide a definition of "monument." The definitions of monuments across data sources differed. (See Appendix for a list of sources' definitions)</li>
-    </ol>
+      <h3 id="subjects">Subjects</h3>
 
-    <p>Given that, here is the high-level process for determining if something is or is not a monument:</p>
+      <p>Some sources categorized their objects in a variety of structured and undstructured ways. These would be referred to as fields like "Topic", "Tag", "Type", "Category", "Subject", etc. These are rarely consistent across data sources. Sometimes they contain broad topics (e.g. "Settlements & Settlers"), events ("U.S. Civil War"), groups of people ("Native Americans"), use types ("Cemeteries & Burial Sites"), or physical properties ("Abstract".) These fields are used when keyword searching, for determining if an object is a monument (see section <a href="#what-is-a-monument">What is a monument?</a>), and for determining if they fall under certain themes (e.g. War &amp; Weaponary.)</p>
 
-    <ol>
-      <li>If a data source <em>explicitly</em> categorized something as a monument, we assume that it is a monument.
-        <ul>
-          <li>This is because a try to defer to the sources' data when possible rather than apply our own logic.</li>
-          <li>Only a few of our data sources had fields that categorized their records in this way (E.g.
-            <a href="https://wiki.openstreetmap.org/wiki/Tag%3Ahistoric%3Dmonument" target="_blank">OpenStreetMap</a>,
-            <a href="https://www.slaverymonuments.org/items/browse" target="_blank">Contemporary Monuments to the Slave Past</a>,
-            <a href="https://www.splcenter.org/20190201/whose-heritage-public-symbols-confederacy" target="_blank">Whose Heritage?</a>,
-            <a href="https://pioneermonuments.net/explore/" target="_blank">Pioneer Monuments</a>,
-            <a href="https://public-nps.opendata.arcgis.com/datasets/nps-points-of-interest-pois-web-mercator/data" target="_blank">National Park Service: Points of Interest</a>).</li>
-          <li>This is done with the full awareness that the underlying objects may mis-categorized as "monuments" or may not exactly match our interpretation of "monuments."</li>
-          <li>Known issue: OpenStreetMap data seems to contain "monuments" that we may not consider to be monuments based on our own definition; this may be because its definition differs from ours and it is crowd-sourced.</li>
-        </ul>
+      <p><em>chart here</em></p>
 
-      <li>If a data source does not explicitly tell us if something is a monument, we attempt to determine if something is a monument by looking for keywords in certain data fields. This process is described in the next section.</li>
-    </ol>
+      <h3 id="other-fields">Other fields of interest</h3>
 
-    <h2>The study set</h2>
+      <p>There were other fields that would have been more useful if more sources provided them, but only a small fraction of sources provided them. This includes creators (architect, sculptor, artist, foundry, etc), sponsors, and status (removed, missing, still there, etc).</p>
 
-    <h3>Data model</h3>
+      <p><em>charts here</em></p>
 
-    <h3>Accessing the data</h3>
+      <h2 id="what-is-a-monument">What is a monument?</h2>
 
-    <h3>Using the data</h3>
+      <p>One of the central challenges of this Audit was idenfying which data records represented "monuments" in the conventional sense of the word. The Audit itself goes into great detail about how this was defined, so this document will avoid an attempt to define "monument" from a conceptual point of view. Instead, this section will walk through the practical process and application of the Audit's definition of "monument" as it relates to generating the final study set. This generally means describing the "rules" of what is a monument based on its metadata so that a computer script can categorize a data record as a monument or something else.  To start, some high-level points:</p>
 
-    <h2>The technical process</h2>
+      <ol>
+        <li>Most data sources provided data records that were a mix of different types of objects such as markers, buildings, monuments, and structures. In other words, most sources did not simply provide a set of "monuments".</li>
 
-    <p>This section will go step-by-step for how the source data was retrieved, filtered, transformed, enriched, and published from a developer's persective using the audit codebase.</p>
+        <li>Data records that represented monuments were often not marked as such, i.e. there was not a field that called it a "Monument" and may have instead been called "Object" or the form may not have been described at all.</li>
 
-    <h3>Data retrieval</h3>
+        <li>For those sources that called an object a "monument" either had its own definition of "monument" or did not provide a definition of "monument." The definitions of monuments across data sources differed. (See Appendix for a list of sources' definitions)</li>
+      </ol>
 
-    <h3>Data ingestion</h3>
+      <p>Given that, here is the high-level process for determining if something is or is not a monument:</p>
 
-    <h3>Data enrichment</h3>
+      <ol>
+        <li>If a data source <em>explicitly</em> categorized something as a monument, we assume that it is a monument.
+          <ul>
+            <li>This is because a try to defer to the sources' data when possible rather than apply our own logic.</li>
+            <li>Only a few of our data sources had fields that categorized their records in this way (E.g.
+              <a href="https://wiki.openstreetmap.org/wiki/Tag%3Ahistoric%3Dmonument" target="_blank">OpenStreetMap</a>,
+              <a href="https://www.slaverymonuments.org/items/browse" target="_blank">Contemporary Monuments to the Slave Past</a>,
+              <a href="https://www.splcenter.org/20190201/whose-heritage-public-symbols-confederacy" target="_blank">Whose Heritage?</a>,
+              <a href="https://pioneermonuments.net/explore/" target="_blank">Pioneer Monuments</a>,
+              <a href="https://public-nps.opendata.arcgis.com/datasets/nps-points-of-interest-pois-web-mercator/data" target="_blank">National Park Service: Points of Interest</a>).</li>
+            <li>This is done with the full awareness that the underlying objects may mis-categorized as "monuments" or may not exactly match our interpretation of "monuments."</li>
+            <li>Known issue: OpenStreetMap data seems to contain "monuments" that we may not consider to be monuments based on our own definition; this may be because its definition differs from ours and it is crowd-sourced.</li>
+          </ul>
 
-    <h3>Data indexing</h3>
+        <li>If a data source does not explicitly tell us if something is a monument, we attempt to determine if something is a monument by looking for keywords in certain data fields. This process is roughly as follows:
+          <ol>
+            <li>A large number of records are filtered out based on keywords that indicate that they are part of different object groups such as markers ("Washington Slept Here historical marker"), buildings ("Washington School Compound"), streets ("Washington Street"), structures ("Washington's Canal"), sites ("George Washington Oak Tree Site"), or places ("Washington County"). This relies heavily </li>
+            <li>For an object or structure that calls itself a memorial (e.g. "Vietnam Veterans Memorial"), we consider this a monument, as long as it is not in already in a different object group (e.g. memorial highways, memorial high schools are not monuments.)</li>
+            <li>For the records that remain, we then look for keywords that indicate their <strong>physical form</strong> (e.g. Bust, Statue, Cannon, etc.) and what or who it is representing. Generally speaking, we are looking for large, solid forms (obelisks, pyramids, statues) with some indication that they are honoring a person, group, or event. The criteria is roughly:
+              <ol>
+                <li>The object is part of certain physical forms that we consider monumental (obelisks, pyramids, statues, pillars)</li>
+                <li>The object is honoring a person, group, or event. E.g. the subject may contain words like "human figure" or "heroic" or "honoring", a historical name or event may be included in the name (e.g. "Harriet Tubman Statue")</li>
+                <li>Conversely, we check for indications that the object are in a group we roughly consider artistic/abstract sculptures that do not honor a person, group, or event. In this case, the subject may contain "Abstract--Geometric" or "Plant--Flowers" with no mention or indication of an honoree or human figure.</li>
+              </ol>
+            </li>
+            <li>For any records that remain, we consider them "Uncategorized" objects. These are likely records with little to no metadata other than its name and location, where the name is ambiguous (e.g. "World War II Roll of Honor" fits our definition or "honoring", but does not give an indication of what type of physical form it is).</li>
+          </ol>
+        </li>
+      </ol>
 
-    <h3>Data publishing and interface</h3>
+      <h2 id="duplicates">Handling duplicates</h2>
 
-  </main>
+      <p>Handling duplicate records across different data sources was a challenging area of work that is not completely solved. This refers to different records from different data sources that represent the same real-world object. We used a combination of object identifiers, geographic coordinates, and name fields to determine if two or more records were representing the same object. Here is the rough process:</p>
+
+      <ol>
+        <li>We look for records that have nearly the same latitude and longitude (within some radius)</li>
+        <li>Within a group of such records, we analyze the name of the object. If the names are similar, then we consider them duplicates. We use a library called <a href="https://github.com/seatgeek/fuzzywuzzy" target="_blank">FuzzyWuzzy</a> (which uses <a href="https://en.wikipedia.org/wiki/Levenshtein_distance" target="_blank">Levenshtein distance</a>) to compare two names (after the two names are "normalized", i.e. lowercased, punctuation and parenthesized content removed).</li>
+        <li>Groups of duplicate records are then "merged" into a single, combined record. In the case of lists of values, such as "subjects" and "honorees", the lists are unioned with duplicates removed. In the case of single-value fields like name or construction date, more "official" sources (e.g. National Park Service, Smithsonian) took preference. For the case of latitude and longitude, certain sources that we believe have good geocoding (e.g. Open Street Map) took preference.</li>
+      </ol>
+
+      <p><em>charts here</em></p>
+
+      <h2 id="study-set">The study set</h2>
+
+
+
+      <h3 id="data-model">Data model</h3>
+
+      <h3 id="accessing-the-data">Accessing the data</h3>
+
+      <h3 id="using-the-data">Using the data</h3>
+
+      <h2 id="technical-process">The technical process</h2>
+
+      <p>This section will go step-by-step for how the source data was retrieved, filtered, transformed, enriched, and published from a developer's persective using the audit codebase.</p>
+
+      <h3 id="data-retrieval">Data retrieval</h3>
+
+      <h3 id="data-ingestion">Data ingestion</h3>
+
+      <h3 id="data-enrichment">Data enrichment</h3>
+
+      <h3 id="data-indexing">Data indexing</h3>
+
+      <h3 id="data-publishing">Data publishing and interface</h3>
+
+    </main>
+
+  </div>
 
   <script src="js/vendor/jquery-3.5.1.min.js"></script>
   <script src="js/vendor/underscore-min.js"></script>
   <script src="js/vendor/md5.js"></script>
+  <script src="js/vendor/tocbot.min.js"></script>
 
   <script src="js/lib/dataTable.js"></script>
   <script src="js/lib/util.js"></script>

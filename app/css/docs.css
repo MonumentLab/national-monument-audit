@@ -11,3 +11,20 @@ li {
   padding: 1rem;
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 1360px) {
+  .content {
+    margin: 0;
+    margin-left: 266px;
+  }
+}
+
+.toc {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 246px;
+  height: 100%;
+  box-sizing: border-box;
+  border-right: 1px solid black;
+}
