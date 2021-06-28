@@ -297,32 +297,73 @@
 
       <h3 id="data-model">Data model</h3>
 
-      <p>This dataset is composed of records that have a mix of fields taken verbatim from the data source and there are some fields that Monument Lab generated using those fields. Some examples:</p>
+      <p>This dataset is composed of records that have a mix of fields taken verbatim from the data source and there are some fields that Monument Lab generated using those fields. Both unedited fields and generated fields are available within the study set. A full list of unedited fields taken directly from the data source are:</p>
 
-      <ol>
-        <li></li>
-      </ol>
-
-      <p>Both unedited fields and generated fields are available within the study set. A full list of unedited fields taken directly from the data source are:</p>
-
-      <ol>
-        <li></li>
-      </ol>
+      <table class="data-table">
+        <tr><th>Field name</th><th>Description</th></tr>
+        <tr><td>Name</td><td>The name of the monument</td></tr>
+        <tr><td>Alternate Name</td><td>The alternate name or subtitle for this monument</td></tr>
+        <tr><td>Vendor Entry Id</td><td>The identifier for this monument supplied by the data source</td></tr>
+        <tr><td>Image</td><td>A URL of an image of the monument. In the case of multiple images, this is the first visible image</td></tr>
+        <tr><td>Description</td><td>A long description of the monument</td></tr>
+        <tr><td>Text</td><td>The plaque or marker text with formatting removed</td></tr>
+        <tr><td>Source</td><td>The data source</td></tr>
+        <tr><td>URL</td><td>The URL of the data source's monument record</td></tr>
+        <tr><td>Street Address</td><td>The street address where the monument is located</td></tr>
+        <tr><td>City</td><td>The city where the monument is located</td></tr>
+        <tr><td>County</td><td>The county where the monument is located</td></tr>
+        <tr><td>State</td><td>The state where the monument is located</td></tr>
+        <tr><td>Latitude</td><td>The latitude of the location of the monument in degrees</td></tr>
+        <tr><td>Longitude</td><td>The longitude of the location of the monument in degrees</td></tr>
+        <tr><td>Location Description</td><td>An unstructured description of the location of the monument</td></tr>
+        <tr><td>Year Dedicated</td><td>The year that the monument was dedicated</td></tr>
+        <tr><td>Year Constructed</td><td>The year that the monument was constructed</td></tr>
+        <tr><td>Year Dedicated Or Constructed</td><td>The year that the monument was dedicated or constructed; whichever is available first</td></tr>
+        <tr><td>Object Types</td><td>List of the physical type(s) of the object (see <a href="#object-types">Object Types</a>)</td></tr>
+        <tr><td>Use Types</td><td>List of what this object is used for (e.g. military, religious purposes)</td></tr>
+        <tr><td>Subjects</td><td>List of open-ended categories or topics that this monument falls under (see <a href="#subjects">Subjects</a>)</td></tr>
+        <tr><td>Honorees</td><td>List of who or what the monument is honoring (see <a href="#honorees">Honorees</a>)</td></tr>
+        <tr><td>Creators</td><td>List of individuals involved in the construction/creation of this monument (architects, sculptors, foundries, etc)</td></tr>
+        <tr><td>Sponsors</td><td>List of entities that sponsored this monument</td></tr>
+        <tr><td>Dimensions</td><td>The physical dimensions of the monument (in a non-standard format)</td></tr>
+        <tr><td>Material</td><td>A description of material(s) that make up this monument</td></tr>
+        <tr><td>Status</td><td>A description of the monument's physical state (e.g. missing, removed, etc)</td></tr>
+        <tr><td>Year Removed</td><td>The year that the monument was removed</td></tr>
+        <tr><td>Wikipedia</td><td>Wikipedia identifier</td></tr>
+      </table>
 
       <p>A full list of generated fields are:</p>
 
-      <ol>
-        <li></li>
-      </ol>
+      <table class="data-table">
+        <tr><th>Field name</th><th>Description</th></tr>
+        <tr><td>Id</td><td>The unique identifier of this monument (it is a mix of the Vendor Entry Id and the Source Id)</td></tr>
+        <tr><td>Duplicate Of</td><td>The identifier of this record's "parent" record if it is a duplicate record</td></tr>
+        <tr><td>Duplicates</td><td>A list of identifiers of child records if this record is a merged records from duplicate records</td></tr>
+        <tr><td>Object Groups</td><td>The object group that this object belongs to (e.g. Marker, Monument, Building.) Merged records sometimes have multiple object groups since their child records may disagree. For merged records, if any one of its child records are a monument, it is considered a monument.</td></tr>
+        <tr><td>Object Group Reason</td><td>A list of reasons why an object was assigned a particular object group</td></tr>
+        <tr><td>Monument Types</td><td>A list of reasons why a monument was assigned a particular monument type</td></tr>
+        <tr><td>Entities People</td><td>A list of people that we believe this monument is honoring. See <a href="#honorees">Honorees</a> section</td></tr>
+        <tr><td>Ethnicity Represented</td><td>The ethnic group of the person being honored. See <a href="#honorees">Honorees</a> section</td></tr>
+        <tr><td>Gender Represented</td><td>The gender of the person being honored. See <a href="#honorees">Honorees</a> section</td></tr>
+        <tr><td>Entities Events</td><td>A list of events that we believe this monument is honoring. See <a href="#honorees">Honorees</a> section</td></tr>
+        <tr><td>Themes</td><td>The thematic category this monument falls into</td></tr>
+        <tr><td>Geo Type</td><td>The type of latitude/longitude this record has. See <a href="#geospatial-metadata">Geospatial metadata</a> section</td></tr>
+        <tr><td>County Geoid</td><td>The identifier of this record's county where the monument is located</td></tr>
+      </table>
 
       <h3 id="accessing-the-data">Accessing the data</h3>
 
       <p>There are two main ways to access the data:</p>
 
       <ol>
-        <li>Through the public online interface accessible through a desktop browser connected to the internet. This will be the way most people access the data since it provides a host of features that make it easy to search, browse, and filter through the study set. You can use the interface at this URL: </li>
+        <li>Through the public online interface accessible through a desktop browser connected to the internet. This will be the way most people access the data since it provides a host of features that make it easy to search, browse, and filter through the study set. You can use the interface at this URL: <a href="https://monumentlab.github.io/national-monument-audit/app/map.html">monumentlab.github.io/national-monument-audit/app/map.html</a></li>
 
         <li>We also make the data available through data-downloads in .csv format which can be read by most spreadsheet software such as Excel or Google Sheets. This is for users who are comfortable working directly with large datasets or those who want to make their own interfaces or visualizations. You can download these files directly via the links below:</li>
+
+        <!-- TODO -->
+        <ol>
+          <li>Note that if a cell is a list, it will be delimited by a `|` (pipe) character. If a cell has no value, it will simply be an empty cell.</li>
+        </ol>
       </ol>
 
       <h2 id="technical-process">The technical process</h2>
