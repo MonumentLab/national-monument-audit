@@ -7,18 +7,29 @@ import sys
 
 # input
 parser = argparse.ArgumentParser()
-parser.add_argument('-py', dest="PYTHON_NAME", default="python", help="Python command name, e.g. python or python3")
+parser.add_argument('-py', dest="PYTHON_NAME", default="", help="Python command name, e.g. python or python3")
+parser.add_argument('-entities', dest="PROCESS_ENTITIES", action="store_true", help="Also process entities?")
+parser.add_argument('-index', dest="PROCESS_INDEX", action="store_true", help="Also process index files?")
 parser.add_argument('-probe', dest="PROBE", action="store_true", help="Only output commands?")
 a = parser.parse_args()
 
+PYTHON_NAME = a.PYTHON_NAME if len(a.PYTHON_NAME) > 0 else sys.executable
+
 commands = [
-    [a.PYTHON_NAME, "ingest.py"],
-    [a.PYTHON_NAME, "extract_entities.py"],
-    [a.PYTHON_NAME, "normalize_entities.py"],
-    [a.PYTHON_NAME, "resolve_entities.py"],
-    [a.PYTHON_NAME, "visualize_entities.py"],
-    [a.PYTHON_NAME, "index.py"]
+    [PYTHON_NAME, "ingest.py"]
 ]
+if a.PROCESS_ENTITIES:
+    commands += [
+        [PYTHON_NAME, "extract_entities.py"],
+        [PYTHON_NAME, "normalize_entities.py"],
+        [PYTHON_NAME, "resolve_entities.py"],
+        [PYTHON_NAME, "visualize_entities.py"],
+        [PYTHON_NAME, "ingest.py"]
+    ]
+if a.PROCESS_INDEX:
+    commands += [
+        [PYTHON_NAME, "index.py"]
+    ]
 count = len(commands)
 
 for i, command in enumerate(commands):

@@ -111,7 +111,7 @@
 
       <p><em>chart here</em></p>
 
-      <p>How the geospatial information was obtained is reflected in a new data field that is generated called "Geo Type." This field has one of five values:</p>
+      <p>How the geospatial information was obtained is reflected in a new data field that is generated called "Geo Type." This field has one of six values:</p>
 
       <ol>
         <li><strong>Exact coordinates provided</strong> - lat/lon coordinates are provided by data source and they are likely valid</li>
@@ -119,6 +119,7 @@
         <li><strong>Geocoded based on street address provided</strong> - lat/lon coordinates obtained by geocoding street address with <a href="https://wiki.openstreetmap.org/wiki/Nominatim" target="_blank">Nominatim</a> geocoding service</li>
         <li><strong>No valid geographic data provided</strong> - street address was provided, but no valid lat/lon coordinate could be found</li>
         <li><strong>No geographic data provided</strong> - neither lat/lon nor street address were provided by data source</li>
+        <li><strong>Coordinates manually corrected from original</strong> - in rare cases, we manually correct lat/lon coordinate for those that we have confirmed inaccurate.</li>
       </ol>
 
       <h3 id="dates">Dates</h3>
