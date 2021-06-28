@@ -44,6 +44,8 @@ If you will be doing name entity extraction, you must also download the corpus:
 python -m spacy download en_core_web_sm
 ```
 
+Unzip [./data/wikidata.zip](https://github.com/MonumentLab/national-monument-audit/tree/main/data/wikidata.zip) into `./data/wikidata/`. This contains pre-processed Wikidata used for entity linking. If you don't do this, entity linking will be done from scratch and will take a long time to process.
+
 ## Adding new data sources
 
 1. Create a new .json file in folder [./config/ingest/](https://github.com/MonumentLab/national-monument-audit/tree/main/config/ingest). You can copy the contents of an existing .json file as a template
