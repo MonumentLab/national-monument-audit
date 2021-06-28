@@ -81,6 +81,18 @@
 
       <h3 id="quirks">Data source quirks</h3>
 
+      <p>While many of the data sources contain their own quirks, this section will highlight quirks in the larger, more visible data sources in the study set.</p>
+
+      <ol>
+        <li><a href="https://www.hmdb.org/" target="_blank">HMdb</a> is a crowd-sourced website and a major part of the study set. The major quirk of this data source is that <strong>they focus on <em>historical markers</em></strong> even if the marker describes an adjacent monument or memorial. So there are many records that are technically about a marker, but the marker exists to support and describe an adjacent monument. For example, this <a href="https://www.hmdb.org/m.asp?m=109322" target="_blank">entry about the Washington Monument</a> is one of <a href="https://www.hmdb.org/m.asp?m=70930" target="_blank">a</a> <a href="https://www.hmdb.org/m.asp?m=47332" target="_blank">few</a> HMdb entries that represent markers that surround and describe the Washington Monument. <strong>The monument itself does not have an entry on HMdb.</strong> So in this case, we attempt to merge all the markers about the Washington Monument on HMdb into a single record about the Washinton Monument itself. We do this through the <a href="#duplicates">de-duplication process</a> as well as analyzing the captions under the images on HMdb.</li>
+
+        <li>The Smithsonian Institution's <a href="https://americanart.si.edu/research/inventories/outdoor-sculpture" target="_blank">Save Outdoor Sculpture!</a> dataset is very comprehensive and very well-described. The major flaw in this dataset is that the latitude and longitude was not originally collected when this dataset was created, so it was subsequentially geocoded by the Smithsonian. <strong>This resulted in variably inaccurate geolocations</strong>. These can be off slightly or significantly. These are often represented by clusters of points on the map (likely the center of a city or town.) To get a sense of the extent of the problem, approximately half of the SoS data records are within a cluster of 10 or more records, which indicate that they are likely inaccurate coordinates. Of those inaccurate records, we attempt to do our own geocoding (based on their location description) which provides potentially better coordinates of about 40% of those records. All in all, if you see a record from SoS, <strong>use its location data with caution</strong>. It's likely best to look at it's address or location description to find it's real location. One other quirk in this dataset is that it was created between 1990 and 1995, which means <strong>it's missing monuments that have been erected or removed since 1995</strong>.</li>
+
+        <li><a href="https://openstreetmap.org/" target="_blank">Open Street Map</a> provides information about <a href="https://wiki.openstreetmap.org/wiki/Tag%3Ahistoric%3Dmonument" target="_blank">historic monuments</a> and <a href="https://wiki.openstreetmap.org/wiki/Key:memorial" target="_blank">memorials</a> with highly accurate geographical precision. However, they use <a href="https://wiki.openstreetmap.org/wiki/Tag%3Ahistoric%3Dmonument" target="_blank">a very specific definition of a monument</a>  that can be intepreted inconsistently by Open Street Map contributors, resulting in <strong>objects that may not fit our definition of monument</strong>. Additionally, OSM records <strong>often do not contain much more metadata beyond the monument's name and location</strong>, so it is difficult to further categorize or validate. Usually we rely on the <a href="#duplicates">de-duplication process</a> to match OSM records to records from other data sources to get more metadata about them.</li>
+
+        <li><a href="https://www.nps.gov/subjects/nationalregister/index.htm" target="_blank">National Register of Historic Places</a> is unique in that <strong>many data sources refer or build upon NRHP data records</strong>. This creates many potential duplication across data sources that build upon this data. When possible, we use the NRHP reference number to identify duplication of an NRHP across data sources before it is processed. Otherwise, we rely on the <a href="#duplicates">de-duplication process</a> to identify NRHP duplicates across data sources.</li>
+      </ol>
+
       <h2 id="metadata">Metadata</h2>
 
       <p>Different data sources had different metadata available. The quality and consistency of the metadata also varied across the different data sources. This section will describe the inconsistencies and quirks of the source data and how data quality was addressed for the purposes of creating the study set.</p>
@@ -270,19 +282,47 @@
 
       <p><em>charts here</em></p>
 
+      <p>There is one special case for duplication which are records in the <a href="https://www.nps.gov/subjects/nationalregister/index.htm" target="_blank">National Register of Historic Places</a>. There are a number of state and local data sources that contain NRHP records and crowd-sourced sources such as Open Street Map often build upon NRHP data. When possible, we use the NRHP reference number to identify duplication of an NRHP across data sources. This happens as a pre-process step, so redundant NRHP records are ignored before they are processed and entered into the study set unless they contain additional metadata (like in Open Street Map.)</p>
+
       <h2 id="study-set">The study set</h2>
 
-
+      <p>As mentioned before, the Audit’s final and official dataset generated from the Audit's data sources is called the "Study set", which attempts to include only records about monuments. This is not complete and has known gaps. It also inherits the various issues of its data sources. It attempts to exclude non-monument objects like buildings, bridges, streets, and place names.</p>
 
       <h3 id="data-model">Data model</h3>
 
+      <p>This dataset is composed of records that have a mix of fields taken verbatim from the data source and there are some fields that Monument Lab generated using those fields. Some examples:</p>
+
+      <ol>
+        <li></li>
+      </ol>
+
+      <p>Both unedited fields and generated fields are available within the study set. A full list of unedited fields taken directly from the data source are:</p>
+
+      <ol>
+        <li></li>
+      </ol>
+
+      <p>A full list of generated fields are:</p>
+
+      <ol>
+        <li></li>
+      </ol>
+
       <h3 id="accessing-the-data">Accessing the data</h3>
 
-      <h3 id="using-the-data">Using the data</h3>
+      <p>There are two main ways to access the data:</p>
+
+      <ol>
+        <li>Through the public online interface accessible through a desktop browser connected to the internet. This will be the way most people access the data since it provides a host of features that make it easy to search, browse, and filter through the study set. You can use the interface at this URL: </li>
+
+        <li>We also make the data available through data-downloads in .csv format which can be read by most spreadsheet software such as Excel or Google Sheets. This is for users who are comfortable working directly with large datasets or those who want to make their own interfaces or visualizations. You can download these files directly via the links below:</li>
+      </ol>
 
       <h2 id="technical-process">The technical process</h2>
 
-      <p>This section will go step-by-step for how the source data was retrieved, filtered, transformed, enriched, and published from a developer's persective using the audit codebase.</p>
+      <p>Please visit this <a href="https://github.com/MonumentLab/national-monument-audit#national-monument-audit" target="_blank">Github code repository</a> for technical details of the data process and interface</p>
+
+      <!-- <p>This section will go step-by-step for how the source data was retrieved, filtered, transformed, enriched, and published from a developer's persective using the audit codebase.</p>
 
       <h3 id="data-retrieval">Data retrieval</h3>
 
@@ -292,7 +332,7 @@
 
       <h3 id="data-indexing">Data indexing</h3>
 
-      <h3 id="data-publishing">Data publishing and interface</h3>
+      <h3 id="data-publishing">Data publishing and interface</h3> -->
 
     </main>
 
