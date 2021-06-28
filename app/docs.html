@@ -47,14 +47,14 @@
 
       <ol>
         <li>This document does <em>NOT</em> include the process for how the data sources were discovered, selected, or vetted. This will be articulated in the Audit itself, but is not in the scope of this document which focuses on how the data was processed after it was selected.</li>
-        <li>This document outlines what data sources were used and which data fields were used for the study set</li>
-        <li>This document describes the data ingest process, i.e. how raw data from data sources were retrieved, filtered, and transformed into the study set</li>
-        <li>This document describes how a specific data record was determined to be a monument and thus part of the study set</li>
-        <li>This document describes the data model of an individual record in the study set</li>
-        <li>This document describes how geographical and temporal data was handled</li>
-        <li>This document describes how People and Events were identified as honorees of their respective monuments</li>
-        <li>This document describes how duplicate records across different data sources were identified and handled</li>
-        <li>This document gives an overview of the codebase and instructions for how to reproduce the data process with the existing or new data</li>
+        <li>This document outlines what data sources were used and which data fields were used for the study set.</li>
+        <li>This document describes the data ingest process, i.e. how raw data from data sources were retrieved, filtered, and transformed into the study set.</li>
+        <li>This document describes how a specific data record was determined to be a monument and thus part of the study set.</li>
+        <li>This document describes the data model of an individual record in the study set.</li>
+        <li>This document describes how geographical and temporal data was handled.</li>
+        <li>This document describes how People and Events were identified as honorees of their respective monuments.</li>
+        <li>This document describes how duplicate records across different data sources were identified and handled.</li>
+        <li>This document does NOT describe the codebase or give instructions for how to reproduce the data process with the existing or new data. You can visit the project's [Github code repository](https://github.com/MonumentLab/national-monument-audit#national-monument-audit) for that information.</li>
       </ol>
 
       <h2 id="data-sources">Data sources</h2>
@@ -78,6 +78,12 @@
       <p>Breakdown of data sources by source type</p>
 
       <p><em>chart here</em></p>
+
+      <h3 id="full-data-sources">Full list of data sources</h3>
+
+      <p>Click "show details" button to view which fields were used, how the fields were mapped, and any other notes about how the data was processed</p>
+
+      <p><em>table here</em></p>
 
       <h3 id="quirks">Data source quirks</h3>
 
@@ -115,7 +121,7 @@
 
       <ol>
         <li><strong>Exact coordinates provided</strong> - lat/lon coordinates are provided by data source and they are likely valid</li>
-        <li><strong>Approximate coordinates provided</strong> - lat/lon coordinates are provided by data source but they are likely inaccurate; these are not used in the map visualizations of the data</li>
+        <li><strong>Approximate coordinates provided</strong> - lat/lon coordinates are provided by data source but they are likely inaccurate; when possible (if street address is present), we attempt to geocode these ourselves. Otherwise, a warning appears in the interface for these likely inaccurate records.</li>
         <li><strong>Geocoded based on street address provided</strong> - lat/lon coordinates obtained by geocoding street address with <a href="https://wiki.openstreetmap.org/wiki/Nominatim" target="_blank">Nominatim</a> geocoding service</li>
         <li><strong>No valid geographic data provided</strong> - street address was provided, but no valid lat/lon coordinate could be found</li>
         <li><strong>No geographic data provided</strong> - neither lat/lon nor street address were provided by data source</li>
@@ -322,18 +328,6 @@
       <h2 id="technical-process">The technical process</h2>
 
       <p>Please visit this <a href="https://github.com/MonumentLab/national-monument-audit#national-monument-audit" target="_blank">Github code repository</a> for technical details of the data process and interface</p>
-
-      <!-- <p>This section will go step-by-step for how the source data was retrieved, filtered, transformed, enriched, and published from a developer's persective using the audit codebase.</p>
-
-      <h3 id="data-retrieval">Data retrieval</h3>
-
-      <h3 id="data-ingestion">Data ingestion</h3>
-
-      <h3 id="data-enrichment">Data enrichment</h3>
-
-      <h3 id="data-indexing">Data indexing</h3>
-
-      <h3 id="data-publishing">Data publishing and interface</h3> -->
 
     </main>
 
