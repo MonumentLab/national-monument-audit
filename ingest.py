@@ -22,7 +22,7 @@ parser.add_argument('-model', dest="DATA_MODEL_FILE", default="config/data-model
 parser.add_argument('-app', dest="APP_DIRECTORY", default="app/", help="App directory")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
 parser.add_argument('-geo', dest="GEOCACHE_FILE", default="data/preprocessed/geocoded.csv", help="Cached csv file for storing geocoded addresses")
-parser.add_argument('-ent', dest="ENTITIES_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Input entities file")
+parser.add_argument('-ent', dest="ENTITIES_FILE", default="data/preprocessed/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Input entities file")
 parser.add_argument('-county', dest="COUNTIES_GEO_FILE", default="app/data/counties.json", help="County geojson file (generated from make_boundaries.py)")
 parser.add_argument('-countycache', dest="COUNTIES_CACHE_FILE", default="data/preprocessed/counties_matched.csv", help="Cached csv file for storing lat/lon matched against county data")
 parser.add_argument('-validate', dest="VALIDATION_FILE", default="data/validation_set.csv", help="CSV file of entries for validation")

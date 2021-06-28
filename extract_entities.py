@@ -22,7 +22,7 @@ parser.add_argument('-props', dest="PROPERTIES", default="Name,Alternate Name,Ho
 parser.add_argument('-tprops', dest="TEXT_PROPERTIES", default="Text,Description", help="Comma separated list of free-text properties to look at")
 parser.add_argument('-types', dest="TYPES", default="PERSON,NORP,ORG,EVENT", help="Comma separated list of entity types to extract: https://spacy.io/api/annotation#named-entities")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
-parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities.csv", help="Output file")
+parser.add_argument('-out', dest="OUTPUT_FILE", default="data/preprocessed/monumentlab_national_monuments_audit_entities.csv", help="Output file")
 parser.add_argument('-overwrite', dest="OVERWRITE", action="store_true", help="If output file exists, overwrite it? (otherwise, it will just be updated with new records)")
 parser.add_argument('-update', dest="UPDATE_PROPERTIES", default="", help="If you just want to update specific fields, comma separated list of properties to update")
 parser.add_argument('-debug', dest="DEBUG", action="store_true", help="Just output debug details and don't write data?")

@@ -16,11 +16,11 @@ from lib.string_utils import *
 
 # input
 parser = argparse.ArgumentParser()
-parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities.csv", help="Input .csv data file")
+parser.add_argument('-in', dest="INPUT_FILE", default="data/preprocessed/monumentlab_national_monuments_audit_entities.csv", help="Input .csv data file")
 parser.add_argument('-add', dest="ADD_ENTITIES", default="data/entities_add.csv", help="Input .csv data file that contains entities to add")
 parser.add_argument('-alias', dest="ALIAS_FILE", default="data/entities_aliases.csv", help="Input .csv data file with synonyms")
 parser.add_argument('-filter', dest="FILTER", default="", help="Filter query")
-parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_normalized.csv", help="Output file")
+parser.add_argument('-out', dest="OUTPUT_FILE", default="data/preprocessed/monumentlab_national_monuments_audit_entities_normalized.csv", help="Output file")
 parser.add_argument('-stats', dest="STATS_OUTPUT_FILE", default="tmp/entities_type_%s.csv", help="Output stats file pattern")
 parser.add_argument('-probe', dest="PROBE",  default=0, type=int, help="Just output details and don't write data?")
 a = parser.parse_args()

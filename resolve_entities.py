@@ -16,9 +16,9 @@ from lib.string_utils import *
 
 # input
 parser = argparse.ArgumentParser()
-parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_normalized.csv", help="Input .csv data file")
+parser.add_argument('-in', dest="INPUT_FILE", default="data/preprocessed/monumentlab_national_monuments_audit_entities_normalized.csv", help="Input .csv data file")
 parser.add_argument('-filter', dest="FILTER", default="Type=PERSON OR Type=EVENT", help="Filter query")
-parser.add_argument('-out', dest="OUTPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_resolved.csv", help="Output file")
+parser.add_argument('-out', dest="OUTPUT_FILE", default="data/preprocessed/monumentlab_national_monuments_audit_entities_resolved.csv", help="Output file")
 parser.add_argument('-stats', dest="STATS_OUTPUT_FILE", default="tmp/resolved_entities.csv", help="Output stats file pattern")
 parser.add_argument('-wdir', dest="WIKI_DATA_DIR", default="data/wikidata/", help="Output directory for storing wikidata responses")
 parser.add_argument('-count', dest="MINIMUM_COUNT",  default=10, type=int, help="Resolve if count above this number?")

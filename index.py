@@ -14,7 +14,7 @@ from lib.string_utils import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Input .csv data file")
-# parser.add_argument('-entities', dest="ENTITIES_FILE", default="data/compiled/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Input entities .csv data file")
+# parser.add_argument('-entities', dest="ENTITIES_FILE", default="data/preprocessed/monumentlab_national_monuments_audit_entities_for_indexing.csv", help="Input entities .csv data file")
 parser.add_argument('-filter', dest="FILTER", default="", help="Filter string")
 parser.add_argument('-config', dest="CONFIG_FILE", default="config/data-model.json", help="Input config .json file")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
