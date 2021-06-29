@@ -97,7 +97,8 @@ var Map = (function() {
     } else {
       var itemParams = {'id': id}
       itemUrl = 'item.html?' + $.param(itemParams);
-      html += '<h3>'+indexString+'<a href="'+itemUrl+'"  target="_blank">'+name+'</a></h3>';
+      // html += '<h3>'+indexString+'<a href="'+itemUrl+'"  target="_blank">'+name+'</a></h3>';
+      html += '<h3>'+indexString+'<a href="'+itemUrl+'" data-url="'+itemUrl+'" class="item-modal-button" target="_blank">'+name+'</a></h3>';
     }
 
     // display source
@@ -128,7 +129,10 @@ var Map = (function() {
 
     // display report a problem
     if (!linkToMap) {
-      html += '<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSchwiivhPxl6DGxdrO0Bk56zaa73AwzAH-GWt44Pmmnr2HDhQ/viewform?usp=sf_link&entry.846962896='+name+'&entry.632814286='+BASE_URL+itemUrl+'" class="small button" target="_blank">Report a problem</a></p>'
+      html += '<p>'
+        html += '<button class="small item-modal-button" data-url="'+itemUrl+'">View full record</button>';
+        html += '<a href="https://docs.google.com/forms/d/e/1FAIpQLSchwiivhPxl6DGxdrO0Bk56zaa73AwzAH-GWt44Pmmnr2HDhQ/viewform?usp=sf_link&entry.846962896='+name+'&entry.632814286='+BASE_URL+itemUrl+'" class="small button" target="_blank">Report a problem</a>';
+      html += '</p>';
     }
 
     return html;
@@ -329,6 +333,8 @@ var Map = (function() {
     this.$facetSearchResults = $('#facet-search-results');
     this.$facetSearchInput = $('#search-facet-input');
     this.$colorKey = $('#color-key');
+    this.$itemModal = $('#item-modal');
+    this.$itemModalContent = $('#item-modal-content');
     this.facets = {};
     this.size = parseInt(this.opt.size);
     this.start = parseInt(this.opt.start);
@@ -448,6 +454,11 @@ var Map = (function() {
     $('body').on('click', '.apply-facet', function(e){
       var $el = $(this);
       _this.applyFacet($el.attr('data-field'), $el.attr('data-value'));
+    });
+
+    $('body').on('click', '.item-modal-button', function(e){
+      e.preventDefault();
+      _this.renderItemModal($(this).attr('data-url'));
     });
 
     $('.close-modal').on('click', function(e){
@@ -958,6 +969,16 @@ var Map = (function() {
 
     if (html.length > 0) this.$info.addClass('active');
     else this.$info.removeClass('active');
+  };
+
+  Map.prototype.renderItemModal = function(url){
+    var html = '';
+
+    html += '<a href="'+url+'" target="_blank" class="button">Open in new window</a>'
+    html += '<iframe src="'+url+'"></iframe>';
+
+    this.$itemModalContent.html(html);
+    this.$itemModal.addClass('active');
   };
 
   Map.prototype.renderMap = function(){

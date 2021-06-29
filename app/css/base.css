@@ -23,6 +23,7 @@ button {
   border-radius: 0;
   white-space: nowrap;
   box-sizing: border-box;
+  line-height: 1.15;
 }
 a {
   color: #333;
