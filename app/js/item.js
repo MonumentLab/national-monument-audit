@@ -7,14 +7,15 @@ var Item = (function() {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
       'id': '',
       'displayFields': ['alternate_name', 'image', 'description', 'text', 'source', 'sources', 'url', 'street_address', 'city', 'county', 'state', 'latlon', 'location_description', 'year_dedicated_or_constructed', 'object_types_search', 'use_types', 'subjects_search', 'honorees_search', 'creators_search', 'sponsors_search', 'dimensions', 'material', 'status', 'year_removed', 'vendor_entry_id', 'wikipedia'],
-      'generatedFields': ['duplicate_of', 'duplicates', 'object_groups', 'object_group_reason', 'monument_types', 'entities_people', 'ethnicity_represented', 'gender_represented', 'entities_events', 'themes', 'geo_type', 'county_geoid']
+      'generatedFields': ['duplicate_of', 'duplicates', 'object_groups', 'object_group_reason', 'monument_types', 'entities_people', 'ethnicity_represented', 'gender_represented', 'entities_events', 'themes', 'geo_type', 'county_geoid'],
+      'embedded': false
     };
     var q = Util.queryParams();
     this.opt = _.extend({}, defaults, config, q);
     this.init();
   }
 
-  function fieldToHTML(value, key, fields){
+  function fieldToHTML(value, key, fields, isEmbedded){
     var isList = Array.isArray(value);
     var html = '<tr>';
       html += '<td>'+key.replace('_search', '').replaceAll('_', ' ')+'</td>';
@@ -33,10 +34,11 @@ var Item = (function() {
         value = _.map(value, function(v){
           var params = {
             q: '',
-            facets: key + '~' + v
+            facets: key + '~' + v + '__object_groups~Monument__is_duplicate~0', // e.g. facetName1~value1!!value2!!value3__facetName2~value1
           };
           var facetUrl = 'map.html?' + $.param(params);
-          return '<a href="'+facetUrl+'" class="button">'+v+'</a>';
+          var target = isEmbedded ? ' target="_parent"' : '';
+          return '<a href="'+facetUrl+'" class="button" '+target+'>'+v+'</a>';
         })
         value = value.join(' ');
       } else if (key === 'url') {
@@ -59,6 +61,7 @@ var Item = (function() {
 
   Item.prototype.init = function(){
     this.id = this.opt.id;
+    this.isEmbedded = (this.opt.embedded !== false);
     this.load();
   };
 
@@ -147,6 +150,7 @@ var Item = (function() {
     var allFields = this.allFields;
     var displayFields = this.opt.displayFields;
     var generatedFields = this.opt.generatedFields;
+    var isEmbedded = this.isEmbedded;
 
     html += '<ul class="result-list">';
     _.each(results, function(result, i){
@@ -178,7 +182,7 @@ var Item = (function() {
         html += '<table class="data-table">';
         _.each(displayFields, function(key){
           if (_.has(fields, key)) {
-            html += fieldToHTML(fields[key], key, fields);
+            html += fieldToHTML(fields[key], key, fields, isEmbedded);
           }
         });
         html += '</table>';
@@ -186,7 +190,7 @@ var Item = (function() {
         html += '<table class="data-table generated">';
         _.each(generatedFields, function(key){
           if (_.has(fields, key)) {
-            html += fieldToHTML(fields[key], key, fields);
+            html += fieldToHTML(fields[key], key, fields, isEmbedded);
           }
         });
         html += '</table>';

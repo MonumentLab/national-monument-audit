@@ -98,7 +98,7 @@ var Map = (function() {
       var itemParams = {'id': id}
       itemUrl = 'item.html?' + $.param(itemParams);
       // html += '<h3>'+indexString+'<a href="'+itemUrl+'"  target="_blank">'+name+'</a></h3>';
-      html += '<h3>'+indexString+'<a href="'+itemUrl+'" data-url="'+itemUrl+'" class="item-modal-button" target="_blank">'+name+'</a></h3>';
+      html += '<h3>'+indexString+'<a href="'+itemUrl+'" data-url="'+itemUrl+'&embedded=1" class="item-modal-button" target="_blank">'+name+'</a></h3>';
     }
 
     // display source
@@ -130,7 +130,7 @@ var Map = (function() {
     // display report a problem
     if (!linkToMap) {
       html += '<p>'
-        html += '<button class="small item-modal-button" data-url="'+itemUrl+'">View full record</button>';
+        html += '<button class="small item-modal-button" data-url="'+itemUrl+'&embedded=1">View full record</button>';
         html += '<a href="https://docs.google.com/forms/d/e/1FAIpQLSchwiivhPxl6DGxdrO0Bk56zaa73AwzAH-GWt44Pmmnr2HDhQ/viewform?usp=sf_link&entry.846962896='+name+'&entry.632814286='+BASE_URL+itemUrl+'" class="small button" target="_blank">Report a problem</a>';
       html += '</p>';
     }
