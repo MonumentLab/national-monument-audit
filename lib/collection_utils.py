@@ -109,29 +109,44 @@ def filterByQueryString(arr, str):
 def flattenList(arr):
     return [item for sublist in arr for item in sublist]
 
-def getCountPercentages(arr, key, presence=False, otherTreshhold=None):
+def getCountPercentages(arr, key, presence=False, otherTreshhold=None, excludeEmpty=False):
+    if excludeEmpty:
+        arr = [item for item in arr if key in item and str(item[key]).strip() != ""]
     arrLen = len(arr)
     counts = getCounts(arr, key, presence)
     data = []
     for value, count in counts:
         if value == "":
+            if excludeEmpty:
+                continue
             value = "<empty>"
         percent = round(1.0 * count / arrLen * 100.0, 2)
-        data.append({"value": value, "percent": percent})
+        data.append({"value": value, "percent": percent, "count": count})
     # always make "yes" first
     if presence:
         data = sorted(data, key=lambda d: d["value"], reverse=True)
     if otherTreshhold is not None and len(data) > otherTreshhold:
         otherData = data[otherTreshhold:]
         data = data[:otherTreshhold]
-        otherSum = sum([d["percent"] for d in otherData])
-        data.append({"value": "other", "percent": otherSum})
+        otherCount = sum([d["count"] for d in otherData])
+        otherPercent = sum([d["percent"] for d in otherData])
+        otherPercent = round(otherPercent, 2)
+        data.append({"value": "other", "percent": otherPercent, "count": otherCount})
     return data
 
 def getCounts(arr, key=False, presence=False):
     values = arr[:]
     if key is not False:
-        values = [str(v[key]).strip() if key in v else "" for v in arr]
+        values = []
+        for item in arr:
+            value = ""
+            if key in item:
+                value = item[key]
+            if isinstance(value, list) and not presence:
+                values += value
+            else:
+                values.append(value)
+        values = [str(v).strip() for v in values]
     if presence:
         values = ["no" if len(v) < 1 else "yes" for v in values]
     counter = collections.Counter(values)

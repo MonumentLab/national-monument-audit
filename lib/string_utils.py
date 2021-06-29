@@ -242,6 +242,12 @@ def normalizeWhitespace(value):
     value = value.strip()
     return value
 
+def parseList(value, delimeter):
+    if not isinstance(value, str) or delimeter not in value:
+        return value
+    arr = [v.strip() for v in value.split(delimeter)]
+    return arr
+
 def padNum(number, total):
     padding = len(str(total))
     return str(number).zfill(padding)

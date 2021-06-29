@@ -61,29 +61,23 @@
 
       <h3 id="by-the-numbers">By the numbers</h3>
 
-      <p>For this audit, {{dataRecordTotal}} data records were retrieved and analyzed from {{dataSourceTotal}} data sources to generate a study set of {{totalMonuments}} data records that are believed to represent monuments.</p>
+      <p id="stats-summary">For this audit, <strong>{{dataRecordTotal}}</strong> data records were retrieved and analyzed from <strong>{{dataSourceTotal}}</strong> data sources to generate a study set of <strong>{{totalMonuments}}</strong> data records that are believed to represent monuments.</p>
 
       <p>Share of records, pre-study set (before excluding non-monument data records)</p>
 
-      <p><em>chart here</em></p>
+      <div id="data-sources-share-prestudy" class="data-container"></div>
 
       <p>Share of records, study set (monument data records only)</p>
 
-      <p><em>chart here</em></p>
+      <div id="data-sources-share-study" class="data-container"></div>
 
-      <p>Breakdown of data sources by spatial coverage</p>
-
-      <p><em>chart here</em></p>
-
-      <p>Breakdown of data sources by source type</p>
-
-      <p><em>chart here</em></p>
+      <p><em>Note: from here on in, all numbers will be based on the study set (monument data records only) and not non-monument records</em></p>
 
       <h3 id="full-data-sources">Full list of data sources</h3>
 
       <p>Click "show details" button to view which fields were used, how the fields were mapped, and any other notes about how the data was processed</p>
 
-      <p><em>table here</em></p>
+      <div id="data-sources-list" class="data-sources">Loading...</div>
 
       <h3 id="quirks">Data source quirks</h3>
 
@@ -107,15 +101,15 @@
 
       <p>Most data records have latitude and longitude available. In many cases the data source itself was in a geospatial format (e.g. <a href="https://en.wikipedia.org/wiki/GeoJSON" target="_blank">geojson</a>, <a href="https://en.wikipedia.org/wiki/Shapefile" target="_blank">shapefile</a>) but needed to be re-projected into a <a href="https://en.wikipedia.org/wiki/World_Geodetic_System" target="_blank">WGS 84 projection</a> using <a href="https://www.qgis.org/en/site/" target="_blank">QGIS</a>.</p>
 
-      <p><em>chart here</em></p>
+      <!-- <div id="geo-latlon-available" class="data-container"></div> -->
 
       <p>However, there are many records that seem to have automatically generated their lat/lon coordinates. In some cases, this results in incorrect or inaccurate coordinates (e.g. placing it in the center of a state or city.) We attempt to filter these out by identifying clusters of data records that have the same lat/lon coordinate.</p>
 
-      <p><em>chart here</em></p>
+      <!-- <div id="geo-latlon-approximate" class="data-container"></div> -->
 
       <p>In the case where there is not lat/lon coordinate, but there is a full street address, city, and state, we attempt to geocode these using <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>'s <a href="https://wiki.openstreetmap.org/wiki/Nominatim" target="_blank">Nominatim</a> geocoding service. Note we use this <em>only</em> when all three street address, city, and state are present. And we only accept the result if the coordinates are within the expected state.</p>
 
-      <p><em>chart here</em></p>
+      <!-- <div id="geo-latlon-geocoded" class="data-container"></div> -->
 
       <p>How the geospatial information was obtained is reflected in a new data field that is generated called "Geo Type." This field has one of six values:</p>
 
@@ -127,6 +121,8 @@
         <li><strong>No geographic data provided</strong> - neither lat/lon nor street address were provided by data source</li>
         <li><strong>Coordinates manually corrected from original</strong> - in rare cases, we manually correct lat/lon coordinate for those that we have confirmed inaccurate.</li>
       </ol>
+
+      <div id="geo-latlon-by-type" class="data-container"></div>
 
       <h3 id="dates">Dates</h3>
 
@@ -140,7 +136,7 @@
         <li>Date commissioned <em>(rare)</em></li>
       </ol>
 
-      <p><em>chart here</em></p>
+      <div id="dates-availability" class="data-container"></div>
 
       <p>Some things to note about dates:</p>
 
@@ -156,13 +152,19 @@
 
       <p>Some data sources provide information about the physical form of the object. This can be very broad groups such as "Monument", "Building", or "Marker" or it can be very specific such as "Bench", "Fountain", "Relief." These values are not consistent across different data sources and the different data sources track these with different levels of strictness and specificity. When available, we heavily rely on this field when determining if an object is a monument (see section <a href="#what-is-a-monument">What is a monument?</a>).</p>
 
-      <p><em>chart here</em></p>
+      <div id="object-types-availability" class="data-container"></div>
+
+      <div id="object-types-by-type" class="data-container"></div>
+
+      <p>We attempt to disambiguate and normalize object types into major groups, in particular, monument and non-monument groups. See <a href="#what-is-a-monument">What is a monument?</a> section.</p>
+
+      <div id="object-groups-by-type" class="data-container"></div>
 
       <h3 id="honorees">Honorees</h3>
 
       <p>Very few data sources specify who or what is being honored:</p>
 
-      <p><em>chart here</em></p>
+      <div id="honorees-availability" class="data-container"></div>
 
       <p>For records that do not have honoree information (most records), in order to understand who or what is being honored, we try to automatically determine this through a process of <a href="https://en.wikipedia.org/wiki/Named-entity_recognition" target="_blank">entity extraction</a> and <a href="https://en.wikipedia.org/wiki/Entity_linking" target="_blank">entity linking</a>. This process is roughly as follows:</p>
 
@@ -209,29 +211,29 @@
         </li>
       </ol>
 
-      <p><em>chart here</em></p>
-
       <p>Note: We originally also analyzed plaque and marker text, but even though it helped identify more people and events, it resulting in too many false positives. For example, a civil war monument may quote Abraham Lincoln in the plaque, but may not be a monument about Lincoln himself. Therefore, in the case of Lincoln, we will only consider a monument honoring him if his name appears in the name of the monument, listed explicitly as an honoree, or contained within the monument description.</p>
 
-      <p><em>chart here</em></p>
+      <div id="top-entities-people" class="data-container"></div>
+
+      <div id="top-entities-events" class="data-container"></div>
 
       <h3 id="text">Plaque or marker text</h3>
 
       <p>About a third of the records contained the inscribed text that accompanies the object, such as the text on an embedded plaque or on an adjacent marker. This text is often very rich with a variety of formats (e.g. quotations, lists of names, narratives)</p>
 
-      <p><em>chart here</em></p>
+      <div id="text-availability" class="data-container"></div>
 
       <h3 id="subjects">Subjects</h3>
 
       <p>Some sources categorized their objects in a variety of structured and undstructured ways. These would be referred to as fields like "Topic", "Tag", "Type", "Category", "Subject", etc. These are rarely consistent across data sources. Sometimes they contain broad topics (e.g. "Settlements & Settlers"), events ("U.S. Civil War"), groups of people ("Native Americans"), use types ("Cemeteries & Burial Sites"), or physical properties ("Abstract".) These fields are used when keyword searching, for determining if an object is a monument (see section <a href="#what-is-a-monument">What is a monument?</a>), and for determining if they fall under certain themes (e.g. War &amp; Weaponary.)</p>
 
-      <p><em>chart here</em></p>
+      <div id="subjects-availability" class="data-container"></div>
 
       <h3 id="other-fields">Other fields of interest</h3>
 
       <p>There were other fields that would have been more useful if more sources provided them, but only a small fraction of sources provided them. This includes creators (architect, sculptor, artist, foundry, etc), sponsors, and status (removed, missing, still there, etc).</p>
 
-      <p><em>charts here</em></p>
+      <div id="misc-availability" class="data-container"></div>
 
       <h2 id="what-is-a-monument">What is a monument?</h2>
 
@@ -287,7 +289,7 @@
         <li>Groups of duplicate records are then "merged" into a single, combined record. In the case of lists of values, such as "subjects" and "honorees", the lists are unioned with duplicates removed. In the case of single-value fields like name or construction date, more "official" sources (e.g. National Park Service, Smithsonian) took preference. For the case of latitude and longitude, certain sources that we believe have good geocoding (e.g. Open Street Map) took preference.</li>
       </ol>
 
-      <p><em>charts here</em></p>
+      <div id="duplication-breakdown" class="data-container"></div>
 
       <p>There is one special case for duplication which are records in the <a href="https://www.nps.gov/subjects/nationalregister/index.htm" target="_blank">National Register of Historic Places</a>. There are a number of state and local data sources that contain NRHP records and crowd-sourced sources such as Open Street Map often build upon NRHP data. When possible, we use the NRHP reference number to identify duplication of an NRHP across data sources. This happens as a pre-process step, so redundant NRHP records are ignored before they are processed and entered into the study set unless they contain additional metadata (like in Open Street Map.)</p>
 

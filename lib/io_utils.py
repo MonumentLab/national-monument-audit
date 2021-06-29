@@ -14,6 +14,7 @@ import zipfile
 
 from lib.collection_utils import *
 from lib.math_utils import *
+from lib.string_utils import *
 
 def appendToFilename(fn, appendString):
     ext = getFileExt(fn)
@@ -113,7 +114,17 @@ def parseHeadings(arr, headings):
         newArr.append(newItem)
     return newArr
 
-def readCsv(filename, headings=False, doParseNumbers=True, skipLines=0, encoding="utf-8-sig", readDict=True, verbose=True):
+def parseLists(arr, delimeter):
+    for i, item in enumerate(arr):
+        if isinstance(item, (list,)):
+            for j, v in enumerate(item):
+                arr[i][j] = parseList(v, delimeter)
+        else:
+            for key in item:
+                arr[i][key] = parseList(item[key], delimeter)
+    return arr
+
+def readCsv(filename, headings=False, doParseNumbers=True, skipLines=0, encoding="utf-8-sig", readDict=True, verbose=True, doParseLists=False, listDelimeter=" | "):
     rows = []
     fieldnames = []
     if os.path.isfile(filename):
@@ -130,6 +141,8 @@ def readCsv(filename, headings=False, doParseNumbers=True, skipLines=0, encoding
         rows = list(reader)
         if headings:
             rows = parseHeadings(rows, headings)
+        if doParseLists:
+            rows = parseLists(rows, listDelimeter)
         if doParseNumbers:
             rows = parseNumbers(rows)
         if verbose:

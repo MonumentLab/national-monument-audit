@@ -5,6 +5,12 @@ li {
   margin: 1rem 0;
 }
 
+h5 {
+  color: #666;
+  font-size: 1.33rem;
+  margin-bottom: 0.5rem;
+}
+
 .content {
   max-width: 800px;
   margin: 0 auto;
@@ -27,4 +33,90 @@ li {
   height: 100%;
   box-sizing: border-box;
   border-right: 1px solid black;
+}
+
+.data-sources {
+
+}
+.data-source {
+  margin: 0 0 1.5rem;
+  box-sizing: border-box;
+  position: relative;
+}
+.record-count-container {
+  width: calc(100% - 140px);
+  height: 24px;
+  line-height: 24px;
+  border: 1px solid black;
+  box-sizing: border-box;
+  position: relative;
+}
+.record-count-bar {
+  position: absolute;
+  width: 0;
+  height: 100%;
+  background: #ffa600;
+}
+.record-count-text {
+  margin-left: 0.2rem;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.data-source .toggle-parent {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+}
+.data-source .source-title {
+  margin: 0 0 0.2rem;
+}
+.data-source p,
+.data-source td {
+  font-size: 0.9rem;
+}
+.data-source .source-title a {
+  text-decoration: none;
+}
+.data-source-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+.data-source.active .data-source-details {
+  max-height: 100vh;
+  overflow-y: auto;
+}
+.data-source-table {
+  margin-top: 0.5rem;
+  border-bottom: 3px solid black;
+}
+.data-table.data-source-table td:last-child,
+.data-table.data-source-table th:last-child {
+  text-align: left;
+}
+.data-item {
+  margin-bottom: 0.25rem;
+}
+
+.bar-container {
+  position: relative;
+  width: 100%;
+  padding: 0.2rem;
+  border: 1px solid black;
+  margin-bottom: 1rem;
+}
+.bar-container .bar {
+  position: absolute;
+  height: 100%;
+  background: #ffa600;
+  top: 0;
+  left: 0;
+}
+.bar-container .label {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
 }
