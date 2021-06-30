@@ -24,6 +24,7 @@
     <nav id="toc" class="toc"></div>
 
     <main id="content" class="content">
+      <h1>National Monument Audit: Technical Documentation</h1>
 
       <h2 id="introduction">Introduction</h2>
 
@@ -267,11 +268,11 @@
 
         <li>If a data source does not explicitly tell us if something is a monument, we attempt to determine if something is a monument by looking for keywords in certain data fields. This process is roughly as follows:
           <ol>
-            <li>A large number of records are filtered out based on keywords that indicate that they are part of different object groups such as markers ("Washington Slept Here historical marker"), buildings ("Washington School Compound"), streets ("Washington Street"), structures ("Washington's Canal"), sites ("George Washington Oak Tree Site"), or places ("Washington County"). This relies heavily </li>
-            <li>For an object or structure that calls itself a memorial (e.g. "Vietnam Veterans Memorial"), we consider this a monument, as long as it is not in already in a different object group (e.g. memorial highways, memorial high schools are not monuments.)</li>
+            <li>A large number of records are filtered out based on keywords that indicate that they are part of different object groups such as <strong>markers</strong> ("Washington Slept Here historical marker"), <strong>buildings</strong> ("Washington School Compound"), <strong>streets</strong> ("Washington Street"), <strong>structures</strong> ("Washington's Canal"), <strong>sites</strong> ("George Washington Oak Tree Site"), or <strong>places</strong> ("Washington County"). This relies heavily on a record's <code>name</code> and <code>object type</code> fields.</li>
+            <li>For an object or structure that calls itself a <strong>memorial</strong> (e.g. "Vietnam Veterans Memorial"), we consider this a monument, as long as it is not in already in a different object group (e.g. memorial highways, memorial high schools are not monuments.)</li>
             <li>For the records that remain, we then look for keywords that indicate their <strong>physical form</strong> (e.g. Bust, Statue, Cannon, etc.) and what or who it is representing. Generally speaking, we are looking for large, solid forms (obelisks, pyramids, statues) with some indication that they are honoring a person, group, or event. The criteria is roughly:
               <ol>
-                <li>The object is part of certain physical forms that we consider monumental (obelisks, pyramids, statues, pillars)</li>
+                <li>The object is part of certain physical forms that we consider monumental (obelisks, pyramids, statues, pillars, etc)</li>
                 <li>The object is honoring a person, group, or event. E.g. the subject may contain words like "human figure" or "heroic" or "honoring", a historical name or event may be included in the name (e.g. "Harriet Tubman Statue")</li>
                 <li>Conversely, we check for indications that the object are in a group we roughly consider artistic/abstract sculptures that do not honor a person, group, or event. In this case, the subject may contain "Abstract--Geometric" or "Plant--Flowers" with no mention or indication of an honoree or human figure.</li>
               </ol>
@@ -364,9 +365,10 @@
 
         <li>We also make the data available through data-downloads in .csv format which can be read by most spreadsheet software such as Excel or Google Sheets. This is for users who are comfortable working directly with large datasets or those who want to make their own interfaces or visualizations. You can download these files directly via the links below:</li>
 
-        <!-- TODO -->
         <ol>
-          <li>Note that if a cell is a list, it will be delimited by a `|` (pipe) character. If a cell has no value, it will simply be an empty cell.</li>
+          <li><a href="https://s3.amazonaws.com/national-monument-audit.monumentlab.com/data/compiled/monumentlab_national_monuments_audit_final_object_groups_monument.csv" target="_blank">Complete study set (monuments only) in .csv format</a> (59MB)</li>
+          <li><a href="https://s3.amazonaws.com/national-monument-audit.monumentlab.com/data/compiled/monumentlab_national_monuments_audit_final.csv" target="_blank">Complete pre-study set (includes non-monuments) in .csv format</a> (415MB)</li>
+          <li>Note that if a cell is a list, it will be delimited by a <code>|</code> (pipe) character. If a cell has no value, it will simply be an empty cell.</li>
         </ol>
       </ol>
 
