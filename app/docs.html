@@ -62,6 +62,32 @@
 
       <p id="stats-summary">For this audit, <strong>{{dataRecordTotal}}</strong> data records were retrieved and analyzed from <strong>{{dataSourceTotal}}</strong> data sources to generate a study set of <strong>{{totalMonuments}}</strong> ({{percentMonuments}}%) data records that are believed to represent monuments.</p>
 
+      <h3 id="data-ingest">Data ingest process</h3>
+
+      <p>Each data source provided publicly accessible digital records about cultural objects in a variety of formats. A large part of the work of the Audit was accessing, converting, parsing, and mapping that data into a single, normalized dataset. Here is the rough step-by-step data ingest process after a data source was identified.</p>
+
+      <ol>
+        <li>The data is downloaded manually. In some cases, the data was not readily available as a single downloadable file, so custom scripts were written to programmatically access and download them (in the case of data embedded in webpages or online maps).</li>
+        <li>If applicable, the data was converted into a standard, usable format such as CSV, Shapefiles, etc.
+          <ol>
+            <li>This was sometimes done manually for things like geospatial files (like GeoJSON, KML, Shapefiles) that needed to be re-projected into a standard map projection.</li>
+            <li>This was sometimes done programmatically in the case of HTML or PDF files that needed to be parsed in a customized fashion</li>
+          </ol>
+        </li>
+        <li>Fields were manually mapped to the fields in the Audit's <a href="#data-model">data model</a> when relevant</li>
+        <li>When applicable, the data was "enriched" using methods outlined later in this document, including:
+          <ol>
+            <li><a href="#geospatial-metadata">Geocoding locations</a> if addresses are provided, but lat/lon are not provided</li>
+            <li>Extracting <a href="#honorees">names of people or events</a> that the object is possibly honoring</li>
+            <li>Putting the object into specific <a href="#what-is-a-monument">object groups</a> (monument, building, structure, etc) and thematic groups (war, civil rights, etc) based on metadata provided where possible</li>
+            <li>Identify if the object record is a <a href="#duplicates">duplicate</a> of another object record</li>
+            <li>If the object is <a href="#honorees">honoring</a> a person, linking that person to a name authority and thus retrieving more information about that person (e.g. gender, ethnic group, birth date, etc)</li>
+          </ol>
+        </li>
+      </ol>
+
+      <p>For more technical details about this process you can visit the Audit's <a href="https://github.com/MonumentLab/national-monument-audit#national-monument-audit" target="_blank">Github code repository</a>.</p>
+
       <h3 id="full-data-sources">Full list of data sources</h3>
 
       <p>Click "show details" button to view which fields were used, how the fields were mapped, and any other notes about how the data was processed</p>
@@ -70,17 +96,13 @@
 
       <h3 id="by-the-numbers">By the numbers</h3>
 
-      <p>Share of records, pre-study set (before excluding non-monument data records)</p>
+      <p>Share of records, pre-study set (before excluding non-monument data records) and study set (after excluding non-monuments)</p>
 
       <div id="data-sources-share-prestudy" class="data-container"></div>
 
-      <p>Share of records, study set (monument data records only)</p>
-
       <div id="data-sources-share-study" class="data-container"></div>
 
-      <p><em>Note: from here on in, all numbers will be based on the study set (monument data records only) and not non-monument records</em></p>
-
-
+      <p>Note: from here on in, <em>all numbers and charts will be based on the study set (monument data records only) and not non-monument records</em> unless otherwise noted</p>
 
       <h3 id="quirks">Data source quirks</h3>
 
@@ -129,17 +151,15 @@
 
       <h3 id="dates">Dates</h3>
 
-      <p>Dates are present in about a third of all the data records. Dates can be grouped into the following categories:</p>
+      <p>Dates are present in about two-thirds of all the monument data records. Dates can be grouped into the following categories:</p>
 
       <ol>
         <li>Date constructed</li>
         <li>Date dedicated</li>
-        <li>Date designated a landmark (local, state, national)</li>
+        <li>Date designated or listed as a landmark (local, state, national)</li>
         <li>Date removed <em>(rare)</em></li>
         <li>Date commissioned <em>(rare)</em></li>
       </ol>
-
-      <div id="dates-availability" class="data-container"></div>
 
       <p>Some things to note about dates:</p>
 
@@ -151,11 +171,15 @@
         <li>For the purposes of the Audit, we are only using <strong>date constructed and date dedicated</strong> for visualization purposes. And for the purpose of showing timelines, we combine date constructed and date dedicated into a single field called "Year Dedicated Or Constructed", however the individual fields ("Year Dedicated", "Year Constructed") are still available. In the case where date constructed and date dedicated are both available, "Year Dedicated Or Constructed" will be the "Year Dedicated."</li>
       </ol>
 
+      <div id="dates-availability" class="data-container"></div>
+
       <h3 id="object-types">Object Types</h3>
 
       <p>Some data sources provide information about the physical form of the object. This can be very broad groups such as "Monument", "Building", or "Marker" or it can be very specific such as "Bench", "Fountain", "Relief." These values are not consistent across different data sources and the different data sources track these with different levels of strictness and specificity. When available, we heavily rely on this field when determining if an object is a monument (see section <a href="#what-is-a-monument">What is a monument?</a>).</p>
 
       <div id="object-types-availability" class="data-container"></div>
+
+      <p><em>Note: the next two charts (object types and object groups) are based on the pre-study set, before filtering out monuments</em></p>
 
       <div id="object-types-by-type" class="data-container"></div>
 
@@ -173,7 +197,7 @@
 
       <ol>
         <li>
-          The text of the following fields are analyzed using a tool called <a href="https://spacy.io/" target="_blank">Spacy</a>: "Name", "Alternate Name", "Honorees", "Description"*
+          The text of the following fields are analyzed using a tool called <a href="https://spacy.io/" target="_blank">Spacy</a>: "Name", "Alternate Name", "Honorees", "Description"
         </li>
 
         <li>
@@ -187,7 +211,7 @@
               The following named entities are expected:
               <ol>
                 <li>Andrew Dickson White (PERSON)</li>
-                <li>AEzra Cornell (PERSON)</li>
+                <li>Ezra Cornell (PERSON)</li>
                 <li>Cornell University (ORGANIZATION)</li>
               </ol>
             </li>
@@ -234,7 +258,7 @@
 
       <h3 id="other-fields">Other fields of interest</h3>
 
-      <p>There were other fields that would have been more useful if more sources provided them, but only a small fraction of sources provided them. This includes creators (architect, sculptor, artist, foundry, etc), sponsors, and status (removed, missing, still there, etc).</p>
+      <p>There were other fields that may be useful for further research and visualization purposes. This includes creators (architect, sculptor, artist, foundry, etc), sponsors, and status (removed, missing, still there, etc).</p>
 
       <div id="misc-availability" class="data-container"></div>
 
@@ -245,9 +269,9 @@
       <ol>
         <li>Most data sources provided data records that were a mix of different types of objects such as markers, buildings, monuments, and structures. In other words, most sources did not simply provide a set of "monuments".</li>
 
-        <li>Data records that represented monuments were often not marked as such, i.e. there was not a field that called it a "Monument" and may have instead been called "Object" or the form may not have been described at all.</li>
+        <li>Data records that represented monuments were often not marked as such, i.e. there was not a field that called it a "Monument" and may have instead been called "Object" or the physical form may not have been described at all.</li>
 
-        <li>For those sources that called an object a "monument" either had its own definition of "monument" or did not provide a definition of "monument." The definitions of monuments across data sources differed. (See Appendix for a list of sources' definitions)</li>
+        <li>For those sources that called an object a "monument" either had its own definition of "monument" or did not provide a definition of "monument." The definitions of monuments across data sources differed.</li>
       </ol>
 
       <p>Given that, here is the high-level process for determining if something is or is not a monument:</p>
@@ -288,7 +312,7 @@
 
       <ol>
         <li>We look for records that have nearly the same latitude and longitude (within some radius)</li>
-        <li>Within a group of such records, we analyze the name of the object. If the names are similar, then we consider them duplicates. We use a library called <a href="https://github.com/seatgeek/fuzzywuzzy" target="_blank">FuzzyWuzzy</a> (which uses <a href="https://en.wikipedia.org/wiki/Levenshtein_distance" target="_blank">Levenshtein distance</a>) to compare two names (after the two names are "normalized", i.e. lowercased, punctuation and parenthesized content removed).</li>
+        <li>Within a group of such records, we analyze the name of the object. If the names are similar, then we consider them duplicates. We use a library called <a href="https://github.com/seatgeek/fuzzywuzzy" target="_blank">FuzzyWuzzy</a> (which uses <a href="https://en.wikipedia.org/wiki/Levenshtein_distance" target="_blank">Levenshtein distance</a>) to compare two names (after the two names are "normalized", i.e. lowercased, punctuation and parenthesized content removed). This allows for similar names (e.g. "Martin Luther King Civil Rights Memorial" and "Doctor Martin Luther King Junior Memorial") to be considered a match.</li>
         <li>Groups of duplicate records are then "merged" into a single, combined record. In the case of lists of values, such as "subjects" and "honorees", the lists are unioned with duplicates removed. In the case of single-value fields like name or construction date, more "official" sources (e.g. National Park Service, Smithsonian) took preference. For the case of latitude and longitude, certain sources that we believe have good geocoding (e.g. Open Street Map) took preference.</li>
       </ol>
 
@@ -302,7 +326,9 @@
 
       <h3 id="data-model">Data model</h3>
 
-      <p>This dataset is composed of records that have a mix of fields taken verbatim from the data source and there are some fields that Monument Lab generated using those fields. Both unedited fields and generated fields are available within the study set. A full list of unedited fields taken directly from the data source are:</p>
+      <p>This dataset is composed of records that have a mix of fields taken verbatim from the data source and there are some fields that Monument Lab generated using those fields. Both unedited fields and generated fields are available within the study set.</p>
+
+      <p>A full list of unedited fields taken directly from the data source are:</p>
 
       <table class="data-table">
         <tr><th>Field name</th><th>Description</th></tr>
@@ -337,7 +363,7 @@
         <tr><td>Wikipedia</td><td>Wikipedia identifier</td></tr>
       </table>
 
-      <p>A full list of generated fields are:</p>
+      <p>A full list of generated fields (not provided by the data source, but created by the Audit to enrich the provided data) are:</p>
 
       <table class="data-table">
         <tr><th>Field name</th><th>Description</th></tr>
@@ -368,8 +394,9 @@
         <ol>
           <li><a href="https://s3.amazonaws.com/national-monument-audit.monumentlab.com/data/compiled/monumentlab_national_monuments_audit_final_object_groups_monument.csv" target="_blank">Complete study set (monuments only) in .csv format</a> (59MB)</li>
           <li><a href="https://s3.amazonaws.com/national-monument-audit.monumentlab.com/data/compiled/monumentlab_national_monuments_audit_final.csv" target="_blank">Complete pre-study set (includes non-monuments) in .csv format</a> (415MB)</li>
-          <li>Note that if a cell is a list, it will be delimited by a <code>|</code> (pipe) character. If a cell has no value, it will simply be an empty cell.</li>
         </ol>
+
+        <em>Note that if a cell is a list, it will be delimited by a <code>|</code> (pipe) character. If a cell has no value, it will simply be an empty cell.</em>
       </ol>
 
       <h2 id="technical-process">The technical process</h2>

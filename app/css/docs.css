@@ -1,11 +1,21 @@
 h1 {
   font-size: 3rem;
 }
+h2 {
+  margin-top: 2.5rem;
+}
 
 p,
 li {
   line-height: 1.5;
   margin: 1rem 0;
+}
+
+ol ol {
+  list-style-type: lower-alpha;
+}
+ol ol ol {
+  list-style-type: lower-roman;
 }
 
 h5 {
@@ -38,8 +48,9 @@ h5 {
   border-right: 1px solid black;
 }
 
+.data-container,
 .data-sources {
-
+  margin-bottom: 2.5rem;
 }
 .data-source {
   margin: 0 0 1.5rem;

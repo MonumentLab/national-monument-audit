@@ -83,7 +83,7 @@ jsonCharts['geo-latlon-by-type'] = {
 
 # Dates available
 result = []
-for key in ["Year Dedicated Or Constructed", "Year Dedicated", "Year Constructed"]:
+for key in ["Year Dedicated Or Constructed", "Year Constructed", "Year Dedicated", "Year Listed", "Year Removed"]:
     kresult = getCountPercentages(monumentRows, key, presence=True)
     yesResult = kresult[0]
     result.append({
