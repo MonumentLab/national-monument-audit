@@ -8,6 +8,8 @@ var Map = (function() {
 
   function Map(config) {
     var defaults = {
+      'requireAuth': true,
+
       // search values
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
       'returnFacets': ['object_groups', 'sources', 'themes', 'monument_types', 'entities_people', 'entities_events', 'gender_represented', 'ethnicity_represented', 'state', 'year_dedicated_or_constructed', 'county_geoid'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
@@ -140,8 +142,13 @@ var Map = (function() {
   }
 
   Map.prototype.init = function(){
-    var isValid = Auth.authenticate();
-    if (isValid) this.load();
+    if (this.opt.requireAuth) {
+      var isValid = Auth.authenticate();
+      if (isValid) this.load();
+
+    } else {
+      this.load();
+    }
   };
 
   Map.prototype.applyFacet = function(field, value){
