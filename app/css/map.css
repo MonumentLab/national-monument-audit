@@ -556,3 +556,16 @@ h1 {
   top: -37px;
   right: 42px;
 }
+
+.nav-menu {
+  position: absolute;
+  top: 152px;
+  left: 12px;
+}
+.nav-menu svg {
+  width: 30px;
+  height: 30px;
+}
+.nav-menu svg:hover path {
+  fill: #444;
+}
