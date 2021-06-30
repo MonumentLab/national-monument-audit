@@ -45,6 +45,7 @@ jsonVars["dataRecordTotal"] = formatNumber(len(rowsWithoutMergedRecords))
 jsonVars["dataUniqueRecordTotal"] = formatNumber(len(rowsWithoutDupes))
 jsonVars["dataDuplicateRecordTotal"] = formatNumber(len(rowsWithoutMergedRecords)-len(rowsWithoutDupes))
 jsonVars["totalMonuments"] = formatNumber(len(monumentRows))
+jsonVars["percentMonuments"] = round(1.0 * len(monumentRows) / len(rowsWithoutMergedRecords) * 100, 2)
 
 for i, d in enumerate(dataSources):
     sourceRecords = [row for row in monumentRows if row["Vendor ID"] == d["id"]]
