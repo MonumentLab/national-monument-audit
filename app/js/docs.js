@@ -66,7 +66,7 @@ var Docs = (function() {
     var $container = $('#data-sources-list');
     var codeBaseUrl = 'https://github.com/MonumentLab/national-monument-audit/tree/main/';
 
-    sources = _.filter(sources, function(s){ return s.percentOfTotal > 0; });
+    // sources = _.filter(sources, function(s){ return s.percentOfTotal > 0; });
 
     var html = '';
     _.each(sources, function(s){
@@ -81,7 +81,7 @@ var Docs = (function() {
 
         html += '<div class="record-count-container">';
           if (s.percentOfTotal > 0) html += '<div class="record-count-bar" style="width: '+s.percentOfTotal+'%"></div>';
-          html += '<div class="record-count-text">'+Util.formatNumber(s.recordCount)+' records ('+s.percentOfTotal+'% of total)</div>';
+          html += '<div class="record-count-text">'+Util.formatNumber(s.recordCount)+' records ('+s.percentOfTotal+'%) <small>('+Util.formatNumber(s.recordCountBeforeFiltering)+' records before filtering non-monuments)</small></div>';
         html += '</div>';
 
         html += '<button type="button" class="toggle-parent" data-active="Hide details" data-inactive="Show details">Show details</button>';
@@ -92,6 +92,11 @@ var Docs = (function() {
             html += '<tr>';
               html += '<td>&nbsp;</td>';
               html += '<td><a href="'+s.url+'" target="_blank" class="button small">source link</a> <a href="'+searchUrl+'" class="button small">browse data</a></td>';
+            html += '</tr>';
+
+            html += '<tr>';
+              html += '<td>Percentage of records that are monuments:</td>';
+              html += '<td>'+MathUtil.round(s.recordCount / s.recordCountBeforeFiltering * 100, 2)+'%</td>';
             html += '</tr>';
 
             // source
