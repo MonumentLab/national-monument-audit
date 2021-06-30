@@ -209,7 +209,7 @@ var Map = (function() {
     return JSON.stringify(boundsValue).replaceAll('"', "'");
   };
 
-  Map.prototype.getQueryObject = function(customFacets){
+  Map.prototype.getQueryObject = function(customFacets, customStart){
     var queryText = this.$query.val().trim();
     queryText = queryText.replace(/\//g, " "); // slashes break search
     var facetSize = this.opt.facetSize;
@@ -218,7 +218,8 @@ var Map = (function() {
       q: queryText,
       size: this.size
     };
-    if (this.start > 0) q.start = this.start;
+    if (customStart !== undefined && customStart > 0) q.start = customStart;
+    else if (customStart === undefined && this.start > 0) q.start = this.start;
     if (this.sort && this.sort.length) q.sort = this.sort;
     var facets = customFacets ? _.clone(customFacets) : _.clone(this.facets);
     facets = _.omit(facets, function(values, key) {
@@ -298,8 +299,8 @@ var Map = (function() {
     return q;
   };
 
-  Map.prototype.getQueryString = function(customFacets){
-    var q = this.getQueryObject(customFacets);
+  Map.prototype.getQueryString = function(customFacets, customStart){
+    var q = this.getQueryObject(customFacets, customStart);
     var qstring = $.param(q);
     return qstring;
   };
@@ -707,7 +708,7 @@ var Map = (function() {
     this.loading(true);
 
     var facetsWithBounds =  _.extend({}, this.facets, {latlon: [bounds]});
-    var queryString = this.getQueryString(facetsWithBounds);
+    var queryString = this.getQueryString(facetsWithBounds, 0);
     var url = this.opt.endpoint + '?' + queryString;
     var promise = $.Deferred();
 
@@ -733,6 +734,7 @@ var Map = (function() {
     var _this = this;
     var query = this.getQueryObject();
     query.return = "_no_fields";
+    query = _.omit(query, 'start');
     query = _.omit(query, function(value, key, object){ return key.startsWith('facet.'); });
     query['facet.'+facetName] = "{sort:'bucket', size:4000}";
     var url = this.opt.endpoint + '?' + $.param(query);
