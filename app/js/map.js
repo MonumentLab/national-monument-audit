@@ -30,6 +30,7 @@ var Map = (function() {
       'facets': 'object_groups~Monument__is_duplicate~0', // e.g. facetName1~value1!!value2!!value3__facetName2~value1
       'searchCacheSize': 5, // store this many responses in memory
       'maxDupeRequest': 100, // request this many items that are duplicates
+      'maxResultSize': 10000, // no direct pagination after 10K https://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html#deep-paging
 
       // map values
       'mapEl': 'search-map',
@@ -1005,6 +1006,7 @@ var Map = (function() {
     $pagination.empty();
     if (totalCount <= 0) return;
 
+    totalCount = Math.min(this.opt.maxResultSize, totalCount);
     var offsetStart = this.start;
     var size = this.size;
     var pages = Math.ceil(totalCount / size);
