@@ -7,6 +7,7 @@
   "geographicCoverage": "national",
   "sourceType": "Crowdsourced",
   "dataPath": "data/vendor/national/hmdb/HMdb-Historical-Markers-and-War-Memorials*.csv",
+  "dataEncoding": "mbcs",
   "additionalData": ["data/vendor/national/hmdb/hmdb_additional_metadata.csv"],
   "dateDataAccessed": "2020-12-04",
   "properties": ["MarkerID", "Title", "Subtitle", "Year Erected", "Erected By", "Latitude (minus=S)", "Longitude (minus=W)", "Street Address", "City or Town", "County or Parish", "State or Prov.", "Location", "Missing", "Link", "Subjects", "Text", "Image", "Captions"],
