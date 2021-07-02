@@ -151,6 +151,7 @@ var Item = (function() {
     var displayFields = this.opt.displayFields;
     var generatedFields = this.opt.generatedFields;
     var isEmbedded = this.isEmbedded;
+    var targetString = isEmbedded ? ' target="_blank"' : '';
 
     html += '<ul class="result-list">';
     _.each(results, function(result, i){
@@ -177,7 +178,8 @@ var Item = (function() {
       html += '<li class="result-item">';
         var itemParams = {'id': id}
         var itemUrl = 'item.html?' + $.param(itemParams);
-        html += '<h4>'+name+'</h4>';
+        if (isDupe) html += '<h4><a href="'+itemUrl+'" '+targetString+'>'+name+'</a></h4>';
+        else html += '<h4>'+name+'</h4>';
         html += '<p>'+subtitle+'</p>';
         html += '<table class="data-table">';
         _.each(displayFields, function(key){
