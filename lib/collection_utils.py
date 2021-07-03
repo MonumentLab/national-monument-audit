@@ -13,6 +13,9 @@ def addIndices(arr, keyName="index", startIndex=0):
         arr[i][keyName] = startIndex + i
     return arr
 
+def createLookup(arr, key):
+    return dict([(str(item[key]), item) for item in arr])
+
 def findByValue(arr, key, value):
     found = None
     for item in arr:
@@ -20,9 +23,6 @@ def findByValue(arr, key, value):
             found = item
             break
     return found
-
-def createLookup(arr, key):
-    return dict([(str(item[key]), item) for item in arr])
 
 def filterByQuery(arr, ors, delimeter="|", caseSensitive=False):
     if isinstance(ors, tuple):
