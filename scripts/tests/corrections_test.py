@@ -24,14 +24,12 @@ from lib.data_utils import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Output csv file")
-parser.add_argument('-model', dest="DATA_MODEL_FILE", default="config/data-model.json", help="Input .json data model file")
 parser.add_argument('-corrections', dest="CORRECTIONS_FILE", default="data/corrections.csv", help="CSV file of corrections")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
 parser.add_argument('-filter', dest="FILTER", default="Name CONTAINS Caddo Parish AND Source != Multiple", help="Filter string")
 a = parser.parse_args()
 
 fields, rows = readCsv(a.INPUT_FILE)
-dataModel = readJSON(a.DATA_MODEL_FILE)
 rowCount = len(rows)
 
 if len(a.FILTER) > 0:
@@ -39,36 +37,12 @@ if len(a.FILTER) > 0:
     rowCount = len(rows)
     print(f'{rowCount} rows after filtering')
 
-duplicateCount, duplicateRows, rows = applyDuplicationFields(rows)
-print("---------------------------")
-
-for row in duplicateRows:
-    if "Id" not in row:
-        print("---------------------------")
-        continue
-    print(f'{row["Name"]} / {row["Id"]} / {row["URL"]}')
-
-dupedIds = set([row["Id"] for row in duplicateRows if "Id" in row])
-notMatched = [row for row in rows if row["Id"] not in dupedIds]
-print("---------------------------")
-print("Not duplicates: ")
-
-for row in notMatched:
-    print(f'{row["Name"]} / {row["Id"]} / {row["URL"]}')
-
-print("Merged records:")
-
-duplicationCorrections = []
+corrections = []
 if os.path.isfile(a.CORRECTIONS_FILE):
     _, allCorrections = readCsv(a.CORRECTIONS_FILE, doParseLists=True, listDelimeter=a.LIST_DELIMETER)
     for correction in allCorrections:
-        if correction["Field"] in ("Duplicates", "Duplicate Of"):
-            duplicationCorrections.append(correction)
+        if correction["Field"] not in ("Duplicates", "Duplicate Of"):
+            corrections.append(correction)
 
-dataFields = dataModel["fields"]
-rows = mergeDuplicates(rows, dataFields, corrections=duplicationCorrections)
-for row in rows:
-    if row["Source"] == "Multiple":
-        print(f'{row["Id"]} / {row["Name"]} / {", ".join(row["Duplicates"])}')
-
-print("Done")
+rows = processCorrections(rows, corrections, verbose=True)
+print("Done.")

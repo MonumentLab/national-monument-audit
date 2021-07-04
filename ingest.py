@@ -532,11 +532,23 @@ for dataTypeGroup in dataTypes:
         updatedRows += remainingRows
     rowsOut = updatedRows[:]
 
+# Read corrections
+corrections = []
+duplicationCorrections = []
+if os.path.isfile(a.CORRECTIONS_FILE):
+    _, allCorrections = readCsv(a.CORRECTIONS_FILE, doParseLists=True, listDelimeter=a.LIST_DELIMETER)
+    # duplication corrections are treated differently
+    for correction in allCorrections:
+        if correction["Field"] in ("Duplicates", "Duplicate Of"):
+            duplicationCorrections.append(correction)
+        else:
+            corrections.append(correction)
+
 print("Looking for duplicates...")
 duplicateCount, duplicateRows, rowsOut = applyDuplicationFields(rowsOut)
 
 print("Merging duplicates...")
-rowsOut = mergeDuplicates(rowsOut, dataFields)
+rowsOut = mergeDuplicates(rowsOut, dataFields, corrections=duplicationCorrections)
 
 # Set "Sources" if not set
 for i, row in enumerate(rowsOut):
@@ -544,21 +556,9 @@ for i, row in enumerate(rowsOut):
         rowsOut[i]["Sources"] = [row["Source"]]
 
 # Add corrections
-if os.path.isfile(a.CORRECTIONS_FILE):
-    _, corrections = readCsv(a.CORRECTIONS_FILE)
-    idLookup = {}
-    for i, row in enumerate(rowsOut):
-        idLookup[row["Id"]] = i
-    for correction in corrections:
-        if correction["Id"] not in idLookup:
-            print(f'Could not find Id {correction["Id"]} in corrections')
-            continue
-        index = idLookup[correction["Id"]]
-        value = correction["Correct Value"]
-        svalue = str(value)
-        if a.LIST_DELIMETER in svalue:
-            value = [v.strip() for v in svalue.split(a.LIST_DELIMETER)]
-        rowsOut[index][correction["Field"]] = value
+if len(corrections) > 0:
+    print("Making corrections...")
+    rowsOut = processCorrections(rowsOut, corrections)
 
 if a.PROBE:
     sys.exit()

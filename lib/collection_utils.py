@@ -13,6 +13,24 @@ def addIndices(arr, keyName="index", startIndex=0):
         arr[i][keyName] = startIndex + i
     return arr
 
+def addValueToStringOrList(strOrArr, value):
+    if value == "":
+        return strOrArr
+    values = value
+    if not isinstance(value, list):
+        values = [str(value).strip()]
+    if not isinstance(strOrArr, list):
+        strOrArr = str(strOrArr).strip()
+        if strOrArr == "":
+            strOrArr = []
+        else:
+            strOrArr = [strOrArr]
+    strOrArr = [str(v).strip() for v in strOrArr]
+    for value in values:
+        if value not in strOrArr:
+            strOrArr.append(value)
+    return strOrArr
+
 def createLookup(arr, key):
     return dict([(str(item[key]), item) for item in arr])
 
@@ -214,6 +232,24 @@ def prependAll(arr, prepends):
             arr[i][newKey] = value + item[key]
 
     return arr
+
+def removeValueFromStringOrList(strOrArr, value):
+    if value == "":
+        return strOrArr
+    values = value
+    if not isinstance(value, list):
+        values = [str(value).strip()]
+    if not isinstance(strOrArr, list):
+        strOrArr = str(strOrArr).strip()
+        if strOrArr == "":
+            strOrArr = []
+        else:
+            strOrArr = [strOrArr]
+    strOrArr = [str(v).strip() for v in strOrArr]
+    strOrArr = [v for v in strOrArr if v not in values]
+    if len(strOrArr) < 1:
+        strOrArr = ""
+    return strOrArr
 
 def sortBy(arr, sorters, targetLen=None):
     if isinstance(sorters, tuple):

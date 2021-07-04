@@ -21,15 +21,18 @@ from lib.data_utils import *
 
 # input
 parser = argparse.ArgumentParser()
-parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Input csv file")
+parser.add_argument('-in', dest="INPUT_FILE", default="E:/Dropbox/monumentlab/data/monumentlab_national_monuments_audit_final_2021-07-03.csv", help="Input csv file")
 parser.add_argument('-corrections', dest="CORRECTIONS_FILE", default="data/corrections/top_50_claims_2021-07-02.csv", help="Corrections file")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="data/corrections/top_50_claims_2021-07-02_normalized.csv", help="Output csv file")
 a = parser.parse_args()
 
 fields, rows = readCsv(a.INPUT_FILE, doParseLists=True)
 rowCount = len(rows)
-
 lookup = createLookup(rows, "Id")
+
+def getChildIds(id):
+    global rows
+    return [row["Id"] for row in rows if row["Duplicate Of"] == id]
 
 _, rawCorrections = readCsv(a.CORRECTIONS_FILE, skipLines=8)
 
@@ -50,6 +53,10 @@ for i, row in enumerate(rawCorrections):
 
     id = match.group(1)
 
+    if id not in lookup:
+        print(f'Could not find record Id: {id}')
+        continue
+
     if status != "duplicate with above":
         activeDuplicateId = id
 
@@ -62,7 +69,6 @@ for i, row in enumerate(rawCorrections):
     if status.startswith("duplicate of "):
         dupeParent = status[len("duplicate of "):].strip()
         status = "duplicate of"
-        print(f'{row["Row"]}: {dupeParent}')
         row["DupeParent"] = dupeParent
 
     elif status.startswith("remove duplicates "):
@@ -87,8 +93,18 @@ for i, row in enumerate(rawCorrections):
         corrections.append({
             "Id": id,
             "Person": activePerson,
-            "Status": "false positive"
+            "Status": "false positive",
+            "Minor Mention": True
         })
+
+# copy corrections to child records
+for row in corrections:
+    if row["Status"] in ("false positive", "minor mention", "unrecognized") and row["Id"].endswith("_merged"):
+        childIds = getChildIds(row["Id"])
+        for id in childIds:
+            newRow = row.copy()
+            newRow["Id"] = id
+            corrections.append(newRow)
 
 # validate statuses
 statuses = unique([row["Status"] for row in corrections])
@@ -131,6 +147,7 @@ for name in namesInCorrections:
 correctionsOut = []
 for row in corrections:
     status = row["Status"]
+    id = row["Id"]
     action = status
     field = ""
     value = ""
@@ -160,14 +177,53 @@ for row in corrections:
         value = row["DupeParent"]
 
     elif status in ("false merge"):
-        action = "unmerge"
+        action = "remove"
+        field = "Duplicates"
+        if not id.endswith("_merged"):
+            print(f'{id} cannot be set as false merge since it is not a merged item')
+            continue
+        value = getChildIds(id)
+
+    if field == "Duplicate Of":
+        # don't make a merged record a duplicate of a single one
+        if id.endswith("_merged") and not value.endswith("_merged"):
+            id = value
+            value = row["Id"]
+
+        # if both are merged, unmerge this one and add each of those unmerged records to the parent
+        elif id.endswith("_merged") and value.endswith("_merged"):
+            childIds = getChildIds(id)
+            # unmerge this record
+            correctionsOut.append({
+                "Id": id,
+                "Field": "Duplicates",
+                "Correct Value": childIds,
+                "Action": "remove"
+            })
+            # make each of those records duplicates of this one
+            for childId in childIds:
+                correctionsOut.append({
+                    "Id": childId,
+                    "Field": "Duplicate Of",
+                    "Correct Value": row["DupeParent"],
+                    "Action": "set"
+                })
+            continue
 
     correctionsOut.append({
-        "Id": row["Id"],
+        "Id": id,
         "Field": field,
         "Correct Value": value,
         "Action": action
     })
+
+    if status in ("false positive") and "Minor Mention" not in row:
+        correctionsOut.append({
+            "Id": id,
+            "Field": "Entities People Mentioned",
+            "Correct Value": value,
+            "Action": action
+        })
 
 print('Done.')
 

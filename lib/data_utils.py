@@ -214,8 +214,41 @@ def applyDuplicationFields(rows, latlonPrecision=2, fuzzyMatchThreshold=80):
 
     return (duplicateCount, duplicateRows, rows)
 
-def mergeDuplicates(rows, dataFields):
+def mergeDuplicates(rows, dataFields, corrections=[]):
     rows = addIndices(rows, keyName="_index")
+    rowLookup = createLookup(rows, "Id")
+
+    # make "remove" (Duplicates) actions come before "set" (Duplicate Of) actions
+    corrections = sorted(corrections, key=lambda c: c["Action"])
+    for correction in corrections:
+        # Remove duplication with manual corrections
+        if correction["Field"] == "Duplicates" and correction["Action"] == "remove":
+            idsToRemove = stringToList(correction["Correct Value"])
+            for id in idsToRemove:
+                if id in rowLookup:
+                    rowIndex = rowLookup[id]["_index"]
+                    rows[rowIndex]["Has Duplicates"] = 0
+                    rows[rowIndex]["Is Duplicate"] = 0
+                    rows[rowIndex]["Duplicate Of"] = ""
+                    rows[rowIndex]["Duplicates"] = []
+                else:
+                    print(f'Warning: {id} not found for remove duplication correction')
+
+        # Add additional duplications with manual corrections
+        if correction["Field"] == "Duplicate Of" and correction["Action"] == "set" and not correction["Correct Value"].endswith("_merged"):
+            if correction["Id"] in rowLookup and correction["Correct Value"] in rowLookup:
+                rowIndex = rowLookup[correction["Id"]]["_index"]
+                rows[rowIndex]["Has Duplicates"] = 0
+                rows[rowIndex]["Is Duplicate"] = 1
+                rows[rowIndex]["Duplicate Of"] = correction["Correct Value"]
+                rows[rowIndex]["Duplicates"] = []
+                parentRowIndex = rowLookup[correction["Correct Value"]]["_index"]
+                rows[parentRowIndex]["Has Duplicates"] = 1
+                rows[parentRowIndex]["Is Duplicate"] = 0
+                rows[parentRowIndex]["Duplicate Of"] = ""
+            else:
+                print(f'Warning: {correction["Id"]} or {correction["Correct Value"]} not found for add duplication correction')
+
     drows = [row for row in rows if "Has Duplicates" in row and row["Has Duplicates"] == 1 or "Is Duplicate" in row and row["Is Duplicate"] == 1]
 
     for i, row in enumerate(drows):
@@ -240,8 +273,32 @@ def mergeDuplicates(rows, dataFields):
         mergedItem = itemsSortedByPriority[0].copy() # source with the highest priority should be the default
 
         # create a new Id
-
         mergedItem["Id"] = str(mergedItem["Id"]) + "_merged"
+
+        # check for "add" corrections
+        idsToAdd = [c["Id"] for c in corrections if c["Field"] == "Duplicate Of" and c["Action"] == "set" and c["Correct Value"] == mergedItem["Id"]]
+        if len(idsToAdd) > 0:
+            existingIds = [item["Id"] for item in group["items"]]
+            for addId in idsToAdd:
+                if addId in rowLookup and addId not in existingIds:
+                    addRow = rowLookup[addId].copy()
+                    itemsSortedByPriority.append(addRow)
+                    itemsSortedByLatLonPriority.append(addRow)
+                elif addId not in rowLookup:
+                    print(f'Warning: {addId} not found for add duplication correction')
+            # re-sort
+            itemsSortedByPriority = sorted(itemsSortedByPriority, key=lambda item: item["Source Priority"])
+            itemsSortedByLatLonPriority = sorted(itemsSortedByLatLonPriority, key=lambda item: item["Source LatLon Priority"])
+
+        # if a single item, this is not a duplicate
+        if len(itemsSortedByPriority) == 1:
+            itemIndex = itemsSortedByPriority[0]["_index"]
+            rows[itemIndex]["Is Duplicate"] = 0
+            rows[itemIndex]["Has Duplicates"] = 0
+            rows[itemIndex]["Duplicates"] = []
+            rows[itemIndex]["Duplicate Of"] = ""
+            continue
+
         mergedItem["Vendor Entry ID"] = mergedItem["Id"]
 
         # update source/sources
@@ -312,3 +369,39 @@ def mergeDuplicates(rows, dataFields):
         rows.append(mergedItem)
 
     return rows
+
+def processCorrections(rowsOut, corrections, verbose=False):
+    idLookup = {}
+    for i, row in enumerate(rowsOut):
+        idLookup[row["Id"]] = i
+    for correction in corrections:
+        action = correction["Action"]
+        # Duplicates should have been addressed earlier in the process; skip
+        if correction["Field"] == "" or correction["Field"] in ("Duplicates", "Duplicate Of"):
+            continue
+
+        if correction["Id"] not in idLookup:
+            print(f'Could not find Id {correction["Id"]} in corrections')
+            continue
+
+        index = idLookup[correction["Id"]]
+        value = correction["Correct Value"]
+
+        if action == "set":
+            rowsOut[index][correction["Field"]] = value
+
+        elif action == "remove":
+            existingValue = rowsOut[index][correction["Field"]] if correction["Field"] in rowsOut[index] else []
+            rowsOut[index][correction["Field"]] = removeValueFromStringOrList(existingValue, value)
+
+        elif action == "add":
+            existingValue = rowsOut[index][correction["Field"]] if correction["Field"] in rowsOut[index] else []
+            rowsOut[index][correction["Field"]] = addValueToStringOrList(existingValue, value)
+
+        else:
+            print(f'Unrecognized correction action: {action}')
+
+        if correction["Field"] in ("Latitude", "Longitude"):
+            rowsOut[index]["Geo Type"] = "Coordinates manually corrected from original"
+
+    return rowsOut

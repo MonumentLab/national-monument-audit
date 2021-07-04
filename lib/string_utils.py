@@ -319,6 +319,11 @@ def stripTags(text):
     text = re.sub('<[^<]+?>', '', text)
     return text
 
+def stringToList(value):
+    if not isinstance(value, list):
+        value = [str(value).strip()]
+    return value
+
 def timestampToYear(value, isMilliseconds=False):
     yearValue = None
     intValue = parseInt(value, defaultValue=False)
