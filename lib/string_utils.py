@@ -243,9 +243,10 @@ def normalizeWhitespace(value):
     return value
 
 def parseList(value, delimeter):
+    delimeter = delimeter.strip()
     if not isinstance(value, str) or delimeter not in value:
         return value
-    arr = [v.strip() for v in value.split(delimeter)]
+    arr = [v.strip().strip(delimeter).strip() for v in value.split(delimeter)]
     return arr
 
 def padNum(number, total):
@@ -273,6 +274,13 @@ def stringToId(value, lowercase=True):
     if lowercase:
         value = value.lower()
     value = re.sub('[^A-Za-z0-9\-]+', '_', value)
+    return value
+
+def stringToList(value):
+    if value == "":
+        value = []
+    elif not isinstance(value, list):
+        value = [str(value).strip()]
     return value
 
 def stringToTitle(value):
@@ -318,11 +326,6 @@ def stripTags(text):
     text = str(text)
     text = re.sub('<[^<]+?>', '', text)
     return text
-
-def stringToList(value):
-    if not isinstance(value, list):
-        value = [str(value).strip()]
-    return value
 
 def timestampToYear(value, isMilliseconds=False):
     yearValue = None

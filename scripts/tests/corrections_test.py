@@ -23,13 +23,13 @@ from lib.data_utils import *
 
 # input
 parser = argparse.ArgumentParser()
-parser.add_argument('-in', dest="INPUT_FILE", default="data/compiled/monumentlab_national_monuments_audit_final.csv", help="Output csv file")
+parser.add_argument('-in', dest="INPUT_FILE", default="E:/Dropbox/monumentlab/data/monumentlab_national_monuments_audit_final_2021-07-03.csv", help="Output csv file")
 parser.add_argument('-corrections', dest="CORRECTIONS_FILE", default="data/corrections.csv", help="CSV file of corrections")
 parser.add_argument('-delimeter', dest="LIST_DELIMETER", default=" | ", help="How lists should be delimited")
-parser.add_argument('-filter', dest="FILTER", default="Name CONTAINS Caddo Parish AND Source != Multiple", help="Filter string")
+parser.add_argument('-filter', dest="FILTER", default="", help="Filter string")
 a = parser.parse_args()
 
-fields, rows = readCsv(a.INPUT_FILE)
+fields, rows = readCsv(a.INPUT_FILE, doParseLists=True, listDelimeter=a.LIST_DELIMETER)
 rowCount = len(rows)
 
 if len(a.FILTER) > 0:

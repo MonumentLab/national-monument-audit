@@ -83,7 +83,7 @@ for i, row in enumerate(rows):
     if ntext in aliasLookup:
         text = aliasLookup[ntext]["text"]
         ntext = aliasLookup[ntext]["ntext"]
-
+        
     else:
         # check to see if text is contained within a string
         foundMatch = False

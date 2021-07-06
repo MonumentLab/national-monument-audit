@@ -151,6 +151,7 @@ for row in corrections:
     action = status
     field = ""
     value = ""
+    notes = ""
 
     if status in ("unrecognized", "false positive"):
         field = "Entities People"
@@ -183,9 +184,14 @@ for row in corrections:
             print(f'{id} cannot be set as false merge since it is not a merged item')
             continue
         value = getChildIds(id)
+        notes = "unmerge"
 
     if field == "Duplicate Of":
         # don't make a merged record a duplicate of a single one
+        if id == value:
+            print(f'Warning: trying to set {id} as Duplicate Of {value} (same value)')
+            continue
+            
         if id.endswith("_merged") and not value.endswith("_merged"):
             id = value
             value = row["Id"]
@@ -198,7 +204,8 @@ for row in corrections:
                 "Id": id,
                 "Field": "Duplicates",
                 "Correct Value": childIds,
-                "Action": "remove"
+                "Action": "remove",
+                "Notes": "unmerge"
             })
             # make each of those records duplicates of this one
             for childId in childIds:
@@ -214,7 +221,8 @@ for row in corrections:
         "Id": id,
         "Field": field,
         "Correct Value": value,
-        "Action": action
+        "Action": action,
+        "Notes": notes
     })
 
     if status in ("false positive") and "Minor Mention" not in row:
@@ -222,10 +230,11 @@ for row in corrections:
             "Id": id,
             "Field": "Entities People Mentioned",
             "Correct Value": value,
-            "Action": action
+            "Action": action,
+            "Notes": "false positive"
         })
 
 print('Done.')
 
 makeDirectories(a.OUTPUT_FILE)
-writeCsv(a.OUTPUT_FILE, correctionsOut, headings=["Id", "Field", "Correct Value", "Action"])
+writeCsv(a.OUTPUT_FILE, correctionsOut, headings=["Id", "Field", "Correct Value", "Action", "Notes"])

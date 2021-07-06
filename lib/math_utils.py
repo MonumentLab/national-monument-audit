@@ -62,6 +62,8 @@ def parseInt(string, defaultValue=""):
         return defaultValue
 
 def parseNumber(string, alwaysFloat=False):
+    if isinstance(string, list):
+         return string
     try:
         num = float(string)
         if "." not in str(string) and "e" not in str(string) and not alwaysFloat:

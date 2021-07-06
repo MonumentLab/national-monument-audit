@@ -213,7 +213,10 @@ def writeCsv(filename, arr, headings="auto", append=False, encoding="utf8", verb
                     if h in d:
                         value = d[h]
                     if isinstance(value, list):
-                        value = listDelimeter.join(value)
+                        if len(value) == 1:
+                            value = value[0]
+                        else:
+                            value = listDelimeter.join(value)
                     row.append(value)
             else:
                 row = d
