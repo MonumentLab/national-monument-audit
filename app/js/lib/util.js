@@ -35,6 +35,12 @@ var COLOR_GRADIENT_LEN = COLOR_GRADIENT.length;
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   };
 
+  Util.escapeQuotes = function(value){
+    value = ""+value;
+    value = value.replaceAll('"', '&quot;');
+    return value;
+  };
+
   Util.formatNumber = function(number){
     if (number === undefined) return '';
     return number.toLocaleString();

@@ -160,7 +160,7 @@ var Map = (function() {
     if (_.has(facetDropdowns, field)) {
       var dropdownValues = facetDropdowns[field];
       if (! _.find(dropdownValues, function(r){ return ""+r.value === ""+value; }) ) {
-        $select.append('<option value="'+value+'">'+value+'</option>');
+        $select.append('<option value="'+Util.escapeQuotes(value)+'">'+value+'</option>');
         _this.facetDropdowns[field].push({value: value})
       }
     }
@@ -800,7 +800,7 @@ var Map = (function() {
     var html = '<ul class="facet-list">';
     _.each(results, function(r){
       var displayValue = _.has(r, 'fvalue') && query.length > 0 ? r.fvalue : r.value;
-      html += '<li><button class="apply-facet small" data-field="'+facetName+'" data-value="'+r.value+'">'+displayValue+' ('+r.count+')</button>'
+      html += '<li><button class="apply-facet small" data-field="'+facetName+'" data-value="'+Util.escapeQuotes(r.value)+'">'+displayValue+' ('+r.count+')</button>'
     });
     html += '</ul>';
     this.$facetSearchResults.html(html);
@@ -906,7 +906,7 @@ var Map = (function() {
               var selected = '';
               if (_.has(selectedFacets, key) && _.indexOf(selectedFacets[key], bucket.value) >= 0) selected = 'selected ';
               var label = ''+bucket.value;
-              html += '<option value="'+bucket.value+'" '+selected+'/>'+label+' ('+Util.formatNumber(bucket.count)+')</option>'
+              html += '<option value="'+Util.escapeQuotes(bucket.value)+'" '+selected+'/>'+label+' ('+Util.formatNumber(bucket.count)+')</option>'
             });
           html += '</select>';
         }
