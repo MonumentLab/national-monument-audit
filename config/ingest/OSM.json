@@ -11,7 +11,7 @@
   "needsMerge": true,
   "priority": 3,
   "latlonPriority": 1,
-  "properties": ["osm_id", "X", "Y", "memorial", "monument", "historic", "name", "inscription", "material", "start_date", "wikidata", "description", "wikipedia", "website", "owner", "artist_name", "artwork_type", "addr_city", "addr_state", "addr_street", "image"],
+  "properties": ["osm_id", "X", "Y", "memorial", "monument", "historic", "name", "inscription", "material", "start_date", "wikidata", "description", "wikipedia", "website", "owner", "artist_name", "artwork_type", "addr_city", "addr_state", "addr_street", "image", "URL"],
   "mappings": {
     "osm_id": {"to": "Vendor Entry ID"},
     "name": {"to": "Name"},
@@ -40,6 +40,7 @@
     "There is a very <a href=\"https://github.com/MonumentLab/national-monument-audit/tree/main/data/vendor/national/osm/quickOSM/fields.txt\" target=\"_blank\">long tail of metadata</a>, most of which don't have a lot of coverage.",
     "Processed using QuickOSM plug-in on QGIS. <a href=\"https://github.com/MonumentLab/national-monument-audit/tree/main/data/vendor/national/osm/quickOSM/Key- File Descriptions.docx\" target=\"_blank\">Documentation here.</a>",
     "Needed to manually fix osm ids; for some reason there were thousands of entries with the same osm_id",
-    "Manually downloaded historic:monument where type=Way from <a href=\"http://overpass-turbo.eu/\">Overpass</a> since only type=Node was retrieved from QuickOSM"
+    "Manually downloaded historic:monument where type=Way from <a href=\"http://overpass-turbo.eu/\">Overpass</a> since only type=Node was retrieved from QuickOSM",
+    "Manually added URLs with custom script ./scripts/osm/add_urls.py"
   ]
 }
