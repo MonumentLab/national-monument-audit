@@ -34,7 +34,7 @@ addEntitiesRows = []
 if len(a.ADD_ENTITIES) > 0 and os.path.isfile(a.ADD_ENTITIES):
     _, addEntitiesRows = readCsv(a.ADD_ENTITIES)
     for i, row in enumerate(addEntitiesRows):
-        addEntities.append(normalizeName(row["name"]))
+        addEntities.append(normalizeName(row["match"]))
 
 _, aliases = readCsv(a.ALIAS_FILE)
 aliases = aliases + addEntitiesRows
