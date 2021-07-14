@@ -78,7 +78,7 @@ addEntityLookup = {}
 if len(a.ADD_ENTITIES) > 0 and os.path.isfile(a.ADD_ENTITIES):
     _, addEntities = readCsv(a.ADD_ENTITIES)
     for i, row in enumerate(addEntities):
-        nvalue = normalizeName(row["name"])
+        nvalue = normalizeName(row["match"])
         addEntities[i]["nvalue"] = nvalue
         addEntityLookup[nvalue] = row
 
@@ -88,6 +88,7 @@ extractedEntities = []
 for i, row in enumerate(rows):
     alreadyProcessed = (row["Id"] in processedIds)
     if alreadyProcessed and len(updateProperties) <= 0:
+        printProgress(i+1, rowCount)
         continue
 
     for prop in props:
