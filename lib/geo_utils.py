@@ -13,7 +13,7 @@ from lib.io_utils import *
 from lib.math_utils import *
 from lib.string_utils import *
 
-def applyGeoTypes(rows, clusterThreshold=10, multiplier=10000, gkey="Geo Type"):
+def applyGeoTypes(rows, clusterThreshold=5, multiplier=100000, gkey="Geo Type"):
     validRows = []
     for i, row in enumerate(rows):
         lat = roundInt(row["Latitude"] * multiplier) if "Latitude" in row and isNumber(row["Latitude"]) else ""
