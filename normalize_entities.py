@@ -79,12 +79,14 @@ print("  Normalizing data...")
 for i, row in enumerate(rows):
     text = str(row["Extracted Text"])
     ntext = normalizeName(text)
+    isCustom = ("Is Custom" in row and row["Is Custom"] == 1)
     if len(ntext) < 1:
         continue
 
     if ntext in aliasLookup:
         text = aliasLookup[ntext]["text"]
         ntext = aliasLookup[ntext]["ntext"]
+        isCustom = True
 
     else:
         # check to see if text is contained within a string
@@ -94,6 +96,7 @@ for i, row in enumerate(rows):
                 text = item["text"]
                 ntext = item["ntext"]
                 foundMatch = True
+                isCustom = True
                 break
 
         # check to see if endswith string
@@ -102,6 +105,7 @@ for i, row in enumerate(rows):
                 if ntext.endswith(nmatch):
                     text = item["text"]
                     ntext = item["ntext"]
+                    isCustom = True
                     break
 
 
@@ -131,6 +135,9 @@ for i, row in enumerate(rows):
         if ntextLookup[nkey]["originalText"] != text and text not in ntextLookup[nkey]["alternateTexts"]:
             ntextLookup[nkey]["alternateTexts"].append(text)
             titleText = ntextLookup[nkey]["originalText"]
+
+    if isCustom:
+        titleText = text
 
     rowOut = row.copy()
     rowOut["Normalized Text"] = ntext

@@ -31,7 +31,7 @@ rowCount = len(rows)
 validRows = []
 for i, row in enumerate(rows):
     type = row["Type"]
-    if type == "PERSON" and row["Wikidata Type"] != "human":
+    if type == "PERSON" and row["Wikidata Type"] != "human" and row["Is Custom"] != 1:
         continue
     elif row["Wikidata Type"] == "human":
         type = "PERSON"

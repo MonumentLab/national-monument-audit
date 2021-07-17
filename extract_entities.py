@@ -121,16 +121,18 @@ for i, row in enumerate(rows):
                 nvalue = normalizeName(ent.text)
                 entType = ent.label_
                 entText = ent.text
+                isCustom = 0
                 # check for custom types
                 if nvalue in addEntityLookup:
                     entType = addEntityLookup[nvalue]["type"]
                     entText = addEntityLookup[nvalue]["target"]
+                    isCustom = 1
                 validEnt = {
                     "Id": row["Id"],
                     "Extracted Text": entText,
                     "Type": entType,
                     "Property": p,
-                    "Is Custom": 0
+                    "Is Custom": isCustom
                 }
                 extractedEntities.append(validEnt)
 
@@ -141,6 +143,7 @@ print("Checking for custom entities...")
 for i, row in enumerate(rows):
 
     for prop in props:
+        p = prop["prop"]
 
         if p not in row:
             continue
@@ -152,7 +155,7 @@ for i, row in enumerate(rows):
         value = normalizeName(value)
 
         for ent in addEntities:
-            if ent["nvalue"] in value:
+            if containsWordBoundary(value, ent["nvalue"]):
                 validEnt = {
                     "Id": row["Id"],
                     "Extracted Text": ent["target"],
