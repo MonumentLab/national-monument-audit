@@ -145,7 +145,7 @@ for i, row in enumerate(rows):
     for prop in props:
         p = prop["prop"]
 
-        if p not in row:
+        if p not in row or prop["type"] != "name":
             continue
 
         value = str(row[p]).strip()
