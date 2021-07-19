@@ -66,6 +66,8 @@ If you are doing entity linking, you should also unzip [./data/wikidata.zip](htt
 
     1. `ingest.py` is the central script that contains all the logic for transforming the source data into the compiled study set and interface. The next four scripts contain the steps for doing entity recognition and entity linking (to Wikidata entries). `ingest.py` must be run again after processing entities since entities are used when determining if an object is a monument or not.
 
+    1. You can run each/any of these manually. Note that  `extract_entities.py` takes a very long time and only needed if you need to re-analyze the data to extract named entities or if you edited `data/entities_add.csv` (a .csv file that manually adds names to look for in the data.) If you only edited `data/entities_aliases.csv` (alternative names for named entities), you can skip `extract_entities.py` and start with `normalize_entities.py`
+
 1. Next you will need to index the data for the search interface; you can do this by running:
 
    ```
@@ -74,7 +76,7 @@ If you are doing entity linking, you should also unzip [./data/wikidata.zip](htt
 
    The output folder name can be anything; I usually use the current date. If you do not pass in a folder name, it will put it in a folder `search-index/documents-latest/` (note, the script will always create a back-up directory at `search-index/backup/YYYY-MM-DD-HH-MM/`).
 
-   Optionally you can add the path to the previous index output to look for deletions (otherwise, no documents will ever be deleted; only updated or added). ***You should include this parameter if you made changes that would remove records***, otherwise, there will be stale/outdated records in the search index.
+   Optionally you can add the path to the previous index output to look for deletions (otherwise, no documents will ever be deleted; only updated or added). ***You should include this parameter if you made changes that would remove records***, otherwise, there will be stale/outdated records in the search index. (If there are stale records in the index, however, you can run `python index.py -clean` and go to the next step.)
 
    ```
    python index.py -out "search-index/documents-2020-01-01/" -prev "search-index/documents-2019-12-01/"
@@ -110,3 +112,49 @@ If you are doing entity linking, you should also unzip [./data/wikidata.zip](htt
 1. You can now view the dashboard on [localhost:2020/app/map.html](http://localhost:2020/app/map.html)
 1. Committing and pushing your changes to the main branch will _automatically_ update the [online interface](https://monumentlab.github.io/national-monument-audit/app/map.html)
 1. For debugging purposes, there is also an [advanced search interface](http://localhost:2020/app/search.html) that exposes the full dataset (before filtering out non-monuments) as well as all the raw fields
+
+## Manual corrections
+
+There are three .csv files that track manual corrections to the data:
+
+1. `data/corrections.csv` - Manual corrections to any record's field
+    - You must provide four things: (1) Record Id (e.g. "osm_3461770102"), (2) Field (e.g. "Entities People"), (3) Correct Value (e.g. "Martin Luther King Jr."), and (4) Action ("set", "add", or "remove")
+    - Action "set" will set and overwrite the "Correct Value" explicitly. If the value is a list, it should be pipe ( | ) delimited
+    - Action "add" will add this value to the existing value, assuming the existing value is a list (e.g. "Entities People", "Subjects", "Object Types")
+    - Action "remove" will remove this value to the existing value, assuming the existing value is a list (e.g. "Entities People", "Subjects", "Object Types")
+    - Note if you correct a child record (of a merged record), you must also manually update the parent record (or simply just update the parent record)
+    - If you only edit this file, all you need to run is:
+
+    ```
+    python ingest.py
+    ```
+
+    Then follow the indexing process starting at step 3 in the previous section.
+
+1. `data/entities_aliases.csv` - Alternative names (aliases) of existing people or events
+    - E.g. "Gen. U.S. Grant" is an alias of "Ulysses S. Grant"
+    - Note this is only for existing names
+    - The "target" field should be the "official" spelling of the name as it exists on Wikipedia. The "official" spelling will usually have the highest number on the "People" drop-down list in the interface.
+    - If you only edit this file, you need to run:
+
+    ```
+    python normalize_entities.py
+    python resolve_entities.py
+    python visualize_entities.py
+    python ingest.py
+    ```
+
+    Then follow the indexing process starting at step 3 in the previous section.
+
+1. `data/entities_add.csv` - More or less identical to the above file, but this is for names that currently do not exist in the data (were not recognized by the named entity extraction process)
+    - If you edit this file, it takes the longest to re-process since we need to re-analyze the entities:
+
+    ```
+    python extract_entities.py
+    python normalize_entities.py
+    python resolve_entities.py
+    python visualize_entities.py
+    python ingest.py
+    ```
+
+    Then follow the indexing process starting at step 3 in the previous section.
