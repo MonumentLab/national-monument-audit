@@ -31,9 +31,9 @@ rowCount = len(rows)
 validRows = []
 for i, row in enumerate(rows):
     type = row["Type"]
-    if type == "PERSON" and row["Wikidata Type"] not in ("human", "human biblical figure", "deity") and row["Is Custom"] != 1:
+    if type == "PERSON" and row["Wikidata Type"] != "human":
         continue
-    elif row["Wikidata Type"] in ("human", "human biblical figure", "deity"):
+    elif row["Wikidata Type"] == "human":
         type = "PERSON"
     row["normType"] = type
     text = row["Normalized Text"]
