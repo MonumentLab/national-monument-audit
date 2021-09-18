@@ -12,7 +12,7 @@ var Map = (function() {
 
       // search values
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
-      'returnFacets': ['object_groups', 'sources', 'themes', 'monument_types', 'entities_people', 'entities_events', 'gender_represented', 'ethnicity_represented', 'state', 'year_dedicated_or_constructed', 'county_geoid'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
+      'returnFacets': ['object_groups', 'sources', 'themes', 'monument_types', 'entities_people', 'gender_represented', 'ethnicity_represented', 'state', 'year_dedicated_or_constructed', 'county_geoid'], // note if these are changed, you must also update the allowed API Gateway queryParams for facet.X and redeploy the API
       'facetLabels': {
         'entities_people': 'People',
         'entities_events': 'Events'
