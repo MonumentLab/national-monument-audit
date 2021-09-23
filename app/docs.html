@@ -53,9 +53,9 @@
         <li>This document describes how a specific data record was determined to be a monument and thus part of the study set.</li>
         <li>This document describes the data model of an individual record in the study set.</li>
         <li>This document describes how geographical and temporal data was handled.</li>
-        <li>This document describes how People and Events were identified as honorees of their respective monuments.</li>
+        <li>This document describes how People were identified as honorees of their respective monuments.</li>
         <li>This document describes how duplicate records across different data sources were identified and handled.</li>
-        <li>This document does NOT describe the codebase or give instructions for how to reproduce the data process with the existing or new data. You can visit the project's [Github code repository](https://github.com/MonumentLab/national-monument-audit#national-monument-audit) for that information.</li>
+        <li>This document does NOT describe the codebase or give instructions for how to reproduce the data process with the existing or new data. You can visit the project's <a href="https://github.com/MonumentLab/national-monument-audit#national-monument-audit" target="_blank">Github code repository</a> for that information.</li>
       </ol>
 
       <h2 id="data-sources">Data sources</h2>
@@ -78,7 +78,7 @@
         <li>When applicable, the data was "enriched" using methods outlined later in this document, including:
           <ol>
             <li><a href="#geospatial-metadata">Geocoding locations</a> if addresses are provided, but lat/lon are not provided</li>
-            <li>Extracting <a href="#honorees">names of people or events</a> that the object is possibly honoring</li>
+            <li>Extracting <a href="#honorees">names of people</a> that the object is possibly honoring</li>
             <li>Putting the object into specific <a href="#what-is-a-monument">object groups</a> (monument, building, structure, etc) and thematic groups (war, civil rights, etc) based on metadata provided where possible</li>
             <li>Identify if the object record is a <a href="#duplicates">duplicate</a> of another object record</li>
             <li>If the object is <a href="#honorees">honoring</a> a person, linking that person to a name authority and thus retrieving more information about that person (e.g. gender, ethnic group, birth date, etc)</li>
@@ -109,7 +109,7 @@
       <p>While many of the data sources contain their own quirks, this section will highlight quirks in the larger, more visible data sources in the study set.</p>
 
       <ol>
-        <li><a href="https://www.hmdb.org/" target="_blank">HMdb</a> is a crowd-sourced website and a major part of the study set. The major quirk of this data source is that <strong>they focus on <em>historical markers</em></strong> even if the marker describes an adjacent monument or memorial. So there are many records that are technically about a marker, but the marker exists to support and describe an adjacent monument. For example, this <a href="https://www.hmdb.org/m.asp?m=109322" target="_blank">entry about the Washington Monument</a> is one of <a href="https://www.hmdb.org/m.asp?m=70930" target="_blank">a</a> <a href="https://www.hmdb.org/m.asp?m=47332" target="_blank">few</a> HMdb entries that represent markers that surround and describe the Washington Monument. <strong>The monument itself does not have an entry on HMdb.</strong> So in this case, we attempt to merge all the markers about the Washington Monument on HMdb into a single record about the Washinton Monument itself. We do this through the <a href="#duplicates">de-duplication process</a> as well as analyzing the captions under the images on HMdb.</li>
+        <li><a href="https://www.hmdb.org/" target="_blank">HMdb</a> is a crowd-sourced website and a major part of the study set. The major quirk of this data source is that <strong>they focus on <em>historical markers</em></strong> even if the marker describes an adjacent monument or memorial. So there are many records that are technically about a marker, but the marker exists to support and describe an adjacent monument. For example, this <a href="https://www.hmdb.org/m.asp?m=109322" target="_blank">entry about the Washington Monument</a> is one of <a href="https://www.hmdb.org/m.asp?m=70930" target="_blank">a</a> <a href="https://www.hmdb.org/m.asp?m=47332" target="_blank">few</a> HMdb entries that represent markers that surround and describe the Washington Monument. <strong>The monument itself does not have an entry on HMdb.</strong> So in this case, we attempt to merge all the markers about the Washington Monument on HMdb into a single record about the Washington Monument itself. We do this through the <a href="#duplicates">de-duplication process</a> as well as analyzing the captions under the images on HMdb.</li>
 
         <li>The Smithsonian Institution's <a href="https://americanart.si.edu/research/inventories/outdoor-sculpture" target="_blank">Save Outdoor Sculpture!</a> dataset is very comprehensive and very well-described. The major flaw in this dataset is that the latitude and longitude was not originally collected when this dataset was created, so it was subsequentially geocoded by the Smithsonian. <strong>This resulted in variably inaccurate geolocations</strong>. These can be off slightly or significantly. These are often represented by clusters of points on the map (likely the center of a city or town.) To get a sense of the extent of the problem, approximately half of the SoS data records are within a cluster of 10 or more records, which indicate that they are likely inaccurate coordinates. Of those inaccurate records, we attempt to do our own geocoding (based on their location description) which provides potentially better coordinates of about 40% of those records. All in all, if you see a record from SoS, <strong>use its location data with caution</strong>. It's likely best to look at it's address or location description to find it's real location. One other quirk in this dataset is that it was created between 1990 and 1995, which means <strong>it's missing monuments that have been erected or removed since 1995</strong>.</li>
 
@@ -222,7 +222,7 @@
                 <li><strong>ORGANIZATION</strong> - Companies, agencies, institutions, etc.</li>
                 <li><strong>EVENT</strong> - Named hurricanes, battles, wars, sports events, etc.</li>
               </ol>
-              And we currently only use "PERSON" and "EVENT" in the search interface
+              And we currently only use "PERSON" in the search interface
             </li>
             <li>In order to do this, Spacy uses a large annotated corpus called <a href="https://catalog.ldc.upenn.edu/LDC2013T19" target="_blank">OntoNotes</a> that leverages a variety of sources such as news, conversational telephone speech, weblogs, usenet newsgroups, broadcast, and talk shows. It is important to note that <strong>any bias present in this corpus will be inherited</strong> by the entities that are recognized using Spacy.</li>
           </ul>
@@ -232,7 +232,7 @@
           After we receive named entities, we then attempt to <em>link</em> these entities to the specific "real-world" person, event, or organization. We do this by matching named entities against <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" target="_blank">Wikidata</a> for those entities' corresponding entry. The advantages of this is that we can map multiple named entites ("Martin Luther King", "Martin Luther King, Jr.", "MLK") to a <a href="https://www.wikidata.org/wiki/Q8027" target="_blank">single specific person</a> and we can retrieve additional structured information about this person (e.g. date of birth, occupation, gender)
 
           <ul>
-            <li>An important note: Just like Spacy, data about specific <strong>people and events on Wikidata inherit whatever biases the Wikidata contributors have</strong>.</li>
+            <li>An important note: Just like Spacy, data about specific <strong>people on Wikidata inherit whatever biases the Wikidata contributors have</strong>.</li>
             <li>We are considering using the "ethnic group" (e.g. "African American") field when present in a Wikidata entry as a proxy for estimating the diversity or lack thereof of monumental representation. However, this is a very complex and fraught topic, so it requires explicit contextualization if used. Furthermore, if the person being represented is white, "ethnic group" is usually not present, i.e. white is the default-- another topic of discussion.</li>
           </ul>
         </li>
@@ -372,7 +372,7 @@
         <tr><td>Duplicates</td><td>A list of identifiers of child records if this record is a merged records from duplicate records</td></tr>
         <tr><td>Object Groups</td><td>The object group that this object belongs to (e.g. Marker, Monument, Building.) Merged records sometimes have multiple object groups since their child records may disagree. For merged records, if any one of its child records are a monument, it is considered a monument.</td></tr>
         <tr><td>Object Group Reason</td><td>A list of reasons why an object was assigned a particular object group</td></tr>
-        <tr><td>Monument Types</td><td>A list of reasons why a monument was assigned a particular monument type</td></tr>
+        <tr><td>Monument Types</td><td>The physical type(s) of monument (e.g. obelisk, bust, pyramid) this if it is in the Monument Object Group</td></tr>
         <tr><td>Entities People</td><td>A list of people that we believe this monument is honoring. See <a href="#honorees">Honorees</a> section</td></tr>
         <tr><td>Ethnicity Represented</td><td>The ethnic group of the person being honored. See <a href="#honorees">Honorees</a> section</td></tr>
         <tr><td>Gender Represented</td><td>The gender of the person being honored. See <a href="#honorees">Honorees</a> section</td></tr>
