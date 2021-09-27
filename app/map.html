@@ -27,6 +27,7 @@
       <h1>
         <a href="https://monumentlab.com/" class="logo" target="_blank"><img src="img/monument_lab_logo.svg" alt="Monument Lab Logo" class="logo-image" /></a><a href="https://monumentlab.com/audit" target="_blank">National Monument Audit</a>
       </h1>
+      <a href="#intro-modal" class="open-modal intro-link">Introduction</a>
       <div class="loader">
         <div>
           <div class="cube-grid">
@@ -142,22 +143,33 @@
     <div id="intro-modal" class="info-modal modal">
       <div class="modal-content">
         <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
-        <h2>Welcome</h2>
-        <div class="modal-body">
-          <p>
-            Welcome to the Monument Study Set Search Interface for the <a href="https://monumentlab.com/audit" target="_blank"><em>National Monument Audit</em></a>, produced by Monument Lab in partnership with The Andrew W. Mellon Foundation.
-          </p>
+        <div class="modal-body slides">
+          <div id="intro-slide-1" class="slide active">
+            <h2>Welcome</h2>
+            <p>
+              Welcome to the Monument Study Set Search Interface for the <a href="https://monumentlab.com/audit" target="_blank"><em>National Monument Audit</em></a>, produced by Monument Lab in partnership with The Andrew W. Mellon Foundation.
+            </p>
 
-          <p><em>What is the Monument Study Set Search Interface?</em></p>
+            <p><em>What is the Monument Study Set Search Interface?</em></p>
 
-          <p>
-            This search interface allows you to explore the 48,178 data records that make up the National Monument Audit “study set.” We retrieved and analyzed data records from 42 data sources created and maintained by federal, state, local, tribal, institutional, and affinity organizations. These data sources were included because they provided publicly accessible digital records about a wide range of cultural and natural objects. A large part of the work of the Audit was accessing, converting, parsing, and mapping that data into a single, normalized dataset and identifying records representing monuments. The study set does not include every monument in the United States.
-          </p>
+            <p>
+              This search interface allows you to explore the 48,178 data records that make up the National Monument Audit “study set.” We retrieved and analyzed data records from 42 data sources created and maintained by federal, state, local, tribal, institutional, and affinity organizations. These data sources were included because they provided publicly accessible digital records about a wide range of cultural and natural objects. A large part of the work of the Audit was accessing, converting, parsing, and mapping that data into a single, normalized dataset and identifying records representing monuments. The study set does not include every monument in the United States.
+            </p>
 
-          <p>
-            <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#what-is-a-monument" target="_blank">Read more on our methodology and sources</a><br />
-            <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
-          </p>
+            <p>
+              <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#what-is-a-monument" target="_blank">Read more on our methodology and sources</a><br />
+              <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
+            </p>
+          </div>
+          <div id="intro-slide-2" class="slide">
+            <h2>How to Use the Monument Study Set Search Interface</h2>
+            <p>You can search by keyword, limit by filters, or explore the map to focus on a specific region.</p>
+          </div>
+          <div id="intro-slide-3" class="slide">
+            <p>
+              Visit <a href="https://monumentlab.com/audit" target="_blank">MonumentLab.com</a> to get your full copy of the National Monument Audit, find our Educators Guide, read essays from our Changing Monument Landscape series, and attend upcoming events.
+            </p>
+          </div>
         </div>
       </div>
     </div>

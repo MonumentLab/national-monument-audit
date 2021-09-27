@@ -11,6 +11,13 @@ h1 {
 h1 a {
   text-decoration: none;
 }
+.intro-link {
+  display: block;
+  color: black;
+  position: absolute;
+  top: 10px;
+  right: 40px;
+}
 .logo-image {
   max-width: 130px;
   display: inline-block;
@@ -589,4 +596,11 @@ h1 a {
 }
 .nav-menu svg:hover path {
   fill: #444;
+}
+
+.slide {
+  display: none;
+}
+.slide.active {
+  display: block;
 }
