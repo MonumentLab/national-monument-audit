@@ -25,7 +25,7 @@
     <div class="main">
       <div id="search-map" class="map"></div>
       <h1>
-        <a href="https://monumentlab.com/" class="logo"><img src="img/monument_lab_logo.svg" alt="Monument Lab Logo" class="logo-image" /></a>National Monument Audit
+        <a href="https://monumentlab.com/" class="logo" target="_blank"><img src="img/monument_lab_logo.svg" alt="Monument Lab Logo" class="logo-image" /></a><a href="https://monumentlab.com/audit" target="_blank">National Monument Audit</a>
       </h1>
       <div class="loader">
         <div>
@@ -137,6 +137,196 @@
         <div id="item-modal-content" class="item-modal-content"></div>
       </div>
     </div>
+
+    <!-- intro modal -->
+    <div id="intro-modal" class="info-modal modal">
+      <div class="modal-content">
+        <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
+        <h2>Welcome</h2>
+        <div class="modal-body">
+          <p>
+            Welcome to the Monument Study Set Search Interface for the <a href="https://monumentlab.com/audit" target="_blank"><em>National Monument Audit</em></a>, produced by Monument Lab in partnership with The Andrew W. Mellon Foundation.
+          </p>
+
+          <p><em>What is the Monument Study Set Search Interface?</em></p>
+
+          <p>
+            This search interface allows you to explore the 48,178 data records that make up the National Monument Audit “study set.” We retrieved and analyzed data records from 42 data sources created and maintained by federal, state, local, tribal, institutional, and affinity organizations. These data sources were included because they provided publicly accessible digital records about a wide range of cultural and natural objects. A large part of the work of the Audit was accessing, converting, parsing, and mapping that data into a single, normalized dataset and identifying records representing monuments. The study set does not include every monument in the United States.
+          </p>
+
+          <p>
+            <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#what-is-a-monument" target="_blank">Read more on our methodology and sources</a><br />
+            <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- research modal -->
+    <div id="research-modal" class="info-modal modal">
+      <div class="modal-content">
+        <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
+        <h2>Researching Monuments</h2>
+        <div class="modal-body">
+          <p>
+            A dictionary definition of “monument” is not useful for a computer to sort through hundreds of thousands of records. Therefore, one of the central challenges of the <a href="https://monumentlab.com/audit" target="_blank"><em>National Monument Audit</em></a> was identifying which data records represented "monuments" in the conventional sense of the word. An algorithm was needed to refine the records into a study set that represents "monuments." This algorithm is a set of "rules" for what a monument is based on record metadata so that a computer script can categorize a data record as a monument or as a non-monuments. Members of our research team then repeatedly checked random samples of what the algorithm “thought” was a “monument” to make tweaks that got us closer to what we would recognize as a monument. As an overview, several high-level points:
+          </p>
+          <ol>
+            <li>Most data sources provided records that were a mix of different types of objects such as markers, buildings, monuments, and structures, and monuments.</li>
+            <li>Data records that represented monuments were often not marked as such, i.e. there was not a field that called it a "monument".
+            <li>Those sources that referred to objects as "monuments" either had their own definition of "monument" or did not provide a definition of "monument." The definitions of monuments across data sources greatly differed.
+          </ol>
+          <p>Given that, a high-level process for determining if something is or is not a monument used these rules:</p>
+          <ol>
+            <li>If a data source <em>explicitly</em> categorized an object as a monument, we assumed that it was a monument. This is because we tried to defer to the sources' data when possible rather than apply our own logic.</li>
+            <li>If a data source did not explicitly tell us an object was a monument, we looked for a wide range of keywords in a customized list of data fields. This process is described in detail in the technical documentation guide.</li>
+          </ol>
+          <p>
+            <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#what-is-a-monument" target="_blank">Read more on our methodology and sources</a><br />
+            <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sources modal -->
+    <div id="sources-modal" class="info-modal modal">
+      <div class="modal-content">
+        <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
+        <h2>Sources</h2>
+        <div class="modal-body">
+          <p>
+            For the <a href="https://monumentlab.com/audit" target="_blank"><em>National Monument Audit</em></a>, we retrieved and analyzed 481,429 data records from 42 data sources to generate a study set of 48,178 data records representing monuments. Each data source provided publicly accessible digital records about a wide range of cultural and natural objects in a variety of formats.
+          </p>
+          <p>
+            Our team investigated potential data sources, analyzed them for inclusion, and selected the 42 incorporated into the study set on the basis of a combination of the following factors:
+          </p>
+          <ul>
+            <li>Could legally be used, either by terms of service, explicit permission, or legal review. (For this purpose, we enlisted Harvard Cyberlaw Clinic as legal advisors.)</li>
+            <li>Was available in excel, ARCGIS, shapefile, or csv format.</li>
+            <li>Was official (i.e., from a .gov, state body, or municipal arts council)</li>
+            <li>Covers full territory or region it claims to represent</li>
+            <li>Included at least some conventional monuments, and was not solely a copy of another source such as the National Parks Service or National Historic Register.</li>
+          </ul>
+          <p>
+            The 42 separate and representative data sources selected consisted of nearly 500,000 records,which included other public assets such as historic markers, outdoor art and sculptures, historic properties, archaeological sites, and buildings. A large part of the work of the Audit was accessing, converting, parsing, and mapping that data into a single, normalized dataset and identifying records representing monuments within it. The process of refining from 500,000 to 48,000 is described in detail in the technical documentation.
+          </p>
+          <p>
+            <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#data-sources" target="_blank">Read more on our methodology and sources</a><br />
+            <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monument Type modal -->
+    <div id="types-modal" class="info-modal modal">
+      <div class="modal-content">
+        <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
+        <h2>Monument Type</h2>
+        <div class="modal-body">
+          <p>
+            For the <a href="https://monumentlab.com/audit" target="_blank"><em>National Monument Audit</em></a>, monument types were estimated by analyzing data records based on specific keywords from fields across the various data sources. Nearly 68 percent of records from the 42 data sources used some type of notation about the physical form of the recorded object. These ranged from very broad groups such as "monument", "building", or "marker" to very specific forms such as "bench", "fountain", "relief." These notations were not consistent across different data sources, which each track these assets with different levels of strictness and specificity. However our algorithm relied heavily upon this information along with materiality to identify a “monument” as opposed to non-monumental objects.
+          </p>
+          <p>
+            <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#object-types" target="_blank">Read more on our methodology and sources</a><br />
+            <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- People modal -->
+    <div id="people-modal" class="info-modal modal">
+      <div class="modal-content">
+        <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
+        <h2>People</h2>
+        <div class="modal-body">
+          <p>
+            For the <a href="https://monumentlab.com/audit" target="_blank"><em>National Monument Audit</em></a>, we prioritized identification of specific honorees as it is a common question posed about the monument landscape. However, very few data sources specify who or what is being honored in a given record (approximately 10.5 percent). For records that do not have honoree information (which is the case with most records) we utilized a process of <a href="https://en.wikipedia.org/wiki/Named-entity_recognition" target="_blank">entity extraction</a> and <a href="https://en.wikipedia.org/wiki/Entity_linking" target="_blank">entity linking</a>. These entities were extracted from all applicable text fields in a given record (such as name, alternate name, description, honorees) and matching named entities against <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" target="_blank">Wikidata</a> for those entities' corresponding entry.
+          </p>
+          <p>
+            <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#honorees" target="_blank">Read more on our methodology and sources</a><br />
+            <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gender modal -->
+    <div id="gender-modal" class="info-modal modal">
+      <div class="modal-content">
+        <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
+        <h2>Gender Represented</h2>
+        <div class="modal-body">
+          <p>
+            Most records in the study set come from sources that do not include information about gender of the subjects of monuments. However, gender representation is a common question about monuments. Of the 42 data sources compiled for the <a href="https://monumentlab.com/audit" target="_blank"><em>National Monument Audit</em></a>, only 4 actively track “gender” as an attribute. Each of these does so in a different fashion, with various categories in relation to a given monument (i.e. sculptor, sponsor, subject). Despite this tracking, only a small number of records in each data source actually offer a notation.
+          </p>
+          <p>
+            While additional racial and ethnic information was collected from Wikidata for named entities, many entries under this filter remain in the original language that was provided by the original source. In many cases, gender used throughout the study set will seem antiquated, strange, and occasionally offensive. In particular, the presumption of a gender binary and absence of categories for two-spirit, trans, non-binary, and intersex individuals reflects both cultural and period biases.
+          </p>
+          <p>
+            <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#honorees" target="_blank">Read more on our methodology and sources</a><br />
+            <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ethnicity modal -->
+    <div id="ethnicity-modal" class="info-modal modal">
+      <div class="modal-content">
+        <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
+        <h2>Ethnicity Represented</h2>
+        <div class="modal-body">
+          <p>
+            Most records in the study set come from sources that do not include information about the race or ethnicity of the subjects of monuments. However, race and ethnic representation is a common question about monuments. Of the 42 data sources compiled by Monument Lab for the <a href="https://monumentlab.com/audit" target="_blank"><em>National Monument Audit</em></a>, only 6 actively track race and or ethnicity as an attribute. Each of these does so in a different fashion with a number of categories. In the small number of cases where race and ethnicity are attributed, they refer to people in a range of roles relative to a given monument(i.e. sculptor, sponsor, subject). There is, additionally, inconsistent application of racial or ethnic categories to records within individual data sources so that only a small number of records in each data source actually offer any notation.
+          </p>
+          <p>
+            While additional racial and ethnic information was collected from Wikidata for named entities, many entries under this filter remain in the original language that was provided by the original source, which in turn often drew upon the language included from a monument or marker text. It is also worth noting that many of the racial and ethnic terms used throughout the study set will seem antiquated, strange, and occasionally offensive.
+          </p>
+          <p>
+            <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#honorees" target="_blank">Read more on our methodology and sources</a><br />
+            <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- State modal -->
+    <div id="state-modal" class="info-modal modal">
+      <div class="modal-content">
+        <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
+        <h2>State or Territory</h2>
+        <div class="modal-body">
+          <p>
+            For the <a href="https://monumentlab.com/audit" target="_blank"><em>National Monument Audit</em></a>, we incorporated 42 separate and representative data sources, consisting of nearly 500,000 records covering all of the United States of America, inclusive of the 50 states, the District of Columbia, territories, and outlying islands. While this coverage is thorough, it is uneven, with record keeping concentrated alongside higher resourced and populated states. In addition, due to variations in naming conventions across data sources, some territories are recorded inconsistently, and in at least one data source there is some confusion about Washington state and Washington DC in the geocoding.
+          </p>
+          <p>
+            <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#geospatial-metadata" target="_blank">Read more on our methodology and sources</a><br />
+            <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year modal -->
+    <div id="year-modal" class="info-modal modal">
+      <div class="modal-content">
+        <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
+        <h2>Year Dedicated or Constructed</h2>
+        <div class="modal-body">
+          <p>
+            For the <a href="https://monumentlab.com/audit" target="_blank"><em>National Monument Audit</em></a>, we used date constructed and date dedicated for visualization purposes. Dates are present in about two-thirds of all the monument data records, but may reflect different categories of information including: date constructed, date dedicated, date designated or listed as a landmark, date removed (rare), or date commissioned (rare). A given data source may have none, one, or many of these categories of dates present in their records. Also, sometimes dates may only be present in a subset of records within one data source. For the purpose of showing timelines, we combine date constructed and date dedicated into a single field called "Year Dedicated Or Constructed", however the individual fields ("Year Dedicated", "Year Constructed") are available in the individual monument records.
+          </p>
+          <p>
+            <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#" target="_blank">Read more on our methodology and sources</a><br />
+            <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script src="js/vendor/fuzzysort.js"></script>

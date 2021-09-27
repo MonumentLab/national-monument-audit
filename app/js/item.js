@@ -7,7 +7,7 @@ var Item = (function() {
       'endpoint': 'https://5go2sczyy9.execute-api.us-east-1.amazonaws.com/production/search',
       'id': '',
       'displayFields': ['alternate_name', 'image', 'description', 'text', 'source', 'sources', 'url', 'street_address', 'city', 'county', 'state', 'latlon', 'location_description', 'year_dedicated_or_constructed', 'object_types_search', 'use_types', 'subjects_search', 'honorees_search', 'creators_search', 'sponsors_search', 'dimensions', 'material', 'vendor_entry_id', 'wikipedia'],
-      'generatedFields': ['duplicate_of', 'duplicates', 'object_groups', 'object_group_reason', 'monument_types', 'entities_people', 'ethnicity_represented', 'gender_represented', 'themes', 'geo_type', 'county_geoid'],
+      'generatedFields': ['duplicate_of', 'duplicates', 'object_groups', 'object_group_reason', 'monument_types', 'entities_people', 'ethnicity_represented', 'gender_represented', 'geo_type', 'county_geoid'],
       'embedded': false
     };
     var q = Util.queryParams();

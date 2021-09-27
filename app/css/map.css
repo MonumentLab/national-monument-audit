@@ -8,6 +8,9 @@ h1 {
   background: rgb(255,255,255);
   background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 66%, rgba(255,255,255,0) 100%);
 }
+h1 a {
+  text-decoration: none;
+}
 .logo-image {
   max-width: 130px;
   display: inline-block;
