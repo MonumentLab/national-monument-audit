@@ -188,10 +188,6 @@ var Map = (function() {
     else return false;
   };
 
-  Map.prototype.closeModal = function($button) {
-    $button.closest('.modal').removeClass('active');
-  }
-
   Map.prototype.countyInfoOn = function(e){
     var layer = e.target;
     layer.setStyle({
@@ -469,10 +465,6 @@ var Map = (function() {
     $('body').on('click', '.item-modal-button', function(e){
       e.preventDefault();
       _this.renderItemModal($(this).attr('data-url'));
-    });
-
-    $('.close-modal').on('click', function(e){
-      _this.closeModal($(this));
     });
 
     this.$facetSearchInput.on('input', function(e){
@@ -894,7 +886,11 @@ var Map = (function() {
       _this.facetDropdowns[key] = buckets;
       var isSelected = _.has(selectedFacets, key);
       html += '<fieldset class="facet active">';
-        html += '<label for="facet-select-'+key+'">'+title+'</label>';
+        html += '<label for="facet-select-'+key+'">';
+          html += title;
+          if (_.indexOf(['entities_people', 'gender_represented', 'ethnicity_represented'], key) >= 0) html += '<a href="#'+key+'-modal" class="open-modal alert">⚠</a>';
+          else html += '<a href="#'+key+'-modal" class="open-modal">🛈</a>';
+        html += '</label>';
         if (isSelected) {
           var value = selectedFacets[key];
           html += '<button type="button" class="remove-facet" data-key="'+key+'" data-value="'+value+'">"'+value+'" <strong>×</strong></button>';

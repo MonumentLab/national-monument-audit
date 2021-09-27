@@ -276,21 +276,44 @@ var UI = (function() {
     this.loadListeners();
   };
 
+  UI.prototype.closeModal = function($button) {
+    $button.closest('.modal').removeClass('active');
+  };
+
   UI.prototype.loadListeners = function(){
+    var _this = this;
+
     $('body').on('click', '.toggle-parent', function(e){
       e.preventDefault();
-      var $el = $(this);
-      var $parent = $el.parent();
-      $parent.toggleClass('active');
-      var activeText = $el.attr('data-active');
-      if (activeText && activeText.length) {
-        if ($parent.hasClass('active')) {
-          $el.text($el.attr('data-active'));
-        } else {
-          $el.text($el.attr('data-inactive'));
-        }
-      }
+      _this.toggleParent($(this));
     });
+
+    $('body').on('click', '.close-modal', function(e){
+      _this.closeModal($(this));
+    });
+
+    $('body').on('click', '.open-modal', function(e){
+      e.preventDefault();
+      _this.openModal($(this));
+    });
+  };
+
+  UI.prototype.openModal = function($button) {
+    $('.modal').removeClass('active');
+    $($button.attr('href')).addClass('active');
+  };
+
+  UI.prototype.toggleParent = function($el){
+    var $parent = $el.parent();
+    $parent.toggleClass('active');
+    var activeText = $el.attr('data-active');
+    if (activeText && activeText.length) {
+      if ($parent.hasClass('active')) {
+        $el.text($el.attr('data-active'));
+      } else {
+        $el.text($el.attr('data-inactive'));
+      }
+    }
   };
 
   return UI;

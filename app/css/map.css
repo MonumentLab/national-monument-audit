@@ -223,6 +223,17 @@ h1 a {
   padding: 0.2rem;
   color: white;
   background: black;
+  vertical-align: middle;
+}
+.facet label a {
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 0.3rem;
+  color: white;
+  font-size: 1.3rem;
+}
+.facet label a.alert {
+  color: #ff4d4d;
 }
 .facet-select {
   max-width: 240px;
@@ -257,6 +268,13 @@ h1 a {
   background: black;
   font-size: 1.2rem;
   font-weight: normal;
+  vertical-align: middle;
+}
+.timeline h3 a {
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 0.2rem;
 }
 .timeline-bars {
   display: block;
