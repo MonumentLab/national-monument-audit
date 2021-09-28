@@ -296,11 +296,21 @@ var UI = (function() {
       e.preventDefault();
       _this.openModal($(this));
     });
+
+    $('body').on('click', '.slide-button', function(e){
+      _this.slide($(this));
+    });
   };
 
   UI.prototype.openModal = function($button) {
     $('.modal').removeClass('active');
     $($button.attr('href')).addClass('active');
+  };
+
+  UI.prototype.slide = function($button) {
+    var $parent = $button.closest('.slides');
+    $parent.find('.slide').removeClass('active');
+    $($button.attr('data-slide')).addClass('active');
   };
 
   UI.prototype.toggleParent = function($el){

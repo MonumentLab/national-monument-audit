@@ -140,7 +140,7 @@
     </div>
 
     <!-- intro modal -->
-    <div id="intro-modal" class="info-modal modal">
+    <div id="intro-modal" class="info-modal modal active">
       <div class="modal-content">
         <button class="close-modal">×<span class="visually-hidden">Close modal</span></button>
         <div class="modal-body slides">
@@ -160,15 +160,34 @@
               <a href="https://monumentlab.github.io/national-monument-audit/app/docs.html#what-is-a-monument" target="_blank">Read more on our methodology and sources</a><br />
               <a href="https://github.com/MonumentLab/national-monument-audit" target="_blank">Explore our source code for a deeper view of the technical process</a>
             </p>
+
+            <div class="slide-buttons">
+              <div></div>
+              <button class="next-button slide-button" data-slide="#intro-slide-2">Next</button>
+            </div>
           </div>
           <div id="intro-slide-2" class="slide">
             <h2>How to Use the Monument Study Set Search Interface</h2>
             <p>You can search by keyword, limit by filters, or explore the map to focus on a specific region.</p>
+            <video src="video/monument_lab_audit_screen_recording_for_web.mp4" controls preload="auto"></video>
+            <div class="slide-buttons">
+              <button class="prev-button slide-button" data-slide="#intro-slide-1">Previous</button>
+              <button class="next-button slide-button" data-slide="#intro-slide-3">Next</button>
+            </div>
           </div>
           <div id="intro-slide-3" class="slide">
             <p>
               Visit <a href="https://monumentlab.com/audit" target="_blank">MonumentLab.com</a> to get your full copy of the National Monument Audit, find our Educators Guide, read essays from our Changing Monument Landscape series, and attend upcoming events.
             </p>
+            <p>
+              <a href="https://monumentlab.com/audit" target="_blank">
+                <img src="img/audit_cover.jpg" alt="Monument Lab Audit cover with an outline of a monument of a person on horseback" />
+              </a>
+            </p>
+            <div class="slide-buttons">
+              <button class="prev-button slide-button" data-slide="#intro-slide-2">Previous</button>
+              <button class="close-modal slide-button next-button" data-slide="#intro-slide-1">Explore the Interface</button>
+            </div>
           </div>
         </div>
       </div>

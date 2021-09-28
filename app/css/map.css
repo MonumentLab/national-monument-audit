@@ -50,6 +50,7 @@ h1 a {
   height: auto;
   left: auto;
   right: 0;
+  top: 138px;
 }
 .loading .loader {
   display: flex;
@@ -603,4 +604,15 @@ h1 a {
 }
 .slide.active {
   display: block;
+}
+.slide-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+.slide video,
+.slide img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
 }
