@@ -889,7 +889,7 @@ var Map = (function() {
         html += '<label for="facet-select-'+key+'">';
           html += title;
           if (_.indexOf(['entities_people', 'gender_represented', 'ethnicity_represented'], key) >= 0) html += '<a href="#'+key+'-modal" class="open-modal alert">⚠</a>';
-          else html += '<a href="#'+key+'-modal" class="open-modal">🛈</a>';
+          else html += '<a href="#'+key+'-modal" class="open-modal">ⓘ</a>';
         html += '</label>';
         if (isSelected) {
           var value = selectedFacets[key];
