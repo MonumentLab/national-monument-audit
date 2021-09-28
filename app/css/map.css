@@ -11,12 +11,16 @@ h1 {
 h1 a {
   text-decoration: none;
 }
-.intro-link {
-  display: block;
-  color: black;
+.top-nav {
   position: absolute;
   top: 10px;
   right: 40px;
+  white-space: nowrap;
+}
+.top-nav a {
+  display: inline-block;
+  color: black;
+  margin-left: 1rem;
 }
 .logo-image {
   max-width: 130px;
@@ -25,6 +29,20 @@ h1 a {
   margin-right: 1rem;
   border-right: 1px solid black;
   padding-right: 1rem;
+}
+@media screen and (max-width: 1220px) {
+  h1 {
+    font-size: 1rem;
+  }
+  .logo-image {
+    max-width: 80px;
+    margin-right: 10px;
+    padding-right: 10px;
+  }
+  .top-nav a {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+  }
 }
 
 .app {
