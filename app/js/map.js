@@ -143,13 +143,14 @@ var Map = (function() {
   }
 
   Map.prototype.init = function(){
-    if (this.opt.requireAuth) {
-      var isValid = Auth.authenticate();
-      if (isValid) this.load();
-
-    } else {
-      this.load();
-    }
+    // if (this.opt.requireAuth) {
+    //   var isValid = Auth.authenticate();
+    //   if (isValid) this.load();
+    //
+    // } else {
+    //   this.load();
+    // }
+    this.load();
   };
 
   Map.prototype.applyFacet = function(field, value){
