@@ -429,8 +429,69 @@
       </ul>
      <p> It is important to note that the results of a keyword search may not exactly match the results of a filter for the same term. For example, a monument that includes a quote attributed to Helen Keller will be shown in a search for “Helen Keller” but may not be included by selecting “Helen Keller” through the People filter because she did.</p>
       
-      <h2 id="demographics">A Note on demographics</h2>
+      <h2 id="demographics">Note on demographics</h2>
       
+      <h3 id="demo-intro">Introduction</h2>
+      
+      <p>Recognizing that the demographics of the monument landscape are of special interest, and that providing them comprehensively for the 48,178 records in the National Monument Audit dataset is not possible, we would like to offer some insights and trends based on the data sources that track gender, race, and ethnicity amongst the forty-two data sources from which our dataset draws. </p>
+
+      <p>We can, for example, state that of those 48,178 records, 4,802 have a result for gender, of which 4,528 are male and 274 are female. This can be done because entity recognition for this selection was approached by cross referencing names stated across multiple categories in each of the 42 data sources, with Wikidata category “human.” Where Wikidata had gender, race, ethnicity and place of birth, this data as provided was incorporated into the record for that individual for the purposes of analysis. However, with such a low percentage of records, less than ten percent, for which our algorithm and matching approach gives us a gender assignment, this ratio tells us very little on its own. </p>
+
+      <p>By breaking out the demographic information available in those data sources which actually track gender, race, and ethnicity, we can offer an additional check on the validity of the ratio, as well as highlight some of the nuances at play within and across those data sources. In addition, the Monument Lab National Monument Audit Research Team can provide demographic data with a higher level or reliability for the fifty people for whom there are the most public monuments. This can be done because in addition to the cross-referencing with Wikidata, the public monument records for the top fifty were systematically fact-checked to remove misidentifications, minor mentions, and redundant records across and within data sources, which provided a measure of strict investigation of the individuals named that could not be executed for the dataset as a whole. </p>
+
+      <p>From looking at each of these data sources individually and in comparison to one another as well as our top fifty names, we can offer insights into the demographic composition of the American monument landscape.</p>
+      
+      <h3 id="demo-gender">Gender</h3>
+      
+      <p>Of the forty-two data sources compiled by Monument Lab for the National Monument Audit, only four track gender as an attribute. Each of these does so in a different fashion, with different roles in relationship to the monument (i.e. sculptor, sponsor, subject) and with inconsistent application of gender categories to records within the data source as a whole.</p>
+      
+      <p>The four data sources are:
+        <ol>
+          <li><strong>Georgia Historical Markers</strong> tracks gender through 'marker subject': 9 of 23 records with results appearing under ‘gender’ -- 8 male, 1 female </li>
+          <li><strong>Smithsonian SOS </strong>tracks gender through a 'figure female' tag: 2,780 of 24,191 records with results appearing under ‘gender’ -- 2,617 male, 163 female</li>
+          <li><strong>Pioneer Monuments</strong> tracks gender through a column called 'Design,' which includes options of 'man' 'woman' 'man and woman' 'family' 'group' and 'other': 14 of 141 records with results appearing under ‘gender’ -- 12 male, 2 female</li>
+          <li><strong>HMdb</strong> tracks gender through 'Topics and series,' which sometimes includes 'women,' but is not consistent: 1,768 of 15,263 records with results appearing under ‘gender’ -- 1,674 male, 94 female</li>
+      </ol>
+      
+      <p>In each of the data sources for which we have tracking of gender data, the category female is wildly underrepresented. It is worth noting that the much larger SoS and HMdb datasources show a greater disparity in gender representation and represent a significant portion of the record keeping on the American monument landscape between them. These proportions are in keeping with our findings in the fifty most represented people in our study set, of which only three are women. These are: St. Joan of Arc no. 18, Harriet Tubman no. 24, and Sacagawea no. 28. Two of the three are women of color. </p>
+      
+      <h3 id="demo-race">Race and Ethnicity</h3>
+      
+      <p>Of the forty-two data sources compiled by Monument Lab for the National Monument Audit, only six track race and or ethnicity as an attribute. Each of these does so in a different fashion, with different categories, to different roles in relationship to the monument (i.e. sculptor, sponsor, subject) and with inconsistent application of racial or ethnic categories to records within the data source as a whole.</p>
+      
+      <p>The six data sources are:</p>
+      <ol>
+        <li><strong>Georgia Historical Markers </strong>doesn’t have race or ethnicity of subject, but does have a filter 'marker subject' which includes African American History, Native American History, among other historical topics, events, and occupations. 0 of 23 records with results appearing under ‘ethnicity.’</li>
+        <li><strong>Smithsonian SOS</strong> has a “culture” field that provides some demographic categorization and often additional information in the “topic” field that has categorizations for “ethnic” and other information that points to subject demographic information hints. Has a subject tag for ethnic information. 884 of 24,191 records with results appearing under ‘ethnicity’: English Americans (202), African Americans (119), Italians (95), Americans (75), Germans (42), English people (39), Irish Americans (35) Scotch-Irish Americans (26) Criollo people (21), Jewish People (20), Litvin (14), Copts (13), Shoshone People (13), Britons (12), Poles (12) Shakya (12), Swedish American (11), Scottish American (10), German Americans (9), Greeks (9), White Americans (9), French (8), Mohawk people (8) Norsemen (8), Indigenous People of the United States (8), Berbers (7), Indigenous peoples of America (7), Scottish People (5), Cherokee (4), Gujarati People (4), American Jews (3), Armenian American (3), Irish People (3), Ukranians (3), White people (3), Arabs (2), Norwegians (2), Oglala Lakota (2), African Jamaican (1), Ashkenazi Jews (1), German Texan (1), Kiowa people (1), Thembu tribe (1), Yanktonai (1).* <br />
+          <em>*SoS data in particular is difficult to disaggregate from the Wikidata sourcing on race and ethnicity because it is a large set, and because both sources offer a greater range of variability in potential response.</em></li>
+        <li><strong>HMdb</strong> has ‘topic and series’ filters for different race/ethnicities. 307 of 15,263 records with results appearing under ‘ethnicity’: African Americans (69) English American (69) Americans (26) Scotch-Irish Americans (25) English people (12) Irish Americans (12) Litvin (10) Shoshone people (8) German Americans (7) Britons (6). </li>
+        <li><strong>Jefferson County KY Historic Markers</strong> contains a ‘SUBJECT1' tag which includes 'African Americans' 'Indians', 'Germans', etc. ‘SUBJECT1'  is also where occupation is logged.0 of 1 record with results appearing under ‘ethnicity.’ </li>
+        <li><strong>NPS National Register</strong> tracks race/ethnicity through “Cultural Affiliation” section on paper form. Not all forms are consistent in set, some lack this section. 17 of 729 records with results appearing under ‘ethnicity’: American (3) English American (3) Italians (2) indigenous peoples of the United States (2) English people (1) French (1) Germans (1) Litvin (1) Scotch-Irish Americans (1) Welsh People (1) indigenous peoples of America (1).</li>
+        <li><strong>Pennsylvania Historical Markers has the following options in 'Category' dropdown: Native American, African American, Ethnic & Immigration, women. 3 of 112 records with results appearing under ‘ethnicity’: African-American (1) Americans (1) Litvin (1).</strong></li>
+      </ol>
+      
+      <p>In each of the data sources for which we have tracking of race/ethnicity data, there are few records which actually track race or ethnicity. Where we do have records, the majority fall under categories that we would most likely term “white” colloquially, but which are noted with a specificity that gestures to a moment in which that category had not yet consolidated or expanded to include groups now within it. By extension, the notation of race or ethnicity seems to function as a means of marking an “other,” making it likely that monuments featuring individuals who are non-white are tagged as such with higher frequency. The low number of non-white records is in keeping with what we find in our fifty most represented people in public monuments. Of the fifty most represented people in our study set only five are people of color. Three are African-American/Black; two are Native American/Indigenous. They are: Martin Luther King Jr. at no. 4, Harriet Tubman no. 24, Tecumseh no. 25, Sacagawea no. 28, Frederick Douglass at no. 29.</p>
+
+      <p>There are no United States born Latinx people and no Asian Americans or Pacific Islanders in the fifty most represented people in our study set.</p>
+
+      <h3 id="demo-conclusion">Conclusion</h3>
+      
+      <p>Relative to the monument landscape and to their proportions within modern or historical populations, women and non-white individuals are underrepresented. While we believe that the data presented here offers compelling evidence for that conclusion, despite its inconsistencies, we do not believe that any data we might present would be more compelling than the evidence presented through a brief stroll around the civic centers of most American towns and cities.</p>
+      <p>As is clear from the relatively small number of sources that track gender, race, and ethnicity, this is an undertracked aspect of the record keeping associated with the American monument landscape. This should be addressed systematically as part of an effort to improve monumental record keeping more broadly. It is, however, worth noting that our research, as well as that of our friends who created the New York City Public Art Inventory dataset, indicates that retroactively applying gender, race, ethnicity, sexual orientation or other categories of identity we currently deem important can come with additional challenges.</p>
+      
+      <ol>
+        <li>As we found with Wikidata, the retroactive assessment of an individual’s identities can apply twenty-first century categories to historical figures inappropriately, for example providing national identities that predate the creation of a nation state.</li>
+        <li>The external assessment of an individual’s identities can also carry the biases of the standpoint of the assessor, for example USian erasure of the casta system and it’s identity forms or the inconsistent assignment of two-spirit people.</li>
+        <li>Identities are not a. consistent, or b. consistently public. A major concern of both the Monument Lab research team and the NYC Public Design Commission was in the risk that presenting individuals with queer identities dating only from the period in which those identities could be openly claimed by some within USian society risks not only erasing millenia of others who shared those sexual orientations, but provides ammunition for those who would claim that that legacy of presence does not exist.</li>
+      </ol>
+      
+      <p>The inconsistency within data sources indicates a few potential factors:</p>
+      <ol>
+        <li>That data collection over a period of time, or under the guidance of a variety of coordinators, may collect different demographic information or differing amounts of demographic data based on interest, changing norms, or shifting legal or political priorities.</li>
+        <li>That data collection which includes or relies upon the written text of the monument, marker, or other commemorative language associated may apply ethnic or racial categories no longer extant (i.e. Criollo people), whose state/political meaning has shifted (i.e. Litvin), which incorporate term which are now considered ethnic slurs, or which have broadly been collapsed under the racial category ‘white’ (i.e. German-American, Scotch-Irish American).</li>
+      </ol>
+
+
       <h2 id="technical-process">The technical process</h2>
 
       <p>Please visit this <a href="https://github.com/MonumentLab/national-monument-audit#national-monument-audit" target="_blank">Github code repository</a> for technical details of the data process and interface</p>
