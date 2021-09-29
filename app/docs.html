@@ -133,7 +133,7 @@
 
       <h2 id="metadata">Metadata</h2>
 
-      <p>Different data sources had different metadata available. The quality and consistency of the metadata also varied across the different data sources. This section will describe the inconsistencies and quirks of the source data and how data quality was addressed for the purposes of creating the study set.</p>
+      <p>Data sources differed in the availability of metadata. The quality and consistency of the metadata also varied across the different data sources. This section will describe the inconsistencies and quirks of the source data and how data quality was addressed for the purposes of creating the study set.</p>
 
       <h3 id="geospatial-metadata">Geospatial metadata</h3>
 
@@ -145,7 +145,7 @@
 
       <!-- <div id="geo-latlon-approximate" class="data-container"></div> -->
 
-      <p>In the case where there is not lat/lon coordinate, but there is a full street address, city, and state, we attempt to geocode these using <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>'s <a href="https://wiki.openstreetmap.org/wiki/Nominatim" target="_blank">Nominatim</a> geocoding service. Note we use this <em>only</em> when all three street address, city, and state are present. And we only accept the result if the coordinates are within the expected state.</p>
+      <p>In the case where there is not lat/lon coordinate, but there is a full street address, city, and state, we attempt to geocode these using <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>'s <a href="https://wiki.openstreetmap.org/wiki/Nominatim" target="_blank">Nominatim</a> geocoding service. Note we use this <em>only</em> when all three: street address, city, and state are present. And we only accept the result if the coordinates are within the expected state.</p>
 
       <!-- <div id="geo-latlon-geocoded" class="data-container"></div> -->
 
@@ -188,7 +188,7 @@
 
       <h3 id="object-types">Object Types</h3>
 
-      <p>Some data sources provide information about the physical form of the object. This can be very broad groups such as "Monument", "Building", or "Marker" or it can be very specific such as "Bench", "Fountain", "Relief." These values are not consistent across different data sources and the different data sources track these with different levels of strictness and specificity. When available, we heavily rely on this field when determining if an object is a monument (see section <a href="#what-is-a-monument">What is a monument?</a>).</p>
+      <p>Some data sources provide information about the physical form of the object. This can include very broad groups such as "Monument", "Building", or "Marker" or it can be very specific such as "Bench", "Fountain", "Relief." These values are not consistent across different data sources and the different data sources track these with different levels of strictness and specificity. When available, we heavily rely on this field when determining if an object is a monument (see section <a href="#what-is-a-monument">What is a monument?</a>).</p>
 
       <div id="object-types-availability" class="data-container"></div>
 
@@ -246,14 +246,14 @@
 
           <ul>
             <li>An important note: Just like Spacy, data about specific <strong>people on Wikidata inherit whatever biases the Wikidata contributors have</strong>.</li>
-            <li>We are considering using the "ethnic group" (e.g. "African American") field when present in a Wikidata entry as a proxy for estimating the diversity or lack thereof of monumental representation. However, this is a very complex and fraught topic, so it requires explicit contextualization if used. Furthermore, if the person being represented is white, "ethnic group" is usually not present, i.e. white is the default-- another topic of discussion.</li>
+            <li>We are considering using the "ethnic group" (e.g. "African American") field when present in a Wikidata entry as a proxy for estimating the diversity or lack thereof of monumental representation. However, this is a very complex and fraught topic, so it requires explicit contextualization if used. Furthermore, if the person being represented is white, "ethnic group" is usually not present, i.e. white is the default-- another topic of discussion. Please see the <a href="#demographics">Note on Demographics</a>for a further discussion of demographic information in the audit. </li>
           </ul>
         </li>
       </ol>
 
-      <p>Note: We originally also analyzed plaque and marker text, but even though it helped identify more people, it resulting in too many false positives. For example, a civil war monument may quote Abraham Lincoln in the plaque, but may not be a monument about Lincoln himself. Therefore, in the case of Lincoln, we will only consider a monument honoring him if his name appears in the name of the monument, listed explicitly as an honoree, or contained within the monument description.</p>
+      <p>Note: We originally also analyzed plaque and marker text, but even though it helped identify more people, it resulted in too many false positives. For example, a civil war monument may quote Abraham Lincoln in the plaque, but may not be a monument about Lincoln himself. Therefore, in the case of Lincoln, we will only consider a monument honoring him if his name appears in the name of the monument, listed explicitly as an honoree, or contained within the monument description.</p>
 
-      <div id="top-entities-people" class="data-container"></div>
+      <!-- <div id="top-entities-people" class="data-container"></div> -->
 
       <!-- <div id="top-entities-events" class="data-container"></div> -->
 
@@ -277,10 +277,10 @@
 
       <h2 id="what-is-a-monument">What is a monument?</h2>
 
-      <p>One of the central challenges of this Audit was idenfying which data records represented "monuments" in the conventional sense of the word. The Audit itself goes into great detail about how this was defined, so this document will avoid an attempt to define "monument" from a conceptual point of view. Instead, this section will walk through the practical process and application of the Audit's definition of "monument" as it relates to generating the final study set. This generally means describing the "rules" of what is a monument based on its metadata so that a computer script can categorize a data record as a monument or something else.  To start, some high-level points:</p>
-
+      <p>One of the central challenges of this Audit was identifying which data records represented "monuments" in the conventional sense of the word. This section will walk through the practical process and application of the Audit's definition of "monument" as it relates to generating the final study set. This generally means describing the “rules” of what is counted as a monument based on its metadata so that a computer script can categorize a data record as a monument or something else. To start, some high-level points:</p>
+      
       <ol>
-        <li>Most data sources provided data records that were a mix of different types of objects such as markers, buildings, monuments, and structures. In other words, most sources did not simply provide a set of "monuments".</li>
+        <li>Most data sources provided data records that were a mix of different types of objects such as markers, buildings, monuments, and structures. In other words, most sources did not simply provide a set of "monuments."</li>
 
         <li>Data records that represented monuments were often not marked as such, i.e. there was not a field that called it a "Monument" and may have instead been called "Object" or the physical form may not have been described at all.</li>
 
@@ -292,26 +292,26 @@
       <ol>
         <li>If a data source <em>explicitly</em> categorized something as a monument, we assume that it is a monument.
           <ul>
-            <li>This is because a try to defer to the sources' data when possible rather than apply our own logic.</li>
+            <li>This is because we tried to defer to the sources' data when possible rather than apply our own logic.</li>
             <li>Only a few of our data sources had fields that categorized their records in this way (E.g.
               <a href="https://wiki.openstreetmap.org/wiki/Tag%3Ahistoric%3Dmonument" target="_blank">OpenStreetMap</a>,
               <a href="https://www.slaverymonuments.org/items/browse" target="_blank">Contemporary Monuments to the Slave Past</a>,
               <a href="https://www.splcenter.org/20190201/whose-heritage-public-symbols-confederacy" target="_blank">Whose Heritage?</a>,
               <a href="https://pioneermonuments.net/explore/" target="_blank">Pioneer Monuments</a>,
               <a href="https://public-nps.opendata.arcgis.com/datasets/nps-points-of-interest-pois-web-mercator/data" target="_blank">National Park Service: Points of Interest</a>).</li>
-            <li>This is done with the full awareness that the underlying objects may mis-categorized as "monuments" or may not exactly match our interpretation of "monuments."</li>
+            <li>This is done with the full awareness that the underlying objects may be mis-categorized as "monuments" or may not exactly match our interpretation of "monuments."</li>
             <li>Known issue: OpenStreetMap data seems to contain "monuments" that we may not consider to be monuments based on our own definition; this may be because its definition differs from ours and it is crowd-sourced.</li>
           </ul>
 
         <li>If a data source does not explicitly tell us if something is a monument, we attempt to determine if something is a monument by looking for keywords in certain data fields. This process is roughly as follows:
           <ol>
             <li>A large number of records are filtered out based on keywords that indicate that they are part of different object groups such as <strong>markers</strong> ("Washington Slept Here historical marker"), <strong>buildings</strong> ("Washington School Compound"), <strong>streets</strong> ("Washington Street"), <strong>structures</strong> ("Washington's Canal"), <strong>sites</strong> ("George Washington Oak Tree Site"), or <strong>places</strong> ("Washington County"). This relies heavily on a record's <code>name</code> and <code>object type</code> fields.</li>
-            <li>For an object or structure that calls itself a <strong>memorial</strong> (e.g. "Vietnam Veterans Memorial"), we consider this a monument, as long as it is not in already in a different object group (e.g. memorial highways, memorial high schools are not monuments.)</li>
-            <li>For the records that remain, we then look for keywords that indicate their <strong>physical form</strong> (e.g. Bust, Statue, Cannon, etc.) and what or who it is representing. Generally speaking, we are looking for large, solid forms (obelisks, pyramids, statues) with some indication that they are honoring a person, group, or event. The criteria is roughly:
+            <li>For an object or structure that calls itself a <strong>memorial</strong> (e.g. "Vietnam Veterans Memorial"), we consider this a monument, as long as it is not already in a different object group (e.g. memorial highways, memorial high schools are not monuments.)</li>
+            <li>For the records that remain, we then look for keywords that indicate their <strong>physical form</strong> (e.g. Bust, Statue, Cannon, etc.) and what or who it is representing. Generally speaking, we are looking for large, solid forms (monoliths, statues, obelisks, pyramids) with some indication that they are honoring a person, group, or event. The criteria is roughly:
               <ol>
                 <li>The object is part of certain physical forms that we consider monumental (obelisks, pyramids, statues, pillars, etc)</li>
                 <li>The object is honoring a person, group, or event. E.g. the subject may contain words like "human figure" or "heroic" or "honoring", a historical name or event may be included in the name (e.g. "Harriet Tubman Statue")</li>
-                <li>Conversely, we check for indications that the object are in a group we roughly consider artistic/abstract sculptures that do not honor a person, group, or event. In this case, the subject may contain "Abstract--Geometric" or "Plant--Flowers" with no mention or indication of an honoree or human figure.</li>
+                <li>Conversely, we check for indications that the object is in a group we roughly consider artistic/abstract sculptures that do not honor a person, group, or event. In this case, the subject may contain "Abstract--Geometric" or "Plant--Flowers" with no mention or indication of an honoree or human figure.</li>
               </ol>
             </li>
             <li>For any records that remain, we consider them "Uncategorized" objects. These are likely records with little to no metadata other than its name and location, where the name is ambiguous (e.g. "World War II Roll of Honor" fits our definition or "honoring", but does not give an indication of what type of physical form it is).</li>
@@ -335,8 +335,8 @@
 
       <h2 id="study-set">The study set</h2>
 
-      <p>As mentioned before, the Audit’s final and official dataset generated from the Audit's data sources is called the "Study set", which attempts to include only records about monuments. This is not complete and has known gaps. It also inherits the various issues of its data sources. It attempts to exclude non-monument objects like buildings, bridges, streets, and place names.</p>
-
+      <p>As mentioned before, the Audit’s final and official dataset generated from the Audit's data sources is called the "Study Set", which attempts to include only records about monuments. This is not complete and has known gaps.It attempts to exclude non-monument objects like buildings, bridges, streets, and place names. It also inherits the various issues of its data sources including outdated and inaccurate information. Records in the audit were augmented from their original sources in some cases, but were not corrected so that records in the audit match records in the original dataset. Where there are inaccuracies in the data, users are encouraged to contact the original data creators.</p>
+      
       <h3 id="data-model">Data model</h3>
 
       <p>This dataset is composed of records that have a mix of fields taken verbatim from the data source and there are some fields that Monument Lab generated using those fields. Both unedited fields and generated fields are available within the study set.</p>
@@ -411,7 +411,26 @@
 
         <em>Note that if a cell is a list, it will be delimited by a <code>|</code> (pipe) character. If a cell has no value, it will simply be an empty cell.</em>
       </ol>
+      
+      <h2 id="search-interface">The search interface</h2>
+      
+      <p>The Study Set Data Interface allows users to browse records by location, to use filters to limit results, and to do keyword searches across the records. Here are the fields being searched with a keyword search (the fields are weighted so the "weight" or "boost" is in parentheses):</p>
 
+     <ul>
+       <li>name (+5)</li>
+       <li>alternate name (+4)</li>
+       <li>honorees (+4)</li>
+       <li>subjects (+3)</li>
+       <li>description (+3)</li>
+       <li>creators (+2)</li>
+       <li>sponsors (+2)</li>
+       <li>marker text (+2)</li>
+       <li>object types</li>
+      </ul>
+     <p> It is important to note that the results of a keyword search may not exactly match the results of a filter for the same term. For example, a monument that includes a quote attributed to Helen Keller will be shown in a search for “Helen Keller” but may not be included by selecting “Helen Keller” through the People filter because she did.</p>
+      
+      <h2 id="demographics">A Note on demographics</h2>
+      
       <h2 id="technical-process">The technical process</h2>
 
       <p>Please visit this <a href="https://github.com/MonumentLab/national-monument-audit#national-monument-audit" target="_blank">Github code repository</a> for technical details of the data process and interface</p>
